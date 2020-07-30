@@ -1,0 +1,9 @@
+//Load fonts
+//@import 'assets/scss/font.scss';
+
+//Set custom bootrap variables
+// @import 'assets/scss/_variables.scss';
+
+// Then include the following
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'bootstrap-vue/src/index.scss';
