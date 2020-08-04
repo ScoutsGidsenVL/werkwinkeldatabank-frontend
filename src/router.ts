@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import WerkwinkelCreate from './views/werkwinkels/Create.vue'
-import WerkwinkelOverview from './views/werkwinkels/Overview.vue'
+import WerkwinkelCreate from './views/werkwinkels/create.vue'
+import WerkwinkelOverview from './views/werkwinkels/overview.vue'
+import WerkwinkelView from './views/werkwinkels/view.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,14 @@ const routes: Array<RouteConfig> = [
     component: WerkwinkelCreate,
     meta: {
       title: 'Nieuwe werkwinkel'
+    }
+  },
+  {
+    path: '/werkwinkel/:workshopId',
+    name: 'WerkwinkelView',
+    component: WerkwinkelView,
+    meta: {
+      title: 'Werkwinkel'
     }
   }
 ]

@@ -1,17 +1,17 @@
 <template>
   <div class="col-12">
-      <werkwinkel-form />
+      <workshop-form />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import WerkwinkelForm from '../../components/forms/Werkwinkel.vue'
+import WorkshopForm from '../../components/forms/workshop.vue'
 
 export default defineComponent({
-  name: 'werkwinkels-create',
+  name: 'workshops-create',
   components: {
-    'werkwinkel-form': WerkwinkelForm
+    'workshop-form': WorkshopForm
   }
 })
 </script>
