@@ -3,7 +3,7 @@
     :rules="{ required: true}"
     v-slot="validationContext"
   >
-    <label class=' test-wtf text-left w-100' :for='id'>{{label}} {{ loading  }}</label>
+    <label class='text-left w-100' :for='id'>{{label}}</label>
      <multi-select
         v-if='!loading'
         class="mb-4"
@@ -14,7 +14,8 @@
         placeholder="Selecteer"
         :options="result"
         :searchable="false"
-        :allow-empty="false"
+        :allow-empty="true"
+        :multiple='multiple'
      />
   </validation-provider>
 </template>
@@ -33,14 +34,18 @@ export default defineComponent({
   props: {
     label: String,
     id: String,
-    value: Object as PropType<BaseEntityModel>,
-    repo: Function as PropType<BaseRepository>
+    multiple: Boolean,
+    value: [Object, Array],
+    repo: {
+      type: Function as PropType<new (...params: any[]) => BaseRepository>,
+      required: true
+    }
   },
   components: {
     'multi-select': Multiselect
   },
   setup ({ value, repo }, { emit }) {
-    const input = ref<BaseEntityModel | undefined>(value)
+    const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(value)
     const { loading, result, doCall } = useRepository(repo)
     let options = ref<BaseEntityModel[]>([])
 

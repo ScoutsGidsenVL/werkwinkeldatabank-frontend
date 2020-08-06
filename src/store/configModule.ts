@@ -9,7 +9,8 @@ export default class ConfigModule extends VuexModule {
 
   // Mutations
   @Mutation
-  setConfig (config: MasterConfig) {
+  setConfig (config: any) {
     this.config = config
   }
+
 }

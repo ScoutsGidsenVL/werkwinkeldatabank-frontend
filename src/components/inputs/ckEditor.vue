@@ -2,7 +2,6 @@
 <template>
      <validation-provider
         :rules="{ required: true, min: 3 }"
-        v-slot="validationContext"
     >
       <b-form-group
         :id='id'
@@ -10,12 +9,7 @@
         class="text-left"
         label-for="title"
       >
-        <b-form-input
-          :id='id'
-          :type='type'
-          v-model='input'
-          :state='getValidationState(validationContext)'
-        />
+        <ckeditor :editor="editor" v-model="input"></ckeditor>
       </b-form-group>
     </validation-provider>
 </template>
@@ -23,6 +17,8 @@
 <script lang="ts">
 import { defineComponent, ref, watch, PropType } from '@vue/composition-api'
 import getValidationState from '../../composables/useValidationState'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+
 
 export enum inputTypes {
     text = 'text',
@@ -30,16 +26,15 @@ export enum inputTypes {
 }
 
 export default defineComponent({
-  name: 'text-input',
+  name: 'ck-editor',
   props: {
     value: String,
     label: String,
-    type: String as PropType<inputTypes>,
     id: String
   },
   setup ({ value }, { emit }) {
-
-    let input = ref(value)
+    let input = ref<String | undefined>(value)
+    const editor = ref<ClassicEditor>(ClassicEditor)
 
     watch(input, value => {
       emit('input', value)
@@ -47,8 +42,15 @@ export default defineComponent({
 
     return {
       getValidationState,
-      input
+      input,
+      editor
     }
   }
 })
 </script>
+
+<style lang='scss' scoped>
+::v-deep .ck-editor__editable {
+min-height: 500px;
+}
+</style>

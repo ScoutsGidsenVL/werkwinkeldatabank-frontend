@@ -1,4 +1,4 @@
-import BaseRepository from './baseRepository'
+import BaseRepository from './BaseRepository'
 
 export default class RepositoryFactory {
   private static repositoryInstances: any = {}
@@ -6,23 +6,15 @@ export default class RepositoryFactory {
   public static get<T extends BaseRepository> (
     RepositoryClass: new (...params: any[]) => T
   ): T {
-    let repository = this.repositoryInstances[RepositoryClass.prototype.id]
+    const repositoryId = new RepositoryClass().id
+
+    let repository = this.repositoryInstances[repositoryId]
 
     if (!repository) {
-      RepositoryClass.prototype.id = this.generateUUID()
       repository = new RepositoryClass()
-      this.repositoryInstances[RepositoryClass.prototype.id] = repository
+      this.repositoryInstances[repositoryId] = repository
     }
 
     return repository
-  }
-
-  private static generateUUID (): string {
-    let dt = new Date().getTime()
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      let r = (dt + Math.random() * 16) % 16 | 0
-      dt = Math.floor(dt / 16)
-      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
-    })
   }
 }

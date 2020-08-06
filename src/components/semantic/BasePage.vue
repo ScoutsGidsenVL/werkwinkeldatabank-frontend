@@ -1,7 +1,9 @@
 <template>
 <div class="container">
-    <div class="row">
-        <slot/>
+    <div
+      class="row"
+    >
+      <slot />
     </div>
 </div>
 </template>
@@ -10,6 +12,8 @@
 import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
-  name: 'BasePage'
+  name: 'base-page'
 })
 </script>
+
+

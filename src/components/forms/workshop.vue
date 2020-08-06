@@ -19,21 +19,25 @@
           />
       </b-col>
       <b-col cols="12" md="8">
-            <select-input
-              v-model='form.theme'
-              label='Thema'
-              id="theme"
-              :repo='ThemeRepository'
-              :selectOptions='[ "thema1", "thema2"]'
-            ></select-input>
+        <select-input
+          v-model='form.theme'
+          label='Thema'
+          id="theme"
+          :repo='ThemeRepository'
+          :multiple='false'
+        />
       </b-col>
       <b-col cols="12">
-          <ckeditor :editor="state.editor" v-model="form.description"></ckeditor>
+        <ck-editor
+          v-model="form.description"
+          label="Omschrijving"
+          id="description"
+        />
       </b-col>
     </b-row>
     <b-row>
       <b-col cols="12" class="text-left mt-4" >
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="submit" variant="primary">Opslaan</b-button>
       </b-col>
     </b-row>
   </b-form>
@@ -41,38 +45,34 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent } from '@vue/composition-api'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { ref, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../inputs/textInput.vue'
 import SelectInput from '../inputs/selectInput.vue'
-import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
+import ckEditor from '../inputs/ckEditor.vue'
 import ThemeRepository from '../../repositories/themeRepository'
+import BaseEntityModel from '../../models/entities/baseEntityModel'
+import { PropType } from 'vue'
+import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 
 export default defineComponent({
+  name: 'workshop-form',
   components: {
-    'text-input': TextInput,
-    'select-input': SelectInput
+    TextInput,
+    SelectInput,
+    ckEditor
   },
-  setup () {
-    const state = reactive({
-      editor: ClassicEditor
-    })
+  props: {
+    value: Object
+  },
+  setup ({ value }, { emit }) {
+    let form = ref<WorkshopEntityModel>(value)
 
-    const form = reactive(WorkshopEntityModel.deserialize({
-      title: null,
-      id: null,
-      duration: null,
-      description: null,
-      theme: null
-    }))
-
-    const onSubmit = () : void => console.log(form.serialize())
+    const onSubmit = () : void => emit('submit')
 
     return {
-      state,
       onSubmit,
-      form,
       inputTypes,
+      form,
       ThemeRepository
     }
   }

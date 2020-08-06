@@ -1,6 +1,11 @@
 <template>
   <b-col cols="12" v-if="!loading">
       <b-row>
+        <b-col cols="12"  class="text-right">
+        <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}" >
+         edit
+        </router-link>
+      </b-col>
         <b-col cols="12" lg="6">
             <b-row class="shadow p-3 text-left">
                 <b-col cols="12" class="mb-2">{{ result.title }}</b-col>

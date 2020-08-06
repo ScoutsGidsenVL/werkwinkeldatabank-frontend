@@ -59,8 +59,8 @@ export default abstract class BaseApiRepository {
     })
   }
 
-  protected put (endpoint: string, data: any, config: AxiosRequestConfig = {}): Promise<any> {
-    return this.axiosInstance.put(endpoint, data, config).then(function (result: AxiosResponse) {
+  protected patch (endpoint: string, data: any, config: AxiosRequestConfig = {}): Promise<any> {
+    return this.axiosInstance.patch(endpoint, data, config).then(function (result: AxiosResponse) {
       // Only return the data of response
       return result.data
     }).catch((error: any) => {

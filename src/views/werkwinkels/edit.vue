@@ -1,7 +1,7 @@
 <template>
-  <div class="col-12">
+  <div class="col-12"  v-if="!loading">
       <workshop-form
-        v-model='form'
+        v-model='result'
         v-on:submit='onSubmit'
       />
   </div>
@@ -14,40 +14,31 @@ import RepositoryFactory from '../../repositories/repositoryFactory'
 import WorkshopRepository from '../../repositories/workshopRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 import BaseEntityModel from '../../models/entities/baseEntityModel'
-import useRepository, { callTypes, useRepositoryType } from '../../composables/useRepository'
-import useGlobalLoading from '../../composables/useGlobalLoading'
+import useRepository, { callTypes } from '../../composables/useRepository'
 import { useRouter } from '../../composables/useRouter'
+import useGlobalLoading from '../../composables/useGlobalLoading'
 
 export default defineComponent({
-  name: 'workshops-create',
+  name: 'workshops-edit',
   components: {
     WorkshopForm
   },
   setup () {
-    const { router } = useRouter()
-    const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
-      title: null,
-      id: null,
-      duration: null,
-      description: null,
-      theme: null
-    }))
-
-    const { loading, doCall } = useRepository(
+    const { route } = useRouter()
+    const { loading, doCall, result } = useRepository(
       WorkshopRepository,
-      callTypes.create,
-      { model: form }
-    )
+      callTypes.getSingel,
+      { id: route.value.params.workshopId
+      })
     useGlobalLoading(loading)
+    doCall()
 
-    const onSubmit = async () : Promise<void> => {
-      await doCall()
-      router.push({ name: 'WerkwinkelOverview' })
-    }
+    const onSubmit = () : Promise<BaseEntityModel> => RepositoryFactory.get(WorkshopRepository).update(result.value)
 
     return {
-      form,
-      onSubmit
+      result,
+      onSubmit,
+      loading
     }
   }
 })

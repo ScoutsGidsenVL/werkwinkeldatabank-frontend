@@ -27,10 +27,10 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
   public serialize () {
     return {
       title: this.title,
-      id: this.id,
       duration: this.duration,
       description: this.description,
-      theme: this.theme ? this.theme.id : undefined
+      theme: this.theme ? this.theme.id : undefined,
+      necessities: 'placholder from model'
     }
   }
 

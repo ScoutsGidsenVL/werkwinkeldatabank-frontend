@@ -3,7 +3,8 @@ import WorkshopEntityModel from '../models/entities/workshopEntityModel'
 
 
 export default class WorkshopRepository extends BaseRepository {
-    endpoint = '/workshops'
+    id = 'workshops'
+    endpoint = '/workshops/'
     entityModel = WorkshopEntityModel
 
     getFake (endpoint: string) {

@@ -1,6 +1,6 @@
 <template>
-  <b-col cols="12" md='6' lg='4' class="shadow mx-2">
-    <b-row class="py-4">
+  <b-col cols="12" md='6' lg='4'>
+    <b-row class="py-4 shadow m-2">
         <b-col cols="12" class="text-center">
             {{ workshop.title }}
         </b-col>
@@ -18,12 +18,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
-import { PropType } from 'vue'
+import { defineComponent, PropType } from '@vue/composition-api'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 
-
 export default defineComponent({
+  name: 'workshop-item',
   props: {
     workshop: Object as PropType<WorkshopEntityModel>
   }
