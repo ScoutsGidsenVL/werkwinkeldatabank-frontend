@@ -5,7 +5,8 @@ export default class ThemeEntityModel extends BaseEntityModel implements EntityM
 
   constructor (
     public title: String,
-    public id?: String
+    public id?: String,
+    public description?: String
   ) {
     super(id, title)
   }
@@ -13,8 +14,16 @@ export default class ThemeEntityModel extends BaseEntityModel implements EntityM
   public static deserialize (input: any): ThemeEntityModel {
     return new ThemeEntityModel(
       input.title,
-      input.id
+      input.id,
+      input.description
     )
+  }
+
+  public serialize () {
+    return {
+      title: this.title,
+      description: this.description
+    }
   }
 
 }

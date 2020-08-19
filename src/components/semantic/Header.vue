@@ -4,12 +4,15 @@
     <div class="container">
       <div class="row">
         <div class="col-12 text-left">
-              <h1>{{$route.meta.title}} {{  this.$store.state.notifications.loading }}</h1>
+              <h1>{{$route.meta.title}}</h1>
         </div>
         <div class="col-12 my-3">
           <ul class="nav border border-top-0 border-left-0 border-right-0">
             <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'WerkwinkelOverview'}" >Werkwinkels</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{name: 'ThemeOverview'}" >Thema's</router-link>
             </li>
           </ul>
         </div>

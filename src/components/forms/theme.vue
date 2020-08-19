@@ -10,31 +10,6 @@
           :type="inputTypes.text"
         />
       </b-col>
-      <b-col cols="12" md="8">
-           <text-input
-            v-model="form.duration"
-            label="Tijdsduur"
-            id='duration'
-            :type="inputTypes.text"
-          />
-      </b-col>
-      <b-col cols="12" md="8">
-        <select-input
-          v-model='form.theme'
-          label='Thema'
-          id="theme"
-          :repo='ThemeRepository'
-          :multiple='false'
-        />
-      </b-col>
-      <b-col cols="12" md="8">
-        <ck-editor
-          v-model="form.necessities"
-          label="Benodigdheden"
-          id="necessities"
-          :big="false"
-        />
-      </b-col>
       <b-col cols="12">
         <ck-editor
           v-model="form.description"
@@ -55,25 +30,24 @@
 <script lang="ts">
 import { ref, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../inputs/textInput.vue'
-import SelectInput from '../inputs/selectInput.vue'
-import ckEditor from '../inputs/ckEditor.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import BaseEntityModel from '../../models/entities/baseEntityModel'
 import { PropType } from 'vue'
+import ckEditor from '../inputs/ckEditor.vue'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
+import ThemeEntityModel from '@/models/entities/themeEntityModel'
 
 export default defineComponent({
-  name: 'workshop-form',
+  name: 'theme-form',
   components: {
     TextInput,
-    SelectInput,
     ckEditor
   },
   props: {
     value: Object
   },
   setup ({ value }, { emit }) {
-    let form = ref<WorkshopEntityModel>(value)
+    let form = ref<ThemeEntityModel>(value)
 
     const onSubmit = () : void => {
       emit('input', form.value)
@@ -83,8 +57,7 @@ export default defineComponent({
     return {
       onSubmit,
       inputTypes,
-      form,
-      ThemeRepository
+      form
     }
   }
 })

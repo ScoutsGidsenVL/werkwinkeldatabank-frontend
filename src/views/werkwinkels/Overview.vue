@@ -8,6 +8,14 @@
     </b-col>
     <b-col cols="12"  class="text-left">
       <b-row>
+        <b-col cols="12" lg="4">
+          <text-input
+            v-model="callParams.filters.term.value"
+            label="Zoek"
+            id='title'
+            :type="inputTypes.text"
+          />
+        </b-col>
         <b-col cols="12" lg='4'>
           <select-input
             label='Thema'
@@ -39,6 +47,7 @@ import WorkshopRepository from '../../repositories/workshopRepository'
 import WorkshopItem from '../../components/list/workshopItem.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import SelectInput from '../../components/inputs/selectInput'
+import TextInput, { inputTypes } from '../../components/inputs/textInput'
 import { repoParams } from '../../repositories/baseRepository'
 import { useRouter } from '@/composables/useRouter'
 import { filter } from 'vue/types/umd'
@@ -47,11 +56,12 @@ export default defineComponent({
   name: 'werkwinkels-overview',
   components: {
     WorkshopItem,
-    SelectInput
+    SelectInput,
+    TextInput
   },
   setup () {
     const { router, route } = useRouter()
-    let filters : any = { theme: { type: 'array', value: null } }
+    let filters : any = { theme: { type: 'array', value: null }, term: { type: 'string', value: null } }
     if (route.value.query.filters) {
       filters = JSON.parse(route.value.query.filters)
     }
@@ -70,6 +80,7 @@ export default defineComponent({
 
     return {
       result,
+      inputTypes,
       ThemeRepository,
       callParams
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="col-12">
-      <workshop-form
+      <theme-form
         v-model='form'
         v-on:submit='onSubmit'
       />
@@ -9,33 +9,27 @@
 
 <script lang="ts">
 import { defineComponent, reactive, watch } from '@vue/composition-api'
-import WorkshopForm from '../../components/forms/workshop.vue'
-import RepositoryFactory from '../../repositories/repositoryFactory'
-import WorkshopRepository from '../../repositories/workshopRepository'
-import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
-import BaseEntityModel from '../../models/entities/baseEntityModel'
+import ThemeForm from '../../components/forms/theme.vue'
 import useRepository, { callTypes, useRepositoryType } from '../../composables/useRepository'
 import useGlobalLoading from '../../composables/useGlobalLoading'
 import { useRouter } from '../../composables/useRouter'
+import ThemeEntityModel from '@/models/entities/themeEntityModel'
+import ThemeRepository from '@/repositories/themeRepository'
 
 export default defineComponent({
-  name: 'workshops-create',
+  name: 'theme-create',
   components: {
-    WorkshopForm
+    ThemeForm
   },
   setup () {
     const { router } = useRouter()
-    const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
+    const form = reactive<ThemeEntityModel>(ThemeEntityModel.deserialize({
       title: null,
-      id: null,
-      duration: null,
-      description: null,
-      necessities: null,
-      theme: null
+      id: null
     }))
 
     const { loading, doCall } = useRepository(
-      WorkshopRepository,
+      ThemeRepository,
       callTypes.create,
       { model: form }
     )
@@ -43,7 +37,7 @@ export default defineComponent({
 
     const onSubmit = async () : Promise<void> => {
       await doCall()
-      router.push({ name: 'WerkwinkelOverview' })
+      router.push({ name: 'ThemeOverview' })
     }
 
     return {

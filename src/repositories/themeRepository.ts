@@ -4,7 +4,7 @@ import ThemeEntityModel from '@/models/entities/themeEntityModel'
 
 export default class ThemeRepository extends BaseRepository {
     id= 'themes'
-    endpoint = '/themes'
+    endpoint = '/themes/'
     entityModel = ThemeEntityModel
 
     getFake (endpoint: string) {

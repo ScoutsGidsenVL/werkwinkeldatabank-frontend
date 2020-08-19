@@ -9,7 +9,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public id?: String,
     public duration?: String,
     public description?: String,
-    public theme?: ThemeEntityModel
+    public theme?: ThemeEntityModel,
+    public necessities?: String
   ) {
     super(id, title)
   }
@@ -20,7 +21,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.id,
       input.duration,
       input.description,
-      input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined
+      input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
+      input.necessities
     )
   }
 
@@ -30,7 +32,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       duration: this.duration,
       description: this.description,
       theme: this.theme ? this.theme.id : undefined,
-      necessities: 'placholder from model'
+      necessities: this.necessities
     }
   }
 

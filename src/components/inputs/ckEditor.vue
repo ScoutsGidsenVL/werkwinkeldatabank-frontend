@@ -7,6 +7,7 @@
         :id='id'
         :label='label'
         class="text-left"
+        :class="{'ck-editor-big': big}"
         label-for="title"
       >
         <ckeditor :editor="editor" v-model="input"></ckeditor>
@@ -30,7 +31,11 @@ export default defineComponent({
   props: {
     value: String,
     label: String,
-    id: String
+    id: String,
+    big: {
+      type: Boolean,
+      default: true
+    }
   },
   setup ({ value }, { emit }) {
     let input = ref<String | undefined>(value)
@@ -50,7 +55,11 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-::v-deep .ck-editor__editable {
+::v-deep .ck-editor-big .ck-editor__editable {
 min-height: 500px;
+}
+
+::v-deep .ck-editor__editable {
+min-height: 250px;
 }
 </style>

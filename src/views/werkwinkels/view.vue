@@ -6,16 +6,23 @@
          edit
         </router-link>
       </b-col>
-        <b-col cols="12" lg="6">
+        <b-col cols="12" lg="5">
             <b-row class="shadow p-3 text-left">
                 <b-col cols="12" class="mb-2">{{ result.title }}</b-col>
                 <b-col cols="12">Tijdsduur: {{ result.duration }}</b-col>
                 <b-col cols="12">Thema: {{ result.theme.title }}</b-col>
             </b-row>
         </b-col>
+        <b-col cols="12" offset="1" lg="6">
+            <b-row>
+                <b-col cols="12" class="text-left mt-4"><strong>Benodigdheden:</strong></b-col>
+                <b-col cols="12" class="text-left mt-2" v-html='result.necessities' />
+            </b-row>
+        </b-col>
         <b-col cols="12" lg="6">
             <b-row>
-                <b-col cols="12" v-html='result.description' />
+              <b-col cols="12" class="text-left mt-4"><strong>Omschrijving:</strong></b-col>
+              <b-col cols="12" class="text-left mt-4" v-html='result.description' />
             </b-row>
         </b-col>
       </b-row>
