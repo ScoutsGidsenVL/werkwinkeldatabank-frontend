@@ -12,6 +12,7 @@
           <text-input
             v-model="callParams.filters.term.value"
             label="Zoek"
+            :rules='{}'
             id='title'
             :type="inputTypes.text"
           />
@@ -20,10 +21,14 @@
           <select-input
             label='Thema'
             id="theme"
+            :rules='{}'
             :multiple='true'
             :repo='ThemeRepository'
             v-model="callParams.filters.theme.value"
           />
+        </b-col>
+        <b-col cols="12" lg='2' class="">
+          <a href='' v-on:click.prevent="resetFilers">reset</a>
         </b-col>
       </b-row>
     </b-col>
@@ -78,10 +83,13 @@ export default defineComponent({
       doCall()
     })
 
+    const resetFilers = () => { callParams.filters = { theme: { type: 'array', value: null }, term: { type: 'string', value: null } } }
+
     return {
       result,
       inputTypes,
       ThemeRepository,
+      resetFilers,
       callParams
     }
   }

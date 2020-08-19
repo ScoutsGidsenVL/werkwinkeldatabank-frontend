@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 <template>
      <validation-provider
-        :rules="{ required: true, min: 3 }"
+        :rules="rules"
         v-slot="validationContext"
     >
       <b-form-group
@@ -35,15 +35,21 @@ export default defineComponent({
     value: String,
     label: String,
     type: String as PropType<inputTypes>,
-    id: String
+    id: String,
+    rules: {
+      type: Object,
+      default: { required: true, min: 3 }
+    }
   },
-  setup ({ value }, { emit }) {
+  setup (props, { emit }) {
 
-    let input = ref(value)
+    let input = ref(props.value)
 
     watch(input, value => {
       emit('input', value)
     })
+
+    watch(() => props.value, () => { input.value = props.value })
 
     return {
       getValidationState,

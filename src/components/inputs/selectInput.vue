@@ -1,6 +1,6 @@
 <template>
   <validation-provider
-    :rules="{ required: true}"
+    :rules="rules"
     v-slot="validationContext"
   >
     <label class='text-left w-100' :for='id'>{{label}}</label>
@@ -39,14 +39,18 @@ export default defineComponent({
     repo: {
       type: Function as PropType<new (...params: any[]) => BaseRepository>,
       required: true
+    },
+    rules: {
+      type: Object,
+      default: { required: true }
     }
   },
   components: {
     'multi-select': Multiselect
   },
-  setup ({ value, repo }, { emit }) {
-    const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(value)
-    const { loading, result, doCall } = useRepository(repo)
+  setup (props, { emit }) {
+    const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(props.value)
+    const { loading, result, doCall } = useRepository(props.repo)
     let options = ref<BaseEntityModel[]>([])
 
     doCall()
@@ -54,6 +58,9 @@ export default defineComponent({
     watch(input, value => {
       emit('input', value)
     })
+
+    watch(() => props.value, () => { input.value = props.value })
+
 
     return {
       input,
