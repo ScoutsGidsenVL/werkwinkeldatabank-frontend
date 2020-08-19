@@ -14,7 +14,7 @@
             id="theme"
             :multiple='true'
             :repo='ThemeRepository'
-            v-model="callParams.filters.theme"
+            v-model="callParams.filters.theme.value"
           />
         </b-col>
       </b-row>
@@ -40,6 +40,8 @@ import WorkshopItem from '../../components/list/workshopItem.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import SelectInput from '../../components/inputs/selectInput'
 import { repoParams } from '../../repositories/baseRepository'
+import { useRouter } from '@/composables/useRouter'
+import { filter } from 'vue/types/umd'
 
 export default defineComponent({
   name: 'werkwinkels-overview',
@@ -48,17 +50,21 @@ export default defineComponent({
     SelectInput
   },
   setup () {
+    const { router, route } = useRouter()
+    let filters : any = { theme: { type: 'array', value: null } }
+    if (route.value.query.filters) {
+      filters = JSON.parse(route.value.query.filters)
+    }
+
     let callParams = reactive<repoParams>({
-      filters: {
-        theme: null
-      }
+      filters: filters
     })
     const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getModelArray, callParams)
 
     doCall()
 
     watch(callParams, value => {
-      console.log('callParams changed')
+      router.replace({ query: { filters: JSON.stringify(callParams.filters) } })
       doCall()
     })
 

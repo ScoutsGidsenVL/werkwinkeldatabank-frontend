@@ -24,7 +24,7 @@ export default defineComponent({
     WorkshopForm
   },
   setup () {
-    const { route } = useRouter()
+    const { route, router } = useRouter()
     const { loading, doCall, result } = useRepository(
       WorkshopRepository,
       callTypes.getSingel,
@@ -33,7 +33,18 @@ export default defineComponent({
     useGlobalLoading(loading)
     doCall()
 
-    const onSubmit = () : Promise<BaseEntityModel> => RepositoryFactory.get(WorkshopRepository).update(result.value)
+    const onSubmit = async () : Promise<void> => {
+      const postRepo = useRepository(
+        WorkshopRepository,
+        callTypes.update,
+        { id: result.value.id,
+          model: result.value
+        }
+      )
+      useGlobalLoading(postRepo.loading)
+      await postRepo.doCall()
+      router.push({ name: 'WerkwinkelOverview' })
+    }
 
     return {
       result,

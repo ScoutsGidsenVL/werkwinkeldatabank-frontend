@@ -6,7 +6,8 @@ import { ref, Ref } from '@vue/composition-api'
 export enum callTypes {
     getModelArray = 'getModelArray',
     getSingel = 'getSingle',
-    create = 'create'
+    create = 'create',
+    update = 'update'
 }
 
 export type useRepositoryType = {

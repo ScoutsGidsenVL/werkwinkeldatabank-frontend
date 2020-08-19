@@ -67,7 +67,10 @@ export default defineComponent({
   setup ({ value }, { emit }) {
     let form = ref<WorkshopEntityModel>(value)
 
-    const onSubmit = () : void => emit('submit')
+    const onSubmit = () : void => {
+      emit('input', form.value)
+      emit('submit')
+    }
 
     return {
       onSubmit,
