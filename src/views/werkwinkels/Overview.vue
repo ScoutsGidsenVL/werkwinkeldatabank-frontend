@@ -27,8 +27,8 @@
             v-model="callParams.filters.theme.value"
           />
         </b-col>
-        <b-col cols="12" lg='2' class="">
-          <a href='' v-on:click.prevent="resetFilers">reset</a>
+        <b-col cols="12" lg='4' class="justify-content-end align-items-center d-flex">
+          <a href='' v-on:click.prevent="resetFilers" class="d-inline-block">reset</a>
         </b-col>
       </b-row>
     </b-col>
@@ -39,6 +39,11 @@
           :key='workshop.id'
           :workshop='workshop'
         />
+      </b-row>
+      <b-row>
+        <b-col class="text-center mt-3">
+          <b-button v-on:click='loadMore' >Load more</b-button>
+        </b-col>
       </b-row>
     </b-col>
   </b-row>
@@ -74,7 +79,7 @@ export default defineComponent({
     let callParams = reactive<repoParams>({
       filters: filters
     })
-    const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getModelArray, callParams)
+    const { loading, doCall, result, loadMore } = useRepository(WorkshopRepository, callTypes.getModelArray, callParams)
 
     doCall()
 
@@ -85,12 +90,15 @@ export default defineComponent({
 
     const resetFilers = () => { callParams.filters = { theme: { type: 'array', value: null }, term: { type: 'string', value: null } } }
 
+    // const loadMore = () => callParams
+
     return {
       result,
       inputTypes,
       ThemeRepository,
       resetFilers,
-      callParams
+      callParams,
+      loadMore
     }
   }
 })

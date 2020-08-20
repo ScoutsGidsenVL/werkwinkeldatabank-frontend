@@ -13,6 +13,7 @@ export enum callTypes {
 export type useRepositoryType = {
   loading : Ref<Boolean>,
   doCall: () => void,
+  loadMore: () => void,
   result: Ref<BaseEntityModel[] | BaseEntityModel | null>
 }
 
@@ -25,15 +26,28 @@ export default function useRepository (
   const activeRepo = RepositoryFactory.get(repo)
   const result = ref<BaseEntityModel[] | BaseEntityModel | null>(null)
 
+  if (!params.page) {
+    params.page = 1
+  }
+
   async function doCall () {
     loading.value = true
     result.value = await activeRepo[callType](params)
     loading.value = false
   }
 
+  async function loadMore () {
+    loading.value = true
+    params.page && params.page++
+    const newPageResults = await activeRepo[callType](params)
+    result.value = [...result.value, ...newPageResults]
+    loading.value = false
+  }
+
   return {
     loading,
     doCall,
-    result
+    result,
+    loadMore
   }
 }

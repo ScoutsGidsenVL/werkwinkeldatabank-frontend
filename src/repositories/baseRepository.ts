@@ -13,7 +13,8 @@ type filterObject = {
 export type repoParams = {
   id?: string,
   filters?: filterObject,
-  model?: BaseEntityModel
+  model?: BaseEntityModel,
+  page?: number
 }
 
 export default abstract class BaseRepository extends BaseApiRepository {
@@ -23,11 +24,8 @@ export default abstract class BaseRepository extends BaseApiRepository {
   abstract getFake (endpoint: string) : Promise<any>
 
   getModelArray (params: repoParams) : Promise<BaseEntityModel[]> {
-    let urlParams : URLSearchParams | undefined
 
-    if (params.filters) {
-      urlParams = this.processFilters(params.filters)
-    }
+    const urlParams = this.processUrlParams(params)
 
     return this.get(this.endpoint, { params: urlParams && urlParams }).then((response: any) => {
       const returnArray : BaseEntityModel[] = []
@@ -58,8 +56,21 @@ export default abstract class BaseRepository extends BaseApiRepository {
     })
   }
 
-  private processFilters (filters: filterObject) : URLSearchParams {
-    const urlParams : URLSearchParams = new URLSearchParams()
+  private processUrlParams (params: repoParams) : URLSearchParams {
+    let urlParams : URLSearchParams = new URLSearchParams()
+
+    if (params.filters) {
+      urlParams = this.processFilters(params.filters, urlParams)
+    }
+
+    if (params.page) {
+      urlParams.append('page', params.page.toString())
+    }
+
+    return urlParams
+  }
+
+  private processFilters (filters: filterObject, urlParams: URLSearchParams) : URLSearchParams {
 
     Object.keys(filters).forEach((key: string) => {
       if (filters[key].value !== null) {
