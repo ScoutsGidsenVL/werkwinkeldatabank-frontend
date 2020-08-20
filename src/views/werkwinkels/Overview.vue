@@ -41,7 +41,7 @@
         />
       </b-row>
       <b-row>
-        <b-col class="text-center mt-3">
+        <b-col class="text-center my-3">
           <b-button v-on:click='loadMore' >Load more</b-button>
         </b-col>
       </b-row>
