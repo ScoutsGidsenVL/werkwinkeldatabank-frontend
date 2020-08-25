@@ -34,20 +34,29 @@ export default function useRepository (
 
   async function doCall () {
     loading.value = true
+
     if (callType === callTypes.getModelArray) {
-      results.value = await activeRepo[callType](params)
+      const repoResponse : {result: BaseEntityModel[], params: repoParams } = await activeRepo[callType](params)
+      results.value = repoResponse.result
+      params = repoResponse.params
     } else {
-      result.value = await activeRepo[callType](params)
+      const repoResponse : {result: BaseEntityModel, params: repoParams } = await activeRepo[callType](params)
+      result.value = repoResponse.result
+      params = repoResponse.params
     }
+
     loading.value = false
   }
 
   async function loadMore () {
-    loading.value = true
-    params.page && params.page++
-    const newPageResults = await activeRepo[callType](params)
-    results.value = results.value.concat(newPageResults)
-    loading.value = false
+    if (callType === callTypes.getModelArray && !params.isMaxPage) {
+      loading.value = true
+      params.page && params.page++
+      const repoResponse : {result: BaseEntityModel[], params: repoParams } = await activeRepo[callType](params)
+      params = repoResponse.params
+      results.value = results.value.concat(repoResponse.result)
+      loading.value = false
+    }
   }
 
   return {

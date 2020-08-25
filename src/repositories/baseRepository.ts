@@ -25,7 +25,8 @@ export type repoParams = {
   id?: string,
   filters?: filterObject,
   model?: BaseEntityModel,
-  page?: number
+  page?: number,
+  isMaxPage?: boolean
 }
 
 export default abstract class BaseRepository extends BaseApiRepository {
@@ -34,7 +35,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
   abstract entityModel: any
   abstract getFake (endpoint: string) : Promise<any>
 
-  getModelArray (params: repoParams) : Promise<BaseEntityModel[]> {
+  getModelArray (params: repoParams) : Promise<{result: BaseEntityModel[], params: repoParams}> {
 
     const urlParams = this.processUrlParams(params)
 
@@ -45,25 +46,27 @@ export default abstract class BaseRepository extends BaseApiRepository {
         returnArray.push(this.entityModel.deserialize(content))
       })
 
-      return returnArray
+      params.isMaxPage = response.next === null
+
+      return { result: returnArray, params: params }
     })
   }
 
-  getSingle (params: repoParams) : Promise<BaseEntityModel> {
+  getSingle (params: repoParams) : Promise<{result: BaseEntityModel, params: repoParams }> {
     return this.get(this.endpoint + '' + params.id).then((response: any) => {
-      return this.entityModel.deserialize(response)
+      return { result: this.entityModel.deserialize(response), params: params }
     })
   }
 
-  create (params: repoParams) : Promise<BaseEntityModel> {
+  create (params: repoParams) : Promise<{result: BaseEntityModel, params: repoParams }> {
     return this.post(this.endpoint, params.model && params.model.serialize()).then((response: any) => {
-      return this.entityModel.deserialize(response)
+      return { result: this.entityModel.deserialize(response), params: params }
     })
   }
 
-  update (params: repoParams) : Promise<BaseEntityModel> {
+  update (params: repoParams) : Promise<{result: BaseEntityModel, params: repoParams }> {
     return this.patch(this.endpoint + '' + params.id + '/', params.model && params.model.serialize()).then((response: any) => {
-      return this.entityModel.deserialize(response)
+      return { result: this.entityModel.deserialize(response), params: params }
     })
   }
 
