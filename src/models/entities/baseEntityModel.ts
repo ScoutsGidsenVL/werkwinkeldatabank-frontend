@@ -3,8 +3,8 @@ import EntityModel from '@/interfaces/entityModel'
 export default class BaseEntityModel implements EntityModel<BaseEntityModel> {
 
   constructor (
-     public id?: String,
-     public title?: String
+     public id?: string,
+     public title?: string
   ) {
     return this
   }

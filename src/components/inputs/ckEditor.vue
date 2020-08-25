@@ -38,7 +38,7 @@ export default defineComponent({
     }
   },
   setup ({ value }, { emit }) {
-    let input = ref<String | undefined>(value)
+    let input = ref<string | undefined>(value)
     const editor = ref<ClassicEditor>(ClassicEditor)
 
     watch(input, value => {

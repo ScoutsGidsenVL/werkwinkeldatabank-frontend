@@ -7,11 +7,11 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, defineComponent, PropType } from '@vue/composition-api'
+import { reactive, ref, Ref, defineComponent, PropType } from '@vue/composition-api'
 import ThemeRepository from '../../repositories/themeRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 import BaseEntityModel from '@/models/entities/baseEntityModel'
-import BaseRepository from '@/repositories/baseRepository'
+import BaseRepository, { repoParams } from '@/repositories/baseRepository'
 import useRepository, { callTypes } from '@/composables/useRepository'
 import { useRouter } from '@/composables/useRouter'
 import useGlobalLoading from '@/composables/useGlobalLoading'
@@ -23,7 +23,7 @@ export default defineComponent({
   },
   props: {
     defaultValue: {
-      type: Object as PropType<BaseEntityModel>,
+      type: Object as PropType<Ref<BaseEntityModel>>,
       required: true
     },
     repo: {
@@ -45,18 +45,26 @@ export default defineComponent({
     useGlobalLoading(loading)
     const isEdit = !!route.value.params[paramIdentifier]
     isEdit && doCall()
-    let form = isEdit ? result : defaultValue
+    let form : Ref<BaseEntityModel | undefined> = isEdit ? result : defaultValue
 
     const onSubmit = async () : Promise<void> => {
+      let repoParams : repoParams = {}
+
+      if (isEdit && result.value && form.value) {
+        repoParams = {
+          id: result.value.id,
+          model: form.value
+        }
+      } else if (form.value) {
+        repoParams = {
+          model: form.value
+        }
+      }
+
       const postRepo = useRepository(
         repo,
         isEdit ? callTypes.update : callTypes.create,
-        isEdit ? { id: result.value.id,
-          model: form.value
-        }
-          : {
-            model: form
-          }
+        repoParams
       )
       useGlobalLoading(postRepo.loading)
       await postRepo.doCall()

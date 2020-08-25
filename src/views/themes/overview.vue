@@ -8,7 +8,7 @@
     </b-col>
     <b-col cols="12" class="text-left mt-3">
       <b-row
-        v-for="theme in result"
+        v-for="theme in results"
         class="border border-left-0 border-top-0 border-right-0 py-3"
         :key='theme.id'>
         <b-col
@@ -43,12 +43,12 @@ export default defineComponent({
   setup () {
 
     let callParams = reactive<repoParams>({})
-    const { loading, doCall, result } = useRepository(ThemeRepository, callTypes.getModelArray, callParams)
+    const { loading, doCall, results } = useRepository(ThemeRepository, callTypes.getModelArray, callParams)
 
     doCall()
 
     return {
-      result,
+      results,
       callParams
     }
   }

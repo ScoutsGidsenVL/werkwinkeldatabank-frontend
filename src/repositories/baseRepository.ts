@@ -1,13 +1,24 @@
 
 import BaseEntityModel from '../models/entities/baseEntityModel'
 import BaseApiRepository from './baseApiRepository'
-import { filter } from 'vue/types/umd'
+
+type arrayEntityFilter = {
+  type: 'arrayEntity'
+  value: Array<BaseEntityModel> | undefined
+}
+
+type entityFilter = {
+  type: 'entity'
+  value: BaseEntityModel | undefined
+}
+
+type stringFilter = {
+  type: 'string'
+  value: string| undefined
+}
 
 type filterObject = {
-  [key: string]: {
-    type: 'string' | 'array' | 'entity',
-    value: String | Array<any> | null
-  }
+  [key: string]: arrayEntityFilter | entityFilter | stringFilter
 }
 
 export type repoParams = {
@@ -73,23 +84,54 @@ export default abstract class BaseRepository extends BaseApiRepository {
   private processFilters (filters: filterObject, urlParams: URLSearchParams) : URLSearchParams {
 
     Object.keys(filters).forEach((key: string) => {
-      if (filters[key].value !== null) {
-        switch (filters[key].type) {
-        case 'array':
-          filters[key].value.forEach((arrayValue: string) => {
-            urlParams.append(key + '[]', arrayValue.id)
+      if (filters[key] && filters[key].value) {
+
+        const arrayEntityFilter : arrayEntityFilter | false = this.isArrayEntityFilter(filters[key])
+        console.log(arrayEntityFilter)
+        if (arrayEntityFilter && arrayEntityFilter.value) {
+          arrayEntityFilter.value.forEach((arrayValue: BaseEntityModel) => {
+            arrayValue.id && urlParams.append(key + '[]', arrayValue.id)
           })
-          break
-        case 'entity':
-          urlParams.append(key, filters[key].value.id)
-          break
-        default:
-          urlParams.append(key, filters[key].value)
-          break
         }
+
+        const entityFilter : entityFilter | false = this.isEntityFilter(filters[key])
+        if (entityFilter && entityFilter.value) {
+          entityFilter.value.id && urlParams.append(key, entityFilter.value.id)
+        }
+
+        const stringFilter : stringFilter | false = this.isStringFilter(filters[key])
+        if (stringFilter && stringFilter.value) {
+          urlParams.append(key, stringFilter.value)
+        }
+
       }
     })
 
     return urlParams
+  }
+
+  private isArrayEntityFilter (filter: arrayEntityFilter | entityFilter | stringFilter): arrayEntityFilter | false {
+
+    if (filter.type === 'arrayEntity') {
+      return filter as arrayEntityFilter
+    } else {
+      return false
+    }
+  }
+
+  private isEntityFilter (filter: arrayEntityFilter | entityFilter | stringFilter): entityFilter | false {
+    if (filter.type === 'entity') {
+      return filter as entityFilter
+    } else {
+      return false
+    }
+  }
+
+  private isStringFilter (filter: arrayEntityFilter | entityFilter | stringFilter): stringFilter | false {
+    if (filter.type === 'string') {
+      return filter as stringFilter
+    } else {
+      return false
+    }
   }
 }

@@ -5,12 +5,12 @@ import ThemeEntityModel from './themeEntityModel'
 export default class WorkshopEntityModel extends BaseEntityModel implements EntityModel<WorkshopEntityModel> {
 
   constructor (
-    public title?: String,
-    public id?: String,
-    public duration?: String,
-    public description?: String,
+    public title?: string,
+    public id?: string,
+    public duration?: string,
+    public description?: string,
     public theme?: ThemeEntityModel,
-    public necessities?: String
+    public necessities?: string
   ) {
     super(id, title)
   }

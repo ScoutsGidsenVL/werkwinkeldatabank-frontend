@@ -12,7 +12,7 @@
         track-by="title"
         label="title"
         placeholder="Selecteer"
-        :options="result"
+        :options="results"
         :searchable="false"
         :allow-empty="true"
         :multiple='multiple'
@@ -50,7 +50,7 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(props.value)
-    const { loading, result, doCall } = useRepository(props.repo)
+    const { loading, results, doCall } = useRepository(props.repo)
     let options = ref<BaseEntityModel[]>([])
 
     doCall()
@@ -65,7 +65,7 @@ export default defineComponent({
     return {
       input,
       loading,
-      result,
+      results,
       getValidationState
     }
   }

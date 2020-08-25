@@ -22,7 +22,7 @@
             label='Thema'
             id="theme"
             :rules='{}'
-            :multiple='false'
+            :multiple='true'
             :repo='ThemeRepository'
             v-model="callParams.filters.theme.value"
           />
@@ -35,7 +35,7 @@
     <b-col cols="12" class="text-left mt-3">
       <b-row>
         <workshop-item
-          v-for="workshop in result"
+          v-for="workshop in results"
           :key='workshop.id'
           :workshop='workshop'
         />
@@ -71,7 +71,8 @@ export default defineComponent({
   },
   setup () {
     const { router, route } = useRouter()
-    let filters : any = { theme: { type: 'entity', value: null }, term: { type: 'string', value: null } }
+    let filters : any = { theme: { type: 'arrayEntity', value: undefined }, term: { type: 'string', value: undefined } }
+
     if (route.value.query.filters) {
       filters = JSON.parse(route.value.query.filters.toString())
     }
@@ -79,7 +80,7 @@ export default defineComponent({
     let callParams = reactive<repoParams>({
       filters: filters
     })
-    const { loading, doCall, result, loadMore } = useRepository(WorkshopRepository, callTypes.getModelArray, callParams)
+    const { loading, doCall, results, loadMore } = useRepository(WorkshopRepository, callTypes.getModelArray, callParams)
 
     doCall()
 
@@ -89,12 +90,12 @@ export default defineComponent({
       doCall()
     })
 
-    const resetFilers = () => { callParams.filters = { theme: { type: 'entity', value: null }, term: { type: 'string', value: null } } }
+    const resetFilers = () => { callParams.filters = { theme: { type: 'arrayEntity', value: undefined }, term: { type: 'string', value: undefined } } }
 
     // const loadMore = () => callParams
 
     return {
-      result,
+      results,
       inputTypes,
       ThemeRepository,
       resetFilers,

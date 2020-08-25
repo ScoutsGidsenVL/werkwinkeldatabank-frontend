@@ -4,9 +4,9 @@ import EntityModel from '@/interfaces/entityModel'
 export default class ThemeEntityModel extends BaseEntityModel implements EntityModel<ThemeEntityModel> {
 
   constructor (
-    public title: String,
-    public id?: String,
-    public description?: String
+    public title: string,
+    public id?: string,
+    public description?: string
   ) {
     super(id, title)
   }

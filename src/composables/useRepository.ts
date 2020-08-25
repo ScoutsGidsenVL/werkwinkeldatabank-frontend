@@ -14,7 +14,8 @@ export type useRepositoryType = {
   loading : Ref<Boolean>,
   doCall: () => void,
   loadMore: () => void,
-  result: Ref<BaseEntityModel[] | BaseEntityModel | undefined>
+  result: Ref<BaseEntityModel | undefined>
+  results: Ref<BaseEntityModel[]>
 }
 
 export default function useRepository (
@@ -24,7 +25,8 @@ export default function useRepository (
 ) : useRepositoryType {
   const loading = ref<Boolean>(false)
   const activeRepo = RepositoryFactory.get(repo)
-  const result = ref<BaseEntityModel[] | BaseEntityModel | undefined>()
+  const result = ref<BaseEntityModel | undefined>()
+  const results = ref<BaseEntityModel[]>([])
 
   if (!params.page) {
     params.page = 1
@@ -32,7 +34,11 @@ export default function useRepository (
 
   async function doCall () {
     loading.value = true
-    result.value = await activeRepo[callType](params)
+    if (callType === callTypes.getModelArray) {
+      results.value = await activeRepo[callType](params)
+    } else {
+      result.value = await activeRepo[callType](params)
+    }
     loading.value = false
   }
 
@@ -40,7 +46,7 @@ export default function useRepository (
     loading.value = true
     params.page && params.page++
     const newPageResults = await activeRepo[callType](params)
-    result.value = [...result.value, ...newPageResults]
+    results.value = results.value.concat(newPageResults)
     loading.value = false
   }
 
@@ -48,6 +54,7 @@ export default function useRepository (
     loading,
     doCall,
     result,
+    results,
     loadMore
   }
 }

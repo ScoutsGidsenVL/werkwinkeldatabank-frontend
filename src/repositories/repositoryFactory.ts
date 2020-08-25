@@ -1,4 +1,4 @@
-import BaseRepository from './BaseRepository'
+import BaseRepository from './baseRepository'
 
 export default class RepositoryFactory {
   private static repositoryInstances: any = {}
