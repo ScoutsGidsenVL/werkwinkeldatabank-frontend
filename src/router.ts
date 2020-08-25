@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import WerkwinkelCreate from './views/werkwinkels/create.vue'
-import ThemeCreate from './views/themes/create.vue'
-import WerkwinkelEdit from './views/werkwinkels/edit.vue'
-import ThemeEdit from './views/themes/edit.vue'
-import WerkwinkelOverview from './views/werkwinkels/overview.vue'
+import WerkwinkelOverview from './views/workshops/overview.vue'
 import ThemesOverview from './views/themes/overview.vue'
-import WerkwinkelView from './views/werkwinkels/view.vue'
+import WerkwinkelView from './views/workshops/view.vue'
+import ThemeForm from './views/themes/form.vue'
+import WorkshoptForm from './views/workshops/form.vue'
 
 Vue.use(VueRouter)
 
@@ -23,7 +21,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/werkwinkels/nieuw',
     name: 'WerkwinkelCreate',
-    component: WerkwinkelCreate,
+    component: WorkshoptForm,
     meta: {
       title: 'Nieuwe werkwinkel'
     }
@@ -39,7 +37,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/werkwinkels/:workshopId/edit',
     name: 'WerkwinkelEdit',
-    component: WerkwinkelEdit,
+    component: WorkshoptForm,
     meta: {
       title: 'Werkwinkel'
     }
@@ -56,7 +54,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/themas/nieuw',
     name: 'ThemeCreate',
-    component: ThemeCreate,
+    component: ThemeForm,
     meta: {
       title: 'Nieuwe thema'
     }
@@ -64,7 +62,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/themas/:themeId/edit',
     name: 'ThemeEdit',
-    component: ThemeEdit,
+    component: ThemeForm,
     meta: {
       title: 'Thema'
     }

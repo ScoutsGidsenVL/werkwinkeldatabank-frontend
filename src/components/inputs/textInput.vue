@@ -14,7 +14,7 @@
           :id='id'
           :type='type'
           v-model='input'
-          :state='getValidationState(validationContext)'
+          :state=' Object.keys(rules).length === 0 ? null : getValidationState(validationContext)'
         />
       </b-form-group>
     </validation-provider>
@@ -38,7 +38,7 @@ export default defineComponent({
     id: String,
     rules: {
       type: Object,
-      default: { required: true, min: 3 }
+      default: () => { return { required: true, min: 3 } }
     }
   },
   setup (props, { emit }) {

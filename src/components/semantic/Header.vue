@@ -3,10 +3,10 @@
  <header>
     <div class="container">
       <div class="row">
-        <div class="col-12 text-left">
+        <b-col cols="12" class="text-left">
               <h1>{{$route.meta.title}}</h1>
-        </div>
-        <div class="col-12 my-3">
+        </b-col>
+        <b-col cols="12" class="my-3">
           <ul class="nav border border-top-0 border-left-0 border-right-0">
             <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'WerkwinkelOverview'}" >Werkwinkels</router-link>
@@ -15,7 +15,7 @@
               <router-link class="nav-link" :to="{name: 'ThemeOverview'}" >Thema's</router-link>
             </li>
           </ul>
-        </div>
+        </b-col>
       </div>
     </div>
   </header>

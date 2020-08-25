@@ -5,7 +5,7 @@ import { filter } from 'vue/types/umd'
 
 type filterObject = {
   [key: string]: {
-    type: 'string' | 'array',
+    type: 'string' | 'array' | 'entity',
     value: String | Array<any> | null
   }
 }
@@ -79,6 +79,9 @@ export default abstract class BaseRepository extends BaseApiRepository {
           filters[key].value.forEach((arrayValue: string) => {
             urlParams.append(key + '[]', arrayValue.id)
           })
+          break
+        case 'entity':
+          urlParams.append(key, filters[key].value.id)
           break
         default:
           urlParams.append(key, filters[key].value)

@@ -1,10 +1,15 @@
 <template>
-<validation-observer ref="observer" v-slot="{ handleSubmit }">
-  <b-form  @submit.stop.prevent="handleSubmit(onSubmit)">
+<base-form
+  :defaultValue="form"
+  :type='ThemeEntityModel'
+  :repo='ThemeRepository'
+  paramIdentifier='themeId'
+>
+  <template v-slot:default="{ formData }">
     <b-row>
       <b-col cols="12" md="8">
         <text-input
-          v-model="form.title"
+          v-model="formData.title"
           label="Titel"
           id='title'
           :type="inputTypes.text"
@@ -12,7 +17,7 @@
       </b-col>
       <b-col cols="12">
         <ck-editor
-          v-model="form.description"
+          v-model="formData.description"
           label="Omschrijving"
           id="description"
         />
@@ -23,40 +28,35 @@
         <b-button type="submit" variant="primary">Opslaan</b-button>
       </b-col>
     </b-row>
-  </b-form>
-</validation-observer>
+  </template>
+</base-form>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from '@vue/composition-api'
-import TextInput, { inputTypes } from '../inputs/textInput.vue'
+import { reactive, defineComponent } from '@vue/composition-api'
+import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import ThemeRepository from '../../repositories/themeRepository'
-import BaseEntityModel from '../../models/entities/baseEntityModel'
-import { PropType } from 'vue'
-import ckEditor from '../inputs/ckEditor.vue'
-import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
+import ckEditor from '../../components/inputs/ckEditor.vue'
 import ThemeEntityModel from '@/models/entities/themeEntityModel'
+import BaseForm from '../../components/forms/baseForm.vue'
 
 export default defineComponent({
   name: 'theme-form',
   components: {
+    BaseForm,
     TextInput,
     ckEditor
   },
-  props: {
-    value: Object
-  },
-  setup ({ value }, { emit }) {
-    let form = ref<ThemeEntityModel>(value)
-
-    const onSubmit = () : void => {
-      emit('input', form.value)
-      emit('submit')
-    }
+  setup (props, { emit }) {
+    const form = reactive<ThemeEntityModel>(ThemeEntityModel.deserialize({
+      title: null,
+      id: null
+    }))
 
     return {
-      onSubmit,
       inputTypes,
+      ThemeEntityModel,
+      ThemeRepository,
       form
     }
   }

@@ -42,7 +42,7 @@ export default defineComponent({
     },
     rules: {
       type: Object,
-      default: { required: true }
+      default: () => { return { required: true } }
     }
   },
   components: {

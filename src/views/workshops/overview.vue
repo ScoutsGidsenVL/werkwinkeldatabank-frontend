@@ -22,7 +22,7 @@
             label='Thema'
             id="theme"
             :rules='{}'
-            :multiple='true'
+            :multiple='false'
             :repo='ThemeRepository'
             v-model="callParams.filters.theme.value"
           />
@@ -56,14 +56,14 @@ import useRepository, { callTypes } from '../../composables/useRepository'
 import WorkshopRepository from '../../repositories/workshopRepository'
 import WorkshopItem from '../../components/list/workshopItem.vue'
 import ThemeRepository from '../../repositories/themeRepository'
-import SelectInput from '../../components/inputs/selectInput'
-import TextInput, { inputTypes } from '../../components/inputs/textInput'
+import SelectInput from '../../components/inputs/selectInput.vue'
+import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import { repoParams } from '../../repositories/baseRepository'
 import { useRouter } from '@/composables/useRouter'
 import { filter } from 'vue/types/umd'
 
 export default defineComponent({
-  name: 'werkwinkels-overview',
+  name: 'workshop-overview',
   components: {
     WorkshopItem,
     SelectInput,
@@ -71,9 +71,9 @@ export default defineComponent({
   },
   setup () {
     const { router, route } = useRouter()
-    let filters : any = { theme: { type: 'array', value: null }, term: { type: 'string', value: null } }
+    let filters : any = { theme: { type: 'entity', value: null }, term: { type: 'string', value: null } }
     if (route.value.query.filters) {
-      filters = JSON.parse(route.value.query.filters)
+      filters = JSON.parse(route.value.query.filters.toString())
     }
 
     let callParams = reactive<repoParams>({
@@ -85,10 +85,11 @@ export default defineComponent({
 
     watch(callParams, value => {
       router.replace({ query: { filters: JSON.stringify(callParams.filters) } })
+      callParams.page = 1
       doCall()
     })
 
-    const resetFilers = () => { callParams.filters = { theme: { type: 'array', value: null }, term: { type: 'string', value: null } } }
+    const resetFilers = () => { callParams.filters = { theme: { type: 'entity', value: null }, term: { type: 'string', value: null } } }
 
     // const loadMore = () => callParams
 

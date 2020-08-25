@@ -14,7 +14,7 @@ export type useRepositoryType = {
   loading : Ref<Boolean>,
   doCall: () => void,
   loadMore: () => void,
-  result: Ref<BaseEntityModel[] | BaseEntityModel | null>
+  result: Ref<BaseEntityModel[] | BaseEntityModel | undefined>
 }
 
 export default function useRepository (
@@ -24,7 +24,7 @@ export default function useRepository (
 ) : useRepositoryType {
   const loading = ref<Boolean>(false)
   const activeRepo = RepositoryFactory.get(repo)
-  const result = ref<BaseEntityModel[] | BaseEntityModel | null>(null)
+  const result = ref<BaseEntityModel[] | BaseEntityModel | undefined>()
 
   if (!params.page) {
     params.page = 1
