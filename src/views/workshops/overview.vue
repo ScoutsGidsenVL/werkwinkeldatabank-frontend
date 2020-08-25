@@ -92,8 +92,6 @@ export default defineComponent({
 
     const resetFilers = () => { callParams.filters = { theme: { type: 'arrayEntity', value: undefined }, term: { type: 'string', value: undefined } } }
 
-    // const loadMore = () => callParams
-
     return {
       results,
       inputTypes,

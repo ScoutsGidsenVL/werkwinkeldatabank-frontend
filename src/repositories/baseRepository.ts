@@ -26,7 +26,8 @@ export type repoParams = {
   filters?: filterObject,
   model?: BaseEntityModel,
   page?: number,
-  isMaxPage?: boolean
+  isMaxPage?: boolean,
+  pageSize?: number
 }
 
 export default abstract class BaseRepository extends BaseApiRepository {
@@ -34,6 +35,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
   abstract endpoint : string
   abstract entityModel: any
   abstract getFake (endpoint: string) : Promise<any>
+  defaultPageSize: number = 12
 
   getModelArray (params: repoParams) : Promise<{result: BaseEntityModel[], params: repoParams}> {
 
@@ -80,6 +82,8 @@ export default abstract class BaseRepository extends BaseApiRepository {
     if (params.page) {
       urlParams.append('page', params.page.toString())
     }
+
+    urlParams.append('page_size', this.getPageSize(params))
 
     return urlParams
   }
@@ -136,5 +140,9 @@ export default abstract class BaseRepository extends BaseApiRepository {
     } else {
       return false
     }
+  }
+
+  private getPageSize (params: repoParams) : string {
+    return params.pageSize ? params.pageSize.toString() : this.defaultPageSize.toString()
   }
 }
