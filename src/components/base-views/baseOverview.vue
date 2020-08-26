@@ -19,7 +19,17 @@
       </b-row>
     </b-col>
     <b-col cols="12" class="text-left mt-3">
-        <slot name='content' v-bind:results="results"/>
+        <slot
+         v-if="results.length > 0"
+         name='content'
+         v-bind:results="results"
+        />
+        <span
+         v-else
+         class="d-inline-block w-100 text-center my-4"
+        >
+          <strong>Geen resultaat</strong>
+        </span>
       <b-row>
         <b-col class="text-center my-3">
           <b-button v-on:click='loadMore' :disabled='callParams.isMaxPage' >Load more</b-button>

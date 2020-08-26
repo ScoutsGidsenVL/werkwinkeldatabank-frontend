@@ -60,6 +60,7 @@
 <script lang="ts">
 import { reactive, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
+import TimeInput from '../../components/inputs/timeInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import ThemeRepository from '../../repositories/themeRepository'
@@ -73,7 +74,8 @@ export default defineComponent({
     TextInput,
     SelectInput,
     ckEditor,
-    BaseForm
+    BaseForm,
+    TimeInput
   },
   setup ({ value }, { emit }) {
     const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
