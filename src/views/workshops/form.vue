@@ -17,12 +17,11 @@
         />
       </b-col>
       <b-col cols="12" md="8">
-           <text-input
-            v-model="formData.duration"
-            label="Tijdsduur"
-            id='duration'
-            :type="inputTypes.text"
-          />
+        <time-input
+          label='Tijdsduur'
+          id="duration"
+          v-model="formData.duration"
+        />
       </b-col>
       <b-col cols="12" md="8">
         <select-input
@@ -80,7 +79,7 @@ export default defineComponent({
     const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
       title: null,
       id: null,
-      duration: null,
+      duration: '1:30:00',
       description: null,
       necessities: null,
       theme: null

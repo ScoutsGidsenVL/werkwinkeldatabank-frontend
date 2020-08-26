@@ -17,6 +17,13 @@
         />
       </b-col>
       <b-col cols="12" md="8">
+        <time-input
+          label='Tijdsduur'
+          id="duration"
+          v-model="formData.duration"
+        />
+      </b-col>
+      <b-col cols="12" md="8">
         <select-input
           label='Type'
           id="type"
@@ -45,6 +52,7 @@
 <script lang="ts">
 import { reactive, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
+import TimeInput from '../../components/inputs/timeInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import BuildingBlocskRepository from '../../repositories/buildingBlocskRepository'
 import ckEditor from '../../components/inputs/ckEditor.vue'
@@ -57,13 +65,14 @@ export default defineComponent({
     BaseForm,
     TextInput,
     ckEditor,
-    SelectInput
+    SelectInput,
+    TimeInput
   },
   setup (props, { emit }) {
     const form = reactive<BuildingBlocksEntityModel>(BuildingBlocksEntityModel.deserialize({
       title: null,
       id: null,
-      duration: null,
+      duration: '1:30:00',
       description: null,
       type: BuildingBlocksTypes.THEMATIC
     }))

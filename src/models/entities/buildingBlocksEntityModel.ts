@@ -31,7 +31,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
   public serialize () {
     return {
       title: this.title,
-      duration: '1:30:00',
+      duration: this.duration,
       description: this.description,
       type: this.type
     }
