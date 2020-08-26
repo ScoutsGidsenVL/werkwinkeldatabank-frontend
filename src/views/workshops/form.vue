@@ -64,7 +64,7 @@ import SelectInput from '../../components/inputs/selectInput.vue'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
-import BaseForm from '../../components/forms/baseForm.vue'
+import BaseForm from '../../components/base-views/baseForm.vue'
 import WorkshopRepository from '../../repositories/workshopRepository'
 
 export default defineComponent({

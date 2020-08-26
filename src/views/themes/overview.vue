@@ -1,12 +1,10 @@
 <template>
-<b-col cols="12">
-  <b-row>
-    <b-col cols="12"  class="text-right">
-      <router-link :to="{name: 'ThemeCreate'}" >
-        + nieuwe thema aanmaken
-      </router-link>
-    </b-col>
-    <b-col cols="12" class="text-left mt-3">
+<base-overview
+    :repo='ThemeRepository'
+    label="thema"
+    createRoute="ThemeCreate"
+  >
+    <template #content='{ results }'>
       <b-row
         v-for="theme in results"
         class="border border-left-0 border-top-0 border-right-0 py-3"
@@ -24,32 +22,23 @@
             </router-link>
         </b-col>
       </b-row>
-    </b-col>
-  </b-row>
-</b-col>
+    </template>
+  </base-overview>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch } from '@vue/composition-api'
-import useRepository, { callTypes } from '../../composables/useRepository'
+import { defineComponent } from '@vue/composition-api'
 import ThemeRepository from '../../repositories/themeRepository'
-import { repoParams } from '../../repositories/baseRepository'
-import { useRouter } from '@/composables/useRouter'
-import { filter } from 'vue/types/umd'
+import BaseOverview from '../../components/base-views/baseOverview.vue'
 
 export default defineComponent({
   name: 'themes-overview',
-  components: {},
+  components: {
+    BaseOverview
+  },
   setup () {
-
-    let callParams = reactive<repoParams>({})
-    const { loading, doCall, results } = useRepository(ThemeRepository, callTypes.getModelArray, callParams)
-
-    doCall()
-
     return {
-      results,
-      callParams
+      ThemeRepository
     }
   }
 })

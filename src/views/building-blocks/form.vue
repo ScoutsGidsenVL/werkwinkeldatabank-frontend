@@ -48,7 +48,7 @@ import SelectInput from '../../components/inputs/selectInput.vue'
 import BuildingBlocskRepository from '../../repositories/buildingBlocskRepository'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
-import BaseForm from '../../components/forms/baseForm.vue'
+import BaseForm from '../../components/base-views/baseForm.vue'
 
 export default defineComponent({
   name: 'building-blocks-form',

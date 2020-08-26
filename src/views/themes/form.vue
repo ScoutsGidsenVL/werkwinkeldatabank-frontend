@@ -38,7 +38,7 @@ import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import ThemeEntityModel from '@/models/entities/themeEntityModel'
-import BaseForm from '../../components/forms/baseForm.vue'
+import BaseForm from '../../components/base-views/baseForm.vue'
 
 export default defineComponent({
   name: 'theme-form',
