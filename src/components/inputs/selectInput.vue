@@ -57,7 +57,7 @@ export default defineComponent({
     if (repo) {
       // @ts-ignore userepo can't get a undifined value, but is checked on line 57
       const { loading, results, doCall } = useRepository(repo)
-      optionsValue = ref<BaseEntityModel[]>([])
+      optionsValue = results
       loadingLocal = loading
       doCall()
     }

@@ -1,6 +1,6 @@
 <template>
   <base-overview
-    :filtersProp='filters'
+    :filtersProp="{theme: { type: 'arrayEntity', value: undefined },term: { type: 'string', value: undefined }}"
     :repo='WorkshopRepository'
     label="werkwinkel"
     createRoute="WerkwinkelCreate"

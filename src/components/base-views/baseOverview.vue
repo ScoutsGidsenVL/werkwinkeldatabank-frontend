@@ -10,6 +10,7 @@
       <b-row>
         <slot name='filters' v-bind:filters='callParams.filters'/>
          <b-col
+           v-if="filtersProp"
            cols="12"
            lg='4'
            class="justify-content-end align-items-center d-flex">
@@ -61,8 +62,12 @@ export default defineComponent({
   },
   setup ({ repo, filtersProp }) {
     const { router, route } = useRouter()
+    let filters : any = {}
 
-    let filters : any = ref(filtersProp) || ref({})
+    // set prop values on clean filter value to remove observer
+    if (filtersProp) {
+      Object.keys(filtersProp).forEach((key: any) => { filters[key] = filtersProp[key] })
+    }
 
     if (route.value.query.filters) {
       filters = JSON.parse(route.value.query.filters.toString())
@@ -72,11 +77,9 @@ export default defineComponent({
       filters: filters
     })
     const { loading, doCall, results, loadMore } = useRepository(repo, callTypes.getModelArray, callParams)
-
     doCall()
 
     watch(callParams, value => {
-      console.log(value)
       router.replace({ query: { filters: JSON.stringify(callParams.filters) } })
       callParams.page = 1
       doCall()
