@@ -94,7 +94,6 @@ export default abstract class BaseRepository extends BaseApiRepository {
       if (filters[key] && filters[key].value) {
 
         const arrayEntityFilter : arrayEntityFilter | false = this.isArrayEntityFilter(filters[key])
-        console.log(arrayEntityFilter)
         if (arrayEntityFilter && arrayEntityFilter.value) {
           arrayEntityFilter.value.forEach((arrayValue: BaseEntityModel) => {
             arrayValue.id && urlParams.append(key + '[]', arrayValue.id)

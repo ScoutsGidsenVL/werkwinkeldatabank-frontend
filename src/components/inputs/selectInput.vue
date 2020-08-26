@@ -5,14 +5,14 @@
   >
     <label class='text-left w-100' :for='id'>{{label}}</label>
      <multi-select
-        v-if='!loading'
+        v-if='!loadingLocal'
         class="mb-4"
         :class='getValidationState(validationContext) === false ? "not-valid"  : "valid" '
         v-model='input'
-        track-by="title"
-        label="title"
+        :track-by='repo ? "title" : ""'
+        :label='repo ? "title" : ""'
         placeholder="Selecteer"
-        :options="results"
+        :options="optionsValue"
         :searchable="false"
         :allow-empty="true"
         :multiple='multiple'
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, PropType } from '@vue/composition-api'
+import { defineComponent, ref, Ref, watch, PropType } from '@vue/composition-api'
 import Multiselect from 'vue-multiselect'
 import BaseEntityModel from '../../models/entities/baseEntityModel'
 import BaseRepository from '../../repositories/baseRepository'
@@ -35,11 +35,12 @@ export default defineComponent({
     label: String,
     id: String,
     multiple: Boolean,
-    value: [Object, Array],
+    value: [Object, Array, String],
     repo: {
       type: Function as PropType<new (...params: any[]) => BaseRepository>,
-      required: true
+      required: false
     },
+    options: [Object, Array],
     rules: {
       type: Object,
       default: () => { return { required: true } }
@@ -48,24 +49,34 @@ export default defineComponent({
   components: {
     'multi-select': Multiselect
   },
-  setup (props, { emit }) {
-    const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(props.value)
-    const { loading, results, doCall } = useRepository(props.repo)
-    let options = ref<BaseEntityModel[]>([])
+  setup ({ value, repo, options }, { emit }) {
+    const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(value)
+    let loadingLocal : boolean | Ref<Boolean> = false
+    let optionsValue = ref<Array<any>>([])
 
-    doCall()
+    if (repo) {
+      // @ts-ignore userepo can't get a undifined value, but is checked on line 57
+      const { loading, results, doCall } = useRepository(repo)
+      optionsValue = ref<BaseEntityModel[]>([])
+      loadingLocal = loading
+      doCall()
+    }
+
+    if (options) {
+      optionsValue = options
+    }
 
     watch(input, value => {
       emit('input', value)
     })
 
-    watch(() => props.value, () => { input.value = props.value })
+    watch(() => value, () => { input.value = value })
 
 
     return {
       input,
-      loading,
-      results,
+      loadingLocal,
+      optionsValue,
       getValidationState
     }
   }

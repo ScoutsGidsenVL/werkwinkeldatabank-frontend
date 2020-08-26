@@ -23,7 +23,7 @@ export default defineComponent({
   },
   props: {
     defaultValue: {
-      type: Object as PropType<Ref<BaseEntityModel>>,
+      type: Object as PropType<BaseEntityModel>,
       required: true
     },
     repo: {
@@ -45,19 +45,20 @@ export default defineComponent({
     useGlobalLoading(loading)
     const isEdit = !!route.value.params[paramIdentifier]
     isEdit && doCall()
-    let form : Ref<BaseEntityModel | undefined> = isEdit ? result : defaultValue
+    let form : Ref<BaseEntityModel | undefined> | BaseEntityModel = isEdit ? result : defaultValue
+
 
     const onSubmit = async () : Promise<void> => {
       let repoParams : repoParams = {}
 
-      if (isEdit && result.value && form.value) {
+      if (isEdit && result.value) {
         repoParams = {
           id: result.value.id,
-          model: form.value
+          model: result.value
         }
-      } else if (form.value) {
+      } else {
         repoParams = {
-          model: form.value
+          model: defaultValue
         }
       }
 

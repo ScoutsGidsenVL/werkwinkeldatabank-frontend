@@ -5,6 +5,7 @@ import ThemesOverview from './views/themes/overview.vue'
 import WerkwinkelView from './views/workshops/view.vue'
 import ThemeForm from './views/themes/form.vue'
 import WorkshoptForm from './views/workshops/form.vue'
+import BuildingBlockForm from './views/building-blocks/form.vue'
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,14 @@ const routes: Array<RouteConfig> = [
     component: ThemeForm,
     meta: {
       title: 'Thema'
+    }
+  },
+  {
+    path: '/bouwblokken/nieuw',
+    name: 'BuildingBlockCreate',
+    component: BuildingBlockForm,
+    meta: {
+      title: 'Nieuwe bouwblok'
     }
   }
 ]
