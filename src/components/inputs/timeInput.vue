@@ -26,11 +26,6 @@
 import { defineComponent, ref, watch, PropType } from '@vue/composition-api'
 import getValidationState from '../../composables/useValidationState'
 
-export enum inputTypes {
-    text = 'text',
-    email = 'email'
-}
-
 export default defineComponent({
   name: 'time-input',
   props: {

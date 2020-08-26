@@ -66,6 +66,8 @@ export default defineComponent({
         }
       }
 
+      console.log(repoParams.model)
+
       const postRepo = useRepository(
         repo,
         isEdit ? callTypes.update : callTypes.create,

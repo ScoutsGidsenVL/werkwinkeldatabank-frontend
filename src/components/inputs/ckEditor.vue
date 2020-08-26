@@ -20,12 +20,6 @@ import { defineComponent, ref, watch, PropType } from '@vue/composition-api'
 import getValidationState from '../../composables/useValidationState'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
-
-export enum inputTypes {
-    text = 'text',
-    email = 'email'
-}
-
 export default defineComponent({
   name: 'ck-editor',
   props: {

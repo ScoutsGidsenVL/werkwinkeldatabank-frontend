@@ -3,7 +3,7 @@ import VueCompositionAPI from '@vue/composition-api'
 import App from './app.vue'
 import router from './router'
 import store from './store/store'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import { getModule } from 'vuex-module-decorators'
 import {
@@ -32,6 +32,7 @@ Vue.component('ValidationProvider', ValidationProvider)
 
 Vue.use(VueCompositionAPI)
 Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 Vue.use(CKEditor)
 
 Vue.config.productionTip = false
@@ -49,6 +50,3 @@ new StaticFileRepository().getFile('cfg/config.json').then((configFile: any) => 
     render: (h) => h(App)
   }).$mount('#app')
 })
-
-
-

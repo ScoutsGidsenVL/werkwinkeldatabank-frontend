@@ -37,4 +37,10 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     }
   }
 
+  public static getTypesArray (): String[] {
+    let returnArray : String[] = []
+    Object.keys(BuildingBlocksTypes).forEach((key: any) => returnArray.push(BuildingBlocksTypes[key]))
+    return returnArray
+  }
+
 }

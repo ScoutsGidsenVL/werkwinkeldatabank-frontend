@@ -45,8 +45,10 @@
           v-model="formData.description"
           label="Omschrijving"
           id="description"
+          :big="false"
         />
       </b-col>
+      <building-block-input v-model='formData.buildingBlocks' />
     </b-row>
     <b-row>
       <b-col cols="12" class="text-left mt-4" >
@@ -62,6 +64,7 @@ import { reactive, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import TimeInput from '../../components/inputs/timeInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
+import BuildingBlockInput from '../../components/inputs/buildingBlockInput.vue'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
@@ -75,7 +78,8 @@ export default defineComponent({
     SelectInput,
     ckEditor,
     BaseForm,
-    TimeInput
+    TimeInput,
+    BuildingBlockInput
   },
   setup ({ value }, { emit }) {
     const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
@@ -84,7 +88,8 @@ export default defineComponent({
       duration: '1:30:00',
       description: null,
       necessities: null,
-      theme: null
+      theme: null,
+      buildingBlocks: []
     }))
 
     return {

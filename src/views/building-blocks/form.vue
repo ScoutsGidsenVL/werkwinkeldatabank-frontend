@@ -28,7 +28,7 @@
           label='Type'
           id="type"
           v-model="formData.type"
-          :options='["THEMATIC", "METHODIC"]'
+          :options='types'
           :multiple='false'
         />
       </b-col>
@@ -76,13 +76,16 @@ export default defineComponent({
       description: null,
       type: BuildingBlocksTypes.THEMATIC
     }))
+    const types : String[] = BuildingBlocksEntityModel.getTypesArray()
+
 
     return {
       inputTypes,
       BuildingBlocksEntityModel,
       BuildingBlocskRepository,
       BuildingBlocksTypes,
-      form
+      form,
+      types
     }
   }
 })

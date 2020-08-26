@@ -1,7 +1,7 @@
 <template>
 <b-col cols="12">
   <b-row>
-    <b-col cols="12"  class="text-right">
+    <b-col v-if="createRoute" cols="12"  class="text-right">
       <router-link :to="{name: createRoute}" >
         + nieuwe {{label}} aanmaken
       </router-link>
@@ -30,7 +30,7 @@
         >
           <strong>Geen resultaat</strong>
         </span>
-      <b-row>
+      <b-row v-show="!callParams.isMaxPage">
         <b-col class="text-center my-3">
           <b-button v-on:click='loadMore' :disabled='callParams.isMaxPage' >Load more</b-button>
         </b-col>
@@ -67,7 +67,7 @@ export default defineComponent({
     },
     createRoute: {
       type: String,
-      required: true
+      required: false
     }
   },
   setup ({ repo, filtersProp }) {

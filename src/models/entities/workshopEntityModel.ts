@@ -1,6 +1,7 @@
 import BaseEntityModel from './baseEntityModel'
 import EntityModel from '@/interfaces/entityModel'
 import ThemeEntityModel from './themeEntityModel'
+import BuildingBlocksEntityModel from './buildingBlocksEntityModel'
 
 export default class WorkshopEntityModel extends BaseEntityModel implements EntityModel<WorkshopEntityModel> {
 
@@ -10,7 +11,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public duration?: string,
     public description?: string,
     public theme?: ThemeEntityModel,
-    public necessities?: string
+    public necessities?: string,
+    public buildingBlocks?: BuildingBlocksEntityModel[]
   ) {
     super(id, title)
   }
@@ -22,7 +24,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.duration,
       input.description,
       input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
-      input.necessities
+      input.necessities,
+      input.buildingBlocks ? input.buildingBlocks : []
     )
   }
 
