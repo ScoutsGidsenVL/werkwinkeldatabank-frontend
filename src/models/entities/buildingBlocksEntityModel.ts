@@ -24,14 +24,14 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.id,
       input.duration,
       input.description,
-      input.type
+      input.type.id
     )
   }
 
   public serialize () {
     return {
       title: this.title,
-      duration: 100000,
+      duration: '1:30:00',
       description: this.description,
       type: this.type
     }

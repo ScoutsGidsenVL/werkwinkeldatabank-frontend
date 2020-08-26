@@ -4,6 +4,7 @@
   :type='ThemeEntityModel'
   :repo='ThemeRepository'
   paramIdentifier='themeId'
+  redirectRoute='ThemeOverview'
 >
   <template v-slot:default="{ formData }">
     <b-row>

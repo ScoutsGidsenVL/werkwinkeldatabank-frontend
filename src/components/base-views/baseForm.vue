@@ -33,9 +33,13 @@ export default defineComponent({
     paramIdentifier: {
       type: String,
       required: true
+    },
+    redirectRoute: {
+      type: String,
+      required: true
     }
   },
-  setup ({ repo, defaultValue, paramIdentifier }, { emit }) {
+  setup ({ repo, defaultValue, paramIdentifier, redirectRoute }, { emit }) {
     const { route, router } = useRouter()
     const { loading, doCall, result } = useRepository(
       repo,
@@ -69,7 +73,7 @@ export default defineComponent({
       )
       useGlobalLoading(postRepo.loading)
       await postRepo.doCall()
-      router.push({ name: 'WerkwinkelOverview' })
+      router.push({ name: redirectRoute })
     }
 
     return {

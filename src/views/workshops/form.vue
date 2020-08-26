@@ -4,6 +4,7 @@
   :type='WorkshopEntityModel'
   :repo='WorkshopRepository'
   paramIdentifier='workshopId'
+  redirectRoute="WerkwinkelOverview"
 >
   <template v-slot:default="{ formData }">
     <b-row>

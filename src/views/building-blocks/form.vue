@@ -4,6 +4,7 @@
   :type='BuildingBlocksEntityModel'
   :repo='BuildingBlocskRepository'
   paramIdentifier='buildingBlockId'
+  redirectRoute='BuildingBlockOverview'
 >
   <template v-slot:default="{ formData }">
     <b-row>

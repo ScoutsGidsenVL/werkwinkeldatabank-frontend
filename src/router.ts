@@ -6,6 +6,7 @@ import WerkwinkelView from './views/workshops/view.vue'
 import ThemeForm from './views/themes/form.vue'
 import WorkshoptForm from './views/workshops/form.vue'
 import BuildingBlockForm from './views/building-blocks/form.vue'
+import BuildingBlockOverview from './views/building-blocks/overview.vue'
 
 Vue.use(VueRouter)
 
@@ -43,7 +44,7 @@ const routes: Array<RouteConfig> = [
       title: 'Werkwinkel'
     }
   },
-  // Thema's
+  // Themes
   {
     path: '/themas',
     name: 'ThemeOverview',
@@ -68,12 +69,29 @@ const routes: Array<RouteConfig> = [
       title: 'Thema'
     }
   },
+  // Building blocks
   {
     path: '/bouwblokken/nieuw',
     name: 'BuildingBlockCreate',
     component: BuildingBlockForm,
     meta: {
       title: 'Nieuwe bouwblok'
+    }
+  },
+  {
+    path: '/bouwblokken/:buildingBlockId/edit',
+    name: 'BuildingBlockEdit',
+    component: BuildingBlockForm,
+    meta: {
+      title: 'Bouwblok'
+    }
+  },
+  {
+    path: '/bouwblokken',
+    name: 'BuildingBlockOverview',
+    component: BuildingBlockOverview,
+    meta: {
+      title: 'Bouwblokken'
     }
   }
 ]
