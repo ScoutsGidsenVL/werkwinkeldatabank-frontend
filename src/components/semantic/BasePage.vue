@@ -1,10 +1,6 @@
 <template>
-<div class="container">
-    <div
-      class="row"
-    >
-      <slot />
-    </div>
+<div class="container bg-white pt-4 pb-5 px-5">
+  <slot />
 </div>
 </template>
 
@@ -15,5 +11,4 @@ export default defineComponent({
   name: 'base-page'
 })
 </script>
-
 

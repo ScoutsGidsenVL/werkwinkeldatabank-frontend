@@ -40,11 +40,6 @@
         />
       </b-col>
     </b-row>
-    <b-row>
-      <b-col cols="12" class="text-left mt-4" >
-        <b-button type="submit" variant="primary">Opslaan</b-button>
-      </b-col>
-    </b-row>
   </template>
 </base-form>
 </template>

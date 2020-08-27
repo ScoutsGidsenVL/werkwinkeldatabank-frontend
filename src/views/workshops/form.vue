@@ -8,7 +8,8 @@
 >
   <template v-slot:default="{ formData }">
     <b-row>
-      <b-col cols="12" md="8">
+      <sub-title label='Algemene info' />
+      <b-col cols="12" md="10" class="mb-3">
         <text-input
           v-model="formData.title"
           label="Titel"
@@ -16,14 +17,14 @@
           :type="inputTypes.text"
         />
       </b-col>
-      <b-col cols="12" md="8">
+      <b-col cols="12" md="3">
         <time-input
           label='Tijdsduur'
           id="duration"
           v-model="formData.duration"
         />
       </b-col>
-      <b-col cols="12" md="8">
+      <b-col cols="12"  md="7">
         <select-input
           v-model='formData.theme'
           label='Thema'
@@ -32,7 +33,7 @@
           :multiple='false'
         />
       </b-col>
-      <b-col cols="12" md="8">
+      <b-col cols="12" md="10">
         <ck-editor
           v-model="formData.necessities"
           label="Benodigdheden"
@@ -40,7 +41,7 @@
           :big="false"
         />
       </b-col>
-      <b-col cols="12">
+      <b-col cols="12" md="10">
         <ck-editor
           v-model="formData.description"
           label="Omschrijving"
@@ -48,12 +49,8 @@
           :big="false"
         />
       </b-col>
+      <sub-title label='Bouwstenen' />
       <building-block-input v-model='formData.buildingBlocks' />
-    </b-row>
-    <b-row>
-      <b-col cols="12" class="text-left mt-4" >
-        <b-button type="submit" variant="primary">Opslaan</b-button>
-      </b-col>
     </b-row>
   </template>
 </base-form>
@@ -70,6 +67,7 @@ import ThemeRepository from '../../repositories/themeRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'
 import WorkshopRepository from '../../repositories/workshopRepository'
+import subTitle from '../../components/semantic/subTitle.vue'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -79,7 +77,8 @@ export default defineComponent({
     ckEditor,
     BaseForm,
     TimeInput,
-    BuildingBlockInput
+    BuildingBlockInput,
+    subTitle
   },
   setup ({ value }, { emit }) {
     const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({

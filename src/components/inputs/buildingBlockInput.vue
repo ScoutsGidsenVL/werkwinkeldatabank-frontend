@@ -1,13 +1,21 @@
 <template>
-<div>
-     <b-col cols="12" class="text-left py-3">
-        <h2>Bouwstenen</h2>
-      </b-col>
-      <b-col
-       cols="12"
-       v-for="block in buildingBlocks"
-       :key='block.id'
-      >
+<b-col cols="12">
+  <b-row>
+    <b-col
+      cols="12"
+      v-for="(block, index) in buildingBlocks"
+      :key='block.id'
+    >
+      <div class="border p-4 my-4">
+        <div class="w-100 text-right">
+          <b-button
+            size="sm"
+            @click="deleteBlock(index)"
+            variant="outline-danger"
+            class="mb-2 p-1 border-0">
+              <b-icon icon="trash" aria-label="Help" class="mx-1"></b-icon>
+          </b-button>
+        </div>
         <text-input
           v-model="block.title"
           label="Titel"
@@ -20,32 +28,34 @@
           id="description"
           :big="false"
         />
-      </b-col>
-      <b-col cols="12">
-        <b-button
-         v-b-modal.modal-1
-         size="lg"
-         variant="primary"
-         class="mb-2">
-            <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
-        </b-button>
-      </b-col>
-      <b-modal id="modal-1" size="xl" title="Slecteer bouwsteen" v-model="showModal">
-        <select-building-block v-model='selectedBlock' />
-        <template v-slot:modal-footer>
-            <b-button size="sm" variant="danger" @click="hideModel">
-                Cancel
-            </b-button>
-            <b-button
-              v-show="selectedBlock"
-              size="sm"
-              variant="success"
-              @click="addBlock()">
-                Selecteer
-            </b-button>
-        </template>
+      </div>
+    </b-col>
+    <b-col cols="12">
+      <b-button
+        v-b-modal.modal-1
+        size="lg"
+        variant="secondary"
+        class="mb-2 p-4">
+          <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
+      </b-button>
+    </b-col>
+    <b-modal id="modal-1" size="xl" title="Slecteer bouwsteen" v-model="showModal">
+      <select-building-block v-model='selectedBlock' />
+      <template v-slot:modal-footer>
+          <b-button size="sm" variant="danger" @click="hideModel">
+              Cancel
+          </b-button>
+          <b-button
+            v-show="selectedBlock"
+            size="sm"
+            variant="success"
+            @click="addBlock()">
+              Selecteer
+          </b-button>
+      </template>
     </b-modal>
-</div>
+  </b-row>
+</b-col>
 </template>
 
 <script lang="ts">
@@ -63,12 +73,13 @@ export default defineComponent({
     ckEditor
   },
   setup (props, { emit }) {
-    const buildingBlocks = reactive<BuildingBlocksEntityModel[]>([])
+    let buildingBlocks = reactive<BuildingBlocksEntityModel[]>([])
     const selectedBlock = ref<BuildingBlocksEntityModel | undefined>()
     const showModal = ref<boolean>(false)
 
     const addBlock = () => {
       selectedBlock.value && buildingBlocks.push(selectedBlock.value)
+      selectedBlock.value = undefined
       emit('input', buildingBlocks)
       hideModel()
     }
@@ -79,13 +90,18 @@ export default defineComponent({
       emit('input', buildingBlocks)
     })
 
+    const deleteBlock = (indexToDelete: number) => {
+      buildingBlocks.splice(indexToDelete, 1)
+    }
+
     return {
       addBlock,
       buildingBlocks,
       selectedBlock,
       hideModel,
       showModal,
-      inputTypes
+      inputTypes,
+      deleteBlock
     }
   }
 })

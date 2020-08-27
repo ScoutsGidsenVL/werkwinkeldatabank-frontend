@@ -2,7 +2,7 @@
   <div id="app" class="position-relative">
     <global-loader />
     <custom-header />
-    <main>
+    <main class="bg-light py-4 px-2">
       <base-page><router-view></router-view></base-page>
     </main>
     <custom-footer />
@@ -34,6 +34,9 @@ export default Vue.extend({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#app>main{
+  min-height: 100vh;
 }
 </style>

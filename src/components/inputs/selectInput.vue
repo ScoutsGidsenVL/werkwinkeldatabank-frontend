@@ -3,7 +3,12 @@
     :rules="rules"
     v-slot="validationContext"
   >
-    <label class='text-left w-100' :for='id'>{{label}}</label>
+  <b-form-group
+        :id='id'
+        :label='label'
+        class="text-left"
+        label-for="title"
+      >
      <multi-select
         v-if='!loadingLocal'
         class="mb-4"
@@ -17,6 +22,7 @@
         :allow-empty="true"
         :multiple='multiple'
      />
+  </b-form-group>
   </validation-provider>
 </template>
 

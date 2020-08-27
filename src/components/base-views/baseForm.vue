@@ -2,6 +2,11 @@
 <validation-observer ref="observer" v-slot="{ handleSubmit }">
   <b-form  @submit.stop.prevent="handleSubmit(onSubmit)"  v-if="!loading">
       <slot v-bind:formData='form' />
+      <b-row class="my-3">
+        <b-col cols="12" class="text-left mt-4" >
+          <b-button type="submit" variant="dark" size="lg" class="px-5 py-2">Opslaan</b-button>
+        </b-col>
+      </b-row>
   </b-form>
 </validation-observer>
 </template>

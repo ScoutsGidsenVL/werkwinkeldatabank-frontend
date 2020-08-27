@@ -1,13 +1,12 @@
 <template>
-<header>
- <header>
+<header class="border border-top-0 border-left-0 border-right-0 mb-0 pt-5 ">
     <div class="container">
       <div class="row">
         <b-col cols="12" class="text-left">
               <h1>{{$route.meta.title}}</h1>
         </b-col>
-        <b-col cols="12" class="my-3">
-          <ul class="nav border border-top-0 border-left-0 border-right-0">
+        <b-col cols="12" class="mt-3">
+          <ul class="nav">
             <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'WerkwinkelOverview'}" >Werkwinkels</router-link>
             </li>
@@ -21,7 +20,6 @@
         </b-col>
       </div>
     </div>
-  </header>
 </header>
 </template>
 

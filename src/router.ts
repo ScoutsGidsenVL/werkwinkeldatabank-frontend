@@ -41,7 +41,7 @@ const routes: Array<RouteConfig> = [
     name: 'WerkwinkelEdit',
     component: WorkshoptForm,
     meta: {
-      title: 'Werkwinkel'
+      title: 'Werkwinkel bewerken'
     }
   },
   // Themes
