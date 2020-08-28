@@ -48,5 +48,5 @@ new StaticFileRepository().getFile('cfg/config.json').then((configFile: any) => 
     router,
     store,
     render: (h) => h(App)
-  }).$mount('#app')
+  }).$mount('#wwdb')
 })
