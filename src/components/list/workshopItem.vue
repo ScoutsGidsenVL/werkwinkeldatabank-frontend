@@ -1,6 +1,6 @@
 <template>
   <b-col cols="12" md='6' lg='4'>
-    <b-row class="py-4 shadow m-2">
+    <b-row class="py-4 m-2 border">
         <b-col cols="12" class="text-center">
             {{ workshop.title }}
         </b-col>

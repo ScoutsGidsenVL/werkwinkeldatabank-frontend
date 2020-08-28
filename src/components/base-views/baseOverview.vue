@@ -1,12 +1,7 @@
 <template>
 <b-col cols="12">
   <b-row>
-    <b-col v-if="createRoute" cols="12"  class="text-right">
-      <router-link :to="{name: createRoute}" >
-        + nieuwe {{label}} aanmaken
-      </router-link>
-    </b-col>
-    <b-col cols="12"  class="text-left">
+    <b-col cols="12" v-show='hideFilters' class="bg-white pt-4 px-4 pb-1 text-left">
       <b-row>
         <slot name='filters' v-bind:filters='callParams.filters'/>
          <b-col
@@ -18,7 +13,15 @@
         </b-col>
       </b-row>
     </b-col>
-    <b-col cols="12" class="text-left mt-3">
+    <b-col cols="12" class="bg-white text-left mt-3">
+        <b-col
+          v-if="createRoute"
+          cols="12"
+          class="text-right my-3 mb-3">
+          <router-link :to="{name: createRoute}" >
+            + nieuwe {{label}} aanmaken
+          </router-link>
+        </b-col>
         <slot
          v-if="results.length > 0"
          name='content'
@@ -68,6 +71,9 @@ export default defineComponent({
     createRoute: {
       type: String,
       required: false
+    },
+    hideFilters: {
+      type: Boolean
     }
   },
   setup ({ repo, filtersProp }) {

@@ -3,46 +3,42 @@
     :repo='BuildingBlocskRepository'
     :filtersProp='filters'
     label="bouwsteen"
+    :hideFilters="!selectedBlock"
  >
     <template #filters='{ filters }'>
-      <b-col cols="12" lg="4">
-        <text-input
-          v-model="filters.term.value"
-          label="Zoek"
-          :rules='{}'
-          id='title'
-          :type="inputTypes.text"
-        />
-      </b-col>
-      <b-col cols="12" lg='4'>
-        <select-input
-          label='Type'
-          id="type"
-          v-model="filters.type.value"
-          :options='types'
-          :multiple='false'
-        />
+      <b-col cols='8' >
+        <b-row>
+        <b-col cols="12" lg="6">
+          <text-input
+              v-model="filters.term.value"
+              label="Zoek"
+              :rules='{}'
+              id='title'
+              :type="inputTypes.text"
+            />
+          </b-col>
+          <b-col cols="12" lg='6'>
+            <select-input
+              label='Type'
+              id="type"
+              v-model="filters.type.value"
+              :options='types'
+              :multiple='false'
+            />
+          </b-col>
+        </b-row>
       </b-col>
     </template>
     <template #content='{ results }'>
-      <b-row
+      <BuildingBlockItem
         v-show="!selectedBlock"
         v-for="block in results"
-        class="border border-left-0 border-top-0 border-right-0 py-3"
+        :block='block'
         :key='block.id'>
-        <b-col
-          cols='10'
-        >
-            {{ block.title }}
-        </b-col>
-        <b-col
-          cols='2'
-          class="text-right">
-             <a href='' v-on:click.prevent="moreInfo(block.id)">
-                Meer info >
-             </a>
-        </b-col>
-      </b-row>
+        <a href='' v-on:click.prevent="moreInfo(block.id)">
+          Meer info >
+        </a>
+      </BuildingBlockItem>
       <b-row v-show="selectedBlock">
           <b-col cols="12">
               <a href='' v-on:click.prevent='goBack'>Back</a>
@@ -65,13 +61,15 @@ import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityMod
 import BaseEntityModel from '@/models/entities/baseEntityModel'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
+import BuildingBlockItem from '../list/buildingBlockItem.vue'
 
 export default defineComponent({
   name: 'select-building-block',
   components: {
     BaseOverview,
     TextInput,
-    SelectInput
+    SelectInput,
+    BuildingBlockItem
   },
   setup (props, { emit }) {
     const selectedBlock = ref<BaseEntityModel | undefined>()

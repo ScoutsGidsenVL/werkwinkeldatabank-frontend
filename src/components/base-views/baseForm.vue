@@ -1,6 +1,6 @@
 <template>
 <validation-observer ref="observer" v-slot="{ handleSubmit }">
-  <b-form  @submit.stop.prevent="handleSubmit(onSubmit)"  v-if="!loading">
+  <b-form class="bg-white pt-4 pb-5 px-5" @submit.stop.prevent="handleSubmit(onSubmit)"  v-if="!loading">
       <slot v-bind:formData='form' />
       <b-row class="my-3">
         <b-col cols="12" class="text-left mt-4" >
@@ -70,8 +70,6 @@ export default defineComponent({
           model: defaultValue
         }
       }
-
-      console.log(repoParams.model)
 
       const postRepo = useRepository(
         repo,

@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, watch } from '@vue/composition-api'
+import { defineComponent, reactive, ref, watch, PropType } from '@vue/composition-api'
 import selectBuildingBlock from './selectBuildingBlock.vue'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
@@ -72,23 +72,22 @@ export default defineComponent({
     TextInput,
     ckEditor
   },
-  setup (props, { emit }) {
-    let buildingBlocks = reactive<BuildingBlocksEntityModel[]>([])
+  props: {
+    value: Array as PropType<BuildingBlocksEntityModel[]>
+  },
+  setup ({ value }, { emit }) {
+    let buildingBlocks = reactive<BuildingBlocksEntityModel[]>(value || [])
     const selectedBlock = ref<BuildingBlocksEntityModel | undefined>()
     const showModal = ref<boolean>(false)
 
     const addBlock = () => {
-      selectedBlock.value && buildingBlocks.push(selectedBlock.value)
+      selectedBlock.value && buildingBlocks.push(BuildingBlocksEntityModel.createNewFromTemplate(selectedBlock.value))
       selectedBlock.value = undefined
       emit('input', buildingBlocks)
       hideModel()
     }
 
     const hideModel = () => { showModal.value = false }
-
-    watch(buildingBlocks, value => {
-      emit('input', buildingBlocks)
-    })
 
     const deleteBlock = (indexToDelete: number) => {
       buildingBlocks.splice(indexToDelete, 1)

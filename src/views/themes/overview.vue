@@ -7,7 +7,7 @@
     <template #content='{ results }'>
       <b-row
         v-for="theme in results"
-        class="border border-left-0 border-top-0 border-right-0 py-3"
+        class="border border-left-0 border-top-0 border-right-0 p-4"
         :key='theme.id'>
         <b-col
           cols='10'

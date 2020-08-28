@@ -26,23 +26,14 @@
       </b-col>
     </template>
     <template #content='{ results }'>
-      <b-row
+      <BuildingBlockItem
         v-for="block in results"
-        class="border border-left-0 border-top-0 border-right-0 py-3"
+        :block='block'
         :key='block.id'>
-        <b-col
-          cols='10'
-        >
-            {{ block.title }}
-        </b-col>
-        <b-col
-          cols='2'
-          class="text-right">
-             <router-link :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: block.id }}"  >
-                bewerken
-            </router-link>
-        </b-col>
-      </b-row>
+        <router-link :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: block.id }}"  >
+            bewerken
+        </router-link>
+      </BuildingBlockItem>
     </template>
   </base-overview>
 </template>
@@ -54,13 +45,15 @@ import BaseOverview from '../../components/base-views/baseOverview.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
+import BuildingBlockItem from '../../components/list/buildingBlockItem.vue'
 
 export default defineComponent({
   name: 'building-block-overview',
   components: {
     BaseOverview,
     SelectInput,
-    TextInput
+    TextInput,
+    BuildingBlockItem
   },
   setup () {
     const filters : any = {

@@ -78,7 +78,6 @@ export default abstract class BaseApiRepository {
   }
 
   private processError (error: any) : void {
-    console.log(error.response.data)
   }
 
 }

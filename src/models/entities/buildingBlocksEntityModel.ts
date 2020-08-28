@@ -13,7 +13,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public id?: string,
     public duration?: string,
     public description?: string,
-    public type?: BuildingBlocksTypes
+    public type?: BuildingBlocksTypes,
+    public template?: string
   ) {
     super(id, title)
   }
@@ -28,7 +29,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     )
   }
 
-  public serialize () {
+  public serialize () : Object {
     return {
       title: this.title,
       duration: this.duration,
@@ -37,10 +38,35 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     }
   }
 
+  public serialzeForWorkshop () : Object {
+    const returnArray: Object = {
+      title: this.title,
+      duration: this.duration,
+      description: this.description
+    }
+
+    if (this.id) {
+      returnArray['id'] = this.id
+    }
+
+    if (this.template) {
+      returnArray['template'] = this.template
+    }
+
+    return returnArray
+  }
+
   public static getTypesArray (): String[] {
     let returnArray : String[] = []
     Object.keys(BuildingBlocksTypes).forEach((key: any) => returnArray.push(BuildingBlocksTypes[key]))
     return returnArray
+  }
+
+  public static createNewFromTemplate (input: BuildingBlocksEntityModel) : BuildingBlocksEntityModel {
+    input.template = input.id
+    input.id = undefined
+
+    return input
   }
 
 }

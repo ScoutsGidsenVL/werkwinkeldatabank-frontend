@@ -18,6 +18,14 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
   }
 
   public static deserialize (input: any): WorkshopEntityModel {
+
+    const buildingBlockArray: BuildingBlocksEntityModel[] = []
+    if (input.building_blocks) {
+      input.building_blocks.forEach((block: any) => {
+        buildingBlockArray.push(BuildingBlocksEntityModel.deserialize(block))
+      })
+    }
+
     return new WorkshopEntityModel(
       input.title,
       input.id,
@@ -25,17 +33,24 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.description,
       input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
       input.necessities,
-      input.buildingBlocks ? input.buildingBlocks : []
+      buildingBlockArray
     )
   }
 
   public serialize () {
+    const buildingBlocks : Object[] = []
+
+    this.buildingBlocks && this.buildingBlocks.forEach((block: BuildingBlocksEntityModel) => {
+      buildingBlocks.push(block.serialzeForWorkshop())
+    })
+
     return {
       title: this.title,
       duration: this.duration,
       description: this.description,
       theme: this.theme ? this.theme.id : undefined,
-      necessities: this.necessities
+      necessities: this.necessities,
+      building_blocks: buildingBlocks
     }
   }
 

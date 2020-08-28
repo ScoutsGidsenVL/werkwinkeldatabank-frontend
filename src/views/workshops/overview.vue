@@ -27,7 +27,7 @@
       </b-col>
     </template>
     <template #content='{ results }'>
-      <b-row>
+      <b-row class="pb-5">
         <workshop-item
           v-for="workshop in results"
           :key='workshop.id'
