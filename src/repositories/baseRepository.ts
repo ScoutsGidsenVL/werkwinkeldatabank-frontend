@@ -34,7 +34,6 @@ export default abstract class BaseRepository extends BaseApiRepository {
   abstract id: string
   abstract endpoint : string
   abstract entityModel: any
-  abstract getFake (endpoint: string) : Promise<any>
   defaultPageSize: number = 12
 
   getModelArray (params: repoParams) : Promise<{result: BaseEntityModel[], params: repoParams}> {

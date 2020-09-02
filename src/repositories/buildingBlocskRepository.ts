@@ -7,7 +7,4 @@ export default class BuildingBlocksRepository extends BaseRepository {
     endpoint = '/building_block_templates/'
     entityModel = BuildingBlocksEntityModel
 
-    getFake (endpoint: string) {
-      return Promise.resolve([])
-    }
 }

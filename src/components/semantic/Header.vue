@@ -16,6 +16,9 @@
             <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'BuildingBlockOverview'}" >Bouwstenen</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{name: 'CategorieesOverview'}" >Categorieën</router-link>
+            </li>
           </ul>
         </b-col>
       </div>

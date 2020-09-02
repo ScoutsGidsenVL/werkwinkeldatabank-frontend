@@ -7,6 +7,8 @@ import ThemeForm from './views/themes/form.vue'
 import WorkshoptForm from './views/workshops/form.vue'
 import BuildingBlockForm from './views/building-blocks/form.vue'
 import BuildingBlockOverview from './views/building-blocks/overview.vue'
+import CategoryBlockForm from './views/categories/form.vue'
+import CategoryBlockOverview from './views/categories/overview.vue'
 
 Vue.use(VueRouter)
 
@@ -92,6 +94,31 @@ const routes: Array<RouteConfig> = [
     component: BuildingBlockOverview,
     meta: {
       title: 'Bouwblokken'
+    }
+  },
+  // Categories
+  {
+    path: '/categorieen/nieuw',
+    name: 'CategoryCreate',
+    component: CategoryBlockForm,
+    meta: {
+      title: 'Nieuwe categorie'
+    }
+  },
+  {
+    path: '/categorieen/:categoryId/edit',
+    name: 'CategoryEdit',
+    component: CategoryBlockForm,
+    meta: {
+      title: 'Categorie'
+    }
+  },
+  {
+    path: '/categorieen',
+    name: 'CategorieesOverview',
+    component: CategoryBlockOverview,
+    meta: {
+      title: 'Categorieën'
     }
   }
 ]
