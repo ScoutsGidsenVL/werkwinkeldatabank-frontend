@@ -3,7 +3,7 @@
     :repo='BuildingBlocskRepository'
     :filtersProp='filters'
     label="bouwsteen"
-    :showFilters="selectedBlock"
+    :showFilters="selectedBlock ? false : true"
  >
     <template #filters='{ filters }'>
       <b-col cols='8' >
@@ -39,12 +39,16 @@
           Meer info >
         </a>
       </BuildingBlockItem>
-      <b-row v-show="selectedBlock">
-          <b-col cols="12">
-              <a href='' v-on:click.prevent='goBack'>Back</a>
-          </b-col>
+      <b-row v-show="selectedBlock" class="p-3">
           <b-col cols="12" class="text-left">
               <h2>{{ selectedBlock  && selectedBlock.title }}</h2>
+          </b-col>
+          <b-col cols="12" class="text-left mb-3">
+              <b-badge pill variant="secondary" class="mt-2">{{ selectedBlock  && selectedBlock.type }}</b-badge>
+              <b-badge pill variant="light" class="px-2 mx-2">
+                <b-icon icon="clock" aria-label="Help" class="mx-2"></b-icon>
+                {{ selectedBlock  && selectedBlock.duration }}
+              </b-badge>
           </b-col>
           <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description"/>
       </b-row>
@@ -53,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, ref, PropType, watch } from '@vue/composition-api'
 import BuildingBlocskRepository from '../../repositories/buildingBlocskRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import useRepository, { callTypes } from '@/composables/useRepository'
@@ -71,13 +75,18 @@ export default defineComponent({
     SelectInput,
     BuildingBlockItem
   },
+  props: {
+    value: Object as PropType<BaseEntityModel>
+  },
   setup (props, { emit }) {
-    const selectedBlock = ref<BaseEntityModel | undefined>()
+    const selectedBlock = ref<BaseEntityModel | undefined>(props.value)
     const filters : any = {
       type: { type: 'string', value: undefined },
       term: { type: 'string', value: undefined }
     }
     const types : String[] = BuildingBlocksEntityModel.getTypesArray()
+
+    watch(() => props.value, () => { selectedBlock.value = props.value })
 
 
     const moreInfo = async (id: string) => {

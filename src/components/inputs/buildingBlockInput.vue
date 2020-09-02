@@ -39,15 +39,31 @@
           <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
       </b-button>
     </b-col>
-    <b-modal id="modal-1" size="xl" title="Slecteer bouwsteen" v-model="showModal">
+    <b-modal id="modal-1" size="xl" title="Slecteer bouwsteen" v-model="showModal" >
       <select-building-block v-model='selectedBlock' />
       <template v-slot:modal-footer>
-          <b-button size="sm" variant="danger" @click="hideModel">
-              Cancel
+        <b-button
+            v-show='selectedBlock ? false : true'
+            variant="outline-dark"
+            size="md"
+            class="px-5 py-2"
+            @click="hideModel"
+          >
+              Sluit
+          </b-button>
+          <b-button
+            v-show='selectedBlock ? true : false'
+            variant="outline-dark"
+            size="md"
+            class="px-5 py-2"
+            @click="goBack"
+          >
+              Terug
           </b-button>
           <b-button
             v-show="selectedBlock"
-            size="sm"
+            size="md"
+            class="px-5 py-2"
             variant="success"
             @click="addBlock()">
               Selecteer
@@ -93,6 +109,9 @@ export default defineComponent({
       buildingBlocks.splice(indexToDelete, 1)
     }
 
+    const goBack = () => { selectedBlock.value = undefined }
+
+
     return {
       addBlock,
       buildingBlocks,
@@ -100,8 +119,16 @@ export default defineComponent({
       hideModel,
       showModal,
       inputTypes,
-      deleteBlock
+      deleteBlock,
+      goBack
     }
   }
 })
 </script>
+
+<style lang='scss' scoped>
+  ::v-deep .modal-body{
+    background-color: #f8f9fa;
+    min-height: 30rem;
+  }
+</style>
