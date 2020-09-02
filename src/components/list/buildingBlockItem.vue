@@ -6,7 +6,7 @@
         cols='12'
     >
         <strong class="d-inline-block">{{ block.title }}</strong>
-        <p>omschrijving blablablabbla</p>
+        <div v-html='block.shortDescription' />
     </b-col>
     <b-col
         cols="10"

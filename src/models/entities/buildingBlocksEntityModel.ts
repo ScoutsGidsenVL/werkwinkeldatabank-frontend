@@ -1,5 +1,6 @@
 import BaseEntityModel from './baseEntityModel'
 import EntityModel from '@/interfaces/entityModel'
+import CategoryModel from './categoryEntityModel'
 
 export enum BuildingBlocksTypes {
   THEMATIC = 'THEMATIC',
@@ -13,7 +14,9 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public id?: string,
     public duration?: string,
     public description?: string,
+    public shortDescription?: string,
     public type?: BuildingBlocksTypes,
+    public category?: CategoryModel,
     public template?: string
   ) {
     super(id, title)
@@ -25,7 +28,9 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.id,
       input.duration,
       input.description,
-      input.type.id
+      input.short_description,
+      input.type.id,
+      input.category ? CategoryModel.deserialize(input.category) : undefined
     )
   }
 
@@ -34,7 +39,9 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       title: this.title,
       duration: this.duration,
       description: this.description,
-      type: this.type
+      short_description: this.shortDescription,
+      type: this.type,
+      category: this.category?.id
     }
   }
 
@@ -42,7 +49,9 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     const returnArray: Object = {
       title: this.title,
       duration: this.duration,
-      description: this.description
+      description: this.description,
+      category: this.category?.id,
+      short_description: this.shortDescription
     }
 
     if (this.id) {

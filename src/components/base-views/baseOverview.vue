@@ -1,7 +1,7 @@
 <template>
 <b-col cols="12">
   <b-row>
-    <b-col cols="12" v-show='hideFilters' class="bg-white pt-4 px-4 pb-1 text-left">
+    <b-col cols="12" v-show='showFilters' class="bg-white pt-4 px-4 pb-1 text-left">
       <b-row>
         <slot name='filters' v-bind:filters='callParams.filters'/>
          <b-col
@@ -72,8 +72,9 @@ export default defineComponent({
       type: String,
       required: false
     },
-    hideFilters: {
-      type: Boolean
+    showFilters: {
+      type: Boolean,
+      default: true
     }
   },
   setup ({ repo, filtersProp }) {

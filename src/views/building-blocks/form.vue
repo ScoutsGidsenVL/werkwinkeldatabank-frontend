@@ -23,6 +23,15 @@
           v-model="formData.duration"
         />
       </b-col>
+      <b-col cols="12"  md="8">
+        <select-input
+          v-model='formData.category'
+          label='Categorie'
+          id="category"
+          :repo='CategoryRepository'
+          :multiple='false'
+        />
+      </b-col>
       <b-col cols="12" md="8">
         <select-input
           label='Type'
@@ -30,6 +39,14 @@
           v-model="formData.type"
           :options='types'
           :multiple='false'
+        />
+      </b-col>
+      <b-col cols="12">
+        <ck-editor
+          v-model="formData.shortDescription"
+          label="Korte omschrijving"
+          id="shortDescription"
+          :big='false'
         />
       </b-col>
       <b-col cols="12">
@@ -53,6 +70,7 @@ import BuildingBlocskRepository from '../../repositories/buildingBlocskRepositor
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'
+import CategoryRepository from '../../repositories/categoriesRepository'
 
 export default defineComponent({
   name: 'building-blocks-form',
@@ -69,6 +87,7 @@ export default defineComponent({
       id: null,
       duration: '1:30:00',
       description: null,
+      category: null,
       type: BuildingBlocksTypes.THEMATIC
     }))
     const types : String[] = BuildingBlocksEntityModel.getTypesArray()
@@ -79,6 +98,7 @@ export default defineComponent({
       BuildingBlocksEntityModel,
       BuildingBlocskRepository,
       BuildingBlocksTypes,
+      CategoryRepository,
       form,
       types
     }

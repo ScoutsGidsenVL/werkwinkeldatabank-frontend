@@ -3,7 +3,7 @@
     :repo='BuildingBlocskRepository'
     :filtersProp='filters'
     label="bouwsteen"
-    :hideFilters="!selectedBlock"
+    :showFilters="selectedBlock"
  >
     <template #filters='{ filters }'>
       <b-col cols='8' >

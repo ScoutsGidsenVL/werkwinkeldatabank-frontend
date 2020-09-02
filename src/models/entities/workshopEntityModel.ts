@@ -50,7 +50,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       description: this.description,
       theme: this.theme ? this.theme.id : undefined,
       necessities: this.necessities,
-      building_blocks: buildingBlocks
+      building_blocks: buildingBlocks,
+      is_sensitive: 'false'
     }
   }
 

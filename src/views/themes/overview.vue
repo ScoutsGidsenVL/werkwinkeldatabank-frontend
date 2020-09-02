@@ -1,9 +1,21 @@
 <template>
 <base-overview
     :repo='ThemeRepository'
+    :filtersProp='filters'
     label="thema"
     createRoute="ThemeCreate"
   >
+   <template #filters='{ filters }'>
+      <b-col cols="12" lg="4">
+        <text-input
+          v-model="filters.term.value"
+          label="Zoek"
+          :rules='{}'
+          id='title'
+          :type="inputTypes.text"
+        />
+      </b-col>
+    </template>
     <template #content='{ results }'>
       <b-row
         v-for="theme in results"
@@ -30,15 +42,23 @@
 import { defineComponent } from '@vue/composition-api'
 import ThemeRepository from '../../repositories/themeRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
+import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 
 export default defineComponent({
   name: 'themes-overview',
   components: {
-    BaseOverview
+    BaseOverview,
+    TextInput
   },
   setup () {
+    const filters : any = {
+      term: { type: 'string', value: undefined }
+    }
+
     return {
-      ThemeRepository
+      ThemeRepository,
+      filters,
+      inputTypes
     }
   }
 })
