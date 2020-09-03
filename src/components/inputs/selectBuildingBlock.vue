@@ -1,56 +1,57 @@
 <template>
-<base-overview
-    :repo='BuildingBlocskRepository'
-    :filtersProp='filters'
+  <base-overview
+    :repo="BuildingBlocskRepository"
+    :filtersProp="filters"
     label="bouwsteen"
     :showFilters="selectedBlock ? false : true"
- >
-    <template #filters='{ filters }'>
-      <b-col cols='8' >
+  >
+    <template #filters="{ filters }">
+      <b-col cols="8">
         <b-row>
-        <b-col cols="12" lg="6">
-          <text-input
+          <b-col cols="12" lg="6">
+            <text-input
               v-model="filters.term.value"
               label="Zoek"
-              :rules='{}'
-              id='title'
+              :rules="{}"
+              id="title"
               :type="inputTypes.text"
             />
           </b-col>
-          <b-col cols="12" lg='6'>
+          <b-col cols="12" lg="6">
             <select-input
-              label='Type'
+              label="Type"
               id="type"
               v-model="filters.type.value"
-              :options='types'
-              :multiple='false'
+              :options="types"
+              :multiple="false"
             />
           </b-col>
         </b-row>
       </b-col>
     </template>
-    <template #content='{ results }'>
+    <template #content="{ results }">
       <building-block-item
         v-show="!selectedBlock"
         v-for="block in results"
-        :block='block'
-        :key='block.id'>
-        <a href='' v-on:click.prevent="moreInfo(block.id)">
-          Meer info >
-        </a>
+        :block="block"
+        :key="block.id"
+      >
+        <a href v-on:click.prevent="moreInfo(block.id)">Meer info ></a>
       </building-block-item>
       <b-row v-show="selectedBlock" class="p-3">
-          <b-col cols="12" class="text-left">
-              <h2>{{ selectedBlock  && selectedBlock.title }}</h2>
-          </b-col>
-          <b-col cols="12" class="text-left mb-3">
-              <b-badge pill variant="light" class="mt-2 mr-2">{{ selectedBlock  && selectedBlock.category.title }}</b-badge>
-              <b-badge pill variant="secondary" class="mt-2">{{ selectedBlock  && selectedBlock.type }}</b-badge>
-              <time-badge>
-                {{ selectedBlock  && selectedBlock.duration }}
-              </time-badge>
-          </b-col>
-          <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description"/>
+        <b-col cols="12" class="text-left">
+          <h2>{{ selectedBlock && selectedBlock.title }}</h2>
+        </b-col>
+        <b-col cols="12" class="text-left mb-3">
+          <b-badge
+            pill
+            variant="light"
+            class="mt-2 mr-2"
+          >{{ selectedBlock && selectedBlock.category.title }}</b-badge>
+          <b-badge pill variant="secondary" class="mt-2">{{ selectedBlock && selectedBlock.type }}</b-badge>
+          <time-badge>{{ selectedBlock && selectedBlock.duration }}</time-badge>
+        </b-col>
+        <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description" />
       </b-row>
     </template>
   </base-overview>
@@ -66,7 +67,7 @@ import BaseEntityModel from '@/models/entities/baseEntityModel'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import BuildingBlockItem from '../list/buildingBlockItem.vue'
-import TimeBadge from '../semantic/timeBadge'
+import TimeBadge from '../semantic/timeBadge.vue'
 
 export default defineComponent({
   name: 'select-building-block',
@@ -82,20 +83,26 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const selectedBlock = ref<BaseEntityModel | undefined>(props.value)
-    const filters : any = {
+    const filters: any = {
       type: { type: 'string', value: undefined },
       term: { type: 'string', value: undefined }
     }
-    const types : String[] = BuildingBlocksEntityModel.getTypesArray()
+    const types: String[] = BuildingBlocksEntityModel.getTypesArray()
 
-    watch(() => props.value, () => { selectedBlock.value = props.value })
-
+    watch(
+      () => props.value,
+      () => {
+        selectedBlock.value = props.value
+      }
+    )
 
     const moreInfo = async (id: string) => {
       const { loading, doCall, result } = useRepository(
         BuildingBlocskRepository,
         callTypes.getSingel,
-        { id: id }
+        {
+          id: id
+        }
       )
 
       await doCall()
@@ -103,7 +110,9 @@ export default defineComponent({
       emit('input', selectedBlock.value)
     }
 
-    const goBack = () => { selectedBlock.value = undefined }
+    const goBack = () => {
+      selectedBlock.value = undefined
+    }
 
     return {
       BuildingBlocskRepository,
