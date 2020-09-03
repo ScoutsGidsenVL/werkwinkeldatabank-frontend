@@ -30,7 +30,7 @@
       </b-col>
     </template>
     <template #content='{ results }'>
-      <BuildingBlockItem
+      <building-block-item
         v-show="!selectedBlock"
         v-for="block in results"
         :block='block'
@@ -38,17 +38,17 @@
         <a href='' v-on:click.prevent="moreInfo(block.id)">
           Meer info >
         </a>
-      </BuildingBlockItem>
+      </building-block-item>
       <b-row v-show="selectedBlock" class="p-3">
           <b-col cols="12" class="text-left">
               <h2>{{ selectedBlock  && selectedBlock.title }}</h2>
           </b-col>
           <b-col cols="12" class="text-left mb-3">
+              <b-badge pill variant="light" class="mt-2 mr-2">{{ selectedBlock  && selectedBlock.category.title }}</b-badge>
               <b-badge pill variant="secondary" class="mt-2">{{ selectedBlock  && selectedBlock.type }}</b-badge>
-              <b-badge pill variant="light" class="px-2 mx-2">
-                <b-icon icon="clock" aria-label="Help" class="mx-2"></b-icon>
+              <time-badge>
                 {{ selectedBlock  && selectedBlock.duration }}
-              </b-badge>
+              </time-badge>
           </b-col>
           <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description"/>
       </b-row>
@@ -66,6 +66,7 @@ import BaseEntityModel from '@/models/entities/baseEntityModel'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import BuildingBlockItem from '../list/buildingBlockItem.vue'
+import TimeBadge from '../semantic/timeBadge'
 
 export default defineComponent({
   name: 'select-building-block',
@@ -73,7 +74,8 @@ export default defineComponent({
     BaseOverview,
     TextInput,
     SelectInput,
-    BuildingBlockItem
+    BuildingBlockItem,
+    TimeBadge
   },
   props: {
     value: Object as PropType<BaseEntityModel>

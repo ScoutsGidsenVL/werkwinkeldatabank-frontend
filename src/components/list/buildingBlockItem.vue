@@ -11,10 +11,9 @@
     <b-col
         cols="10"
     >
+        <b-badge pill variant="light" class="mt-2 mr-2">{{ block.category.title }}</b-badge>
         <b-badge pill variant="secondary" class="mt-2">{{ block.type }}</b-badge>
-        <b-badge pill variant="light" class="px-2 mx-2">
-        <b-icon icon="clock" aria-label="Help" class="mx-2"></b-icon>{{ block.duration }}
-        </b-badge>
+        <time-badge>{{ block.duration }}</time-badge>
     </b-col>
     <b-col
         cols='2'
@@ -27,13 +26,18 @@
 <script lang='ts'>
 import { defineComponent, PropType } from '@vue/composition-api'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
+import TimeBadge from '../../components/semantic/timeBadge.vue'
 
 export default defineComponent({
+  name: 'building-block-item',
   props: {
     block: {
       type: Object as PropType<BuildingBlocksEntityModel>,
       required: true
     }
+  },
+  components: {
+    TimeBadge
   }
 })
 </script>

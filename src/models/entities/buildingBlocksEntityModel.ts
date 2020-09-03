@@ -49,9 +49,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     const returnArray: Object = {
       title: this.title,
       duration: this.duration,
-      description: this.description,
-      category: this.category?.id,
-      short_description: this.shortDescription
+      description: this.description
     }
 
     if (this.id) {

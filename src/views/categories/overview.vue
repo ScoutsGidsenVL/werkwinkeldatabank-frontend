@@ -2,6 +2,7 @@
 <base-overview
     :repo='CategoriesRepository'
     label="categorie"
+    :showFilters="false"
     createRoute="CategoryCreate"
   >
     <template #content='{ results }'>

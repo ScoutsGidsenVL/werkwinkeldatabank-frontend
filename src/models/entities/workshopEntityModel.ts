@@ -12,6 +12,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public description?: string,
     public theme?: ThemeEntityModel,
     public necessities?: string,
+    public isSensitive?: boolean,
     public buildingBlocks?: BuildingBlocksEntityModel[]
   ) {
     super(id, title)
@@ -33,6 +34,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.description,
       input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
       input.necessities,
+      input.is_sensitive,
       buildingBlockArray
     )
   }
@@ -51,7 +53,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       theme: this.theme ? this.theme.id : undefined,
       necessities: this.necessities,
       building_blocks: buildingBlocks,
-      is_sensitive: 'false'
+      is_sensitive: this.isSensitive
     }
   }
 

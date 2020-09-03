@@ -26,14 +26,14 @@
       </b-col>
     </template>
     <template #content='{ results }'>
-      <BuildingBlockItem
+      <building-block-item
         v-for="block in results"
         :block='block'
         :key='block.id'>
         <router-link :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: block.id }}"  >
             bewerken
         </router-link>
-      </BuildingBlockItem>
+      </building-block-item>
     </template>
   </base-overview>
 </template>
