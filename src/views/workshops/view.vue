@@ -7,7 +7,7 @@
             :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
             variant="outline-dark">
              <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
-             edit
+             bewerken
           </b-button>
         </b-col>
         <b-col cols="12" class="text-left my-3">

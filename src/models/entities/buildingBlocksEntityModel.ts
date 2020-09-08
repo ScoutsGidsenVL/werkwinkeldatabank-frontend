@@ -1,6 +1,7 @@
 import BaseEntityModel from './baseEntityModel'
 import EntityModel from '@/interfaces/entityModel'
 import CategoryModel from './categoryEntityModel'
+import ThemeEntityModel from './themeEntityModel'
 
 export enum BuildingBlocksTypes {
   THEMATIC = 'THEMATIC',
@@ -17,6 +18,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public shortDescription?: string,
     public type?: BuildingBlocksTypes,
     public category?: CategoryModel,
+    public theme?: ThemeEntityModel,
     public template?: string
   ) {
     super(id, title)
@@ -30,7 +32,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.description,
       input.short_description,
       input.type.id,
-      input.category ? CategoryModel.deserialize(input.category) : undefined
+      input.category ? CategoryModel.deserialize(input.category) : undefined,
+      input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined
     )
   }
 
@@ -41,7 +44,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       description: this.description,
       short_description: this.shortDescription,
       type: this.type,
-      category: this.category?.id
+      category: this.category?.id,
+      theme: this.theme?.id
     }
   }
 

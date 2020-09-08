@@ -39,7 +39,7 @@
           <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
       </b-button>
     </b-col>
-    <b-modal id="modal-1" size="xl" title="Slecteer bouwsteen" v-model="showModal" >
+    <b-modal id="modal-1" size="xl" title="Selecteer bouwsteen" v-model="showModal" >
       <select-building-block v-model='selectedBlock' />
       <template v-slot:modal-footer>
         <b-button

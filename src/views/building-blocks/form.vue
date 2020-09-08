@@ -32,6 +32,15 @@
           :multiple='false'
         />
       </b-col>
+      <b-col cols="12"  md="8">
+        <select-input
+          v-model='formData.theme'
+          label='Thema'
+          id="theme"
+          :repo='ThemeRepository'
+          :multiple='false'
+        />
+      </b-col>
       <b-col cols="12" md="8">
         <select-input
           label='Type'
@@ -71,6 +80,7 @@ import ckEditor from '../../components/inputs/ckEditor.vue'
 import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'
 import CategoryRepository from '../../repositories/categoriesRepository'
+import ThemeRepository from '../../repositories/themeRepository'
 
 export default defineComponent({
   name: 'building-blocks-form',
@@ -88,6 +98,7 @@ export default defineComponent({
       duration: '1:30:00',
       description: null,
       category: null,
+      theme: null,
       type: BuildingBlocksTypes.THEMATIC
     }))
     const types : String[] = BuildingBlocksEntityModel.getTypesArray()
@@ -99,6 +110,7 @@ export default defineComponent({
       BuildingBlocskRepository,
       BuildingBlocksTypes,
       CategoryRepository,
+      ThemeRepository,
       form,
       types
     }

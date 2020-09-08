@@ -10,12 +10,9 @@
         class="text-left"
         label-for="title"
       >
-        <b-time
-         :id='id'
+      <b-form-timepicker
+        :id='id'
          v-model='input'
-         locale="en"
-         :hour12='false'
-         hourCycle="h24"
          :state=' Object.keys(rules).length === 0 ? null : getValidationState(validationContext)'
       />
       </b-form-group>
