@@ -3,8 +3,7 @@ import { getModule } from 'vuex-module-decorators'
 import store from '../store/store'
 import configModule from '../store/configModule'
 import MasterConfig from '../models/config/masterConfig'
-
-// import { OpenIdConnectInterceptors } from 'inuits-vuejs-oidc'
+import { OpenIdConnectInterceptors } from 'inuits-vuejs-oidc'
 
 export default abstract class BaseApiRepository {
   private axiosInstance: AxiosInstance
@@ -17,17 +16,18 @@ export default abstract class BaseApiRepository {
     })
 
     // Add oidc interceptors
-    // if (config.oidc && config.oidc.baseUrl && config.oidc.clientId) {
-    //   this.axiosInstance.interceptors.request.use(
-    //     OpenIdConnectInterceptors.buildRequestTokenInterceptorCallback(store)
-    //   )
+    if (config.oidc && config.oidc.clientId) {
+      this.axiosInstance.interceptors.request.use(
+        // @ts-ignore
+        OpenIdConnectInterceptors.buildRequestTokenInterceptorCallback(store)
+      )
 
-    //   this.axiosInstance.interceptors.response.use(
-    //     function (response) { return response },
-    //     error => OpenIdConnectInterceptors.buildResponseErrorInterceptorCallback(error, store)
-    //   )
+      this.axiosInstance.interceptors.response.use(
+        function (response) { return response },
+        error => OpenIdConnectInterceptors.buildResponseErrorInterceptorCallback(error, store)
+      )
 
-    // }
+    }
   }
 
   protected get (endpoint: string, config: AxiosRequestConfig = {}): Promise<any> {

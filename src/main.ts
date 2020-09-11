@@ -6,6 +6,7 @@ import store from './store/store'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import { getModule } from 'vuex-module-decorators'
+import { OpenIdConnectPlugin } from 'inuits-vuejs-oidc'
 import {
   ValidationObserver,
   ValidationProvider,
@@ -40,6 +41,24 @@ Vue.config.productionTip = false
 // Load config
 new StaticFileRepository().getFile('cfg/config.json').then((configFile: any) => {
   configFile = new MasterConfig().deserialize(configFile)
+
+  if (configFile.oidc && configFile.oidc.baseUrl && configFile.oidc.clientId) {
+    Vue.use(OpenIdConnectPlugin, {
+      store: store,
+      router: router,
+      configuration: {
+        baseUrl: configFile.oidc.baseUrl,
+        serverBaseUrl: configFile.oidc.serverBaseUrl,
+        tokenEndpoint: configFile.oidc.tokenEndpoint ? configFile.oidc.tokenEndpoint : 'token',
+        authEndpoint: configFile.oidc.authEndpoint ? configFile.oidc.authEndpoint : 'auth',
+        logoutEndpoint: configFile.oidc.logoutEndpoint ? configFile.oidc.logoutEndpoint : 'logout',
+        clientId: configFile.oidc.clientId,
+        authorizedRedirectRoute: '/',
+        serverTokenEndpoint: 'token/',
+        serverRefreshEndpoint: 'token/'
+      }
+    })
+  }
 
   const configStoreModule = getModule(configModule, store)
   configStoreModule.setConfig(configFile)
