@@ -16,7 +16,6 @@
     "axios": "^0.19.2",
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
-    "inuits-vuejs-oidc": "^0.4.1",
     "vee-validate": "^3.3.7",
     "vue": "^2.6.11",
     "vue-multiselect": "^2.1.6",
