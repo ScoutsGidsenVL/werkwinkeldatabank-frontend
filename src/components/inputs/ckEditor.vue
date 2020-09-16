@@ -2,15 +2,19 @@
 <template>
      <validation-provider
         :rules="{ required: true, min: 3 }"
+        v-slot="validationContext"
     >
       <b-form-group
         :id='id'
         :label='label'
         class="text-left"
-        :class="{'ck-editor-big': big}"
+        :class="{'ck-editor-big': big, 'not-valid': getValidationState(validationContext) === false}"
         label-for="title"
       >
-        <ckeditor :editor="editor" v-model="input"></ckeditor>
+        <ckeditor
+        :editor="editor"
+        v-model="input"
+        :disabled="disabled"></ckeditor>
       </b-form-group>
     </validation-provider>
 </template>
@@ -26,6 +30,7 @@ export default defineComponent({
     value: String,
     label: String,
     id: String,
+    disabled: Boolean,
     big: {
       type: Boolean,
       default: true
@@ -55,5 +60,9 @@ min-height: 500px;
 
 ::v-deep .ck-editor__editable {
 min-height: 250px;
+}
+
+::v-deep .not-valid .ck-editor {
+  border: solid 1px red;
 }
 </style>

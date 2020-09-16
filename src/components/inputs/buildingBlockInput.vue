@@ -3,7 +3,7 @@
   <b-row>
     <b-col
       cols="12"
-      v-for="(block, index) in buildingBlocks"
+      v-for="(block, index) in buildingBlocksTest"
       :key='block.id'
     >
       <div class="border p-4 my-4">
@@ -16,18 +16,48 @@
               <b-icon icon="trash" aria-label="Help" class="mx-1"></b-icon>
           </b-button>
         </div>
+        <div class="w-100 text-left">
         <text-input
           v-model="block.title"
           label="Titel"
           id='title'
           :type="inputTypes.text"
+          :disabled='!block.editable'
         />
         <ck-editor
           v-model="block.description"
           label="Omschrijving"
           id="description"
           :big="false"
+          :disabled='!block.editable'
         />
+        </div>
+        <div class="d-flex w-100">
+          <b-button
+            @click="enableEditBlock(block)"
+            :disabled='block.editable'
+            size="sm"
+            variant="secondary"
+            class="mr-1">
+              <b-icon icon="pencil-square" aria-label="Help" class="mx-2 mt-1"></b-icon>bewerken
+          </b-button>
+          <b-button
+            @click="orderUp(block)"
+            :disabled='isFirstBlock(block.order)'
+            size="sm"
+            variant="secondary"
+            class="mr-1">
+              <b-icon icon="arrow-up" aria-label="Help" class="ml-2 mt-1"></b-icon>Order up
+          </b-button>
+          <b-button
+            @click="orderDown(block)"
+            :disabled='isLastBlock(block.order)'
+            size="sm"
+            variant="secondary"
+            class="">
+              <b-icon icon="arrow-down" aria-label="Help" class="ml-2 mt-1"></b-icon>Order down
+          </b-button>
+        </div>
       </div>
     </b-col>
     <b-col cols="12">
@@ -75,7 +105,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, watch, PropType } from '@vue/composition-api'
+import { defineComponent, reactive, ref, watch, PropType, computed } from '@vue/composition-api'
 import selectBuildingBlock from './selectBuildingBlock.vue'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
@@ -111,6 +141,49 @@ export default defineComponent({
 
     const goBack = () => { selectedBlock.value = undefined }
 
+    const enableEditBlock = (block: BuildingBlocksEntityModel) => { block.editable = true }
+
+    const compare = (a, b) => {
+      if (a.order < b.order) {
+        return -1
+      }
+      if (a.order > b.order) {
+        return 1
+      }
+      return 0
+    }
+
+    const buildingBlocksTest = computed<BuildingBlocksEntityModel[]>(() => {
+      buildingBlocks.sort(compare)
+
+      return buildingBlocks
+    })
+
+    const isLastBlock = (order: number) : Boolean => order === buildingBlocks.length - 1
+    const isFirstBlock = (order: number) : Boolean => order === 0
+
+    const orderDown = (block: BuildingBlocksEntityModel) => {
+      if (block.order && !isLastBlock(block.order)) {
+        const newOrder = block.order + 1
+        updateOrder(block, newOrder)
+      }
+    }
+    const orderUp = (block: BuildingBlocksEntityModel) => {
+      if (block.order && !isFirstBlock(block.order)) {
+        const newOrder = block.order - 1
+        updateOrder(block, newOrder)
+      }
+    }
+
+    const updateOrder = (block: BuildingBlocksEntityModel, newOrder: number) => {
+      const orgOrder = block.order
+      const blockUp = buildingBlocks.filter((filterBlock: BuildingBlocksEntityModel) => {
+        if (filterBlock.order === newOrder) {
+          filterBlock.order = orgOrder
+        }
+      })
+      block.order = newOrder
+    }
 
     return {
       addBlock,
@@ -120,7 +193,13 @@ export default defineComponent({
       showModal,
       inputTypes,
       deleteBlock,
-      goBack
+      goBack,
+      enableEditBlock,
+      buildingBlocksTest,
+      orderUp,
+      orderDown,
+      isFirstBlock,
+      isLastBlock
     }
   }
 })

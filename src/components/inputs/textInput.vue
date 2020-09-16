@@ -13,6 +13,7 @@
         <b-form-input
           :id='id'
           :type='type'
+          :disabled='disabled'
           v-model='input'
           :state=' Object.keys(rules).length === 0 ? null : getValidationState(validationContext)'
         />
@@ -36,6 +37,7 @@ export default defineComponent({
     label: String,
     type: String as PropType<inputTypes>,
     id: String,
+    disabled: Boolean,
     rules: {
       type: Object,
       default: () => { return { required: true, min: 3 } }

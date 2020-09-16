@@ -6,6 +6,7 @@ import BuildingBlocksEntityModel from './buildingBlocksEntityModel'
 export default class WorkshopEntityModel extends BaseEntityModel implements EntityModel<WorkshopEntityModel> {
 
   constructor (
+    public isMoving: boolean,
     public title?: string,
     public id?: string,
     public duration?: string,
@@ -19,15 +20,18 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
   }
 
   public static deserialize (input: any): WorkshopEntityModel {
-
+    let count = 0
     const buildingBlockArray: BuildingBlocksEntityModel[] = []
     if (input.building_blocks) {
       input.building_blocks.forEach((block: any) => {
+        block.order = count
+        count++
         buildingBlockArray.push(BuildingBlocksEntityModel.deserialize(block))
       })
     }
 
     return new WorkshopEntityModel(
+      false,
       input.title,
       input.id,
       input.duration,

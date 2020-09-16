@@ -77,8 +77,11 @@ export default defineComponent({
         repoParams
       )
       useGlobalLoading(postRepo.loading)
-      await postRepo.doCall()
-      router.push({ name: redirectRoute })
+
+      postRepo.doCall().then((success: Boolean) => {
+        success && router.push({ name: redirectRoute })
+      })
+
     }
 
     return {

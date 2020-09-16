@@ -12,7 +12,7 @@ export enum callTypes {
 
 export type useRepositoryType = {
   loading : Ref<Boolean>,
-  doCall: () => void,
+  doCall: () => Promise<Boolean>,
   loadMore: () => void,
   result: Ref<BaseEntityModel | undefined>
   results: Ref<BaseEntityModel[]>
@@ -32,29 +32,38 @@ export default function useRepository (
     params.page = 1
   }
 
-  async function doCall () {
+  async function doCall () : Promise<Boolean> {
     loading.value = true
+    try {
+      if (callType === callTypes.getModelArray) {
+        const repoResponse : {result: BaseEntityModel[], params: repoParams } = await activeRepo[callType](params)
+        results.value = repoResponse.result
+        params = repoResponse.params
+      } else {
+        const repoResponse : {result: BaseEntityModel, params: repoParams } = await activeRepo[callType](params)
+        result.value = repoResponse.result
+        params = repoResponse.params
+      }
 
-    if (callType === callTypes.getModelArray) {
-      const repoResponse : {result: BaseEntityModel[], params: repoParams } = await activeRepo[callType](params)
-      results.value = repoResponse.result
-      params = repoResponse.params
-    } else {
-      const repoResponse : {result: BaseEntityModel, params: repoParams } = await activeRepo[callType](params)
-      result.value = repoResponse.result
-      params = repoResponse.params
+      loading.value = false
+      return true
+    } catch (e) {
+      loading.value = false
+      return false
     }
-
-    loading.value = false
   }
 
   async function loadMore () {
-    if (callType === callTypes.getModelArray && !params.isMaxPage) {
-      loading.value = true
-      params.page && params.page++
-      const repoResponse : {result: BaseEntityModel[], params: repoParams } = await activeRepo[callType](params)
-      params = repoResponse.params
-      results.value = results.value.concat(repoResponse.result)
+    try {
+      if (callType === callTypes.getModelArray && !params.isMaxPage) {
+        loading.value = true
+        params.page && params.page++
+        const repoResponse : {result: BaseEntityModel[], params: repoParams } = await activeRepo[callType](params)
+        params = repoResponse.params
+        results.value = results.value.concat(repoResponse.result)
+        loading.value = false
+      }
+    } catch (e) {
       loading.value = false
     }
   }
