@@ -42,22 +42,31 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
   }
 
   public serialize () : Object {
+    let type : undefined | String
+    Object.keys(BuildingBlocksTypes).forEach((key: any) => {
+      if (BuildingBlocksTypes[key] === this.type) {
+        type = key
+      }
+    })
+
     return {
       title: this.title,
       duration: this.duration,
       description: this.description,
       short_description: this.shortDescription,
-      type: this.type && BuildingBlocksTypes[this.type],
+      type: type,
       category: this.category?.id,
       theme: this.theme?.id
     }
   }
 
   public serialzeForWorkshop () : Object {
+    console.log(this.order)
     const returnArray: Object = {
       title: this.title,
       duration: this.duration,
-      description: this.description
+      description: this.description,
+      order: this.order
     }
 
     if (this.id) {
@@ -77,9 +86,10 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     return returnArray
   }
 
-  public static createNewFromTemplate (input: BuildingBlocksEntityModel) : BuildingBlocksEntityModel {
+  public static createNewFromTemplate (input: BuildingBlocksEntityModel, order: number) : BuildingBlocksEntityModel {
     input.template = input.id
     input.id = undefined
+    input.order = order
 
     return input
   }

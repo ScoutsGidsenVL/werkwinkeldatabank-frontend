@@ -1,10 +1,16 @@
 <template>
-<validation-observer ref="observer" v-slot="{ handleSubmit }">
+<validation-observer ref="observer" v-slot="{ handleSubmit, validate }">
   <b-form class="bg-white pt-4 pb-5 px-5" @submit.stop.prevent="handleSubmit(onSubmit)"  v-if="!loading">
       <slot v-bind:formData='form' />
       <b-row class="my-3">
         <b-col cols="12" class="text-left mt-4" >
           <b-button type="submit" variant="dark" size="lg" class="px-5 py-2">Opslaan</b-button>
+          <slot
+            name='actions'
+            v-bind:handleSubmit='handleSubmit'
+            v-bind:onSubmit='onSubmit'
+            v-bind:validate='validate'
+            v-bind:formData='form' />
         </b-col>
       </b-row>
   </b-form>
@@ -79,7 +85,10 @@ export default defineComponent({
       useGlobalLoading(postRepo.loading)
 
       postRepo.doCall().then((success: Boolean) => {
-        success && router.push({ name: redirectRoute })
+        emit('submitSuccess', postRepo.result.value)
+        if (success && redirectRoute) {
+          router.push({ name: redirectRoute })
+        }
       })
 
     }

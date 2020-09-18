@@ -4,7 +4,8 @@
   :type='WorkshopEntityModel'
   :repo='WorkshopRepository'
   paramIdentifier='workshopId'
-  redirectRoute="WerkwinkelOverview"
+  redirectRoute="MijnWerkwinkelOverview"
+  v-on:submitSuccess='afterSubmit'
 >
   <template v-slot:default="{ formData }">
     <b-row>
@@ -61,11 +62,31 @@
       <building-block-input v-model='formData.buildingBlocks' />
     </b-row>
   </template>
+  <template #actions='{handleSubmit, onSubmit, validate, formData}'>
+    <b-button
+      v-if="formData.workshopStatus === 'PRIVATE'"
+      type="submit"
+      @click.prevent='saveAndPublish(handleSubmit,onSubmit, validate, transitionTypes.requestPublication)'
+      variant="light"
+      size="lg"
+      class="px-5 py-2 ml-2">
+      Opslaan en vraag publicatie
+      </b-button>
+    <b-button
+      v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED'"
+      type="submit"
+      @click.prevent='saveAndPublish(handleSubmit,onSubmit, validate, transitionTypes.publish)'
+      variant="light"
+      size="lg"
+      class="px-5 py-2 ml-2">
+      Opslaan en publiceer
+      </b-button>
+  </template>
 </base-form>
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent } from '@vue/composition-api'
+import { reactive, defineComponent, ref } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import TimeInput from '../../components/inputs/timeInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
@@ -74,8 +95,10 @@ import ckEditor from '../../components/inputs/ckEditor.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'
-import WorkshopRepository from '../../repositories/workshopRepository'
+import WorkshopRepository, { transitionTypes } from '../../repositories/workshopRepository'
 import subTitle from '../../components/semantic/subTitle.vue'
+import BaseEntityModel from '@/models/entities/baseEntityModel'
+import RepositoryFactory from '@/repositories/repositoryFactory'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -97,15 +120,36 @@ export default defineComponent({
       necessities: null,
       theme: null,
       is_sensitive: false,
-      buildingBlocks: []
+      buildingBlocks: [],
+      workshop_status_type: 'PRIVATE'
     }))
+    const publishWorkshop = ref<transitionTypes>(transitionTypes.noTransition)
+    const afterSubmit = (result: WorkshopEntityModel) => {
+      if (publishWorkshop.value !== transitionTypes.noTransition) {
+        RepositoryFactory.get(WorkshopRepository).transitionWorkshop(result, publishWorkshop.value)
+      }
+    }
+
+    const saveAndPublish = (handleSubmit, onSubmit, validate, transition : transitionTypes) => {
+      validate().then((valid: boolean) => {
+        if (valid) {
+          publishWorkshop.value = transition
+          handleSubmit(onSubmit)
+        } else {
+          publishWorkshop.value = transition
+        }
+      })
+    }
 
     return {
       inputTypes,
       form,
       WorkshopRepository,
       ThemeRepository,
-      WorkshopEntityModel
+      WorkshopEntityModel,
+      afterSubmit,
+      saveAndPublish,
+      transitionTypes
     }
   }
 })

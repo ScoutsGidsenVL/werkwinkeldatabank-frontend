@@ -1,9 +1,9 @@
 <template>
   <base-overview
     :filtersProp="{theme: { type: 'arrayEntity', value: undefined },term: { type: 'string', value: undefined }}"
-    :repo='WorkshopRepository'
+    :repo='workshopReposioryType'
     label="werkwinkel"
-    createRoute="WerkwinkelCreate"
+    :createRoute="createRoute"
   >
     <template #filters='{ filters }'>
       <b-col cols="12" lg="4">
@@ -32,6 +32,7 @@
           v-for="workshop in results"
           :key='workshop.id'
           :workshop='workshop'
+          :showStatus="showStatus"
         />
       </b-row>
     </template>
@@ -39,13 +40,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, PropType } from '@vue/composition-api'
 import WorkshopRepository from '../../repositories/workshopRepository'
 import WorkshopItem from '../../components/list/workshopItem.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
+
 
 export default defineComponent({
   name: 'workshop-overview',
@@ -55,17 +57,33 @@ export default defineComponent({
     SelectInput,
     TextInput
   },
-  setup () {
+  props: {
+    workshopReposioryType: {
+      type: Function as PropType<new (...params: any[]) => WorkshopRepository>,
+      required: true,
+      default: WorkshopRepository
+    },
+    showCreate: {
+      type: Boolean,
+      default: true
+    }
+  },
+  setup ({ showCreate }) {
     const filters : any = {
       theme: { type: 'arrayEntity', value: undefined },
       term: { type: 'string', value: undefined }
     }
 
+    const createRoute = showCreate ? 'WerkwinkelCreate' : ''
+    const showStatus = showCreate
+
+    console.log(createRoute)
     return {
       filters,
-      WorkshopRepository,
       ThemeRepository,
-      inputTypes
+      inputTypes,
+      createRoute,
+      showStatus
     }
   }
 })

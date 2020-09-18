@@ -3,7 +3,7 @@
     <global-loader />
     <custom-header />
     <main class="bg-light py-4 px-2">
-      <base-page><router-view></router-view></base-page>
+      <base-page><router-view :key="$route.path" /></base-page>
     </main>
     <custom-footer />
   </div>

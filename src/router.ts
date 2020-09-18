@@ -9,6 +9,8 @@ import BuildingBlockForm from './views/building-blocks/form.vue'
 import BuildingBlockOverview from './views/building-blocks/overview.vue'
 import CategoryBlockForm from './views/categories/form.vue'
 import CategoryBlockOverview from './views/categories/overview.vue'
+import PublishedWorkshopRepository from './repositories/publishedWorkshopRepository'
+import MyWorkshopRepository from './repositories/myWorkshopRepository'
 
 Vue.use(VueRouter)
 
@@ -18,8 +20,23 @@ const routes: Array<RouteConfig> = [
     path: '/werkwinkels',
     name: 'WerkwinkelOverview',
     component: WerkwinkelOverview,
+    props: {
+      workshopReposioryType: PublishedWorkshopRepository,
+      showCreate: false
+    },
     meta: {
       title: 'Werkwinkels'
+    }
+  },
+  {
+    path: '/mijn-werkwinkels',
+    name: 'MijnWerkwinkelOverview',
+    component: WerkwinkelOverview,
+    props: {
+      workshopReposioryType: MyWorkshopRepository
+    },
+    meta: {
+      title: 'Mijn werkwinkels'
     }
   },
   {

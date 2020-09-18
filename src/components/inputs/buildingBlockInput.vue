@@ -127,7 +127,8 @@ export default defineComponent({
     const showModal = ref<boolean>(false)
 
     const addBlock = () => {
-      selectedBlock.value && buildingBlocks.push(BuildingBlocksEntityModel.createNewFromTemplate(selectedBlock.value))
+      const order : number = buildingBlocks.length > 0 ? buildingBlocks.length + 1 : 0
+      selectedBlock.value && buildingBlocks.push(BuildingBlocksEntityModel.createNewFromTemplate(selectedBlock.value, order))
       selectedBlock.value = undefined
       emit('input', buildingBlocks)
       hideModel()

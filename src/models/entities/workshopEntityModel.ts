@@ -14,18 +14,18 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public theme?: ThemeEntityModel,
     public necessities?: string,
     public isSensitive?: boolean,
-    public buildingBlocks?: BuildingBlocksEntityModel[]
+    public buildingBlocks?: BuildingBlocksEntityModel[],
+    public workshopStatus?: string
   ) {
     super(id, title)
   }
 
   public static deserialize (input: any): WorkshopEntityModel {
-    let count = 0
     const buildingBlockArray: BuildingBlocksEntityModel[] = []
     if (input.building_blocks) {
       input.building_blocks.forEach((block: any) => {
-        block.order = count
-        count++
+        // block.order = count
+        // count++
         buildingBlockArray.push(BuildingBlocksEntityModel.deserialize(block))
       })
     }
@@ -39,7 +39,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
       input.necessities,
       input.is_sensitive,
-      buildingBlockArray
+      buildingBlockArray,
+      input.workshop_status_type
     )
   }
 
