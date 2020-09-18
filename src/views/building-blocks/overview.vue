@@ -61,8 +61,8 @@ import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityMod
 import BuildingBlockItem from '../../components/list/buildingBlockItem.vue'
 import ThemeRepository from '../../repositories/themeRepository'
 import CategoriesRepository from '../../repositories/categoriesRepository'
-import BlockTypeFilter from '../../components/filters/blockTypeFilter'
-import DurationFilter from '../../components/filters/durationFilter'
+import BlockTypeFilter from '../../components/filters/blockTypeFilter.vue'
+import DurationFilter from '../../components/filters/durationFilter.vue'
 
 export default defineComponent({
   name: 'building-block-overview',

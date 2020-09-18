@@ -55,28 +55,30 @@ export default defineComponent({
   components: {
     'multi-select': Multiselect
   },
-  setup ({ value, repo, options }, { emit }) {
-    const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(value)
+  setup (props, { emit }) {
+    const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(props.value)
     let loadingLocal : boolean | Ref<Boolean> = false
     let optionsValue = ref<Array<any>>([])
 
-    if (repo) {
+    if (props.repo) {
       // @ts-ignore userepo can't get a undifined value, but is checked on line 57
-      const { loading, results, doCall } = useRepository(repo)
+      const { loading, results, doCall } = useRepository(props.repo)
       optionsValue = results
       loadingLocal = loading
       doCall()
     }
 
-    if (options) {
-      optionsValue = options
+    if (props.options) {
+      optionsValue = props.options
     }
 
     watch(input, value => {
       emit('input', value)
     })
 
-    watch(() => value, () => { input.value = value })
+    watch(() => props.value, () => {
+      input.value = props.value
+    })
 
 
     return {

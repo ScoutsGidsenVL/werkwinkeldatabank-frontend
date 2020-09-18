@@ -107,7 +107,13 @@ export default defineComponent({
       doCall()
     })
 
-    const resetFilers = () => { callParams.filters = filters }
+    const resetFilers = () => {
+      callParams.filters && Object.keys(callParams.filters).forEach(filterKey => {
+        if (callParams.filters) {
+          callParams.filters[filterKey].value = undefined
+        }
+      })
+    }
 
     return {
       results,

@@ -19,7 +19,7 @@ export default class MasterConfig implements Serializable<MasterConfig> {
     // if (input.sentry) {
     //   this.sentry = new SentryConfig().deserialize(input.sentry)
     // }
-    console.log(this)
+
     return this
   }
 }

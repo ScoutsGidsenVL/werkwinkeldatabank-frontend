@@ -14,7 +14,7 @@
 <script lang='ts'>
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import { defineComponent, watch, ref } from '@vue/composition-api'
-import SelectInput from '../inputs/selectInput'
+import SelectInput from '../inputs/selectInput.vue'
 
 export default defineComponent({
   name: 'block-type-filter',
@@ -30,6 +30,12 @@ export default defineComponent({
 
     watch(input, value => {
       emit('input', value ? BuildingBlocksEntityModel.convertType(value) : undefined)
+    })
+
+    watch(() => props.value, () => {
+      if (!props.value) {
+        input.value = undefined
+      }
     })
 
     return {

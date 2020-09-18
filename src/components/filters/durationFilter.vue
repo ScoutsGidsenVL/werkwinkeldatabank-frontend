@@ -13,7 +13,7 @@
 
 <script lang='ts'>
 import { defineComponent, watch, ref } from '@vue/composition-api'
-import SelectInput from '../inputs/selectInput'
+import SelectInput from '../inputs/selectInput.vue'
 
 export default defineComponent({
   name: 'duratioon-filter',
@@ -62,6 +62,14 @@ export default defineComponent({
 
       emit('input', emitValue)
     })
+
+    watch(() => props.value, () => {
+      if (!props.value) {
+        input.value = undefined
+      }
+    })
+
+
 
     return {
       options,

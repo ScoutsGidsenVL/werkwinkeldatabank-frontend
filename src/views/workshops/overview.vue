@@ -77,7 +77,6 @@ export default defineComponent({
     const createRoute = showCreate ? 'WerkwinkelCreate' : ''
     const showStatus = showCreate
 
-    console.log(createRoute)
     return {
       filters,
       ThemeRepository,
