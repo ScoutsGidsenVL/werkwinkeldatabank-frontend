@@ -42,12 +42,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
   }
 
   public serialize () : Object {
-    let type : undefined | String
-    Object.keys(BuildingBlocksTypes).forEach((key: any) => {
-      if (BuildingBlocksTypes[key] === this.type) {
-        type = key
-      }
-    })
+    const type : String | undefined = this.type && BuildingBlocksEntityModel.convertType(this.type)
 
     return {
       title: this.title,
@@ -58,6 +53,17 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       category: this.category?.id,
       theme: this.theme?.id
     }
+  }
+
+  static convertType (inputType: string): string | undefined {
+    let type : undefined | string
+    Object.keys(BuildingBlocksTypes).forEach((key: any) => {
+      if (BuildingBlocksTypes[key] === inputType) {
+        type = key
+      }
+    })
+
+    return type
   }
 
   public serialzeForWorkshop () : Object {

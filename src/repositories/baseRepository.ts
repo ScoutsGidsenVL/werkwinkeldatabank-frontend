@@ -7,6 +7,11 @@ type arrayEntityFilter = {
   value: Array<BaseEntityModel> | undefined
 }
 
+type ObjectStringFilter = {
+  type: 'objectString'
+  value: {} | undefined
+}
+
 type entityFilter = {
   type: 'entity'
   value: BaseEntityModel | undefined
@@ -99,6 +104,13 @@ export default abstract class BaseRepository extends BaseApiRepository {
           })
         }
 
+        const ObjectStringFilter : ObjectStringFilter | false = this.isObjectStringFilter(filters[key])
+        if (ObjectStringFilter && ObjectStringFilter.value) {
+          Object.keys(ObjectStringFilter.value).forEach((ObjectKey: any) => {
+            ObjectKey !== 'id' && ObjectStringFilter.value && urlParams.append(ObjectKey, ObjectStringFilter.value[ObjectKey])
+          })
+        }
+
         const entityFilter : entityFilter | false = this.isEntityFilter(filters[key])
         if (entityFilter && entityFilter.value) {
           entityFilter.value.id && urlParams.append(key, entityFilter.value.id)
@@ -115,7 +127,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
     return urlParams
   }
 
-  private isArrayEntityFilter (filter: arrayEntityFilter | entityFilter | stringFilter): arrayEntityFilter | false {
+  private isArrayEntityFilter (filter: arrayEntityFilter | ObjectStringFilter | entityFilter | stringFilter): arrayEntityFilter | false {
 
     if (filter.type === 'arrayEntity') {
       return filter as arrayEntityFilter
@@ -124,7 +136,16 @@ export default abstract class BaseRepository extends BaseApiRepository {
     }
   }
 
-  private isEntityFilter (filter: arrayEntityFilter | entityFilter | stringFilter): entityFilter | false {
+  private isObjectStringFilter (filter: arrayEntityFilter | ObjectStringFilter | entityFilter | stringFilter): ObjectStringFilter | false {
+
+    if (filter.type === 'objectString') {
+      return filter as ObjectStringFilter
+    } else {
+      return false
+    }
+  }
+
+  private isEntityFilter (filter: arrayEntityFilter | ObjectStringFilter | entityFilter | stringFilter): entityFilter | false {
     if (filter.type === 'entity') {
       return filter as entityFilter
     } else {
@@ -132,7 +153,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
     }
   }
 
-  private isStringFilter (filter: arrayEntityFilter | entityFilter | stringFilter): stringFilter | false {
+  private isStringFilter (filter: arrayEntityFilter | ObjectStringFilter | entityFilter | stringFilter): stringFilter | false {
     if (filter.type === 'string') {
       return filter as stringFilter
     } else {
