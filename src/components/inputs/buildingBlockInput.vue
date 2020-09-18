@@ -37,6 +37,13 @@
           :big="false"
           :disabled='!block.editable'
         />
+        <ck-editor
+          v-model="block.necessities"
+          label="Benodigdheden"
+          id="necessities"
+          :rules='{}'
+          :big="false"
+        />
         </div>
         <div class="d-flex w-100">
           <b-button

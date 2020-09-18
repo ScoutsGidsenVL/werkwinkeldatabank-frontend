@@ -18,7 +18,18 @@
         <b-col cols="12" >
             <b-row>
                 <b-col cols="12" class="text-left mt-4"><strong>Benodigdheden:</strong></b-col>
-                <b-col cols="12" class="text-left mt-2" v-html='result.necessities' />
+                <b-col
+                v-for="(block) in result.buildingBlocks"
+                :key='"necessities-"+block.id'
+                v-show="block.necessities && block.necessities !== '&nbsp;'"
+                  cols="12"
+                  class="text-left mt-4"
+                  >
+                  {{ block.title }}:
+                  <br>
+                  <div v-html='block.necessities' />
+                </b-col>
+                <b-col cols="12" class="text-left mt-4">Algemeen:<br><div v-html='result.necessities' /></b-col>
             </b-row>
         </b-col>
         <b-col cols="12">
