@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 <template>
      <validation-provider
-        :rules="{ required: true, min: 3 }"
+        :rules="rules"
         v-slot="validationContext"
     >
       <b-form-group
@@ -34,6 +34,10 @@ export default defineComponent({
     big: {
       type: Boolean,
       default: true
+    },
+    rules: {
+      type: Object,
+      default: () => { return { required: true, min: 3 } }
     }
   },
   setup ({ value }, { emit }) {

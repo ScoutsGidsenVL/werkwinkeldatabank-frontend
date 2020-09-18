@@ -65,6 +65,15 @@
           id="description"
         />
       </b-col>
+      <b-col cols="12">
+        <ck-editor
+          v-model="formData.necessities"
+          label="Benodigdheden"
+          id="necessities"
+          :rules='{}'
+          :big="false"
+        />
+      </b-col>
     </b-row>
   </template>
 </base-form>

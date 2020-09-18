@@ -13,6 +13,7 @@
       <b-form-timepicker
         :id='id'
          v-model='input'
+         :disabled='disabled'
          :state=' Object.keys(rules).length === 0 ? null : getValidationState(validationContext)'
       />
       </b-form-group>
@@ -32,6 +33,10 @@ export default defineComponent({
     rules: {
       type: Object,
       default: () => { return { required: true, min: 3 } }
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   setup (props, { emit }) {

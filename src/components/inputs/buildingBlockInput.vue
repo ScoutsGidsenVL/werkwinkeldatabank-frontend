@@ -24,6 +24,12 @@
           :type="inputTypes.text"
           :disabled='!block.editable'
         />
+        <time-input
+          label='Tijdsduur'
+          id="duration"
+          v-model="block.duration"
+          :disabled='!block.editable'
+        />
         <ck-editor
           v-model="block.description"
           label="Omschrijving"
@@ -110,13 +116,15 @@ import selectBuildingBlock from './selectBuildingBlock.vue'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import ckEditor from '../../components/inputs/ckEditor.vue'
+import TimeInput from '../../components/inputs/timeInput.vue'
 
 export default defineComponent({
   name: 'builing-blocks',
   components: {
     selectBuildingBlock,
     TextInput,
-    ckEditor
+    ckEditor,
+    TimeInput
   },
   props: {
     value: Array as PropType<BuildingBlocksEntityModel[]>
@@ -128,6 +136,7 @@ export default defineComponent({
 
     const addBlock = () => {
       const order : number = buildingBlocks.value.length > 0 ? buildingBlocks.value.length : 0
+      console.log(selectedBlock.value)
       selectedBlock.value && buildingBlocks.value.push(BuildingBlocksEntityModel.createNewFromTemplate(selectedBlock.value, order))
       selectedBlock.value = undefined
       emit('input', buildingBlocks)

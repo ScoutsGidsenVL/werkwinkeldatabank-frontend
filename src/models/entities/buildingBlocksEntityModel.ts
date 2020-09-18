@@ -16,6 +16,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public duration?: string,
     public description?: string,
     public shortDescription?: string,
+    public necessities?: string,
     public type?: BuildingBlocksTypes,
     public category?: CategoryModel,
     public theme?: ThemeEntityModel,
@@ -33,6 +34,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.duration,
       input.description,
       input.short_description,
+      input.buildingblock_necessities,
       input.type.label,
       input.category ? CategoryModel.deserialize(input.category) : undefined,
       input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
@@ -51,7 +53,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       short_description: this.shortDescription,
       type: type,
       category: this.category?.id,
-      theme: this.theme?.id
+      theme: this.theme?.id,
+      buildingblock_necessities: this.necessities ? this.necessities : '&nbsp;'
     }
   }
 
@@ -71,7 +74,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       title: this.title,
       duration: this.duration,
       description: this.description,
-      order: this.order
+      order: this.order,
+      buildingblock_necessities: this.necessities ? this.necessities : '&nbsp;'
     }
 
     if (this.id) {
