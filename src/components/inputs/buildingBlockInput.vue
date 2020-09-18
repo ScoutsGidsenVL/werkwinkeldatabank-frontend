@@ -3,14 +3,14 @@
   <b-row>
     <b-col
       cols="12"
-      v-for="(block, index) in buildingBlocksTest"
+      v-for="(block, index) in buildingBlocks"
       :key='block.id'
     >
       <div class="border p-4 my-4">
         <div class="w-100 text-right">
           <b-button
             size="sm"
-            @click="deleteBlock(index)"
+            @click="deleteBlock(index, block.order)"
             variant="outline-danger"
             class="mb-2 p-1 border-0">
               <b-icon icon="trash" aria-label="Help" class="mx-1"></b-icon>
@@ -47,7 +47,7 @@
             size="sm"
             variant="secondary"
             class="mr-1">
-              <b-icon icon="arrow-up" aria-label="Help" class="ml-2 mt-1"></b-icon>Order up
+              <b-icon icon="arrow-up" aria-label="Help" class="ml-2 mt-1"></b-icon>Verplaats naar boven
           </b-button>
           <b-button
             @click="orderDown(block)"
@@ -55,7 +55,7 @@
             size="sm"
             variant="secondary"
             class="">
-              <b-icon icon="arrow-down" aria-label="Help" class="ml-2 mt-1"></b-icon>Order down
+              <b-icon icon="arrow-down" aria-label="Help" class="ml-2 mt-1"></b-icon>Verplaats naar onder
           </b-button>
         </div>
       </div>
@@ -122,13 +122,13 @@ export default defineComponent({
     value: Array as PropType<BuildingBlocksEntityModel[]>
   },
   setup ({ value }, { emit }) {
-    let buildingBlocks = reactive<BuildingBlocksEntityModel[]>(value || [])
+    let buildingBlocks = ref<BuildingBlocksEntityModel[]>(value || [])
     const selectedBlock = ref<BuildingBlocksEntityModel | undefined>()
     const showModal = ref<boolean>(false)
 
     const addBlock = () => {
-      const order : number = buildingBlocks.length > 0 ? buildingBlocks.length + 1 : 0
-      selectedBlock.value && buildingBlocks.push(BuildingBlocksEntityModel.createNewFromTemplate(selectedBlock.value, order))
+      const order : number = buildingBlocks.value.length > 0 ? buildingBlocks.value.length : 0
+      selectedBlock.value && buildingBlocks.value.push(BuildingBlocksEntityModel.createNewFromTemplate(selectedBlock.value, order))
       selectedBlock.value = undefined
       emit('input', buildingBlocks)
       hideModel()
@@ -136,8 +136,15 @@ export default defineComponent({
 
     const hideModel = () => { showModal.value = false }
 
-    const deleteBlock = (indexToDelete: number) => {
-      buildingBlocks.splice(indexToDelete, 1)
+    const deleteBlock = (indexToDelete: number, order: number) => {
+      buildingBlocks.value.splice(indexToDelete, 1)
+
+      buildingBlocks.value.forEach((block: BuildingBlocksEntityModel) => {
+        if (block.order && block.order > order) {
+          block.order = block.order - 1
+        }
+      })
+
     }
 
     const goBack = () => { selectedBlock.value = undefined }
@@ -154,17 +161,14 @@ export default defineComponent({
       return 0
     }
 
-    const buildingBlocksTest = computed<BuildingBlocksEntityModel[]>(() => {
-      buildingBlocks.sort(compare)
+    buildingBlocks.value.sort(compare)
 
-      return buildingBlocks
-    })
 
-    const isLastBlock = (order: number) : Boolean => order === buildingBlocks.length - 1
+    const isLastBlock = (order: number) : Boolean => order === buildingBlocks.value.length - 1
     const isFirstBlock = (order: number) : Boolean => order === 0
 
     const orderDown = (block: BuildingBlocksEntityModel) => {
-      if (block.order && !isLastBlock(block.order)) {
+      if (block.order !== undefined && !isLastBlock(block.order)) {
         const newOrder = block.order + 1
         updateOrder(block, newOrder)
       }
@@ -178,12 +182,13 @@ export default defineComponent({
 
     const updateOrder = (block: BuildingBlocksEntityModel, newOrder: number) => {
       const orgOrder = block.order
-      const blockUp = buildingBlocks.filter((filterBlock: BuildingBlocksEntityModel) => {
+      const blockUp = buildingBlocks.value.filter((filterBlock: BuildingBlocksEntityModel) => {
         if (filterBlock.order === newOrder) {
           filterBlock.order = orgOrder
         }
       })
       block.order = newOrder
+      buildingBlocks.value.sort(compare)
     }
 
     return {
@@ -196,7 +201,6 @@ export default defineComponent({
       deleteBlock,
       goBack,
       enableEditBlock,
-      buildingBlocksTest,
       orderUp,
       orderDown,
       isFirstBlock,
