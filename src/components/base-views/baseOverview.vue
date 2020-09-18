@@ -4,10 +4,11 @@
     <b-col cols="12" v-show='showFilters' class="bg-white pt-4 px-4 pb-1 text-left">
       <b-row>
         <slot name='filters' v-bind:filters='callParams.filters'/>
-         <b-col
+      </b-row>
+      <b-row>
+        <b-col
            v-if="filtersProp"
            cols="12"
-           lg='4'
            class="justify-content-end align-items-center d-flex">
             <a href='' v-on:click.prevent="resetFilers" class="d-inline-block">reset</a>
         </b-col>
@@ -75,9 +76,13 @@ export default defineComponent({
     showFilters: {
       type: Boolean,
       default: true
+    },
+    filtersInUrlParams: {
+      type: Boolean,
+      default: true
     }
   },
-  setup ({ repo, filtersProp }) {
+  setup ({ repo, filtersProp, filtersInUrlParams }) {
     const { router, route } = useRouter()
     let filters : any = {}
 
@@ -97,7 +102,7 @@ export default defineComponent({
     doCall()
 
     watch(callParams, value => {
-      router.replace({ query: { filters: JSON.stringify(callParams.filters) } })
+      filtersInUrlParams && router.replace({ query: { filters: JSON.stringify(callParams.filters) } })
       callParams.page = 1
       doCall()
     })

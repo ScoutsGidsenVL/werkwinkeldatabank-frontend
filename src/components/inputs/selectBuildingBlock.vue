@@ -3,29 +3,43 @@
     :repo="BuildingBlocskRepository"
     :filtersProp="filters"
     label="bouwsteen"
+    :filtersInUrlParams='false'
     :showFilters="selectedBlock ? false : true"
   >
     <template #filters="{ filters }">
-      <b-col cols="8">
+      <b-col cols="12">
         <b-row>
-          <b-col cols="12" lg="6">
-            <text-input
-              v-model="filters.term.value"
-              label="Zoek"
-              :rules="{}"
-              id="title"
-              :type="inputTypes.text"
-            />
-          </b-col>
-          <b-col cols="12" lg="6">
-            <select-input
-              label="Type"
-              id="type"
-              v-model="filters.type.value"
-              :options="types"
-              :multiple="false"
-            />
-          </b-col>
+            <b-col cols="12" lg="4">
+              <text-input
+                v-model="filters.term.value"
+                label="Zoek"
+                :rules='{}'
+                id='title'
+                :type="inputTypes.text"
+              />
+            </b-col>
+            <block-type-filter v-model="filters.type.value" />
+            <duration-filter v-model="filters.duration.value" />
+            <b-col cols="12" lg='4'>
+              <select-input
+                label='Thema'
+                id="theme"
+                :rules='{}'
+                :multiple='true'
+                :repo='ThemeRepository'
+                v-model="filters.theme.value"
+              />
+            </b-col>
+            <b-col cols="12" lg='4'>
+              <select-input
+                label='Category'
+                id="category"
+                :rules='{}'
+                :multiple='true'
+                :repo='CategoriesRepository'
+                v-model="filters.category.value"
+              />
+            </b-col>
         </b-row>
       </b-col>
     </template>
@@ -68,6 +82,10 @@ import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import BuildingBlockItem from '../list/buildingBlockItem.vue'
 import TimeBadge from '../semantic/timeBadge.vue'
+import BlockTypeFilter from '../../components/filters/blockTypeFilter'
+import DurationFilter from '../../components/filters/durationFilter'
+import ThemeRepository from '../../repositories/themeRepository'
+import CategoriesRepository from '../../repositories/categoriesRepository'
 
 export default defineComponent({
   name: 'select-building-block',
@@ -76,16 +94,21 @@ export default defineComponent({
     TextInput,
     SelectInput,
     BuildingBlockItem,
-    TimeBadge
+    TimeBadge,
+    BlockTypeFilter,
+    DurationFilter
   },
   props: {
     value: Object as PropType<BaseEntityModel>
   },
   setup (props, { emit }) {
     const selectedBlock = ref<BaseEntityModel | undefined>(props.value)
-    const filters: any = {
+    const filters : any = {
       type: { type: 'string', value: undefined },
-      term: { type: 'string', value: undefined }
+      term: { type: 'string', value: undefined },
+      duration: { type: 'objectString', value: undefined },
+      theme: { type: 'arrayEntity', value: undefined },
+      category: { type: 'arrayEntity', value: undefined }
     }
     const types: String[] = BuildingBlocksEntityModel.getTypesArray()
 
@@ -121,7 +144,9 @@ export default defineComponent({
       selectedBlock,
       types,
       inputTypes,
-      filters
+      filters,
+      ThemeRepository,
+      CategoriesRepository
     }
   }
 })
