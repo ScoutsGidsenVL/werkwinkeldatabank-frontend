@@ -143,7 +143,6 @@ export default defineComponent({
 
     const addBlock = () => {
       const order : number = buildingBlocks.value.length > 0 ? buildingBlocks.value.length : 0
-      console.log(selectedBlock.value)
       selectedBlock.value && buildingBlocks.value.push(BuildingBlocksEntityModel.createNewFromTemplate(selectedBlock.value, order))
       selectedBlock.value = undefined
       emit('input', buildingBlocks)
