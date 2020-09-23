@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import CategoriesRepository from '../../repositories/categoriesRepository'
+import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 
 export default defineComponent({

@@ -59,7 +59,6 @@ export default defineComponent({
     isEdit && doCall()
     let form : Ref<BaseEntityModel | undefined> | BaseEntityModel = isEdit ? result : defaultValue
 
-
     const onSubmit = async () : Promise<void> => {
       let repoParams : repoParams = {}
 

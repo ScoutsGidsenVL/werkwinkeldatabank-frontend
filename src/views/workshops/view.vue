@@ -58,7 +58,7 @@ import { useRouter } from '../../composables/useRouter'
 import useRepository, { callTypes } from '../../composables/useRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 import { PropType } from 'vue'
-import WorkshopRepository from '../../repositories/workshopRepository'
+import WorkshopRepository from '../../repositories/entities/workshopRepository'
 import TimeBadge from '../../components/semantic/timeBadge.vue'
 
 export default defineComponent({

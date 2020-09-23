@@ -13,9 +13,9 @@ export default class MasterConfig implements Serializable<MasterConfig> {
     if (input.api) {
       this.api = new ApiConfig().deserialize(input.api)
     }
-    // if (input.oidc) {
-    //   this.oidc = new OidcConfig().deserialize(input.oidc)
-    // }
+    if (input.oidc) {
+      this.oidc = new OidcConfig().deserialize(input.oidc)
+    }
     // if (input.sentry) {
     //   this.sentry = new SentryConfig().deserialize(input.sentry)
     // }

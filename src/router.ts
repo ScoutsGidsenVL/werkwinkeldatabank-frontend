@@ -9,12 +9,21 @@ import BuildingBlockForm from './views/building-blocks/form.vue'
 import BuildingBlockOverview from './views/building-blocks/overview.vue'
 import CategoryBlockForm from './views/categories/form.vue'
 import CategoryBlockOverview from './views/categories/overview.vue'
-import PublishedWorkshopRepository from './repositories/publishedWorkshopRepository'
-import MyWorkshopRepository from './repositories/myWorkshopRepository'
+import PublishedWorkshopRepository from './repositories/entities/publishedWorkshopRepository'
+import MyWorkshopRepository from './repositories/entities/myWorkshopRepository'
+import StartView from './views/start.vue'
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
+  {
+    path: '',
+    name: 'Start',
+    component: StartView,
+    meta: {
+      title: 'WWDB'
+    }
+  },
   // Werkwinkels
   {
     path: '/werkwinkels',
@@ -36,6 +45,7 @@ const routes: Array<RouteConfig> = [
       workshopReposioryType: MyWorkshopRepository
     },
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Mijn werkwinkels'
     }
   },
@@ -44,6 +54,7 @@ const routes: Array<RouteConfig> = [
     name: 'WerkwinkelCreate',
     component: WorkshoptForm,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Nieuwe werkwinkel'
     }
   },
@@ -60,6 +71,7 @@ const routes: Array<RouteConfig> = [
     name: 'WerkwinkelEdit',
     component: WorkshoptForm,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Werkwinkel bewerken'
     }
   },
@@ -69,6 +81,7 @@ const routes: Array<RouteConfig> = [
     name: 'ThemeOverview',
     component: ThemesOverview,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Thema\'s'
     }
   },
@@ -77,6 +90,7 @@ const routes: Array<RouteConfig> = [
     name: 'ThemeCreate',
     component: ThemeForm,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Nieuwe thema'
     }
   },
@@ -85,6 +99,7 @@ const routes: Array<RouteConfig> = [
     name: 'ThemeEdit',
     component: ThemeForm,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Thema'
     }
   },
@@ -94,6 +109,7 @@ const routes: Array<RouteConfig> = [
     name: 'BuildingBlockCreate',
     component: BuildingBlockForm,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Nieuwe bouwblok'
     }
   },
@@ -119,6 +135,7 @@ const routes: Array<RouteConfig> = [
     name: 'CategoryCreate',
     component: CategoryBlockForm,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Nieuwe categorie'
     }
   },
@@ -127,6 +144,7 @@ const routes: Array<RouteConfig> = [
     name: 'CategoryEdit',
     component: CategoryBlockForm,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Categorie'
     }
   },
@@ -135,13 +153,13 @@ const routes: Array<RouteConfig> = [
     name: 'CategorieesOverview',
     component: CategoryBlockOverview,
     meta: {
+      requiresOpenIdAuth: true,
       title: 'Categorieën'
     }
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
   routes
 })
 

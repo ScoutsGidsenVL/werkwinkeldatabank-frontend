@@ -31,7 +31,7 @@
 <script lang="ts">
 import { reactive, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
-import ThemeRepository from '../../repositories/themeRepository'
+import ThemeRepository from '../../repositories/entities/themeRepository'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import ThemeEntityModel from '@/models/entities/themeEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'

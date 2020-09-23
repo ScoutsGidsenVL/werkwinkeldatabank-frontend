@@ -39,13 +39,14 @@ export default abstract class BaseRepository extends BaseApiRepository {
   abstract id: string
   abstract endpoint : string
   abstract entityModel: any
+  abstract publicGet: boolean = false
   defaultPageSize: number = 12
 
   getModelArray (params: repoParams) : Promise<{result: BaseEntityModel[], params: repoParams}> {
 
     const urlParams = this.processUrlParams(params)
 
-    return this.get(this.endpoint, { params: urlParams && urlParams }).then((response: any) => {
+    return this.get(this.endpoint, { params: urlParams && urlParams }, this.publicGet).then((response: any) => {
       const returnArray : BaseEntityModel[] = []
 
       response.results.forEach((content: any) => {
@@ -59,7 +60,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
   }
 
   getSingle (params: repoParams) : Promise<{result: BaseEntityModel, params: repoParams }> {
-    return this.get(this.endpoint + '' + params.id).then((response: any) => {
+    return this.get(this.endpoint + '' + params.id, {}, this.publicGet).then((response: any) => {
       return { result: this.entityModel.deserialize(response), params: params }
     })
   }

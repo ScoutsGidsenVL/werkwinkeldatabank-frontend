@@ -1,5 +1,5 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
-import MasterConfig from '../models/config/masterConfig'
+
 @Module({ namespaced: true, name: 'notifications' })
 export default class NotificationModule extends VuexModule {
 

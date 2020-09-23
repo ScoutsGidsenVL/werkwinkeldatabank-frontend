@@ -24,7 +24,7 @@
 <script lang="ts">
 import { reactive, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
-import CategoriesRepository from '../../repositories/categoriesRepository'
+import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import CategoryEntityModel from '@/models/entities/categoryEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'
