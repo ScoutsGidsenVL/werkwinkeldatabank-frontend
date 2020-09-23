@@ -18,15 +18,12 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, Ref, defineComponent, PropType } from '@vue/composition-api'
-import ThemeRepository from '../../repositories/themeRepository'
-import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
+import { Ref, defineComponent, PropType } from '@vue/composition-api'
 import BaseEntityModel from '@/models/entities/baseEntityModel'
 import BaseRepository, { repoParams } from '@/repositories/baseRepository'
 import useRepository, { callTypes } from '@/composables/useRepository'
 import { useRouter } from '@/composables/useRouter'
 import useGlobalLoading from '@/composables/useGlobalLoading'
-import ThemeEntityModel from '@/models/entities/themeEntityModel'
 
 export default defineComponent({
   name: 'base-form',

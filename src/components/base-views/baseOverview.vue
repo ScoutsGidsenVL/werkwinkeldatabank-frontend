@@ -47,10 +47,8 @@
 <script lang="ts">
 import { defineComponent, reactive, watch, PropType, ref } from '@vue/composition-api'
 import useRepository, { callTypes } from '../../composables/useRepository'
-import ThemeRepository from '../../repositories/themeRepository'
 import BaseRepository, { repoParams } from '../../repositories/baseRepository'
 import { useRouter } from '@/composables/useRouter'
-import { filter } from 'vue/types/umd'
 
 export default defineComponent({
   name: 'base-overview',
@@ -117,7 +115,6 @@ export default defineComponent({
 
     return {
       results,
-      ThemeRepository,
       resetFilers,
       callParams,
       loadMore
