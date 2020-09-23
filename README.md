@@ -1,5 +1,11 @@
 # scouts-wwdb
 
+## Config
+```
+Make copy of conifg.json.dist -> config.json
+Adjust variables
+```
+
 ## Project setup
 ```
 npm install

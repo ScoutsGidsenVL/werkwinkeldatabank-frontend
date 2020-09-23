@@ -21,7 +21,7 @@ yarn-error.log*
 *.sln
 *.sw?
 
-public/cfg/config.json
+public/config.json
 
 .npmrc
 
