@@ -33,4 +33,8 @@ export default class userModule extends VuexModule {
     this.user = user
   }
 
+  get getUser () : UserModel {
+    return this.user
+  }
+
 }
