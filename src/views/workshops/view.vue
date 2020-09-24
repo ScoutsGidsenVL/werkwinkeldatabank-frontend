@@ -4,6 +4,7 @@
         <b-col cols="12 py-3 d-flex justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block">{{ result.title }}</h2>
           <b-button
+            v-show='can("workshops.change_workshop")'
             :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
             variant="outline-dark">
              <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
@@ -60,6 +61,7 @@ import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 import { PropType } from 'vue'
 import WorkshopRepository from '../../repositories/entities/workshopRepository'
 import TimeBadge from '../../components/semantic/timeBadge.vue'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   props: {
@@ -70,13 +72,15 @@ export default defineComponent({
   },
   setup () {
     const { route } = useRouter()
+    const { can } = usePermissions()
     const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
 
     doCall()
 
     return {
       result,
-      loading
+      loading,
+      can
     }
   }
 })

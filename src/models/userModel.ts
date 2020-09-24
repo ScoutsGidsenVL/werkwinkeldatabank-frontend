@@ -1,9 +1,9 @@
 import Serializable from '@/interfaces/serializable'
 
-export default class UserModel implements Serializable<UserModel> {
+export default class UserModel {
 
   constructor (
-    public userName?: string,
+    public id?: string,
     public firstName?: string,
     public lastName?: string,
     public permissions: Array<string> = []
@@ -11,21 +11,13 @@ export default class UserModel implements Serializable<UserModel> {
     return this
   }
 
-  static deserialize (input: any): UserModel {
+  public static deserialize (input: any): UserModel {
     return new UserModel(
-      input.username,
-      input.firstName,
-      input.lastName,
+      input.id,
+      input.first_name,
+      input.last_name,
       input.permissions
     )
-  }
-
-  public serialize () : Object {
-    return {
-      username: this.userName,
-      firstname: this.firstName,
-      lastName: this.lastName
-    }
   }
 
 }

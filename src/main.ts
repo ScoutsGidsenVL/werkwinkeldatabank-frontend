@@ -20,6 +20,9 @@ import StaticFileRepository from './repositories/staticFileRepository'
 import MasterConfig from './models/config/masterConfig'
 import configModule from './store/configModule'
 import EnvRepository from './repositories/envRepository'
+import RepositoryFactory from './repositories/repositoryFactory'
+import AuthRepository from './repositories/authRepository'
+import userModule from './store/userModule'
 
 
 // Install VeeValidate rules and localization
@@ -43,7 +46,7 @@ Vue.config.productionTip = false
 // const envVariables = new EnvRepository().getEnvVars()
 // const configFile = new MasterConfig().deserialize(envVariables)
 
-new StaticFileRepository().getFile('cfg/config.json').then((configFile: any) => {
+new StaticFileRepository().getFile('config.json').then((configFile: any) => {
   configFile = new MasterConfig().deserialize(configFile)
   if (configFile.oidc && configFile.oidc.baseUrl && configFile.oidc.clientId) {
     Vue.use(OpenIdConnectPlugin, {
@@ -66,6 +69,24 @@ new StaticFileRepository().getFile('cfg/config.json').then((configFile: any) => 
 
   const configStoreModule = getModule(configModule, store)
   configStoreModule.setConfig(configFile)
+
+
+  router.beforeEach((to: any, from: any, next: any) => {
+    // if (to.matched.some((record: any) => record.meta.requiresOpenIdAuth)) {
+    const userStoreModule = getModule(userModule, store)
+    if (store.getters['openid/isLoggedIn']) {
+      !userStoreModule.loaded ? RepositoryFactory.get(AuthRepository).me().then((user: any) => {
+        userStoreModule.setMe(user).then(() => {
+          next()
+        })
+      }) : next()
+    } else {
+      next()
+    }
+    // } else {
+    //   next()
+    // }
+  })
 
   new Vue({
     router,

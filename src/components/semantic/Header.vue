@@ -13,13 +13,13 @@
              <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'MijnWerkwinkelOverview'}" >Mijn werkwinkels</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-show="can('workshops.view_theme')">
               <router-link class="nav-link" :to="{name: 'ThemeOverview'}" >Thema's</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-show="can('workshops.view_buildingblocktemplate')">
               <router-link class="nav-link" :to="{name: 'BuildingBlockOverview'}" >Bouwstenen</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-show="can('workshops.view_category')">
               <router-link class="nav-link" :to="{name: 'CategorieesOverview'}" >Categorieën</router-link>
             </li>
           </ul>
@@ -31,9 +31,17 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
+import usePermissions from '../../composables/usePermissions'
 
 export default defineComponent({
-  name: 'custom-header'
+  name: 'custom-header',
+  setup () {
+    const { can } = usePermissions()
+
+    return {
+      can
+    }
+  }
 })
 </script>
 

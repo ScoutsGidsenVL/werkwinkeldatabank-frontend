@@ -12,7 +12,6 @@ export default abstract class BaseApiRepository {
 
   constructor () {
     const config: MasterConfig = getModule(configModule, store).config
-    console.log(config.api)
     this.axiosInstance = axios.create({
       baseURL: config.api.baseUrl + '/' + config.api.apiSuffix
     })

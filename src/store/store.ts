@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import ConfigModule from './configModule'
 import NotificationModule from './notificationModule'
+import userModule from './userModule'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   },
   modules: {
     config: ConfigModule,
-    notifications: NotificationModule
+    notifications: NotificationModule,
+    user: userModule
   }
 })

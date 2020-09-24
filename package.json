@@ -16,11 +16,11 @@
     "axios": "^0.19.2",
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
+    "inuits-vuejs-oidc": "git+https://github.com/inuits/inuits-vuejs-oidc.git",
     "vee-validate": "^3.3.7",
     "vue": "^2.6.11",
     "vue-multiselect": "^2.1.6",
     "vue-router": "^3.2.0",
-    "inuits-vuejs-oidc": "../../inuits-vuejs-oidc/inuits-vuejs-oidc-0.4.4.tgz",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
