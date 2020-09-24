@@ -74,7 +74,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, PropType, watch } from '@vue/composition-api'
-import BuildingBlocskRepository from '../../repositories/buildingBlocskRepository'
+import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import useRepository, { callTypes } from '@/composables/useRepository'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
@@ -85,8 +85,8 @@ import BuildingBlockItem from '../list/buildingBlockItem.vue'
 import TimeBadge from '../semantic/timeBadge.vue'
 import BlockTypeFilter from '../../components/filters/blockTypeFilter.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
-import ThemeRepository from '../../repositories/themeRepository'
-import CategoriesRepository from '../../repositories/categoriesRepository'
+import ThemeRepository from '../../repositories/entities/themeRepository'
+import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 
 export default defineComponent({
   name: 'select-building-block',

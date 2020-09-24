@@ -1,9 +1,9 @@
-import BaseRepository from './baseRepository'
+import BaseApiRepository from './baseApiRepository'
 
 export default class RepositoryFactory {
   private static repositoryInstances: any = {}
 
-  public static get<T extends BaseRepository> (
+  public static get<T extends BaseApiRepository> (
     RepositoryClass: new (...params: any[]) => T
   ): T {
     const repositoryId = new RepositoryClass().id

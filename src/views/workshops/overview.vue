@@ -41,9 +41,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/composition-api'
-import WorkshopRepository from '../../repositories/workshopRepository'
+import WorkshopRepository from '../../repositories/entities/workshopRepository'
 import WorkshopItem from '../../components/list/workshopItem.vue'
-import ThemeRepository from '../../repositories/themeRepository'
+import ThemeRepository from '../../repositories/entities/themeRepository'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import BaseOverview from '../../components/base-views/baseOverview.vue'

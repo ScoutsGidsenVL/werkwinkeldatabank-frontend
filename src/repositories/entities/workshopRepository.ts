@@ -1,5 +1,5 @@
-import BaseRepository from './baseRepository'
-import WorkshopEntityModel from '../models/entities/workshopEntityModel'
+import BaseRepository from '../baseRepository'
+import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 
 export enum transitionTypes {
   noTransition = 'noTransition',
@@ -10,6 +10,7 @@ export enum transitionTypes {
 export default class WorkshopRepository extends BaseRepository {
     id = 'workshops'
     endpoint = '/workshops/'
+    publicGet = true
     entityModel = WorkshopEntityModel
 
     transitionWorkshop (workshop: WorkshopEntityModel, transitionType) : Promise<any> {

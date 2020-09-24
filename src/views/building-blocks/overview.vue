@@ -53,14 +53,14 @@
 
 <script lang="ts">
 import { defineComponent, watch } from '@vue/composition-api'
-import BuildingBlocskRepository from '../../repositories/buildingBlocskRepository'
+import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import BuildingBlockItem from '../../components/list/buildingBlockItem.vue'
-import ThemeRepository from '../../repositories/themeRepository'
-import CategoriesRepository from '../../repositories/categoriesRepository'
+import ThemeRepository from '../../repositories/entities/themeRepository'
+import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 import BlockTypeFilter from '../../components/filters/blockTypeFilter.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
 

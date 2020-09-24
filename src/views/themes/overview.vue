@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import ThemeRepository from '../../repositories/themeRepository'
+import ThemeRepository from '../../repositories/entities/themeRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 
