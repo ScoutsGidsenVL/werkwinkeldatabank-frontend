@@ -11,7 +11,6 @@ import CategoryBlockForm from './views/categories/form.vue'
 import CategoryBlockOverview from './views/categories/overview.vue'
 import PublishedWorkshopRepository from './repositories/entities/publishedWorkshopRepository'
 import MyWorkshopRepository from './repositories/entities/myWorkshopRepository'
-import WorkshopRepository from './repositories/entities/workshopRepository'
 import StartView from './views/start.vue'
 
 Vue.use(VueRouter)
@@ -43,7 +42,7 @@ const routes: Array<RouteConfig> = [
     name: 'MijnWerkwinkelOverview',
     component: WerkwinkelOverview,
     props: {
-      workshopReposioryType: WorkshopRepository
+      workshopReposioryType: MyWorkshopRepository
     },
     meta: {
       requiresOpenIdAuth: true,
