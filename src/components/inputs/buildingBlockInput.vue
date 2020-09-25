@@ -73,11 +73,11 @@
         </div>
       </div>
     </b-col>
-    <b-col cols="12">
+    <b-col cols="12" class="text-center">
       <b-button
         v-b-modal.modal-1
         size="lg"
-        variant="secondary"
+        :variant='validationState === false ? "danger" : "secondary"'
         class="mb-2 p-4">
           <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
       </b-button>
@@ -134,7 +134,11 @@ export default defineComponent({
     TimeInput
   },
   props: {
-    value: Array as PropType<BuildingBlocksEntityModel[]>
+    value: Array as PropType<BuildingBlocksEntityModel[]>,
+    validationState: {
+      type: Boolean,
+      default: false
+    }
   },
   setup ({ value }, { emit }) {
     let buildingBlocks = ref<BuildingBlocksEntityModel[]>(value || [])

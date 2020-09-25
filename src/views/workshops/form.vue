@@ -59,7 +59,14 @@
         />
       </b-col>
       <sub-title label='Bouwstenen' />
-      <building-block-input v-model='formData.buildingBlocks' />
+       <validation-provider
+        tag="div"
+        class="col-12"
+        :rules="{ required: true }"
+        v-slot="validationContext"
+      >
+        <building-block-input v-model='formData.buildingBlocks' :validationState='getValidationState(validationContext)' />
+       </validation-provider>
     </b-row>
   </template>
   <template #actions='{handleSubmit, onSubmit, validate, formData}'>
@@ -99,6 +106,7 @@ import WorkshopRepository, { transitionTypes } from '../../repositories/entities
 import subTitle from '../../components/semantic/subTitle.vue'
 import BaseEntityModel from '@/models/entities/baseEntityModel'
 import RepositoryFactory from '@/repositories/repositoryFactory'
+import getValidationState from '../../composables/useValidationState'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -149,7 +157,8 @@ export default defineComponent({
       WorkshopEntityModel,
       afterSubmit,
       saveAndPublish,
-      transitionTypes
+      transitionTypes,
+      getValidationState
     }
   }
 })
