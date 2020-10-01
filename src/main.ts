@@ -61,7 +61,7 @@ new StaticFileRepository().getFile('config.json').then((configFile: any) => {
         clientId: configFile.oidc.clientId,
         authorizedRedirectRoute: '/',
         serverTokenEndpoint: 'token/',
-        serverRefreshEndpoint: 'token/',
+        serverRefreshEndpoint: 'refresh/',
         InternalRedirectUrl: ''
       }
     })

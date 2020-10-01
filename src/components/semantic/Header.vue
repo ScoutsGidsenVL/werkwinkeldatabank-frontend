@@ -13,6 +13,9 @@
              <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'MijnWerkwinkelOverview'}" >Mijn werkwinkels</router-link>
             </li>
+             <li class="nav-item">
+              <router-link class="nav-link"  v-show="can('workshops.view_theme')" :to="{name: 'PublicatieAangevraagdWerkwinkelOverview'}" >Klaar voor publicatie</router-link>
+            </li>
             <li class="nav-item" v-show="can('workshops.view_theme')">
               <router-link class="nav-link" :to="{name: 'ThemeOverview'}" >Thema's</router-link>
             </li>

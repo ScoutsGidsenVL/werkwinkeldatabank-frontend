@@ -12,6 +12,7 @@ import CategoryBlockOverview from './views/categories/overview.vue'
 import PublishedWorkshopRepository from './repositories/entities/publishedWorkshopRepository'
 import MyWorkshopRepository from './repositories/entities/myWorkshopRepository'
 import StartView from './views/start.vue'
+import PublicationRequestedWorkshopRepository from './repositories/entities/publicationRequestedWorkshopRepository'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,18 @@ const routes: Array<RouteConfig> = [
     meta: {
       requiresOpenIdAuth: true,
       title: 'Mijn werkwinkels'
+    }
+  },
+  {
+    path: '/publicatie-aangevraagd',
+    name: 'PublicatieAangevraagdWerkwinkelOverview',
+    component: WerkwinkelOverview,
+    props: {
+      workshopReposioryType: PublicationRequestedWorkshopRepository
+    },
+    meta: {
+      requiresOpenIdAuth: true,
+      title: 'Publicatie aangevraagd'
     }
   },
   {
