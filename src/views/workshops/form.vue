@@ -26,13 +26,6 @@
           Gevoelige inhoud
         </b-form-checkbox>
       </b-col>
-      <b-col cols="12" md="3">
-        <time-input
-          label='Tijdsduur'
-          id="duration"
-          v-model="formData.duration"
-        />
-      </b-col>
       <b-col cols="12"  md="7">
         <select-input
           v-model='formData.theme'
@@ -123,7 +116,6 @@ export default defineComponent({
     const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
       title: null,
       id: null,
-      duration: '1:30:00',
       description: null,
       necessities: null,
       theme: null,

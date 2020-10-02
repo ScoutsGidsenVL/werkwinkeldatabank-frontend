@@ -53,7 +53,6 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
 
     return {
       title: this.title,
-      duration: this.duration,
       description: this.description,
       theme: this.theme ? this.theme.id : undefined,
       necessities: this.necessities,
