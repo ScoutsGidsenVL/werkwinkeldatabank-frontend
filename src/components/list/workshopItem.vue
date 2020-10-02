@@ -5,7 +5,7 @@
             <strong>{{ workshop.title }}</strong>
         </b-col>
         <b-col cols="12" class="text-center">
-          <time-badge>{{ workshop.duration }}</time-badge>
+          <time-badge v-show='workshop.duration' >{{ workshop.duration }}</time-badge>
           <!-- <b-badge v-show='workshop.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge> -->
           <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
         </b-col>
