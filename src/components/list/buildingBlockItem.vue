@@ -14,6 +14,7 @@
         <b-badge pill variant="light" class="mt-2 mr-2">{{ block.category.title }}</b-badge>
         <b-badge pill variant="secondary" class="mt-2">{{ block.type }}</b-badge>
         <time-badge>{{ block.duration }}</time-badge>
+        <b-badge v-show='block.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
     </b-col>
     <b-col
         cols='2'

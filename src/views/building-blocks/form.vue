@@ -16,6 +16,16 @@
           :type="inputTypes.text"
         />
       </b-col>
+       <b-col cols="12" md="10" class="mb-3 text-left">
+        <b-form-checkbox
+          id="checkbox-1"
+          v-model="formData.isSensitive"
+          name="is-sensetive"
+          value="true"
+        >
+          Gevoelige inhoud
+        </b-form-checkbox>
+      </b-col>
       <b-col cols="12" md="8">
         <time-input
           label='Tijdsduur'
@@ -106,6 +116,7 @@ export default defineComponent({
       id: null,
       duration: '1:30:00',
       description: null,
+      is_sensitive: false,
       category: null,
       theme: null,
       type: BuildingBlocksTypes.THEMATIC

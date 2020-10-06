@@ -43,11 +43,13 @@
           id="necessities"
           :rules='{}'
           :big="false"
+          :disabled='!block.editable'
         />
         </div>
         <div class="d-flex w-100">
           <b-button
             @click="enableEditBlock(block)"
+            v-show='block.isSensitive'
             :disabled='block.editable'
             size="sm"
             variant="secondary"

@@ -17,14 +17,6 @@
           id='title'
           :type="inputTypes.text"
         />
-        <b-form-checkbox
-          id="checkbox-1"
-          v-model="formData.isSensitive"
-          name="is-sensetive"
-          value="true"
-        >
-          Gevoelige inhoud
-        </b-form-checkbox>
       </b-col>
       <b-col cols="12"  md="7">
         <select-input
@@ -119,7 +111,6 @@ export default defineComponent({
       description: null,
       necessities: null,
       theme: null,
-      is_sensitive: false,
       buildingBlocks: [],
       workshop_status_type: 'PRIVATE'
     }))

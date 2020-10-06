@@ -21,8 +21,10 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public category?: CategoryModel,
     public theme?: ThemeEntityModel,
     public editable?: boolean,
+    public isSensitive?: boolean,
     public order?: number,
     public template?: string
+
   ) {
     super(id, title)
   }
@@ -34,11 +36,12 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.duration,
       input.description,
       input.short_description,
-      input.buildingblock_necessities,
+      input.building_block_necessities,
       input.type.label,
       input.category ? CategoryModel.deserialize(input.category) : undefined,
       input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
-      input.editable ? input.editable : false,
+      input.linked_template_values !== undefined ? !input.linked_template_values : !input.is_sensitive,
+      input.is_sensitive,
       input.order
     )
   }
@@ -54,7 +57,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       type: type,
       category: this.category?.id,
       theme: this.theme?.id,
-      buildingblock_necessities: this.necessities ? this.necessities : '&nbsp;'
+      building_block_necessities: this.necessities ? this.necessities : '&nbsp;',
+      is_sensitive: this.isSensitive
     }
   }
 
@@ -74,8 +78,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       title: this.title,
       duration: this.duration,
       description: this.description,
-      order: this.order,
-      buildingblock_necessities: this.necessities ? this.necessities : '&nbsp;'
+      building_block_necessities: this.necessities ? this.necessities : '&nbsp;',
+      linked_template_values: !this.editable
     }
 
     if (this.id) {
