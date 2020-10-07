@@ -44,14 +44,17 @@
       </b-col>
     </template>
     <template #content="{ results }">
-      <building-block-item
-       v-show="!selectedBlock"
-        v-if="emptyBlock !== undefined"
-        :block="emptyBlock"
-        :key="emptyBlock.id"
-      >
-      <a href v-on:click.prevent="moreInfo('', emptyBlock)">Meer info ></a>
-      </building-block-item>
+      <div class="empty-block bg-light">
+        <building-block-item
+        v-show="!selectedBlock"
+          v-if="emptyBlock !== undefined"
+          :block="emptyBlock"
+          :key="emptyBlock.id"
+          :hideInfo="true"
+        >
+          <a href v-on:click.prevent="moreInfo('', emptyBlock)">Meer info ></a>
+        </building-block-item>
+      </div>
       <building-block-item
         v-show="!selectedBlock"
         v-for="block in results"
@@ -175,3 +178,15 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang='scss' scoped>
+  .empty-block{
+    border-radius: 25px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    >.row{
+      border-bottom: none!important;
+    }
+  }
+</style>
