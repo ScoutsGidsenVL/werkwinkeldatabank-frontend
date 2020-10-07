@@ -8,7 +8,7 @@
           <time-badge v-show='workshop.duration' >{{ workshop.duration }}</time-badge>
           <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
           <b-badge pill variant="light" class="mt-2 ml-3">{{ workshop.theme.title }}</b-badge>
-          <b-badge v-show='workshop.isSensitive && can("workshops.view_buildingblocktemplate")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
+          <b-badge v-show='workshop.isSensitive && can("workshops.change_buildingblocktemplate")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
         </b-col>
         <b-col
           cols="12"
