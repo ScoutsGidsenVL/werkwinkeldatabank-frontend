@@ -15,9 +15,36 @@
           <time-badge>{{ result.duration }}</time-badge>
           <b-badge pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
-          <b-badge v-show='result.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
+          <b-badge v-show='result.isSensitive && can("workshops.change_buildingblocktemplate")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
         </b-col>
-        <b-col cols="12" >
+
+        <b-col cols="12">
+            <b-row>
+              <b-col cols="12" class="text-left mt-4"><strong>Omschrijving:</strong></b-col>
+              <b-col cols="12" class="text-left mt-4" v-html='result.description' />
+              <b-col cols="12" class="text-left mt-2 mb-5">
+                <a
+                  class='d-inline-block'
+                  href='#'
+                  v-scroll-to="'#benodigdheden'">
+                  bekijk benodigdheden
+                </a>
+              </b-col>
+            </b-row>
+        </b-col>
+      </b-row>
+
+      <b-row
+        v-for="(block) in result.buildingBlocks"
+        :key='block.id'
+        class="bg-white my-3 py-3">
+        <b-col cols="12" class="text-left">
+          <h3>{{ block.title }}</h3>
+        </b-col>
+        <b-col class="text-left" cols="12" v-html="block.description" />
+      </b-row>
+      <b-row>
+        <b-col cols="12" class="bg-white" id='benodigdheden' >
             <b-row>
                 <b-col cols="12" class="text-left mt-4"><strong>Benodigdheden:</strong></b-col>
                 <b-col
@@ -34,22 +61,6 @@
                 <b-col cols="12" class="text-left mt-4">Algemeen:<br><div v-html='result.necessities' /></b-col>
             </b-row>
         </b-col>
-        <b-col cols="12">
-            <b-row>
-              <b-col cols="12" class="text-left mt-4"><strong>Omschrijving:</strong></b-col>
-              <b-col cols="12" class="text-left mt-4" v-html='result.description' />
-            </b-row>
-        </b-col>
-      </b-row>
-
-      <b-row
-        v-for="(block) in result.buildingBlocks"
-        :key='block.id'
-        class="bg-white my-3 py-3">
-        <b-col cols="12" class="text-left">
-          <h3>{{ block.title }}</h3>
-        </b-col>
-        <b-col class="text-left" cols="12" v-html="block.description" />
       </b-row>
   </b-col>
 </template>

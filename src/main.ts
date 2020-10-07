@@ -7,6 +7,7 @@ import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import { getModule } from 'vuex-module-decorators'
 import { OpenIdConnectPlugin } from 'inuits-vuejs-oidc'
+import VueScrollTo from 'vue-scrollto'
 import {
   ValidationObserver,
   ValidationProvider,
@@ -39,6 +40,20 @@ Vue.use(VueCompositionAPI)
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.use(CKEditor)
+
+Vue.use(VueScrollTo, {
+  container: 'body',
+  duration: 500,
+  easing: 'ease',
+  offset: 0,
+  force: true,
+  cancelable: true,
+  onStart: false,
+  onDone: false,
+  onCancel: false,
+  x: false,
+  y: true
+})
 
 Vue.config.productionTip = false
 
