@@ -70,11 +70,11 @@
       </b-col>
     </b-row>
   </template>
-  <template #actions='{handleSubmit, onSubmit, validate, formData}'>
+  <template #actions='{customHandleSubmit, onSubmit, validate, formData}'>
     <b-button
       v-if="formData.workshopStatus === 'PRIVATE'"
       type="submit"
-      @click.prevent='saveAndPublish(handleSubmit,onSubmit, validate, transitionTypes.requestPublication)'
+      @click.prevent='saveAndPublish(customHandleSubmit,onSubmit, validate, transitionTypes.requestPublication)'
       variant="light"
       size="lg"
       class="px-5 py-2 ">
@@ -83,7 +83,7 @@
     <b-button
       v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED'"
       type="submit"
-      @click.prevent='saveAndPublish(handleSubmit,onSubmit, validate, transitionTypes.publish)'
+      @click.prevent='saveAndPublish(customHandleSubmit,onSubmit, validate, transitionTypes.publish)'
       variant="light"
       size="lg"
       class="px-5 py-2">
@@ -140,13 +140,14 @@ export default defineComponent({
       }
     }
 
-    const saveAndPublish = (handleSubmit, onSubmit, validate, transition : transitionTypes) => {
+    const saveAndPublish = (customHandleSubmit, onSubmit, validate, transition : transitionTypes) => {
       validate().then((valid: boolean) => {
+        console.log('test ' + valid)
         if (valid) {
           publishWorkshop.value = transition
-          handleSubmit(handleSubmit, validate)
+          customHandleSubmit(onSubmit, validate)
         } else {
-          publishWorkshop.value = transition
+          // publishWorkshop.value = transition
         }
       })
     }

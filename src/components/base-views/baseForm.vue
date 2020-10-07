@@ -16,7 +16,7 @@
         <b-col cols="12" lg='5' class="text-left  mt-4">
           <slot
             name='actions'
-            v-bind:handleSubmit='customHandleSubmit'
+            v-bind:customHandleSubmit='customHandleSubmit'
             v-bind:onSubmit='onSubmit'
             v-bind:validate='validate'
             v-bind:formData='form' />
