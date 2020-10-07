@@ -4,8 +4,8 @@ import CategoryModel from './categoryEntityModel'
 import ThemeEntityModel from './themeEntityModel'
 
 export enum BuildingBlocksTypes {
-  THEMATIC = 'Thematisch',
-  METHODIC = 'Methodisch'
+  THEMATIC = 'Inhoud',
+  METHODIC = 'Werkvorm'
 }
 
 export default class BuildingBlocksEntityModel extends BaseEntityModel implements EntityModel<BuildingBlocksEntityModel> {

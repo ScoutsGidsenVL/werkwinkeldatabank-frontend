@@ -10,6 +10,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public title?: string,
     public id?: string,
     public duration?: string,
+    public shortDescription?: string,
     public description?: string,
     public theme?: ThemeEntityModel,
     public necessities?: string,
@@ -37,6 +38,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.title,
       input.id,
       input.duration,
+      input.short_description,
       input.description,
       input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
       input.necessities,
@@ -55,10 +57,10 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
 
     return {
       title: this.title,
+      short_description: this.shortDescription,
       description: this.description,
       theme: this.theme ? this.theme.id : undefined,
       necessities: this.necessities,
-      approving_team: 'GROUP1',
       building_blocks: buildingBlocks
     }
   }

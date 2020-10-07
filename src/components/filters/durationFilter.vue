@@ -18,47 +18,62 @@ import SelectInput from '../inputs/selectInput.vue'
 export default defineComponent({
   name: 'duratioon-filter',
   props: {
-    value: Object
+    value: Object,
+    optionObject: {
+      type: Object,
+      default: () => {
+        return {
+          'tot 5 min':
+        {
+          'id': 'tot 5 min',
+          'duration_start': '00:00:00',
+          'duration_end': '00:05:00'
+        },
+          '5 tot 10 min':
+        {
+          'id': '5 tot 10 min',
+          'duration_start': '00:05:00',
+          'duration_end': '00:10:00'
+        },
+          '10 tot 20 min':
+        {
+          'id': '10 tot 20 min',
+          'duration_start': '00:10:00',
+          'duration_end': '00:20:00'
+        },
+          '20 tot 60 min':
+        {
+          'id': '20 tot 60 min',
+          'duration_start': '00:20:00',
+          'duration_end': '00:60:00'
+        },
+          'meer dan 60 min':
+        {
+          'id': 'meer dan 60 min',
+          'duration_start': '00:60:00',
+          'duration_end': '99:00:00'
+        }
+        }
+      } }
   },
   components: {
     SelectInput
   },
   setup (props, { emit }) {
-    const options : String[] = ['minder dan een uur', '1 tot 4 uur', 'meer dan 4 uur']
     let input = ref()
 
-
-    const optionObject = {
-      'minder dan een uur':
-        {
-          'id': 'minder dan een uur',
-          'duration_start': '00:00:00',
-          'duration_end': '01:00:00'
-        },
-      '1 tot 4 uur':
-        {
-          'id': '1 tot 4 uur',
-          'duration_start': '01:00:00',
-          'duration_end': '04:00:00'
-        },
-      'meer dan 4 uur':
-        {
-          'id': 'meer dan 4 uur',
-          'duration_start': '04:00:00',
-          'duration_end': '99:00:00'
-        }
-    }
+    const options: String[] = Object.keys(props.optionObject)
 
 
-    Object.keys(optionObject).forEach((key) => {
-      if (props.value && optionObject[key].id === props.value.id) {
+    Object.keys(props.optionObject).forEach((key) => {
+      if (props.value && props.optionObject[key].id === props.value.id) {
         input.value = key
       }
     })
 
     watch(input, value => {
       let emitValue : undefined | {[key: string]: string}
-      emitValue = value ? optionObject[value] : undefined
+      emitValue = value ? props.optionObject[value] : undefined
 
       emit('input', emitValue)
     })

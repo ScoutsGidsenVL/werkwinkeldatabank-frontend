@@ -52,7 +52,7 @@ export default defineComponent({
   },
   setup () {
     const filters : any = {
-      term: { type: 'string', value: undefined }
+      term: { type: 'string', value: undefined, filterKey: 'term' }
     }
 
     return {

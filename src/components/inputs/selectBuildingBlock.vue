@@ -45,6 +45,14 @@
     </template>
     <template #content="{ results }">
       <building-block-item
+       v-show="!selectedBlock"
+        v-if="emptyBlock !== undefined"
+        :block="emptyBlock"
+        :key="emptyBlock.id"
+      >
+      <a href v-on:click.prevent="moreInfo('', emptyBlock)">Meer info ></a>
+      </building-block-item>
+      <building-block-item
         v-show="!selectedBlock"
         v-for="block in results"
         :block="block"
@@ -61,7 +69,7 @@
             pill
             variant="light"
             class="mt-2 mr-2"
-          >{{ selectedBlock && selectedBlock.category.title }}</b-badge>
+          >{{ (selectedBlock && selectedBlock.category) && selectedBlock.category.title }}</b-badge>
           <b-badge pill variant="secondary" class="mt-2">{{ selectedBlock && selectedBlock.type }}</b-badge>
           <time-badge>{{ selectedBlock && selectedBlock.duration }}</time-badge>
           <b-badge v-show='selectedBlock && selectedBlock.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
@@ -74,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType, watch } from '@vue/composition-api'
+import { defineComponent, ref, Ref, PropType, watch } from '@vue/composition-api'
 import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import useRepository, { callTypes } from '@/composables/useRepository'
@@ -88,6 +96,7 @@ import BlockTypeFilter from '../../components/filters/blockTypeFilter.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
+import RepositoryFactory from '@/repositories/repositoryFactory'
 
 export default defineComponent({
   name: 'select-building-block',
@@ -106,13 +115,20 @@ export default defineComponent({
   setup (props, { emit }) {
     const selectedBlock = ref<BaseEntityModel | undefined>(props.value)
     const filters : any = {
-      type: { type: 'string', value: undefined },
-      term: { type: 'string', value: undefined },
-      duration: { type: 'objectString', value: undefined },
-      theme: { type: 'arrayEntity', value: undefined },
-      category: { type: 'arrayEntity', value: undefined }
+      type: { type: 'string', value: undefined, filterKey: 'type' },
+      term: { type: 'string', value: undefined, filterKey: 'term' },
+      duration: { type: 'objectString', value: undefined, filterKey: 'duration' },
+      theme: { type: 'arrayEntity', value: undefined, filterKey: 'theme' },
+      category: { type: 'arrayEntity', value: undefined, filterKey: 'category' }
     }
     const types: String[] = BuildingBlocksEntityModel.getTypesArray()
+
+    const buildingBlockRepo: BuildingBlocskRepository = RepositoryFactory.get(BuildingBlocskRepository)
+    const emptyBlock = ref<BuildingBlocksEntityModel | undefined>(undefined)
+    buildingBlockRepo.getEmptyBlock().then((emptyBlockreturn: BuildingBlocksEntityModel) => {
+      console.log(emptyBlockreturn)
+      emptyBlock.value = emptyBlockreturn
+    })
 
     watch(
       () => props.value,
@@ -121,17 +137,22 @@ export default defineComponent({
       }
     )
 
-    const moreInfo = async (id: string) => {
-      const { loading, doCall, result } = useRepository(
-        BuildingBlocskRepository,
-        callTypes.getSingel,
-        {
-          id: id
-        }
-      )
+    const moreInfo = async (id: string, EmptyBlock?: BuildingBlocksEntityModel) => {
+      if (EmptyBlock) {
+        selectedBlock.value = EmptyBlock
+      } else {
+        const { loading, doCall, result } = useRepository(
+          BuildingBlocskRepository,
+          callTypes.getSingel,
+          {
+            id: id
+          }
+        )
 
-      await doCall()
-      selectedBlock.value = result.value
+        await doCall()
+        selectedBlock.value = result.value
+
+      }
       emit('input', selectedBlock.value)
     }
 
@@ -148,7 +169,8 @@ export default defineComponent({
       inputTypes,
       filters,
       ThemeRepository,
-      CategoriesRepository
+      CategoriesRepository,
+      emptyBlock
     }
   }
 })

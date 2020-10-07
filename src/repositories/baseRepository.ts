@@ -4,22 +4,26 @@ import BaseApiRepository from './baseApiRepository'
 
 type arrayEntityFilter = {
   type: 'arrayEntity'
-  value: Array<BaseEntityModel> | undefined
+  value: Array<BaseEntityModel> | undefined,
+  filterKey: string
 }
 
 type ObjectStringFilter = {
   type: 'objectString'
   value: {} | undefined
+  filterKey: string
 }
 
 type entityFilter = {
   type: 'entity'
   value: BaseEntityModel | undefined
+  filterKey: string
 }
 
 type stringFilter = {
   type: 'string'
   value: string| undefined
+  filterKey: string
 }
 
 type filterObject = {
@@ -40,7 +44,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
   abstract endpoint : string
   abstract entityModel: any
   abstract publicGet: boolean = false
-  defaultPageSize: number = 12
+  defaultPageSize: number = 24
 
   getModelArray (params: repoParams) : Promise<{result: BaseEntityModel[], params: repoParams}> {
 
@@ -101,25 +105,25 @@ export default abstract class BaseRepository extends BaseApiRepository {
         const arrayEntityFilter : arrayEntityFilter | false = this.isArrayEntityFilter(filters[key])
         if (arrayEntityFilter && arrayEntityFilter.value) {
           arrayEntityFilter.value.forEach((arrayValue: BaseEntityModel) => {
-            arrayValue.id && urlParams.append(key + '[]', arrayValue.id)
+            arrayValue.id && urlParams.append(arrayEntityFilter.filterKey + '[]', arrayValue.id)
           })
         }
 
         const ObjectStringFilter : ObjectStringFilter | false = this.isObjectStringFilter(filters[key])
         if (ObjectStringFilter && ObjectStringFilter.value) {
           Object.keys(ObjectStringFilter.value).forEach((ObjectKey: any) => {
-            ObjectKey !== 'id' && ObjectStringFilter.value && urlParams.append(ObjectKey, ObjectStringFilter.value[ObjectKey])
+            ObjectKey !== 'id' && ObjectStringFilter.value && urlParams.append(ObjectStringFilter.filterKey, ObjectStringFilter.value[ObjectKey])
           })
         }
 
         const entityFilter : entityFilter | false = this.isEntityFilter(filters[key])
         if (entityFilter && entityFilter.value) {
-          entityFilter.value.id && urlParams.append(key, entityFilter.value.id)
+          entityFilter.value.id && urlParams.append(entityFilter.filterKey, entityFilter.value.id)
         }
 
         const stringFilter : stringFilter | false = this.isStringFilter(filters[key])
         if (stringFilter && stringFilter.value) {
-          urlParams.append(key, stringFilter.value)
+          urlParams.append(stringFilter.filterKey, stringFilter.value)
         }
 
       }
@@ -127,6 +131,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
 
     return urlParams
   }
+
 
   private isArrayEntityFilter (filter: arrayEntityFilter | ObjectStringFilter | entityFilter | stringFilter): arrayEntityFilter | false {
 

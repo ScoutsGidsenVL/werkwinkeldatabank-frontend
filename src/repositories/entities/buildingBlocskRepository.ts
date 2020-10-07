@@ -8,4 +8,11 @@ export default class BuildingBlocksRepository extends BaseRepository {
     publicGet = false
     entityModel = BuildingBlocksEntityModel
 
+    getEmptyBlock () {
+      return this.get('/building_block_templates/empty_default/').then((result: any) => {
+        console.log(BuildingBlocksEntityModel.deserialize(result))
+        return BuildingBlocksEntityModel.deserialize(result)
+      })
+    }
 }
+

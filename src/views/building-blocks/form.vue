@@ -46,6 +46,7 @@
         <select-input
           v-model='formData.theme'
           label='Thema'
+          :searchable="true"
           id="theme"
           :repo='ThemeRepository'
           :multiple='false'
@@ -61,11 +62,12 @@
         />
       </b-col>
       <b-col cols="12">
-        <ck-editor
+        <text-input
           v-model="formData.shortDescription"
           label="Korte omschrijving"
           id="shortDescription"
-          :big='false'
+          :rules='{}'
+          :textarea="true"
         />
       </b-col>
       <b-col cols="12">

@@ -13,7 +13,8 @@
         </b-col>
         <b-col cols="12" class="text-left my-3">
           <time-badge>{{ result.duration }}</time-badge>
-          <b-badge pill variant="secondary" class="mt-2 ml-3">{{ result.theme.title }}</b-badge>
+          <b-badge pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
+          <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
           <b-badge v-show='result.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
         </b-col>
         <b-col cols="12" >
@@ -62,13 +63,15 @@ import { PropType } from 'vue'
 import WorkshopRepository from '../../repositories/entities/workshopRepository'
 import TimeBadge from '../../components/semantic/timeBadge.vue'
 import usePermissions from '@/composables/usePermissions'
+import statusBadge from '../../components/semantic/statusBadge.vue'
 
 export default defineComponent({
   props: {
     workshopId: String
   },
   components: {
-    TimeBadge
+    TimeBadge,
+    statusBadge
   },
   setup () {
     const { route } = useRouter()

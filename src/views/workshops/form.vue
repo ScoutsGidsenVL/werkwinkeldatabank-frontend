@@ -4,11 +4,14 @@
   :type='WorkshopEntityModel'
   :repo='WorkshopRepository'
   paramIdentifier='workshopId'
-  redirectRoute="MijnWerkwinkelOverview"
+  redirectRoute="WerkwinkelView"
   v-on:submitSuccess='afterSubmit'
 >
   <template v-slot:default="{ formData }">
     <b-row>
+      <b-col cols='12' class='text-right'>
+         <status-badge v-if="formData.workshopStatus" :status='formData.workshopStatus' />
+      </b-col>
       <sub-title label='Algemene info' />
       <b-col cols="12" md="10" class="mb-3 text-left">
         <text-input
@@ -23,16 +26,19 @@
           v-model='formData.theme'
           label='Thema'
           id="theme"
+          :searchable="true"
           :repo='ThemeRepository'
           :multiple='false'
         />
       </b-col>
       <b-col cols="12" md="10">
-        <ck-editor
-          v-model="formData.necessities"
-          label="Benodigdheden"
-          id="necessities"
-          :big="false"
+        <text-input
+          v-model="formData.shortDescription"
+          label="Korte omschrijving"
+          id='shortDescription'
+          :textarea="true"
+          :rules='{}'
+          :type="inputTypes.text"
         />
       </b-col>
       <b-col cols="12" md="10">
@@ -52,6 +58,14 @@
       >
         <building-block-input v-model='formData.buildingBlocks' :validationState='getValidationState(validationContext)' />
        </validation-provider>
+       <b-col cols="10" offset="1" md="10" class="mt-5">
+        <ck-editor
+          v-model="formData.necessities"
+          label="Benodigdheden"
+          id="necessities"
+          :big="false"
+        />
+      </b-col>
     </b-row>
   </template>
   <template #actions='{handleSubmit, onSubmit, validate, formData}'>
@@ -61,7 +75,7 @@
       @click.prevent='saveAndPublish(handleSubmit,onSubmit, validate, transitionTypes.requestPublication)'
       variant="light"
       size="lg"
-      class="px-5 py-2 ml-2">
+      class="px-5 py-2 ">
       Opslaan en vraag publicatie
       </b-button>
     <b-button
@@ -70,7 +84,7 @@
       @click.prevent='saveAndPublish(handleSubmit,onSubmit, validate, transitionTypes.publish)'
       variant="light"
       size="lg"
-      class="px-5 py-2 ml-2">
+      class="px-5 py-2">
       Opslaan en publiceer
       </b-button>
   </template>
@@ -92,6 +106,7 @@ import subTitle from '../../components/semantic/subTitle.vue'
 import BaseEntityModel from '@/models/entities/baseEntityModel'
 import RepositoryFactory from '@/repositories/repositoryFactory'
 import getValidationState from '../../composables/useValidationState'
+import statusBadge from '../../components/semantic/statusBadge.vue'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -102,12 +117,14 @@ export default defineComponent({
     BaseForm,
     TimeInput,
     BuildingBlockInput,
-    subTitle
+    subTitle,
+    statusBadge
   },
   setup ({ value }, { emit }) {
     const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
       title: null,
       id: null,
+      shortDescription: null,
       description: null,
       necessities: null,
       theme: null,
@@ -146,3 +163,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang='scss' scoped>
+  ::v-deep .badge.badge-pill{
+    font-size: 14px;
+    padding: 0.75rem 1.5rem;
+  }
+</style>

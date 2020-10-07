@@ -6,7 +6,11 @@ export default class UserModel {
     public id?: string,
     public firstName?: string,
     public lastName?: string,
-    public permissions: Array<string> = []
+    public permissions: Array<string> = [
+      'workshops.view_theme',
+      'workshops.view_buildingblocktemplate',
+      'workshops.change_workshop'
+    ]
   ) {
     return this
   }

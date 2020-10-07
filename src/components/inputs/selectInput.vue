@@ -18,7 +18,7 @@
         :label='repo ? "title" : ""'
         placeholder="Selecteer"
         :options="optionsValue"
-        :searchable="false"
+        :searchable="searchable"
         :allow-empty="true"
         :multiple='multiple'
      />
@@ -41,6 +41,10 @@ export default defineComponent({
     label: String,
     id: String,
     multiple: Boolean,
+    searchable: {
+      type: Boolean,
+      default: false
+    },
     value: [Object, Array, String],
     repo: {
       type: Function as PropType<new (...params: any[]) => BaseRepository>,

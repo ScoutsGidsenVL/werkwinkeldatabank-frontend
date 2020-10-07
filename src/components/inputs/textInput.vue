@@ -11,6 +11,15 @@
         label-for="title"
       >
         <b-form-input
+          v-if="!textarea"
+          :id='id'
+          :type='type'
+          :disabled='disabled'
+          v-model='input'
+          :state=' Object.keys(rules).length === 0 ? null : getValidationState(validationContext)'
+        />
+        <b-form-textarea
+          v-else
           :id='id'
           :type='type'
           :disabled='disabled'
@@ -38,6 +47,10 @@ export default defineComponent({
     type: String as PropType<inputTypes>,
     id: String,
     disabled: Boolean,
+    textarea: {
+      type: Boolean,
+      default: false
+    },
     rules: {
       type: Object,
       default: () => { return { required: true, min: 3 } }

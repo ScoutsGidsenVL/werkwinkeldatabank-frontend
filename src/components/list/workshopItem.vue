@@ -6,8 +6,9 @@
         </b-col>
         <b-col cols="12" class="text-center">
           <time-badge v-show='workshop.duration' >{{ workshop.duration }}</time-badge>
-          <!-- <b-badge v-show='workshop.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge> -->
           <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
+          <b-badge pill variant="light" class="mt-2 ml-3">{{ workshop.theme.title }}</b-badge>
+          <b-badge v-show='workshop.isSensitive && can("workshops.view_buildingblocktemplate")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
         </b-col>
         <b-col
           cols="12"
@@ -27,6 +28,7 @@ import { defineComponent, PropType } from '@vue/composition-api'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 import timeBadge from '../semantic/timeBadge.vue'
 import statusBadge from '../semantic/statusBadge.vue'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'workshop-item',
@@ -40,6 +42,13 @@ export default defineComponent({
   components: {
     timeBadge,
     statusBadge
+  },
+  setup () {
+    const { can } = usePermissions()
+
+    return {
+      can
+    }
   }
 })
 </script>

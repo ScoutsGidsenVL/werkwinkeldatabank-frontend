@@ -2,9 +2,18 @@
 <validation-observer ref="observer" v-slot="{ handleSubmit, validate }">
   <b-form class="bg-white pt-4 pb-5 px-5" @submit.stop.prevent="handleSubmit(onSubmit)"  v-if="!loading">
       <slot v-bind:formData='form' />
-      <b-row class="my-3">
-        <b-col cols="12" class="text-left mt-4" >
-          <b-button type="submit" variant="dark" size="lg" class="px-5 py-2">Opslaan</b-button>
+
+  </b-form>
+  <div
+    v-if="!loading"
+    class="action-bar container position-sticky bg-secondary pb-4 px-4"
+  >
+  <b-row>
+        <b-col cols="12" lg="7" class="text-left mt-4 mb-4" >
+          <b-button v-on:click.prevent="saveWithoutRedirect(handleSubmit, onSubmit)" variant="dark" size="lg" class="px-5 py-2">Opslaan</b-button>
+          <b-button v-on:click.prevent="handleSubmit(onSubmit)" type="submit" variant="dark" size="lg" class="px-5 py-2 ml-2">Opslaan en sluiten</b-button>
+        </b-col>
+        <b-col cols="12" lg='5' class="text-left  mt-4">
           <slot
             name='actions'
             v-bind:handleSubmit='handleSubmit'
@@ -13,17 +22,18 @@
             v-bind:formData='form' />
         </b-col>
       </b-row>
-  </b-form>
+  </div>
 </validation-observer>
 </template>
 
 <script lang="ts">
-import { Ref, defineComponent, PropType } from '@vue/composition-api'
+import { Ref, ref, defineComponent, PropType } from '@vue/composition-api'
 import BaseEntityModel from '@/models/entities/baseEntityModel'
 import BaseRepository, { repoParams } from '@/repositories/baseRepository'
 import useRepository, { callTypes } from '@/composables/useRepository'
 import { useRouter } from '@/composables/useRouter'
 import useGlobalLoading from '@/composables/useGlobalLoading'
+import useToast from '../../composables/useToast'
 
 export default defineComponent({
   name: 'base-form',
@@ -45,9 +55,12 @@ export default defineComponent({
     redirectRoute: {
       type: String,
       required: true
+    },
+    redirectWithId: {
+      type: String
     }
   },
-  setup ({ repo, defaultValue, paramIdentifier, redirectRoute }, { emit }) {
+  setup ({ repo, defaultValue, paramIdentifier, redirectRoute, redirectWithId }, { emit, root }) {
     const { route, router } = useRouter()
     const { loading, doCall, result } = useRepository(
       repo,
@@ -56,10 +69,18 @@ export default defineComponent({
       })
     useGlobalLoading(loading)
     const isEdit = !!route.value.params[paramIdentifier]
+    const redirectOnSave = ref<Boolean>(true)
+    const toast = useToast(root)
+
     isEdit && doCall()
     let form : Ref<BaseEntityModel | undefined> | BaseEntityModel = isEdit ? result : defaultValue
 
-    const onSubmit = async () : Promise<void> => {
+    const saveWithoutRedirect = (handleSubmit, onSubmit) => {
+      redirectOnSave.value = false
+      handleSubmit(onSubmit)
+    }
+
+    const onSubmit = async (test) : Promise<void> => {
       let repoParams : repoParams = {}
 
       if (isEdit && result.value) {
@@ -82,14 +103,22 @@ export default defineComponent({
 
       postRepo.doCall().then((success: Boolean) => {
         emit('submitSuccess', postRepo.result.value)
-        if (success && redirectRoute) {
-          router.push({ name: redirectRoute })
+        if (success && redirectRoute && redirectOnSave.value) {
+          const routerObject = { name: redirectRoute }
+          if (redirectWithId) {
+            routerObject['params'] = { }
+            routerObject.params[redirectWithId] = postRepo.result.value
+          }
+          router.push(routerObject)
+        } else {
+          redirectOnSave.value = true
+          toast.send('Opgeslagen')
         }
       })
-
     }
 
     return {
+      saveWithoutRedirect,
       onSubmit,
       form,
       loading
@@ -97,3 +126,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang='scss' scoped>
+  .action-bar{
+    bottom: 0;
+    z-index: 9;
+  }
+</style>

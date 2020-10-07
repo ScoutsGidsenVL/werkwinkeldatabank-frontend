@@ -76,11 +76,11 @@ export default defineComponent({
   },
   setup () {
     const filters : any = {
-      type: { type: 'string', value: undefined },
-      term: { type: 'string', value: undefined },
-      duration: { type: 'objectString', value: undefined },
-      theme: { type: 'arrayEntity', value: undefined },
-      category: { type: 'arrayEntity', value: undefined }
+      type: { type: 'string', value: undefined, filterKey: 'type' },
+      term: { type: 'string', value: undefined, filterKey: 'term' },
+      duration: { type: 'objectString', value: undefined, filterKey: 'duration' },
+      theme: { type: 'arrayEntity', value: undefined, filterKey: 'theme' },
+      category: { type: 'arrayEntity', value: undefined, filterKey: 'category' }
     }
 
     return {
