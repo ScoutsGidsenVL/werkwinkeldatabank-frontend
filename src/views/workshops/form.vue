@@ -64,6 +64,7 @@
           label="Benodigdheden"
           :toolbarItems='["bulletedList"]'
           id="necessities"
+          :rules ={}
           :big="false"
         />
       </b-col>

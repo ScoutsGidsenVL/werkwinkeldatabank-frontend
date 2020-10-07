@@ -26,7 +26,7 @@
                 <a
                   class='d-inline-block'
                   href='#'
-                  v-scroll-to="'#benodigdheden'">
+                  v-on:click.prevent='goToNecessities()'>
                   bekijk benodigdheden
                 </a>
               </b-col>
@@ -37,15 +37,20 @@
       <b-row
         v-for="(block) in result.buildingBlocks"
         :key='block.id'
-        class="bg-white my-3 py-3">
-        <b-col cols="12" class="text-left">
-          <h3>{{ block.title }}</h3>
-        </b-col>
-        <b-col class="text-left" cols="12" v-html="block.description" />
+        class="bg-white my-3 py-0">
+        <custom-collapse
+          :id='block.id'
+          :title='block.title'
+        >
+           <div class="text-left w-100 py-2 px-3" v-html="block.description" />
+        </custom-collapse>
       </b-row>
-      <b-row>
-        <b-col cols="12" class="bg-white" id='benodigdheden' >
-            <b-row>
+      <b-row class="bg-white" id='necessities'>
+        <custom-collapse
+          id='benodigdheden'
+          title='Benodigdheden'
+        >
+            <b-row class="py-2 px-3">
                 <b-col cols="12" class="text-left mt-4"><strong>Benodigdheden:</strong></b-col>
                 <b-col
                 v-for="(block) in result.buildingBlocks"
@@ -60,13 +65,13 @@
                 </b-col>
                 <b-col cols="12" class="text-left mt-4">Algemeen:<br><div v-html='result.necessities' /></b-col>
             </b-row>
-        </b-col>
+        </custom-collapse>
       </b-row>
   </b-col>
 </template>
 
 <script lang='ts'>
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
 import { useRouter } from '../../composables/useRouter'
 import useRepository, { callTypes } from '../../composables/useRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
@@ -75,6 +80,7 @@ import WorkshopRepository from '../../repositories/entities/workshopRepository'
 import TimeBadge from '../../components/semantic/timeBadge.vue'
 import usePermissions from '@/composables/usePermissions'
 import statusBadge from '../../components/semantic/statusBadge.vue'
+import customCollapse from '../../components/semantic/customCollapse.vue'
 
 export default defineComponent({
   props: {
@@ -82,19 +88,33 @@ export default defineComponent({
   },
   components: {
     TimeBadge,
-    statusBadge
+    statusBadge,
+    customCollapse
   },
-  setup () {
+  setup (props, { emit, root }) {
     const { route } = useRouter()
     const { can } = usePermissions()
     const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
+    const necessitiesOpen = ref<Boolean>(false)
 
     doCall()
+
+    root.$on('bv::collapse::state', (collapseId, isJustShown) => {
+      if (collapseId === 'accordion-benodigdheden') {
+        necessitiesOpen.value = isJustShown
+      }
+    })
+
+    const goToNecessities = () => {
+      !necessitiesOpen.value && root.$emit('bv::toggle::collapse', 'accordion-benodigdheden')
+      root.$scrollTo('#necessities')
+    }
 
     return {
       result,
       loading,
-      can
+      can,
+      goToNecessities
     }
   }
 })
