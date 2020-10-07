@@ -1,6 +1,6 @@
 <template>
 <validation-observer ref="observer" v-slot="{ handleSubmit, validate }">
-  <b-form class="bg-white pt-4 pb-5 px-5" @submit.stop.prevent="handleSubmit(onSubmit)"  v-if="!loading">
+  <b-form class="bg-white pt-4 pb-5 px-5" @submit.stop.prevent="customHandleSubmit(handleSubmit, validate)"  v-if="!loading">
       <slot v-bind:formData='form' />
 
   </b-form>
@@ -10,13 +10,13 @@
   >
   <b-row>
         <b-col cols="12" lg="7" class="text-left mt-4 mb-4" >
-          <b-button v-on:click.prevent="saveWithoutRedirect(handleSubmit, onSubmit)" variant="dark" size="lg" class="px-5 py-2">Opslaan</b-button>
-          <b-button v-on:click.prevent="handleSubmit(onSubmit)" type="submit" variant="dark" size="lg" class="px-5 py-2 ml-2">Opslaan en sluiten</b-button>
+          <b-button v-on:click.prevent="saveWithoutRedirect(handleSubmit, validate)" variant="dark" size="lg" class="px-5 py-2">Opslaan</b-button>
+          <b-button v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="dark" size="lg" class="px-5 py-2 ml-2">Opslaan en sluiten</b-button>
         </b-col>
         <b-col cols="12" lg='5' class="text-left  mt-4">
           <slot
             name='actions'
-            v-bind:handleSubmit='handleSubmit'
+            v-bind:handleSubmit='customHandleSubmit'
             v-bind:onSubmit='onSubmit'
             v-bind:validate='validate'
             v-bind:formData='form' />
@@ -75,10 +75,12 @@ export default defineComponent({
     isEdit && doCall()
     let form : Ref<BaseEntityModel | undefined> | BaseEntityModel = isEdit ? result : defaultValue
 
-    const saveWithoutRedirect = (handleSubmit, onSubmit) => {
+    const saveWithoutRedirect = (handleSubmit, validate) => {
       redirectOnSave.value = false
-      handleSubmit(onSubmit)
+      customHandleSubmit(handleSubmit, validate)
     }
+
+
 
     const onSubmit = async (test) : Promise<void> => {
       let repoParams : repoParams = {}
@@ -117,10 +119,21 @@ export default defineComponent({
       })
     }
 
+    const customHandleSubmit = (handleSubmit, validate) => {
+      validate().then((valid: boolean) => {
+        if (valid) {
+          handleSubmit(onSubmit)
+        } else {
+          toast.send('Niet alle velden zijn correct ingevuled', 'danger')
+        }
+      })
+    }
+
     return {
       saveWithoutRedirect,
       onSubmit,
       form,
+      customHandleSubmit,
       loading
     }
   }

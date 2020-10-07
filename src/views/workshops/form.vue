@@ -143,7 +143,7 @@ export default defineComponent({
       validate().then((valid: boolean) => {
         if (valid) {
           publishWorkshop.value = transition
-          handleSubmit(onSubmit)
+          handleSubmit(handleSubmit, validate)
         } else {
           publishWorkshop.value = transition
         }
