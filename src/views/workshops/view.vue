@@ -21,7 +21,9 @@
         <b-col cols="12">
             <b-row>
               <b-col cols="12" class="text-left mt-4"><strong>Omschrijving:</strong></b-col>
-              <b-col cols="12" class="text-left mt-4" v-html='result.description' />
+              <b-col cols="12" class="text-left mt-4" >
+                <ckeditor-view :content='result.description' />
+              </b-col>
               <b-col cols="12" class="text-left mt-2 mb-5">
                 <a
                   class='d-inline-block'
@@ -42,7 +44,9 @@
           :id='block.id'
           :title='block.title'
         >
-           <div class="text-left w-100 py-2 px-3" v-html="block.description" />
+           <div class="w-100 py-2 px-3" >
+             <ckeditor-view :content='block.description' />
+            </div>
         </custom-collapse>
       </b-row>
       <b-row class="bg-white" id='necessities'>
@@ -81,6 +85,7 @@ import TimeBadge from '../../components/semantic/timeBadge.vue'
 import usePermissions from '@/composables/usePermissions'
 import statusBadge from '../../components/semantic/statusBadge.vue'
 import customCollapse from '../../components/semantic/customCollapse.vue'
+import ckeditorView from '../../components/semantic/ckeditorView.vue'
 
 export default defineComponent({
   props: {
@@ -89,7 +94,8 @@ export default defineComponent({
   components: {
     TimeBadge,
     statusBadge,
-    customCollapse
+    customCollapse,
+    ckeditorView
   },
   setup (props, { emit, root }) {
     const { route } = useRouter()

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 <template>
      <validation-provider
         :rules="rules"
@@ -23,7 +22,25 @@
 <script lang="ts">
 import { defineComponent, ref, watch, PropType } from '@vue/composition-api'
 import getValidationState from '../../composables/useValidationState'
-import ClassicEditor from 'ckeditor5-build-classic-with-upload-image'
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+
+import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
+import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold'
+import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic'
+import Heading from '@ckeditor/ckeditor5-heading/src/heading'
+import Image from '@ckeditor/ckeditor5-image/src/image'
+import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption'
+import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle'
+import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar'
+import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload'
+import Link from '@ckeditor/ckeditor5-link/src/link'
+import ListStyle from '@ckeditor/ckeditor5-list/src/liststyle'
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment'
+import Table from '@ckeditor/ckeditor5-table/src/table'
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
+import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter'
+
 
 export default defineComponent({
   name: 'ck-editor',
@@ -51,20 +68,58 @@ export default defineComponent({
     })
 
     let config = {
+      plugins: [
+        EssentialsPlugin,
+        Bold,
+        Italic,
+        Heading,
+        Image,
+        ImageCaption,
+        ImageStyle,
+        ImageToolbar,
+        ImageUpload,
+        Link,
+        ListStyle,
+        Paragraph,
+        SimpleUploadAdapter,
+        Alignment,
+        Table,
+        TableToolbar
+      ],
+      toolbar: {
+        items: [
+          'heading',
+          '|',
+          'alignment',
+          'bold',
+          'italic',
+          'link',
+          'bulletedList',
+          'numberedList',
+          'imageUpload',
+          'undo',
+          'redo',
+          'insertTable'
+        ]
+      },
+      image: {
+        toolbar: [
+          'imageStyle:full',
+          'imageStyle:side',
+          '|',
+          'imageTextAlternative'
+        ]
+      },
+      table: {
+        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+      },
       simpleUpload: {
         // The URL that the images are uploaded to.
-        uploadUrl: root.$store.state.config.config.api.baseUrl + '/' + root.$store.state.config.config.api.apiSuffix,
-
-        // Enable the XMLHttpRequest.withCredentials property.
-        withCredentials: true,
-
+        uploadUrl: root.$store.state.config.config.api.baseUrl + '/' + root.$store.state.config.config.api.apiSuffix + 'files/upload/',
         // Headers sent along with the XMLHttpRequest to the upload server.
         headers: {
           Authorization: 'Bearer ' + root.$store.state.openid.accessToken
         }
-      },
-      toolbar: {
-
       }
     }
 

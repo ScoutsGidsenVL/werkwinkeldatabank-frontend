@@ -13,7 +13,7 @@
         <b-col
           cols="12"
           class="text-center mt-2"
-          v-html='workshop.description' />
+          v-html='workshop.shortDescription' />
         <b-col cols="12" class="text-center">
           <router-link class="nav-link" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
             <b-button>View</b-button>

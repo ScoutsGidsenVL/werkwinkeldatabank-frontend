@@ -78,7 +78,7 @@
           <b-badge v-show='selectedBlock && selectedBlock.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
         </b-col>
         <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description" />
-         <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.necessities" />
+        <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.necessities" />
       </b-row>
     </template>
   </base-overview>

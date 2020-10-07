@@ -98,16 +98,16 @@ export default defineComponent({
           'duration_start': '00:00:00',
           'duration_end': '01:00:00'
         },
-      '1 tot 4 uur':
+      '1 tot 2 uur':
         {
-          'id': '1 tot 4 uur',
+          'id': '1 tot 2 uur',
           'duration_start': '01:00:00',
-          'duration_end': '04:00:00'
+          'duration_end': '02:00:00'
         },
-      'meer dan 4 uur':
+      'meer dan 2 uur':
         {
-          'id': 'meer dan 4 uur',
-          'duration_start': '04:00:00',
+          'id': 'meer dan 2 uur',
+          'duration_start': '02:00:00',
           'duration_end': '99:00:00'
         }
     }
