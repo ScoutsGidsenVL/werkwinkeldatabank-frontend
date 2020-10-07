@@ -14,6 +14,7 @@
         <ckeditor
         :editor="editor"
         v-model="input"
+        :config='config'
         :disabled="disabled"></ckeditor>
       </b-form-group>
     </validation-provider>
@@ -22,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch, PropType } from '@vue/composition-api'
 import getValidationState from '../../composables/useValidationState'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import ClassicEditor from 'ckeditor5-build-classic-with-upload-image'
 
 export default defineComponent({
   name: 'ck-editor',
@@ -31,6 +32,7 @@ export default defineComponent({
     label: String,
     id: String,
     disabled: Boolean,
+    toolbarItems: Array,
     big: {
       type: Boolean,
       default: true
@@ -40,7 +42,7 @@ export default defineComponent({
       default: () => { return { required: true, min: 3 } }
     }
   },
-  setup ({ value }, { emit }) {
+  setup ({ value, toolbarItems }, { emit, root }) {
     let input = ref<string | undefined>(value)
     const editor = ref<ClassicEditor>(ClassicEditor)
 
@@ -48,10 +50,35 @@ export default defineComponent({
       emit('input', value)
     })
 
+    let config = {
+      simpleUpload: {
+        // The URL that the images are uploaded to.
+        uploadUrl: root.$store.state.config.config.api.baseUrl + '/' + root.$store.state.config.config.api.apiSuffix,
+
+        // Enable the XMLHttpRequest.withCredentials property.
+        withCredentials: true,
+
+        // Headers sent along with the XMLHttpRequest to the upload server.
+        headers: {
+          Authorization: 'Bearer ' + root.$store.state.openid.accessToken
+        }
+      },
+      toolbar: {
+
+      }
+    }
+
+    if (toolbarItems) {
+      config['toolbar'] = {
+        items: toolbarItems
+      }
+    }
+
     return {
       getValidationState,
       input,
-      editor
+      editor,
+      config
     }
   }
 })

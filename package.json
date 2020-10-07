@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^21.0.0",
+    "@ckeditor/ckeditor5-upload": "^23.0.0",
     "@ckeditor/ckeditor5-vue": "^1.0.1",
     "@vue/composition-api": "^1.0.0-beta.6",
     "axios": "^0.19.2",
     "bootstrap-vue": "^2.16.0",
+    "ckeditor5-build-classic-with-upload-image": "^18.0.13",
     "core-js": "^3.6.5",
     "inuits-vuejs-oidc": "git+https://github.com/inuits/inuits-vuejs-oidc.git",
     "vee-validate": "^3.3.7",

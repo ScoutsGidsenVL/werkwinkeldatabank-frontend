@@ -62,6 +62,7 @@
         <ck-editor
           v-model="formData.necessities"
           label="Benodigdheden"
+          :toolbarItems='["bulletedList"]'
           id="necessities"
           :big="false"
         />
