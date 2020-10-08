@@ -90,7 +90,7 @@ export default defineComponent({
     }
 
     if (route.value.query.filters) {
-      filters = JSON.parse(route.value.query.filters.toString())
+      filters = JSON.parse(window.atob(route.value.query.filters.toString()))
     }
 
     let callParams = reactive<repoParams>({
@@ -100,8 +100,22 @@ export default defineComponent({
     doCall()
 
     watch(callParams, value => {
-      filtersInUrlParams && router.replace({ query: { filters: JSON.stringify(callParams.filters) } })
+      let emptyFilters = true
+      callParams.filters && Object.keys(callParams.filters).forEach((key: any) => {
+        if (callParams.filters && callParams.filters[key].value !== undefined) {
+          emptyFilters = false
+        }
+      })
+
+      if (emptyFilters) {
+        filtersInUrlParams && router.replace({ query: { } })
+      } else {
+        filtersInUrlParams && router.replace({ query: { filters: window.btoa(JSON.stringify(callParams.filters)) } })
+      }
+
+
       callParams.page = 1
+      console.log(callParams.filters)
       doCall()
     })
 
