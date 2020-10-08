@@ -66,7 +66,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       short_description: this.shortDescription,
       description: this.description,
       theme: this.theme ? this.theme.id : undefined,
-      necessities: this.necessities,
+      necessities: this.necessities ? this.necessities : undefined,
       building_blocks: buildingBlocks,
       approving_team: this.approvingTeam ? this.approvingTeam.id : undefined
     }
