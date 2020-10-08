@@ -113,7 +113,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
         const ObjectStringFilter : ObjectStringFilter | false = this.isObjectStringFilter(filters[key])
         if (ObjectStringFilter && ObjectStringFilter.value) {
           Object.keys(ObjectStringFilter.value).forEach((ObjectKey: any) => {
-            ObjectKey !== 'id' && ObjectStringFilter.value && urlParams.append(ObjectStringFilter.filterKey, ObjectStringFilter.value[ObjectKey])
+            ObjectKey !== 'id' && ObjectStringFilter.value && urlParams.append(ObjectKey, ObjectStringFilter.value[ObjectKey])
           })
         }
 
