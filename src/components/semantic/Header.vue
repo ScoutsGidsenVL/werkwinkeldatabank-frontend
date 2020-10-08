@@ -19,7 +19,7 @@
             <li class="nav-item" v-show="can('workshops.view_theme')">
               <router-link class="nav-link" :to="{name: 'ThemeOverview'}" >Thema's</router-link>
             </li>
-            <li class="nav-item" v-show="can('workshops.view_buildingblocktemplate')">
+            <li class="nav-item" v-show="can('workshops.change_buildingblocktemplate')">
               <router-link class="nav-link" :to="{name: 'BuildingBlockOverview'}" >Bouwstenen</router-link>
             </li>
             <li class="nav-item" v-show="can('workshops.view_category')">

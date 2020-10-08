@@ -31,6 +31,18 @@
           :multiple='false'
         />
       </b-col>
+      <b-col
+        v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED' && can('workshops.change_buildingblocktemplate')"
+        cols="12"
+        md="7">
+        <select-input
+          v-model='formData.approvingTeam'
+          label='Team'
+          id="team"
+          :repo='TeamRepository'
+          :multiple='false'
+        />
+      </b-col>
       <b-col cols="12" md="10">
         <text-input
           v-model="formData.shortDescription"
@@ -109,6 +121,8 @@ import BaseEntityModel from '@/models/entities/baseEntityModel'
 import RepositoryFactory from '@/repositories/repositoryFactory'
 import getValidationState from '../../composables/useValidationState'
 import statusBadge from '../../components/semantic/statusBadge.vue'
+import TeamRepository from '../../repositories/entities/teamRepository'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -131,8 +145,10 @@ export default defineComponent({
       necessities: null,
       theme: null,
       buildingBlocks: [],
-      workshop_status_type: 'PRIVATE'
+      workshop_status_type: 'PRIVATE',
+      approvingTeam: null
     }))
+    const { can } = usePermissions()
     const publishWorkshop = ref<transitionTypes>(transitionTypes.noTransition)
     const afterSubmit = (result: WorkshopEntityModel) => {
       if (publishWorkshop.value !== transitionTypes.noTransition) {
@@ -161,7 +177,9 @@ export default defineComponent({
       afterSubmit,
       saveAndPublish,
       transitionTypes,
-      getValidationState
+      getValidationState,
+      TeamRepository,
+      can
     }
   }
 })

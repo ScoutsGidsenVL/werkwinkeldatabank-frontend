@@ -2,6 +2,7 @@ import BaseEntityModel from './baseEntityModel'
 import EntityModel from '@/interfaces/entityModel'
 import ThemeEntityModel from './themeEntityModel'
 import BuildingBlocksEntityModel from './buildingBlocksEntityModel'
+import TeamEntityModel from './teamEntityModel'
 
 export default class WorkshopEntityModel extends BaseEntityModel implements EntityModel<WorkshopEntityModel> {
 
@@ -16,7 +17,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public necessities?: string,
     public isSensitive?: boolean,
     public buildingBlocks?: BuildingBlocksEntityModel[],
-    public workshopStatus?: string
+    public workshopStatus?: string,
+    public approvingTeam?: TeamEntityModel
   ) {
     super(id, title)
   }
@@ -44,7 +46,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.necessities,
       input.is_sensitive,
       buildingBlockArray,
-      input.workshop_status_type
+      input.workshop_status_type,
+      input.approving_team ? TeamEntityModel.deserialize(input.approving_team) : undefined
     )
   }
 
@@ -61,7 +64,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       description: this.description,
       theme: this.theme ? this.theme.id : undefined,
       necessities: this.necessities,
-      building_blocks: buildingBlocks
+      building_blocks: buildingBlocks,
+      approving_team: this.approvingTeam ? this.approvingTeam.id : undefined
     }
   }
 

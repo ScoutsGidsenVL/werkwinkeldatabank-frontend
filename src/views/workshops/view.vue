@@ -2,7 +2,9 @@
   <b-col cols="12" v-if="!loading">
       <b-row class="bg-white">
         <b-col cols="12 py-3 d-flex justify-content-between border border-left-0 border-top-0 border-right-0">
-          <h2 class="d-inline-block">{{ result.title }}</h2>
+          <h2 class="d-inline-block text-left">
+            {{ result.title }}
+          </h2>
           <b-button
             v-show='can("workshops.change_workshop")'
             :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
@@ -11,7 +13,7 @@
              bewerken
           </b-button>
         </b-col>
-        <b-col cols="12" class="text-left my-3">
+        <b-col cols="12" class="text-left my-3 ml-n2">
           <time-badge>{{ result.duration }}</time-badge>
           <b-badge pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
@@ -20,6 +22,9 @@
 
         <b-col cols="12">
             <b-row>
+              <b-col cols="12">
+                <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.change_buildingblocktemplate')">Goedgekeurd door: {{ result.approvingTeam.title }}</span>
+              </b-col>
               <b-col cols="12" class="text-left mt-4"><strong>Omschrijving:</strong></b-col>
               <b-col cols="12" class="text-left mt-4" >
                 <ckeditor-view :content='result.description' />
