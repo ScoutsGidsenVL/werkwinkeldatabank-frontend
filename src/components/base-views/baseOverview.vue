@@ -113,9 +113,7 @@ export default defineComponent({
         filtersInUrlParams && router.replace({ query: { filters: window.btoa(JSON.stringify(callParams.filters)) } })
       }
 
-
       callParams.page = 1
-      console.log(callParams.filters)
       doCall()
     })
 
