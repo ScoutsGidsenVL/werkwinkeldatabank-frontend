@@ -129,7 +129,6 @@ export default defineComponent({
     const buildingBlockRepo: BuildingBlocskRepository = RepositoryFactory.get(BuildingBlocskRepository)
     const emptyBlock = ref<BuildingBlocksEntityModel | undefined>(undefined)
     buildingBlockRepo.getEmptyBlock().then((emptyBlockreturn: BuildingBlocksEntityModel) => {
-      console.log(emptyBlockreturn)
       emptyBlock.value = emptyBlockreturn
     })
 

@@ -9,7 +9,10 @@
 >
   <template v-slot:default="{ formData }">
     <b-row>
-      <b-col cols='12' class='text-right'>
+      <b-col cols="6" class="text-left">
+        <span class="w-100 h6 text-left d-inline-block" v-if="formData.createdBy && can('workshops.change_buildingblocktemplate')">Gemaakt door: {{ formData.createdBy.firstName }} {{ formData.createdBy.lastName }}</span>
+      </b-col>
+      <b-col cols='6' class='text-right'>
          <status-badge v-if="formData.workshopStatus" :status='formData.workshopStatus' />
       </b-col>
       <sub-title label='Algemene info' />
@@ -123,6 +126,7 @@ import getValidationState from '../../composables/useValidationState'
 import statusBadge from '../../components/semantic/statusBadge.vue'
 import TeamRepository from '../../repositories/entities/teamRepository'
 import usePermissions from '@/composables/usePermissions'
+import useToast from '@/composables/useToast'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -136,7 +140,7 @@ export default defineComponent({
     subTitle,
     statusBadge
   },
-  setup ({ value }, { emit }) {
+  setup ({ value }, { emit, root }) {
     const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
       title: null,
       id: null,
@@ -149,6 +153,7 @@ export default defineComponent({
       approvingTeam: null
     }))
     const { can } = usePermissions()
+    const toast = useToast(root)
     const publishWorkshop = ref<transitionTypes>(transitionTypes.noTransition)
     const afterSubmit = (result: WorkshopEntityModel) => {
       if (publishWorkshop.value !== transitionTypes.noTransition) {
@@ -158,12 +163,12 @@ export default defineComponent({
 
     const saveAndPublish = (customHandleSubmit, onSubmit, validate, transition : transitionTypes) => {
       validate().then((valid: boolean) => {
-        console.log('test ' + valid)
         if (valid) {
           publishWorkshop.value = transition
           customHandleSubmit(onSubmit, validate)
         } else {
           // publishWorkshop.value = transition
+          toast.send('Niet alle velden zijn correct ingevuled', 'danger')
         }
       })
     }

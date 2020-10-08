@@ -1,7 +1,7 @@
 <template>
   <b-col cols="12" v-if="!loading">
       <b-row class="bg-white">
-        <b-col cols="12 py-3 d-flex justify-content-between border border-left-0 border-top-0 border-right-0">
+        <b-col cols="12 py-3 d-flex position-sticky bg-white justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block text-left">
             {{ result.title }}
           </h2>
@@ -23,7 +23,8 @@
         <b-col cols="12">
             <b-row>
               <b-col cols="12">
-                <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.change_buildingblocktemplate')">Goedgekeurd door: {{ result.approvingTeam.title }}</span>
+                <span class="w-100 h6 text-left d-inline-block" v-if="result.createdBy && can('workshops.change_buildingblocktemplate')">Gemaakt door: {{ result.createdBy.firstname }} {{ result.createdBy.lastname }}</span>
+                <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.change_buildingblocktemplate')">Goedgekeurd door team: {{ result.approvingTeam.title }}</span>
               </b-col>
               <b-col cols="12" class="text-left mt-4"><strong>Omschrijving:</strong></b-col>
               <b-col cols="12" class="text-left mt-4" >
@@ -137,5 +138,6 @@ export default defineComponent({
   font-size: 14px;
   padding: 0.75rem 1.5rem;
 }
+
 
 </style>

@@ -3,6 +3,7 @@ import EntityModel from '@/interfaces/entityModel'
 import ThemeEntityModel from './themeEntityModel'
 import BuildingBlocksEntityModel from './buildingBlocksEntityModel'
 import TeamEntityModel from './teamEntityModel'
+import UserModel from '../userModel'
 
 export default class WorkshopEntityModel extends BaseEntityModel implements EntityModel<WorkshopEntityModel> {
 
@@ -18,7 +19,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public isSensitive?: boolean,
     public buildingBlocks?: BuildingBlocksEntityModel[],
     public workshopStatus?: string,
-    public approvingTeam?: TeamEntityModel
+    public approvingTeam?: TeamEntityModel,
+    public createdBy?: UserModel
   ) {
     super(id, title)
   }
@@ -47,7 +49,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.is_sensitive,
       buildingBlockArray,
       input.workshop_status_type,
-      input.approving_team ? TeamEntityModel.deserialize(input.approving_team) : undefined
+      input.approving_team ? TeamEntityModel.deserialize(input.approving_team) : undefined,
+      input.created_by ? UserModel.deserialize(input.created_by) : undefined
     )
   }
 
