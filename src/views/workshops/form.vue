@@ -85,11 +85,11 @@
       </b-col>
     </b-row>
   </template>
-  <template #actions='{customHandleSubmit, onSubmit, validate, formData}'>
+  <template #actions='{ saveWithoutRedirect, onSubmit, validate, formData}'>
     <b-button
       v-if="formData.workshopStatus === 'PRIVATE'"
       type="submit"
-      @click.prevent='saveAndPublish(customHandleSubmit,onSubmit, validate, transitionTypes.requestPublication)'
+      @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.requestPublication)'
       variant="light"
       size="lg"
       class="px-5 py-2 ">
@@ -98,7 +98,7 @@
     <b-button
       v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED'"
       type="submit"
-      @click.prevent='saveAndPublish(customHandleSubmit,onSubmit, validate, transitionTypes.publish)'
+      @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.publish)'
       variant="light"
       size="lg"
       class="px-5 py-2">
@@ -127,6 +127,7 @@ import statusBadge from '../../components/semantic/statusBadge.vue'
 import TeamRepository from '../../repositories/entities/teamRepository'
 import usePermissions from '@/composables/usePermissions'
 import useToast from '@/composables/useToast'
+import { useRouter } from '@/composables/useRouter'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -152,12 +153,15 @@ export default defineComponent({
       workshop_status_type: 'PRIVATE',
       approvingTeam: null
     }))
+    const { route, router } = useRouter()
     const { can } = usePermissions()
     const toast = useToast(root)
     const publishWorkshop = ref<transitionTypes>(transitionTypes.noTransition)
     const afterSubmit = (result: WorkshopEntityModel) => {
       if (publishWorkshop.value !== transitionTypes.noTransition) {
-        RepositoryFactory.get(WorkshopRepository).transitionWorkshop(result, publishWorkshop.value)
+        RepositoryFactory.get(WorkshopRepository).transitionWorkshop(result, publishWorkshop.value).then(() => {
+          result.id && router.push({ name: 'WerkwinkelView', params: { 'workshopId': result.id } })
+        })
       }
     }
 

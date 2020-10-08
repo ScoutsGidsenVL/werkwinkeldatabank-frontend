@@ -17,6 +17,7 @@
           <slot
             name='actions'
             v-bind:customHandleSubmit='customHandleSubmit'
+            v-bind:saveWithoutRedirect='saveWithoutRedirect'
             v-bind:onSubmit='onSubmit'
             v-bind:validate='validate'
             v-bind:formData='form' />
