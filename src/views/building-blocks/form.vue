@@ -33,6 +33,15 @@
           v-model="formData.duration"
         />
       </b-col>
+      <b-col cols="12" md="8">
+        <select-input
+          label='Type'
+          id="type"
+          v-model="formData.type"
+          :options='types'
+          :multiple='false'
+        />
+      </b-col>
       <b-col cols="12"  md="8">
         <select-input
           v-model='formData.category'
@@ -49,15 +58,6 @@
           :searchable="true"
           id="theme"
           :repo='ThemeRepository'
-          :multiple='false'
-        />
-      </b-col>
-      <b-col cols="12" md="8">
-        <select-input
-          label='Type'
-          id="type"
-          v-model="formData.type"
-          :options='types'
           :multiple='false'
         />
       </b-col>
