@@ -27,10 +27,11 @@
         </b-form-checkbox>
       </b-col>
       <b-col cols="12" md="8">
-        <time-input
-          label='Tijdsduur'
-          id="duration"
+         <text-input
           v-model="formData.duration"
+          label="Tijdsduur"
+          id='duration'
+          :type="inputTypes.time"
         />
       </b-col>
       <b-col cols="12" md="8">

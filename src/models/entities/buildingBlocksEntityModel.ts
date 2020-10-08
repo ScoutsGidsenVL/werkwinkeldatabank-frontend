@@ -51,7 +51,6 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
 
     return {
       title: this.title,
-      duration: this.duration,
       description: this.description,
       short_description: this.shortDescription,
       type: type,
@@ -76,7 +75,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
   public serialzeForWorkshop () : Object {
     const returnArray: Object = {
       title: this.title,
-      duration: this.duration,
+      duration: this.duration + ':00',
       description: this.description,
       building_block_necessities: this.necessities ? this.necessities : '&nbsp;',
       linked_template_values: !this.editable
@@ -92,6 +91,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
 
     return returnArray
   }
+
 
   public static getTypesArray (): String[] {
     let returnArray : String[] = []

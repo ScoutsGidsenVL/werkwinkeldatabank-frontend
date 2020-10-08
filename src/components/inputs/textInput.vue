@@ -36,7 +36,8 @@ import getValidationState from '../../composables/useValidationState'
 
 export enum inputTypes {
     text = 'text',
-    email = 'email'
+    email = 'email',
+    time = 'time'
 }
 
 export default defineComponent({

@@ -24,11 +24,12 @@
           :type="inputTypes.text"
           :disabled='!block.editable'
         />
-        <time-input
-          label='Tijdsduur'
-          id="duration"
+        <text-input
           v-model="block.duration"
-          :disabled='!block.editable'
+          label="Tijdsduur"
+          id='duration'
+          :type="inputTypes.time"
+          :disabled='!block.duration'
         />
         <ck-editor
           v-model="block.description"
