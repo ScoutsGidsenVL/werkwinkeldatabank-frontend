@@ -53,7 +53,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
     return this.get(this.endpoint, { params: urlParams && urlParams }, this.publicGet).then((response: any) => {
       const returnArray : BaseEntityModel[] = []
 
-      const results = response.result ? response.resutl : response
+      const results = response.results ? response.results : response
       results.forEach((content: any) => {
         returnArray.push(this.entityModel.deserialize(content))
       })
