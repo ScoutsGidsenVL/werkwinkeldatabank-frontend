@@ -40,6 +40,7 @@
         <ck-editor
           v-model="block.necessities"
           label="Benodigdheden"
+          :toolbarItems='["bulletedList"]'
           id="necessities"
           :rules='{}'
           :big="false"
@@ -52,6 +53,7 @@
             v-show='block.isSensitive'
             :disabled='block.editable'
             size="sm"
+            v-b-tooltip.hover title="Tooltip directive content"
             variant="secondary"
             class="mr-1">
               <b-icon icon="pencil-square" aria-label="Help" class="mx-2 mt-1"></b-icon>bewerken
