@@ -4,7 +4,7 @@ import WerkwinkelOverview from './views/workshops/overview.vue'
 import ThemesOverview from './views/themes/overview.vue'
 import WerkwinkelView from './views/workshops/view.vue'
 import ThemeForm from './views/themes/form.vue'
-import WorkshoptForm from './views/workshops/form.vue'
+import WorkshopForm from './views/workshops/form.vue'
 import BuildingBlockForm from './views/building-blocks/form.vue'
 import BuildingBlockOverview from './views/building-blocks/overview.vue'
 import CategoryBlockForm from './views/categories/form.vue'
@@ -65,7 +65,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/werkwinkels/nieuw',
     name: 'WerkwinkelCreate',
-    component: WorkshoptForm,
+    component: WorkshopForm,
     meta: {
       requiresOpenIdAuth: true,
       title: 'Nieuwe werkwinkel'
@@ -82,7 +82,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/werkwinkels/:workshopId/edit',
     name: 'WerkwinkelEdit',
-    component: WorkshoptForm,
+    component: WorkshopForm,
     meta: {
       requiresOpenIdAuth: true,
       title: 'Werkwinkel bewerken'

@@ -125,6 +125,7 @@ export default defineComponent({
 
     if (toolbarItems) {
       config['toolbar'] = {
+        // @ts-ignore
         items: toolbarItems
       }
     }

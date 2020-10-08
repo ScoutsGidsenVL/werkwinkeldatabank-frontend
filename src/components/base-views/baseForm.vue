@@ -108,9 +108,10 @@ export default defineComponent({
         emit('submitSuccess', postRepo.result.value)
         if (success && redirectRoute && redirectOnSave.value) {
           const routerObject = { name: redirectRoute }
-          if (redirectWithId) {
+          if (paramIdentifier) {
             routerObject['params'] = { }
-            routerObject.params[redirectWithId] = postRepo.result.value
+            // @ts-ignore
+            routerObject.params[paramIdentifier] = postRepo.result.value.id
           }
           router.push(routerObject)
         } else {

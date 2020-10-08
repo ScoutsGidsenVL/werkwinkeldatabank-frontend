@@ -75,7 +75,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
   public serialzeForWorkshop () : Object {
     const returnArray: Object = {
       title: this.title,
-      duration: this.duration + ':00',
+      duration: this.duration,
       description: this.description,
       building_block_necessities: this.necessities ? this.necessities : '&nbsp;',
       linked_template_values: !this.editable
