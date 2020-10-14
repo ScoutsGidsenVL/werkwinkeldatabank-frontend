@@ -35,6 +35,7 @@ export default abstract class BaseApiRepository {
     }
   }
 
+
   protected get (endpoint: string, config: AxiosRequestConfig = {}, publicCall: Boolean = false): Promise<any> {
     const instance = publicCall ? this.publicAxiosInstance : this.axiosInstance
     return instance.get(endpoint, config).then(function (result: AxiosResponse) {

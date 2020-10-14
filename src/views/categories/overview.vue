@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import CategoriesRepository from '../../repositories/entities/categoriesRepository'
+import CategoriesRepository from '../../repositories/entities/privateCategoriesRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import DisabledBadge from '../../components/semantic/disabledBadge.vue'
 import usePermissions from '@/composables/usePermissions'
