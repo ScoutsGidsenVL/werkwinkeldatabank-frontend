@@ -6,7 +6,9 @@ export default class ThemeEntityModel extends BaseEntityModel implements EntityM
   constructor (
     public title: string,
     public id?: string,
-    public description?: string
+    public description?: string,
+    public isDisabled?: boolean
+
   ) {
     super(id, title)
   }
@@ -15,14 +17,16 @@ export default class ThemeEntityModel extends BaseEntityModel implements EntityM
     return new ThemeEntityModel(
       input.title,
       input.id,
-      input.description
+      input.description,
+      input.is_disabled ? input.is_disabled : false
     )
   }
 
   public serialize () {
     return {
       title: this.title,
-      description: this.description
+      description: this.description,
+      is_disabled: this.isDisabled
     }
   }
 

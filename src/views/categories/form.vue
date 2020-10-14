@@ -16,6 +16,16 @@
           :type="inputTypes.text"
         />
       </b-col>
+      <b-col cols="12" md="10" class="mb-3 text-left" can='scouts_auth.access_disabled_entities'>
+        <b-form-checkbox
+          id="is-disabled"
+          v-model="formData.isDisabled"
+          name="is-disabled"
+          value="true"
+        >
+          Verborgen
+        </b-form-checkbox>
+      </b-col>
     </b-row>
   </template>
 </base-form>
@@ -28,6 +38,7 @@ import CategoriesRepository from '../../repositories/entities/categoriesReposito
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import CategoryEntityModel from '@/models/entities/categoryEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'category-form',
@@ -41,12 +52,14 @@ export default defineComponent({
       title: null,
       id: null
     }))
+    const { can } = usePermissions()
 
     return {
       inputTypes,
       CategoryEntityModel,
       CategoriesRepository,
-      form
+      form,
+      can
     }
   }
 })

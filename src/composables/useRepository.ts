@@ -49,7 +49,7 @@ export default function useRepository (
       return true
     } catch (e) {
       loading.value = false
-      return false
+      throw new Error(e)
     }
   }
 
@@ -65,6 +65,7 @@ export default function useRepository (
       }
     } catch (e) {
       loading.value = false
+      throw new Error(e)
     }
   }
 

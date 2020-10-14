@@ -16,7 +16,8 @@
         <b-badge pill variant="secondary" class="mt-2">{{ block.type }}</b-badge>
         <time-badge>{{ block.duration }}</time-badge>
         <b-badge v-if="block.theme" pill variant="light" class="mt-2 ml-3">{{ block.theme.title }}</b-badge>
-        <b-badge v-show='block.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
+        <sensitive-badge v-show='block.isSensitive' />
+        <disabled-badge v-show='block.isDisabled && can("scouts_auth.access_disabled_entities")' />
     </b-col>
     <b-col
         :cols='hideInfo ? 12 : 2'
@@ -30,6 +31,9 @@
 import { defineComponent, PropType } from '@vue/composition-api'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import TimeBadge from '../../components/semantic/timeBadge.vue'
+import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
+import DisabledBadge from '../../components/semantic/disabledBadge.vue'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'building-block-item',
@@ -44,7 +48,16 @@ export default defineComponent({
     }
   },
   components: {
-    TimeBadge
+    TimeBadge,
+    'sensitive-badge': SensetiveBadge,
+    'disabled-badge': DisabledBadge
+  },
+  setup () {
+    const { can } = usePermissions()
+
+    return {
+      can
+    }
   }
 })
 </script>

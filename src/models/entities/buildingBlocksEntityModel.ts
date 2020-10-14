@@ -22,6 +22,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public theme?: ThemeEntityModel,
     public editable?: boolean,
     public isSensitive?: boolean,
+    public isDisabled?: boolean,
     public order?: number,
     public template?: string
 
@@ -42,6 +43,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
       input.linked_template_values !== undefined ? !input.linked_template_values : !input.is_sensitive,
       input.is_sensitive,
+      input.is_disabled ? input.is_disabled : false,
       input.order
     )
   }
@@ -54,10 +56,12 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       description: this.description,
       short_description: this.shortDescription,
       type: type,
-      category: this.category?.id,
-      theme: this.theme?.id,
+      duration: this.duration ? this.checkDuration(this.duration) : undefined,
+      category: this.type === BuildingBlocksTypes.METHODIC ? this.category?.id : null,
+      theme: this.type === BuildingBlocksTypes.THEMATIC ? this.theme?.id : null,
       building_block_necessities: this.necessities ? this.necessities : '&nbsp;',
-      is_sensitive: this.isSensitive
+      is_sensitive: this.isSensitive,
+      is_disabled: this.isDisabled
     }
   }
 
@@ -75,8 +79,10 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
   public serialzeForWorkshop () : Object {
     const returnArray: Object = {
       title: this.title,
-      duration: this.duration,
+      duration: this.duration ? this.checkDuration(this.duration) : undefined,
       description: this.description,
+      category: this.type === BuildingBlocksTypes.METHODIC ? this.category?.id : null,
+      theme: this.type === BuildingBlocksTypes.THEMATIC ? this.theme?.id : null,
       building_block_necessities: this.necessities ? this.necessities : '&nbsp;',
       linked_template_values: !this.editable
     }
@@ -105,6 +111,10 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     input.order = order
 
     return input
+  }
+
+  private checkDuration (input: String) : String {
+    return input.length === 5 ? input + ':00' : input
   }
 
 }

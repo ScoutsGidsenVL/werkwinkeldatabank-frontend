@@ -14,6 +14,7 @@
           cols='10'
         >
             {{ category.title }}
+            <disabled-badge  v-show='category.isDisabled && can("scouts_auth.access_disabled_entities")' />
         </b-col>
         <b-col
           cols='2'
@@ -31,15 +32,21 @@
 import { defineComponent } from '@vue/composition-api'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
+import DisabledBadge from '../../components/semantic/disabledBadge.vue'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'categories-overview',
   components: {
-    BaseOverview
+    BaseOverview,
+    'disabled-badge': DisabledBadge
   },
   setup () {
+    const { can } = usePermissions()
+
     return {
-      CategoriesRepository
+      CategoriesRepository,
+      can
     }
   }
 })

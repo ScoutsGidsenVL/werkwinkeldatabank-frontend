@@ -25,6 +25,7 @@
           cols='10'
         >
             {{ theme.title }}
+            <disabled-badge  v-show='theme.isDisabled && can("scouts_auth.access_disabled_entities")' />
         </b-col>
         <b-col
           cols='2'
@@ -43,22 +44,27 @@ import { defineComponent } from '@vue/composition-api'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
+import DisabledBadge from '../../components/semantic/disabledBadge.vue'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'themes-overview',
   components: {
     BaseOverview,
-    TextInput
+    TextInput,
+    'disabled-badge': DisabledBadge
   },
   setup () {
     const filters : any = {
       term: { type: 'string', value: undefined, filterKey: 'term' }
     }
+    const { can } = usePermissions()
 
     return {
       ThemeRepository,
       filters,
-      inputTypes
+      inputTypes,
+      can
     }
   }
 })

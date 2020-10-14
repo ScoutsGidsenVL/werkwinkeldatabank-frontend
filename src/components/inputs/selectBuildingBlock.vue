@@ -75,7 +75,7 @@
           >{{ (selectedBlock && selectedBlock.category) && selectedBlock.category.title }}</b-badge>
           <b-badge pill variant="secondary" class="mt-2">{{ selectedBlock && selectedBlock.type }}</b-badge>
           <time-badge>{{ selectedBlock && selectedBlock.duration }}</time-badge>
-          <b-badge v-show='selectedBlock && selectedBlock.isSensitive' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
+          <sensitive-badge v-show='selectedBlock && selectedBlock.isSensitive' />
         </b-col>
         <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description" />
         <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.necessities" />
@@ -100,6 +100,7 @@ import DurationFilter from '../../components/filters/durationFilter.vue'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 import RepositoryFactory from '@/repositories/repositoryFactory'
+import SensetiveBadge from '../semantic/sensitiveBadge.vue'
 
 export default defineComponent({
   name: 'select-building-block',
@@ -110,7 +111,8 @@ export default defineComponent({
     BuildingBlockItem,
     TimeBadge,
     BlockTypeFilter,
-    DurationFilter
+    DurationFilter,
+    'sensitive-badge': SensetiveBadge
   },
   props: {
     value: Object as PropType<BaseEntityModel>

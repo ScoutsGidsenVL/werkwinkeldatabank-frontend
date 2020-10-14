@@ -118,6 +118,8 @@ export default defineComponent({
           redirectOnSave.value = true
           toast.send('Opgeslagen')
         }
+      }).catch(() => {
+        toast.send('Opslagen niet gelukt', 'danger')
       })
     }
 

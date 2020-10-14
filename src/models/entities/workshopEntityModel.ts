@@ -20,7 +20,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public buildingBlocks?: BuildingBlocksEntityModel[],
     public workshopStatus?: string,
     public approvingTeam?: TeamEntityModel,
-    public createdBy?: UserModel
+    public createdBy?: UserModel,
+    public isDisabled?: boolean
   ) {
     super(id, title)
   }
@@ -50,7 +51,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       buildingBlockArray,
       input.workshop_status_type,
       input.approving_team ? TeamEntityModel.deserialize(input.approving_team) : undefined,
-      input.created_by ? UserModel.deserialize(input.created_by) : undefined
+      input.created_by ? UserModel.deserialize(input.created_by) : undefined,
+      input.is_disabled ? input.is_disabled : false
     )
   }
 
@@ -68,7 +70,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       theme: this.theme ? this.theme.id : undefined,
       necessities: this.necessities ? this.necessities : undefined,
       building_blocks: buildingBlocks,
-      approving_team: this.approvingTeam ? this.approvingTeam.id : undefined
+      approving_team: this.approvingTeam ? this.approvingTeam.id : undefined,
+      is_disabled: this.isDisabled
     }
   }
 

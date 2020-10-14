@@ -31,6 +31,25 @@
           :type="inputTypes.time"
           :disabled='!block.duration'
         />
+        <select-input
+          v-model='block.category'
+          label='Categorie'
+          id="category"
+          :repo='CategoryRepository'
+          :multiple='false'
+          v-show="block && block.type === BuildingBlocksTypes.METHODIC"
+          :rules="(block && block.type === BuildingBlocksTypes.METHODIC) ? { required: true } : {}"
+        />
+        <select-input
+          v-model='block.theme'
+          label='Thema'
+          :searchable="true"
+          id="theme"
+          :repo='ThemeRepository'
+          :multiple='false'
+          v-show="block && block.type === BuildingBlocksTypes.THEMATIC"
+          :rules="(block && block.type === BuildingBlocksTypes.THEMATIC) ? { required: true } : {}"
+        />
         <ck-editor
           v-model="block.description"
           label="Omschrijving"
@@ -125,10 +144,13 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, watch, PropType, computed } from '@vue/composition-api'
 import selectBuildingBlock from './selectBuildingBlock.vue'
-import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
+import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
+import SelectInput from '../../components/inputs/selectInput.vue'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import TimeInput from '../../components/inputs/timeInput.vue'
+import CategoryRepository from '../../repositories/entities/categoriesRepository'
+import ThemeRepository from '../../repositories/entities/themeRepository'
 
 export default defineComponent({
   name: 'builing-blocks',
@@ -136,7 +158,8 @@ export default defineComponent({
     selectBuildingBlock,
     TextInput,
     ckEditor,
-    TimeInput
+    TimeInput,
+    SelectInput
   },
   props: {
     value: Array as PropType<BuildingBlocksEntityModel[]>,
@@ -163,7 +186,7 @@ export default defineComponent({
     const deleteBlock = (indexToDelete: number, order: number) => {
       buildingBlocks.value.splice(indexToDelete, 1)
 
-      buildingBlocks.value.forEach((block: BuildingBlocksEntityModel) => {
+      buildingBlocks.value.forEach((block: any) => {
         if (block.order && block.order > order) {
           block.order = block.order - 1
         }
@@ -206,7 +229,7 @@ export default defineComponent({
 
     const updateOrder = (block: BuildingBlocksEntityModel, newOrder: number) => {
       const orgOrder = block.order
-      const blockUp = buildingBlocks.value.filter((filterBlock: BuildingBlocksEntityModel) => {
+      const blockUp = buildingBlocks.value.filter((filterBlock: any) => {
         if (filterBlock.order === newOrder) {
           filterBlock.order = orgOrder
         }
@@ -228,7 +251,10 @@ export default defineComponent({
       orderUp,
       orderDown,
       isFirstBlock,
-      isLastBlock
+      isLastBlock,
+      BuildingBlocksTypes,
+      CategoryRepository,
+      ThemeRepository
     }
   }
 })

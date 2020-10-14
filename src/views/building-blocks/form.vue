@@ -16,14 +16,24 @@
           :type="inputTypes.text"
         />
       </b-col>
-       <b-col cols="12" md="10" class="mb-3 text-left">
+      <b-col cols="12" md="10" class="mb-3 text-left">
         <b-form-checkbox
-          id="checkbox-1"
+          id="is-sensetive"
           v-model="formData.isSensitive"
           name="is-sensetive"
           value="true"
         >
           Gevoelige inhoud
+        </b-form-checkbox>
+      </b-col>
+      <b-col cols="12" md="10" class="mb-3 text-left" can='scouts_auth.access_disabled_entities'>
+        <b-form-checkbox
+          id="is-disabled"
+          v-model="formData.isDisabled"
+          name="is-disabled"
+          value="true"
+        >
+          Verborgen
         </b-form-checkbox>
       </b-col>
       <b-col cols="12" md="8">
@@ -50,9 +60,9 @@
           id="category"
           :repo='CategoryRepository'
           :multiple='false'
+          v-show="formData && formData.type === BuildingBlocksTypes.METHODIC"
+          :rules="(formData && formData.type === BuildingBlocksTypes.METHODIC) ? { required: true } : {}"
         />
-      </b-col>
-      <b-col cols="12"  md="8">
         <select-input
           v-model='formData.theme'
           label='Thema'
@@ -60,6 +70,8 @@
           id="theme"
           :repo='ThemeRepository'
           :multiple='false'
+          v-show="formData && formData.type === BuildingBlocksTypes.THEMATIC"
+          :rules="(formData && formData.type === BuildingBlocksTypes.THEMATIC) ? { required: true } : {}"
         />
       </b-col>
       <b-col cols="12">
@@ -104,6 +116,7 @@ import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entitie
 import BaseForm from '../../components/base-views/baseForm.vue'
 import CategoryRepository from '../../repositories/entities/categoriesRepository'
 import ThemeRepository from '../../repositories/entities/themeRepository'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'building-blocks-form',
@@ -123,10 +136,11 @@ export default defineComponent({
       is_sensitive: false,
       category: null,
       theme: null,
-      type: BuildingBlocksTypes.THEMATIC
+      type: BuildingBlocksTypes.THEMATIC,
+      is_disabled: false
     }))
     const types : String[] = BuildingBlocksEntityModel.getTypesArray()
-
+    const { can } = usePermissions()
 
     return {
       inputTypes,
@@ -136,7 +150,8 @@ export default defineComponent({
       CategoryRepository,
       ThemeRepository,
       form,
-      types
+      types,
+      can
     }
   }
 })
