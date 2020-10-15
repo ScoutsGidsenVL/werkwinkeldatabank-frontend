@@ -6,6 +6,7 @@
   paramIdentifier='workshopId'
   redirectRoute="WerkwinkelView"
   v-on:submitSuccess='afterSubmit'
+  :historyModal="true"
 >
   <template v-slot:default="{ formData }">
     <b-row>

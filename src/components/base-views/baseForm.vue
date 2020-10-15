@@ -1,8 +1,15 @@
 <template>
 <validation-observer ref="observer" v-slot="{ handleSubmit, validate }">
+    <div v-if="historyModal" cols="12" class="text-right bg-white pt-3 px-5">
+      <history-modal
+        :repo='repo'
+        :paramIdentifier='paramIdentifier'
+        v-on:setOldVersion='setOldVersion'
+      />
+    </div>
+
   <b-form class="bg-white pt-4 pb-5 px-5" @submit.stop.prevent="customHandleSubmit(handleSubmit, validate)"  v-if="!loading">
       <slot v-bind:formData='form' />
-
   </b-form>
   <div
     v-if="!loading"
@@ -35,10 +42,13 @@ import useRepository, { callTypes } from '@/composables/useRepository'
 import { useRouter } from '@/composables/useRouter'
 import useGlobalLoading from '@/composables/useGlobalLoading'
 import useToast from '../../composables/useToast'
+import usePermissions from '@/composables/usePermissions'
+import historyModal from './historyModal.vue'
 
 export default defineComponent({
   name: 'base-form',
   components: {
+    historyModal
   },
   props: {
     defaultValue: {
@@ -59,10 +69,15 @@ export default defineComponent({
     },
     redirectWithId: {
       type: String
+    },
+    historyModal: {
+      type: Boolean,
+      default: false
     }
   },
   setup ({ repo, defaultValue, paramIdentifier, redirectRoute, redirectWithId }, { emit, root }) {
     const { route, router } = useRouter()
+    const { can } = usePermissions()
     const { loading, doCall, result } = useRepository(
       repo,
       callTypes.getSingel,
@@ -80,8 +95,6 @@ export default defineComponent({
       redirectOnSave.value = false
       customHandleSubmit(handleSubmit, validate)
     }
-
-
 
     const onSubmit = async (test) : Promise<void> => {
       let repoParams : repoParams = {}
@@ -133,12 +146,18 @@ export default defineComponent({
       })
     }
 
+    const setOldVersion = (oldVersion: BaseEntityModel) => {
+      form.value = oldVersion
+    }
+
     return {
       saveWithoutRedirect,
       onSubmit,
       form,
       customHandleSubmit,
-      loading
+      loading,
+      can,
+      setOldVersion
     }
   }
 })

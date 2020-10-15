@@ -1,4 +1,4 @@
-import BaseRepository, { repoParams } from '../repositories/baseRepository'
+import BaseRepository, { historyItem, repoParams } from '../repositories/baseRepository'
 import RepositoryFactory from '../repositories/repositoryFactory'
 import BaseEntityModel from '../models/entities/baseEntityModel'
 import { ref, Ref } from '@vue/composition-api'
@@ -7,7 +7,8 @@ export enum callTypes {
     getModelArray = 'getModelArray',
     getSingel = 'getSingle',
     create = 'create',
-    update = 'update'
+    update = 'update',
+    history = 'getHistory'
 }
 
 export type useRepositoryType = {
@@ -15,7 +16,7 @@ export type useRepositoryType = {
   doCall: () => Promise<Boolean>,
   loadMore: () => void,
   result: Ref<BaseEntityModel | undefined>
-  results: Ref<BaseEntityModel[]>
+  results: Ref<BaseEntityModel[] | historyItem[]>
 }
 
 export default function useRepository (
@@ -25,7 +26,7 @@ export default function useRepository (
 ) : useRepositoryType {
   const loading = ref<Boolean>(false)
   const activeRepo = RepositoryFactory.get(repo)
-  const result = ref<BaseEntityModel | undefined>()
+  const result = ref<BaseEntityModel | historyItem[]| undefined>()
   const results = ref<BaseEntityModel[]>([])
 
   if (!params.page) {
@@ -40,7 +41,7 @@ export default function useRepository (
         results.value = repoResponse.result
         params = repoResponse.params
       } else {
-        const repoResponse : {result: BaseEntityModel, params: repoParams } = await activeRepo[callType](params)
+        const repoResponse : {result: BaseEntityModel | historyItem[], params: repoParams } = await activeRepo[callType](params)
         result.value = repoResponse.result
         params = repoResponse.params
       }

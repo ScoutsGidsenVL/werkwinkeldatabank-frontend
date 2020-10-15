@@ -4,7 +4,7 @@ import BuildingBlocksEntityModel from '../../models/entities/buildingBlocksEntit
 export default class BuildingBlocksRepository extends BaseRepository {
     id = 'building-blocks'
     endpoint = '/building_block_templates/'
-    publicGet = false
+    publicGet = true
     entityModel = BuildingBlocksEntityModel
 
     getEmptyBlock () {

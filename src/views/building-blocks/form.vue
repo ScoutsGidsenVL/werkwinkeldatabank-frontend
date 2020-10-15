@@ -5,6 +5,7 @@
   :repo='BuildingBlocskRepository'
   paramIdentifier='buildingBlockId'
   redirectRoute='BuildingBlockView'
+  :historyModal="true"
 >
   <template v-slot:default="{ formData }">
     <b-row>

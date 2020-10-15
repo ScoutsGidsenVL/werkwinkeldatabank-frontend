@@ -1,4 +1,5 @@
 
+import moment from 'moment'
 import BaseEntityModel from '../models/entities/baseEntityModel'
 import BaseApiRepository from './baseApiRepository'
 
@@ -39,6 +40,12 @@ export type repoParams = {
   pageSize?: number
 }
 
+export type historyItem = {
+  result: BaseEntityModel,
+  date: string,
+  id: string
+}
+
 export default abstract class BaseRepository extends BaseApiRepository {
   abstract id: string
   abstract endpoint : string
@@ -67,6 +74,22 @@ export default abstract class BaseRepository extends BaseApiRepository {
   getSingle (params: repoParams) : Promise<{result: BaseEntityModel, params: repoParams }> {
     return this.get(this.endpoint + '' + params.id, {}, this.publicGet).then((response: any) => {
       return { result: this.entityModel.deserialize(response), params: params }
+    })
+  }
+
+  getHistory (params: repoParams) : Promise<{result: historyItem[], params: repoParams}> {
+    return this.get(this.endpoint + '' + params.id + '/history', {}, this.publicGet).then((response: any) => {
+      const returnArray : historyItem[] = []
+
+      response.forEach((content: any) => {
+        returnArray.push({
+          result: this.entityModel.deserialize(content.data),
+          date: moment(content.created_at).format('MMMM Do YYYY, h:mm'),
+          id: content.id
+        })
+      })
+
+      return { result: returnArray, params: params }
     })
   }
 
