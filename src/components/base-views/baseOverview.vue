@@ -29,12 +29,12 @@
          v-bind:results="results"
         />
         <span
-         v-else
+         v-if="!loading && results.length === 0"
          class="d-inline-block w-100 text-center my-4"
         >
           <strong>Geen resultaat</strong>
         </span>
-      <b-row v-show="!callParams.isMaxPage">
+      <b-row v-show="!loading && !callParams.isMaxPage">
         <b-col class="text-center my-3">
           <b-button v-on:click='loadMore' :disabled='callParams.isMaxPage' >Load more</b-button>
         </b-col>
@@ -49,6 +49,7 @@ import { defineComponent, reactive, watch, PropType, ref } from '@vue/compositio
 import useRepository, { callTypes } from '../../composables/useRepository'
 import BaseRepository, { repoParams } from '../../repositories/baseRepository'
 import { useRouter } from '@/composables/useRouter'
+import useGlobalLoading from '@/composables/useGlobalLoading'
 
 export default defineComponent({
   name: 'base-overview',
@@ -97,6 +98,7 @@ export default defineComponent({
       filters: filters
     })
     const { loading, doCall, results, loadMore } = useRepository(repo, callTypes.getModelArray, callParams)
+    useGlobalLoading(loading)
     doCall()
 
     watch(callParams, value => {
@@ -129,7 +131,8 @@ export default defineComponent({
       results,
       resetFilers,
       callParams,
-      loadMore
+      loadMore,
+      loading
     }
   }
 })
