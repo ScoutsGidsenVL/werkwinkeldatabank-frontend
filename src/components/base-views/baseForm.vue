@@ -17,10 +17,10 @@
   >
   <b-row>
         <b-col cols="12" lg="7" class="text-left mt-4 mb-4" >
-          <b-button v-on:click.prevent="saveWithoutRedirect(handleSubmit, validate)" variant="dark" size="lg" class="px-5 py-2">Opslaan</b-button>
-          <b-button v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="dark" size="lg" class="px-5 py-2 ml-2">Opslaan en sluiten</b-button>
+          <b-button v-on:click.prevent="saveWithoutRedirect(handleSubmit, validate)" variant="dark" size="md" class="px-5 py-2 mr-2 mb-2">Opslaan</b-button>
+          <b-button v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="dark" size="md" class="px-5 mb-2 py-2">Opslaan en sluiten</b-button>
         </b-col>
-        <b-col cols="12" lg='5' class="text-left  mt-4">
+        <b-col cols="12" lg='5' class="text-left  mt-lg-4">
           <slot
             name='actions'
             v-bind:customHandleSubmit='customHandleSubmit'
