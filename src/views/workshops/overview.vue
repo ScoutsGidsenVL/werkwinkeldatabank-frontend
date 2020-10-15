@@ -118,7 +118,6 @@ export default defineComponent({
     if (RepositoryFactory.get(repo).id === 'published-workshops' && store.getters['openid/isLoggedIn']) {
       repo = privatePublishedWorkshopRepository
     }
-    console.log(repo)
 
     return {
       filters,
