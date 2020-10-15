@@ -21,7 +21,13 @@
         :searchable="searchable"
         :allow-empty="true"
         :multiple='multiple'
-     />
+        deselectLabel='Druk op enter om te verwijderen'
+        selectLabel='Durk enter om te selecteren'
+        selectedLabel='Geselecteerd'
+     >
+      <template slot="noOptions">Geen resultaat</template>
+      <template slot="noResult">Geen resultaat</template>
+     </multi-select>
   </b-form-group>
   </validation-provider>
 </template>
