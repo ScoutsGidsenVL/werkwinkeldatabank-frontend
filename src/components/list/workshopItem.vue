@@ -5,7 +5,7 @@
             <strong>{{ workshop.title }}</strong>
         </b-col>
         <b-col cols="12" class="text-center">
-          <time-badge v-show='workshop.duration' >{{ workshop.duration }}</time-badge>
+          <time-badge v-show='workshop.duration' :time='workshop.duration' />
           <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
           <b-badge pill variant="light" class="mt-2 ml-3">{{ workshop.theme.title }}</b-badge>
           <sensitive-badge v-show='workshop.isSensitive && can("workshops.change_buildingblocktemplate")' />

@@ -14,7 +14,7 @@
         </b-button>
       </b-col>
       <b-col cols="12" class="text-left my-3 ml-n2">
-          <time-badge>{{ result.duration }}</time-badge>
+          <time-badge :time='result.duration' />
           <b-badge v-if='result.theme' pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
           <b-badge v-if='result.category' pill variant="secondary" class="mt-2 mx-3">{{ result.category.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
@@ -31,24 +31,7 @@
             <ckeditor-view :content='result.description' />
           </b-col>
         </b-row>
-    </b-col>
-      <!-- <b-row v-show="result" class="bg-white p-3">
-        <b-col cols="12" class="text-left">
-          <h2>{{ result && result.title }}</h2>
-        </b-col>
-        <b-col cols="12" class="text-left mb-3">
-          <b-badge
-            pill
-            variant="light"
-            class="mt-2 mr-2"
-          >{{ (result && result.category) && result.category.title }}</b-badge>
-          <b-badge pill variant="secondary" class="mt-2">{{ result && result.type }}</b-badge>
-          <time-badge>{{ result && result.duration }}</time-badge>
-          <sensitive-badge v-show='result && result.isSensitive' />
-        </b-col>
-        <b-col cols="12" class="text-left" v-html="result && result.description" />
-        <b-col cols="12" class="text-left" v-html="result && result.necessities" />
-      </b-row> -->
+      </b-col>
     </b-row>
      <b-row class="bg-white mt-3" id='necessities'>
         <custom-collapse

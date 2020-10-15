@@ -14,7 +14,7 @@
           </b-button>
         </b-col>
         <b-col cols="12" class="text-left my-3 ml-n2">
-          <time-badge>{{ result.duration }}</time-badge>
+          <time-badge :time='result.duration' />
           <b-badge pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
           <b-badge v-show='result.isSensitive && can("workshops.change_buildingblocktemplate")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
