@@ -8,7 +8,7 @@
         <b-icon icon="clock-history" aria-label="edit" class="mx-2 mt-2"></b-icon>
         geschiedenis
     </b-button>
-    <b-modal id="modal-1" size="xl" title="Geschiedenis" v-model="showModal" hide-footer>
+    <b-modal id="modal-history" size="xl" title="Geschiedenis" v-model="showModal" hide-footer>
         <b-row
         v-for="result in historyResult"
         :key='result.id'

@@ -99,15 +99,25 @@
     </b-col>
     <b-col cols="12" class="text-center">
       <b-button
-        v-b-modal.modal-1
+        v-b-modal.modal-building-block-input
         size="lg"
         :variant='validationState === false ? "danger" : "secondary"'
         class="mb-2 p-4">
           <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
       </b-button>
     </b-col>
-    <b-modal id="modal-1" size="xl" title="Selecteer bouwsteen" v-model="showModal" >
-      <select-building-block v-model='selectedBlock' />
+    <b-modal id="modal-building-block-input" size="xl" title="Selecteer bouwsteen" v-model="showModal" >
+      <div class="w-100 text-right">
+        <b-button
+            v-show="selectedBlock"
+            size="md"
+            class="px-5 py-2"
+            variant="success"
+            @click="addSelectedBlock()">
+              Selecteer
+          </b-button>
+      </div>
+      <select-building-block v-model='selectedBlock' v-on:selectBlock='emitBlock' />
       <template v-slot:modal-footer>
         <b-button
             v-show='selectedBlock ? false : true'
@@ -132,7 +142,7 @@
             size="md"
             class="px-5 py-2"
             variant="success"
-            @click="addBlock()">
+            @click="addSelectedBlock()">
               Selecteer
           </b-button>
       </template>
@@ -173,12 +183,16 @@ export default defineComponent({
     const selectedBlock = ref<BuildingBlocksEntityModel | undefined>()
     const showModal = ref<boolean>(false)
 
-    const addBlock = () => {
+    const emitBlock = (block: BuildingBlocksEntityModel) => {
       const order : number = buildingBlocks.value.length > 0 ? buildingBlocks.value.length : 0
-      selectedBlock.value && buildingBlocks.value.push(BuildingBlocksEntityModel.createNewFromTemplate(selectedBlock.value, order))
-      selectedBlock.value = undefined
+      buildingBlocks.value.push(BuildingBlocksEntityModel.createNewFromTemplate(block, order))
       emit('input', buildingBlocks)
       hideModel()
+    }
+
+    const addSelectedBlock = () => {
+      selectedBlock.value && emitBlock(selectedBlock.value)
+      selectedBlock.value = undefined
     }
 
     const hideModel = () => { showModal.value = false }
@@ -239,7 +253,7 @@ export default defineComponent({
     }
 
     return {
-      addBlock,
+      addSelectedBlock,
       buildingBlocks,
       selectedBlock,
       hideModel,
@@ -254,7 +268,8 @@ export default defineComponent({
       isLastBlock,
       BuildingBlocksTypes,
       CategoryRepository,
-      ThemeRepository
+      ThemeRepository,
+      emitBlock
     }
   }
 })

@@ -9,6 +9,9 @@ export default class BuildingBlocksRepository extends BaseRepository {
 
     getEmptyBlock () {
       return this.get('/building_block_templates/empty_default/').then((result: any) => {
+        result.title = 'Lege bouwsteen'
+        result.description = ''
+
         return BuildingBlocksEntityModel.deserialize(result)
       })
     }

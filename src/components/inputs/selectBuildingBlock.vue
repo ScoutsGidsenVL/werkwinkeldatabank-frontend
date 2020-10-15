@@ -52,7 +52,8 @@
           :key="emptyBlock.id"
           :hideInfo="true"
         >
-          <a href v-on:click.prevent="moreInfo('', emptyBlock)">Meer info ></a>
+          <a href v-on:click.prevent="moreInfo('', emptyBlock)">Meer info ></a><br>
+          <a href class='d-inline-block mt-2' v-on:click.prevent="selectBlock('', emptyBlock)">Selecteer ></a>
         </building-block-item>
       </div>
       <building-block-item
@@ -61,7 +62,8 @@
         :block="block"
         :key="block.id"
       >
-        <a href v-on:click.prevent="moreInfo(block.id)">Meer info ></a>
+        <a href v-on:click.prevent="moreInfo(block.id)">Meer info ></a><br>
+        <a href class='d-inline-block mt-2' v-on:click.prevent="selectBlock(block.id)">Selecteer ></a>
       </building-block-item>
       <b-row v-show="selectedBlock" class="p-3">
         <b-col cols="12" class="text-left">
@@ -161,6 +163,27 @@ export default defineComponent({
       emit('input', selectedBlock.value)
     }
 
+    const selectBlock = async (id: string, EmptyBlock?: BuildingBlocksEntityModel) => {
+      if (EmptyBlock) {
+        emit('selectBlock', EmptyBlock)
+      } else {
+        const { loading, doCall, result } = useRepository(
+          BuildingBlocskRepository,
+          callTypes.getSingel,
+          {
+            id: id
+          }
+        )
+
+        await doCall()
+        emit('selectBlock', result.value)
+
+      }
+
+    }
+
+
+
     const goBack = () => {
       selectedBlock.value = undefined
     }
@@ -175,7 +198,8 @@ export default defineComponent({
       filters,
       ThemeRepository,
       CategoriesRepository,
-      emptyBlock
+      emptyBlock,
+      selectBlock
     }
   }
 })
