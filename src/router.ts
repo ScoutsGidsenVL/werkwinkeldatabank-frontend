@@ -158,7 +158,7 @@ const routes: Array<RouteConfig> = [
     component: CategoryBlockForm,
     meta: {
       requiresOpenIdAuth: true,
-      title: 'Nieuwe categorie'
+      title: 'Nieuwe werkvorm'
     }
   },
   {

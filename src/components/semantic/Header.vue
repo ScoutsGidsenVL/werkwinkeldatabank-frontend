@@ -23,7 +23,7 @@
               <router-link class="nav-link" :to="{name: 'ThemeOverview'}" >Thema's</router-link>
             </li>
             <li class="nav-item" v-show="can('workshops.view_category')">
-              <router-link class="nav-link" :to="{name: 'CategorieesOverview'}" >Categorieën</router-link>
+              <router-link class="nav-link" :to="{name: 'CategorieesOverview'}" >Soorten werkvormen</router-link>
             </li>
           </ul>
         </b-col>

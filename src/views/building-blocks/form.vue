@@ -57,7 +57,7 @@
       <b-col cols="12"  md="8">
         <select-input
           v-model='formData.category'
-          label='Categorie'
+          label='Soorten werkvormen'
           id="category"
           :repo='CategoryRepository'
           :multiple='false'
