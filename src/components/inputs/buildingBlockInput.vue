@@ -4,9 +4,16 @@
     <b-col
       cols="12"
       v-for="(block, index) in buildingBlocks"
+      class="bg-light"
       :key='block.id'
     >
-      <div class="border p-4 my-4">
+    <custom-collapse
+          :id='block.id'
+          :title='block.title'
+          :visible="true"
+          :border='true'
+        >
+      <div class=" p-4 mt-0 mb-4">
         <div class="w-100 text-right">
           <b-button
             size="sm"
@@ -96,13 +103,14 @@
           </b-button>
         </div>
       </div>
+      </custom-collapse>
     </b-col>
     <b-col cols="12" class="text-center">
       <b-button
         v-b-modal.modal-building-block-input
         size="lg"
         :variant='validationState === false ? "danger" : "secondary"'
-        class="mb-2 p-4">
+        class="mb-2 mt-4 p-4">
           <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
       </b-button>
     </b-col>
@@ -161,6 +169,7 @@ import ckEditor from '../../components/inputs/ckEditor.vue'
 import TimeInput from '../../components/inputs/timeInput.vue'
 import CategoryRepository from '../../repositories/entities/categoriesRepository'
 import ThemeRepository from '../../repositories/entities/themeRepository'
+import customCollapse from '../../components/semantic/customCollapse.vue'
 
 export default defineComponent({
   name: 'builing-blocks',
@@ -169,7 +178,8 @@ export default defineComponent({
     TextInput,
     ckEditor,
     TimeInput,
-    SelectInput
+    SelectInput,
+    customCollapse
   },
   props: {
     value: Array as PropType<BuildingBlocksEntityModel[]>,

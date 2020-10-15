@@ -1,6 +1,12 @@
 <template>
     <div class="w-100">
-        <b-btn block href="#" v-b-toggle="'accordion-' + id" variant="white" class="pt-3 d-flex justify-content-between">
+        <b-btn
+          block
+          href="#"
+          v-b-toggle="'accordion-' + id"
+          variant="white"
+          class="pt-3 d-flex justify-content-between"
+          :class="border && 'border border-left-0 border-right-0 border-top-0'">
           <h3 class="d-inline-block">{{ title }}</h3>
             <span class="when-opened">
                 <b-icon icon="chevron-down" aria-label="edit" class="mx-2 mt-2"></b-icon>
@@ -24,6 +30,10 @@ export default defineComponent({
     title: String,
     id: String,
     visible: {
+      type: Boolean,
+      default: false
+    },
+    border: {
       type: Boolean,
       default: false
     }
