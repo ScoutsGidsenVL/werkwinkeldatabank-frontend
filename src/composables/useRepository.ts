@@ -26,7 +26,7 @@ export default function useRepository (
 ) : useRepositoryType {
   const loading = ref<Boolean>(false)
   const activeRepo = RepositoryFactory.get(repo)
-  const result = ref<BaseEntityModel | historyItem[]| undefined>()
+  const result = ref<BaseEntityModel | undefined>()
   const results = ref<BaseEntityModel[]>([])
 
   if (!params.page) {

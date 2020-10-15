@@ -1,7 +1,7 @@
 <template>
   <base-overview
     :filtersProp="filters"
-    :repo='workshopReposioryType'
+    :repo='repo'
     label="werkwinkel"
     :createRoute="createRoute"
   >
@@ -53,12 +53,15 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/composition-api'
 import WorkshopRepository from '../../repositories/entities/workshopRepository'
+import privatePublishedWorkshopRepository from '../../repositories/entities/privatePublishedWorkshopRepository'
 import WorkshopItem from '../../components/list/workshopItem.vue'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
+import store from '@/store/store'
+import RepositoryFactory from '@/repositories/repositoryFactory'
 
 export default defineComponent({
   name: 'workshop-overview',
@@ -80,7 +83,7 @@ export default defineComponent({
       default: true
     }
   },
-  setup ({ showCreate }) {
+  setup ({ showCreate, workshopReposioryType }) {
     const filters : any = {
       theme: { type: 'arrayEntity', value: undefined, filterKey: 'theme' },
       term: { type: 'string', value: undefined, filterKey: 'term' },
@@ -111,9 +114,15 @@ export default defineComponent({
           'duration_end': '99:00:00'
         }
     }
+    let repo : any = workshopReposioryType
+    if (RepositoryFactory.get(repo).id === 'published-workshops' && store.getters['openid/isLoggedIn']) {
+      repo = privatePublishedWorkshopRepository
+    }
+    console.log(repo)
 
     return {
       filters,
+      repo,
       ThemeRepository,
       inputTypes,
       createRoute,

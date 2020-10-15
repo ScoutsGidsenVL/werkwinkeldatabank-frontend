@@ -1,6 +1,6 @@
 <template>
 <base-overview
-    :repo='BuildingBlocskRepository'
+    :repo='repo'
     :filtersProp='filters'
     label="bouwsteen"
     createRoute="BuildingBlockCreate"
@@ -56,6 +56,7 @@
 <script lang="ts">
 import { defineComponent, watch } from '@vue/composition-api'
 import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
+import PrivateBuildingBlocskRepository from '../../repositories/entities/privateBuildingBlocskRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
@@ -66,6 +67,9 @@ import CategoriesRepository from '../../repositories/entities/categoriesReposito
 import BlockTypeFilter from '../../components/filters/blockTypeFilter.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
 import usePermissions from '@/composables/usePermissions'
+import { getModule } from 'vuex-module-decorators'
+import userModule from '@/store/userModule'
+import store from '@/store/store'
 
 export default defineComponent({
   name: 'building-block-overview',
@@ -87,8 +91,10 @@ export default defineComponent({
     }
     const { can } = usePermissions()
 
+    const repo = store.getters['openid/isLoggedIn'] ? PrivateBuildingBlocskRepository : BuildingBlocskRepository
+
     return {
-      BuildingBlocskRepository,
+      repo,
       inputTypes,
       filters,
       ThemeRepository,
