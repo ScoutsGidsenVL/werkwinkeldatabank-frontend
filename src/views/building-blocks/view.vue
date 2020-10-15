@@ -24,7 +24,7 @@
         <b-row>
           <b-col cols="12">
             <span class="w-100 h6 text-left d-inline-block" v-if="result.createdBy && can('workshops.change_buildingblocktemplate')">Gemaakt door: {{ result.createdBy.firstName }} {{ result.createdBy.lastName }}</span>
-            <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.change_buildingblocktemplate')">Goedgekeurd door team: {{ result.approvingTeam.title }}</span>
+            <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.change_buildingblocktemplate')">Gepubliceerd door {{ result.approvingTeam.title }}</span>
           </b-col>
           <b-col cols="12" class="text-left mt-4"><strong>Omschrijving:</strong></b-col>
           <b-col cols="12" class="text-left mt-4" >

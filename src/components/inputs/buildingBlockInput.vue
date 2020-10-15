@@ -29,7 +29,7 @@
           label="Tijdsduur"
           id='duration'
           :type="inputTypes.time"
-          :disabled='!block.duration'
+          :disabled='!block.editable'
         />
         <select-input
           v-model='block.category'
