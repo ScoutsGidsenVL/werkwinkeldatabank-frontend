@@ -4,7 +4,7 @@
   :type='BuildingBlocksEntityModel'
   :repo='BuildingBlocskRepository'
   paramIdentifier='buildingBlockId'
-  redirectRoute='BuildingBlockOverview'
+  redirectRoute='BuildingBlockView'
 >
   <template v-slot:default="{ formData }">
     <b-row>
@@ -110,7 +110,7 @@ import { reactive, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import TimeInput from '../../components/inputs/timeInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
-import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
+import BuildingBlocskRepository from '../../repositories/entities/privateBuildingBlocskRepository'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'

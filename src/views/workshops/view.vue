@@ -61,7 +61,6 @@
           title='Benodigdheden'
         >
             <b-row class="py-2 px-3">
-                <b-col cols="12" class="text-left mt-4"><strong>Benodigdheden:</strong></b-col>
                 <b-col
                 v-for="(block) in result.buildingBlocks"
                 :key='"necessities-"+block.id'

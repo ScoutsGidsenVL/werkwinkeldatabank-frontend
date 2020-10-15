@@ -7,6 +7,7 @@ import ThemeForm from './views/themes/form.vue'
 import WorkshopForm from './views/workshops/form.vue'
 import BuildingBlockForm from './views/building-blocks/form.vue'
 import BuildingBlockOverview from './views/building-blocks/overview.vue'
+import BuildingBlockView from './views/building-blocks/view.vue'
 import CategoryBlockForm from './views/categories/form.vue'
 import CategoryBlockOverview from './views/categories/overview.vue'
 import PublishedWorkshopRepository from './repositories/entities/publishedWorkshopRepository'
@@ -124,6 +125,14 @@ const routes: Array<RouteConfig> = [
     meta: {
       requiresOpenIdAuth: true,
       title: 'Nieuwe bouwblok'
+    }
+  },
+  {
+    path: '/bouwblokken/:buildingBlockId',
+    name: 'BuildingBlockView',
+    component: BuildingBlockView,
+    meta: {
+      title: 'Bouwblok'
     }
   },
   {

@@ -43,8 +43,10 @@
         v-for="block in results"
         :block='block'
         :key='block.id'>
-        <router-link :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: block.id }}"  >
-            bewerken
+        <router-link
+          v-show="can('workshops.change_buildingblocktemplate')"
+          :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
+            Bekijken
         </router-link>
       </building-block-item>
     </template>
@@ -63,6 +65,7 @@ import ThemeRepository from '../../repositories/entities/themeRepository'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 import BlockTypeFilter from '../../components/filters/blockTypeFilter.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'building-block-overview',
@@ -82,13 +85,15 @@ export default defineComponent({
       theme: { type: 'arrayEntity', value: undefined, filterKey: 'theme' },
       category: { type: 'arrayEntity', value: undefined, filterKey: 'category' }
     }
+    const { can } = usePermissions()
 
     return {
       BuildingBlocskRepository,
       inputTypes,
       filters,
       ThemeRepository,
-      CategoriesRepository
+      CategoriesRepository,
+      can
     }
   }
 })

@@ -78,6 +78,7 @@
           <sensitive-badge v-show='selectedBlock && selectedBlock.isSensitive' />
         </b-col>
         <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description" />
+        <b-col cols="12" class="text-left mt-2"><strong>Benodigdheden</strong></b-col>
         <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.necessities" />
       </b-row>
     </template>
@@ -86,7 +87,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref, PropType, watch } from '@vue/composition-api'
-import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
+import BuildingBlocskRepository from '../../repositories/entities/privateBuildingBlocskRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import useRepository, { callTypes } from '@/composables/useRepository'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
