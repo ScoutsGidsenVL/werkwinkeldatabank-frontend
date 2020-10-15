@@ -9,7 +9,7 @@
                 <b-icon icon="chevron-right" aria-label="edit" class="mx-2 mt-2"></b-icon>
             </span>
         </b-btn>
-        <b-collapse :id="'accordion-' + id" role="tabpanel">
+        <b-collapse :visible='visible' :id="'accordion-' + id" role="tabpanel">
          <slot/>
         </b-collapse>
     </div>
@@ -22,7 +22,11 @@ export default defineComponent({
   name: 'custom-collapse',
   props: {
     title: String,
-    id: String
+    id: String,
+    visible: {
+      type: Boolean,
+      default: false
+    }
   }
 })
 </script>

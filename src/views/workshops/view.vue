@@ -48,6 +48,7 @@
         <custom-collapse
           :id='block.id'
           :title='block.title'
+          :visible="true"
         >
            <div class="w-100 py-2 px-3" >
              <ckeditor-view :content='block.description' />
