@@ -81,7 +81,7 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: '/werkwinkels/:workshopId/edit',
+    path: '/werkwinkels/:workshopId/edit/:copy?',
     name: 'WerkwinkelEdit',
     component: WorkshopForm,
     meta: {

@@ -26,6 +26,7 @@
           v-model='input'
           :state=' Object.keys(rules).length === 0 ? null : getValidationState(validationContext)'
         />
+        <b-form-invalid-feedback v-for="error in validationContext.errors" :key="error">{{ error }}</b-form-invalid-feedback>
       </b-form-group>
     </validation-provider>
 </template>

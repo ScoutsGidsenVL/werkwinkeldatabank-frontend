@@ -3,6 +3,7 @@
   :defaultValue="form"
   :type='CategoryEntityModel'
   :repo='CategoriesRepository'
+  editRoute='CategoryEdit'
   paramIdentifier='categoryId'
   redirectRoute='CategorieesOverview'
 >

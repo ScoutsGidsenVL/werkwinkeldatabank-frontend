@@ -5,6 +5,7 @@
   :repo='WorkshopRepository'
   paramIdentifier='workshopId'
   redirectRoute="WerkwinkelView"
+  editRoute='WerkwinkelEdit'
   v-on:submitSuccess='afterSubmit'
   :historyModal="true"
 >

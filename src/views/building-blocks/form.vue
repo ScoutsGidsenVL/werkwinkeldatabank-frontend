@@ -3,6 +3,7 @@
   :defaultValue="form"
   :type='BuildingBlocksEntityModel'
   :repo='BuildingBlocskRepository'
+  editRoute='BuildingBlockEdit'
   paramIdentifier='buildingBlockId'
   redirectRoute='BuildingBlockView'
   :historyModal="true"

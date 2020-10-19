@@ -3,6 +3,7 @@
   :defaultValue="form"
   :type='ThemeEntityModel'
   :repo='ThemeRepository'
+  editRoute='ThemeEdit'
   paramIdentifier='themeId'
   redirectRoute='ThemeOverview'
 >

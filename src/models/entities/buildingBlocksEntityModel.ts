@@ -44,7 +44,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.linked_template_values !== undefined ? !input.linked_template_values : !input.is_sensitive,
       input.is_sensitive,
       input.is_disabled ? input.is_disabled : false,
-      input.order
+      input.order,
+      input.template
     )
   }
 
@@ -59,7 +60,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       duration: this.duration ? this.checkDuration(this.duration) : undefined,
       category: this.type === BuildingBlocksTypes.METHODIC ? this.category?.id : null,
       theme: this.type === BuildingBlocksTypes.THEMATIC ? this.theme?.id : null,
-      building_block_necessities: this.necessities ? this.necessities : '&nbsp;',
+      building_block_necessities: this.necessities,
       is_sensitive: this.isSensitive,
       is_disabled: this.isDisabled
     }

@@ -35,6 +35,7 @@ export default function useRepository (
 
   async function doCall () : Promise<Boolean> {
     loading.value = true
+
     try {
       if (callType === callTypes.getModelArray) {
         const repoResponse : {result: BaseEntityModel[], params: repoParams } = await activeRepo[callType](params)

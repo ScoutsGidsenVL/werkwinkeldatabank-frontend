@@ -67,6 +67,10 @@ export default defineComponent({
       type: String,
       required: true
     },
+    editRoute: {
+      type: String,
+      required: true
+    },
     redirectWithId: {
       type: String
     },
@@ -75,7 +79,7 @@ export default defineComponent({
       default: false
     }
   },
-  setup ({ repo, defaultValue, paramIdentifier, redirectRoute, redirectWithId }, { emit, root }) {
+  setup ({ repo, defaultValue, paramIdentifier, redirectRoute, redirectWithId, editRoute }, { emit, root }) {
     const { route, router } = useRouter()
     const { can } = usePermissions()
     const { loading, doCall, result } = useRepository(
@@ -84,12 +88,16 @@ export default defineComponent({
       { id: route.value.params[paramIdentifier]
       })
     useGlobalLoading(loading)
-    const isEdit = !!route.value.params[paramIdentifier]
+    const isEdit = !!route.value.params[paramIdentifier] && !route.value.params['copy']
+    const isCopy = !!route.value.params['copy']
     const redirectOnSave = ref<Boolean>(true)
     const toast = useToast(root)
 
-    isEdit && doCall()
-    let form : Ref<BaseEntityModel | undefined> | BaseEntityModel = isEdit ? result : defaultValue
+
+    if (isEdit || isCopy) {
+      doCall()
+    }
+    let form : Ref<BaseEntityModel | undefined> | BaseEntityModel = (isEdit || isCopy) ? result : defaultValue
 
     const saveWithoutRedirect = (handleSubmit, validate) => {
       redirectOnSave.value = false
@@ -104,6 +112,10 @@ export default defineComponent({
           id: result.value.id,
           model: result.value
         }
+      } else if (isCopy) {
+        repoParams = {
+          model: result.value
+        }
       } else {
         repoParams = {
           model: defaultValue
@@ -116,7 +128,7 @@ export default defineComponent({
         repoParams
       )
       useGlobalLoading(postRepo.loading)
-
+      console.log('baseform line before do call')
       postRepo.doCall().then((success: Boolean) => {
         emit('submitSuccess', postRepo.result.value)
         if (success && redirectRoute && redirectOnSave.value) {
@@ -130,9 +142,20 @@ export default defineComponent({
         } else {
           redirectOnSave.value = true
           toast.send('Opgeslagen')
+
+          if (!isEdit) {
+            const routerObject = { name: editRoute }
+            routerObject['params'] = { }
+            // @ts-ignore
+            routerObject.params[paramIdentifier] = postRepo.result.value.id
+            console.log(routerObject)
+            router.push(routerObject)
+          }
         }
-      }).catch(() => {
-        toast.send('Opslagen niet gelukt', 'danger')
+      }).catch((e) => {
+        console.log(e)
+        console.log('catch base form docall')
+        e && toast.send('Opslagen niet gelukt', 'danger')
       })
     }
 
