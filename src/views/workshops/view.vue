@@ -5,20 +5,23 @@
           <h2 class="d-inline-block text-left">
             {{ result.title }}
           </h2>
-          <b-button
-            v-show='can("workshops.change_workshop")'
-            :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
-            variant="outline-dark">
-             <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
-             kopieer
-          </b-button>
-          <b-button
-            v-show='can("workshops.change_workshop")'
-            :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
-            variant="outline-dark">
-             <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
-             bewerken
-          </b-button>
+          <div class="d-block">
+            <b-button
+              v-show='can("workshops.change_workshop")'
+              class="mr-2"
+              :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
+              variant="outline-dark">
+              <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
+              kopieer
+            </b-button>
+            <b-button
+              v-show='can("workshops.change_workshop")'
+              :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
+              variant="outline-dark">
+              <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+              bewerken
+            </b-button>
+          </div>
         </b-col>
         <b-col cols="12" class="text-left my-3 ml-n2">
           <time-badge :time='result.duration' />
