@@ -7,6 +7,7 @@
     >
         <strong class="d-inline-block">{{ block.title }}</strong>
         <div v-html='block.shortDescription' />
+        <a v-if="readMore" href='#' class="w-100 d-inline-block mb-2 mt-1 text-body text-underline">lees meer ></a>
     </b-col>
     <b-col
         cols="10"
@@ -43,6 +44,10 @@ export default defineComponent({
       required: true
     },
     hideInfo: {
+      type: Boolean,
+      default: false
+    },
+    readMore: {
       type: Boolean,
       default: false
     }

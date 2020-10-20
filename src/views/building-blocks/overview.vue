@@ -39,16 +39,19 @@
       </b-col>
     </template>
     <template #content='{ results }'>
-      <building-block-item
-        v-for="block in results"
-        :block='block'
-        :key='block.id'>
-        <router-link
-          v-show="can('workshops.change_buildingblocktemplate')"
+      <router-link
+          v-for="block in results"
+          :key='block.id'
+          class="text-body"
           :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
-            Bekijken
-        </router-link>
-      </building-block-item>
+        <building-block-item
+          :block='block'>
+          <router-link
+            :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
+              Bekijken
+          </router-link>
+        </building-block-item>
+       </router-link>
     </template>
   </base-overview>
 </template>

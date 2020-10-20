@@ -69,6 +69,7 @@
         <custom-collapse
           id='benodigdheden'
           title='Benodigdheden'
+          :visible="true"
         >
             <b-row class="py-2 px-3">
                 <b-col
@@ -116,7 +117,7 @@ export default defineComponent({
     const { route } = useRouter()
     const { can } = usePermissions()
     const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
-    const necessitiesOpen = ref<Boolean>(false)
+    const necessitiesOpen = ref<Boolean>(true)
 
     doCall()
 

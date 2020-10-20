@@ -36,6 +36,7 @@
         <custom-collapse
           id='benodigdheden'
           title='Benodigdheden'
+          :visible="true"
         >
             <b-row class="py-2 px-3">
                 <b-col

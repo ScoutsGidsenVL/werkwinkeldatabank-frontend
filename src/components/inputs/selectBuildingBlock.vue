@@ -45,26 +45,35 @@
     </template>
     <template #content="{ results }">
       <div class="empty-block bg-light">
+        <a href
+          v-on:click.prevent="moreInfo('', emptyBlock)"
+          class="text-body block-item-link"
+        >
         <building-block-item
-        v-show="!selectedBlock"
+          v-show="!selectedBlock"
           v-if="emptyBlock !== undefined"
           :block="emptyBlock"
           :key="emptyBlock.id"
           :hideInfo="true"
         >
-          <a href v-on:click.prevent="moreInfo('', emptyBlock)">Meer info ></a><br>
-          <a href class='d-inline-block mt-2' v-on:click.prevent="selectBlock('', emptyBlock)">Selecteer ></a>
+        <a href class='d-inline-block mt-2' v-on:click.prevent="selectBlock('', emptyBlock)">Selecteer ></a>
         </building-block-item>
+        </a>
       </div>
-      <building-block-item
-        v-show="!selectedBlock"
+      <a href
+        v-on:click.prevent="moreInfo(block.id)"
         v-for="block in results"
-        :block="block"
         :key="block.id"
-      >
-        <a href v-on:click.prevent="moreInfo(block.id)">Meer info ></a><br>
-        <a href class='d-inline-block mt-2' v-on:click.prevent="selectBlock(block.id)">Selecteer ></a>
-      </building-block-item>
+        class="text-body block-item-link"
+        >
+        <building-block-item
+          v-show="!selectedBlock"
+          :block="block"
+          :readMore='true'
+        >
+          <a href class='d-inline-block mt-2' v-on:click.prevent="selectBlock(block.id)">Selecteer ></a>
+        </building-block-item>
+      </a>
       <b-row v-show="selectedBlock" class="p-3">
         <b-col cols="12" class="text-left">
           <h2>{{ selectedBlock && selectedBlock.title }}</h2>
@@ -211,8 +220,12 @@ export default defineComponent({
     margin-top: 1rem;
     margin-bottom: 1rem;
 
-    >.row{
+    a>.row{
       border-bottom: none!important;
     }
+  }
+
+  .block-item-link:hover{
+    text-decoration: none;
   }
 </style>

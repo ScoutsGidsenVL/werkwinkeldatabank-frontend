@@ -1,26 +1,28 @@
 <template>
   <b-col cols="12" md='6' lg='6' class="workshop-item mb-3">
-    <b-row class="py-4 m-2 border">
-        <b-col cols="12" class="text-center">
-            <strong>{{ workshop.title }}</strong>
-        </b-col>
-        <b-col cols="12" class="text-center">
-          <time-badge v-show='workshop.duration' :time='workshop.duration' />
-          <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
-          <b-badge pill variant="light" class="mt-2 ml-3">{{ workshop.theme.title }}</b-badge>
-          <sensitive-badge v-show='workshop.isSensitive && can("workshops.change_buildingblocktemplate")' />
-          <disabled-badge  v-show='workshop.isDisabled && can("scouts_auth.access_disabled_entities")' />
-        </b-col>
-        <b-col
-          cols="12"
-          class="text-center mt-2"
-          v-html='workshop.shortDescription' />
-        <b-col cols="12" class="text-center">
-          <router-link class="nav-link" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
-            <b-button>Bekijken</b-button>
-          </router-link>
-        </b-col>
-    </b-row>
+    <router-link class="nav-link text-body" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
+      <b-row class="py-4 m-2 border">
+          <b-col cols="12" class="text-center">
+              <strong>{{ workshop.title }}</strong>
+          </b-col>
+          <b-col cols="12" class="text-center">
+            <time-badge v-show='workshop.duration' :time='workshop.duration' />
+            <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
+            <b-badge pill variant="light" class="mt-2 ml-3">{{ workshop.theme.title }}</b-badge>
+            <sensitive-badge v-show='workshop.isSensitive && can("workshops.change_buildingblocktemplate")' />
+            <disabled-badge  v-show='workshop.isDisabled && can("scouts_auth.access_disabled_entities")' />
+          </b-col>
+          <b-col
+            cols="12"
+            class="text-center mt-2"
+            v-html='workshop.shortDescription' />
+          <b-col cols="12" class="text-center">
+            <router-link class="nav-link" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
+              <b-button>Bekijken</b-button>
+            </router-link>
+          </b-col>
+      </b-row>
+    </router-link>
   </b-col>
 </template>
 
