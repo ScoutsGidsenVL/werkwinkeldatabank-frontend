@@ -6,7 +6,7 @@
           {{ result.title }}
         </h2>
         <b-button
-          v-show='can("workshops.change_workshop")'
+          v-show='can("workshops.change_buildingblocktemplate")'
           :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: result.id }}"
           variant="outline-dark">
             <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
@@ -18,13 +18,13 @@
           <b-badge v-if='result.theme' pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
           <b-badge v-if='result.category' pill variant="secondary" class="mt-2 mx-3">{{ result.category.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
-          <b-badge v-show='result.isSensitive && can("workshops.change_buildingblocktemplate")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
+          <b-badge v-show='result.isSensitive && can("workshops.view_field_is_sensitive_workshop")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
         </b-col>
       <b-col cols="12">
         <b-row>
           <b-col cols="12">
-            <span class="w-100 h6 text-left d-inline-block" v-if="result.createdBy && can('workshops.change_buildingblocktemplate')">Gemaakt door: {{ result.createdBy.firstName }} {{ result.createdBy.lastName }}</span>
-            <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.change_buildingblocktemplate')">Gepubliceerd door {{ result.approvingTeam.title }}</span>
+            <span class="w-100 h6 text-left d-inline-block" v-if="result.createdBy && can('workshops.view_field_created_by_workshop')">Gemaakt door: {{ result.createdBy.firstName }} {{ result.createdBy.lastName }}</span>
+            <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.view_field_created_by_workshop')">Gepubliceerd door {{ result.approvingTeam.title }}</span>
           </b-col>
           <b-col cols="12" class="text-left mt-4" >
             <ckeditor-view :content='result.description' />
@@ -68,6 +68,7 @@ import statusBadge from '../../components/semantic/statusBadge.vue'
 import customCollapse from '../../components/semantic/customCollapse.vue'
 import ckeditorView from '../../components/semantic/ckeditorView.vue'
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
+import useToast from '@/composables/useToast'
 
 export default defineComponent({
   props: {
@@ -80,11 +81,15 @@ export default defineComponent({
     ckeditorView
   },
   setup (props, { emit, root }) {
-    const { route } = useRouter()
+    const { route, router } = useRouter()
     const { can } = usePermissions()
+    const toast = useToast(root)
     const { loading, doCall, result } = useRepository(BuildingBlocksRepository, callTypes.getSingel, { id: route.value.params.buildingBlockId })
 
-    doCall()
+    doCall().catch(() => {
+      toast.send('U kan deze bouwsteen niet bekijken', 'danger')
+      router.push({ name: 'WerkwinkelOverview' })
+    })
 
 
     return {

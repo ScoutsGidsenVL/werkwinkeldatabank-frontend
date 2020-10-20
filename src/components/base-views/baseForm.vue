@@ -95,7 +95,10 @@ export default defineComponent({
 
 
     if (isEdit || isCopy) {
-      doCall()
+      doCall().catch(() => {
+        toast.send('U kan dit item niet bewerken', 'danger')
+        router.push({ name: 'WerkwinkelOverview' })
+      })
     }
     let form : Ref<BaseEntityModel | undefined> | BaseEntityModel = (isEdit || isCopy) ? result : defaultValue
 

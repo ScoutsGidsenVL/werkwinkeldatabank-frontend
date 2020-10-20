@@ -15,7 +15,7 @@
               kopieer
             </b-button>
             <b-button
-              v-show='can("workshops.change_workshop")'
+              v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
               variant="outline-dark">
               <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
@@ -27,7 +27,7 @@
           <time-badge :time='result.duration' />
           <b-badge pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
-          <b-badge v-show='result.isSensitive && can("workshops.change_buildingblocktemplate")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
+          <b-badge v-show='result.isSensitive && can("workshops.view_field_is_sensitive_workshop")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
         </b-col>
 
         <b-col cols="12">
@@ -102,6 +102,7 @@ import usePermissions from '@/composables/usePermissions'
 import statusBadge from '../../components/semantic/statusBadge.vue'
 import customCollapse from '../../components/semantic/customCollapse.vue'
 import ckeditorView from '../../components/semantic/ckeditorView.vue'
+import useToast from '@/composables/useToast'
 
 export default defineComponent({
   props: {
@@ -114,12 +115,16 @@ export default defineComponent({
     ckeditorView
   },
   setup (props, { emit, root }) {
-    const { route } = useRouter()
+    const { route, router } = useRouter()
     const { can } = usePermissions()
+    const toast = useToast(root)
     const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
     const necessitiesOpen = ref<Boolean>(true)
 
-    doCall()
+    doCall().catch(() => {
+      toast.send('U kan deze werkwinkel niet bekijken', 'danger')
+      router.push({ name: 'WerkwinkelOverview' })
+    })
 
     root.$on('bv::collapse::state', (collapseId, isJustShown) => {
       if (collapseId === 'accordion-benodigdheden') {

@@ -21,7 +21,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public workshopStatus?: string,
     public approvingTeam?: TeamEntityModel,
     public createdBy?: UserModel,
-    public isDisabled?: boolean
+    public isDisabled?: boolean,
+    public isMine?:boolean
   ) {
     super(id, title)
   }
@@ -57,7 +58,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.workshop_status_type,
       input.approving_team ? TeamEntityModel.deserialize(input.approving_team) : undefined,
       input.created_by ? UserModel.deserialize(input.created_by) : undefined,
-      input.is_disabled ? input.is_disabled : false
+      input.is_disabled ? input.is_disabled : false,
+      input.isMine
     )
   }
 

@@ -4,6 +4,7 @@
     :filtersProp='filters'
     label="bouwsteen"
     createRoute="BuildingBlockCreate"
+    createPermission="workshops.add_buildingblocktemplate"
   >
     <template #filters='{ filters }'>
       <b-col cols="12" lg="4">

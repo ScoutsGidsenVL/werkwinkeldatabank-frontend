@@ -17,12 +17,12 @@
               <router-link class="nav-link" :to="{name: 'MijnWerkwinkelOverview'}" >Mijn werkwinkels</router-link>
             </li>
              <li class="nav-item">
-              <router-link class="nav-link"  v-show="can('workshops.view_theme')" :to="{name: 'PublicatieAangevraagdWerkwinkelOverview'}" >Klaar voor publicatie</router-link>
+              <router-link class="nav-link"  v-show="can('workshops.publish_workshop')" :to="{name: 'PublicatieAangevraagdWerkwinkelOverview'}" >Klaar voor publicatie</router-link>
             </li>
-            <li class="nav-item" v-show="can('workshops.view_theme')">
+            <li class="nav-item" v-show="can('workshops.add_theme')">
               <router-link class="nav-link" :to="{name: 'ThemeOverview'}" >Thema's</router-link>
             </li>
-            <li class="nav-item" v-show="can('workshops.view_category')">
+            <li class="nav-item" v-show="can('workshops.add_category')">
               <router-link class="nav-link" :to="{name: 'CategorieesOverview'}" >Soorten werkvormen</router-link>
             </li>
           </ul>

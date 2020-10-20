@@ -108,7 +108,7 @@
       Opslaan en vraag publicatie
       </b-button>
     <b-button
-      v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED'"
+      v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED' && can('workshops.publish_workshop')"
       type="submit"
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.publish)'
       variant="light"

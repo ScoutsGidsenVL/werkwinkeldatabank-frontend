@@ -4,6 +4,7 @@
     :filtersProp='filters'
     label="thema"
     createRoute="ThemeCreate"
+    createPermission="workshops.add_theme"
   >
    <template #filters='{ filters }'>
       <b-col cols="12" lg="4">
@@ -30,7 +31,9 @@
         <b-col
           cols='2'
           class="text-right">
-             <router-link :to="{name: 'ThemeEdit', params: { themeId: theme.id }}"  >
+             <router-link
+              v-if='can("workshops.change_theme")'
+              :to="{name: 'ThemeEdit', params: { themeId: theme.id }}"  >
                 bewerken
             </router-link>
         </b-col>

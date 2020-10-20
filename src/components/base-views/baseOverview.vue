@@ -19,7 +19,10 @@
           v-if="createRoute"
           cols="12"
           class="text-right my-3 mb-3">
-          <router-link :to="{name: createRoute}" >
+          <router-link
+            :to="{name: createRoute}"
+            v-if="!createPermission || can(createPermission)"
+          >
             + nieuwe {{label}} aanmaken
           </router-link>
         </b-col>
@@ -50,6 +53,7 @@ import useRepository, { callTypes } from '../../composables/useRepository'
 import BaseRepository, { repoParams } from '../../repositories/baseRepository'
 import { useRouter } from '@/composables/useRouter'
 import useGlobalLoading from '@/composables/useGlobalLoading'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'base-overview',
@@ -79,7 +83,8 @@ export default defineComponent({
     filtersInUrlParams: {
       type: Boolean,
       default: true
-    }
+    },
+    createPermission: String
   },
   setup ({ repo, filtersProp, filtersInUrlParams }) {
     const { router, route } = useRouter()
@@ -100,6 +105,8 @@ export default defineComponent({
     const { loading, doCall, results, loadMore } = useRepository(repo, callTypes.getModelArray, callParams)
     useGlobalLoading(loading)
     doCall()
+    const { can } = usePermissions()
+
 
     watch(callParams, value => {
       let emptyFilters = true
@@ -132,7 +139,8 @@ export default defineComponent({
       resetFilers,
       callParams,
       loadMore,
-      loading
+      loading,
+      can
     }
   }
 })

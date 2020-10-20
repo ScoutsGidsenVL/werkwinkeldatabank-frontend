@@ -4,6 +4,7 @@
     label="categorie"
     :showFilters="false"
     createRoute="CategoryCreate"
+    createPermission="workshops.add_category"
   >
     <template #content='{ results }'>
       <b-row
@@ -19,7 +20,9 @@
         <b-col
           cols='2'
           class="text-right">
-             <router-link :to="{name: 'CategoryEdit', params: { categoryId: category.id }}"  >
+             <router-link
+              v-if='can("workshops.change_category")'
+              :to="{name: 'CategoryEdit', params: { categoryId: category.id }}"  >
                 bewerken
             </router-link>
         </b-col>
