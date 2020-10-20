@@ -14,7 +14,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public duration?: string,
     public shortDescription?: string,
     public description?: string,
-    public theme?: ThemeEntityModel,
+    public theme?: ThemeEntityModel[],
     public necessities?: string,
     public isSensitive?: boolean,
     public buildingBlocks?: BuildingBlocksEntityModel[],
@@ -38,6 +38,11 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       })
     }
 
+    const themes : ThemeEntityModel[] = []
+    input.themes && input.themes.forEach((themeInput: any) => {
+      themes.push(ThemeEntityModel.deserialize(themeInput))
+    })
+
     return new WorkshopEntityModel(
       false,
       input.title,
@@ -45,7 +50,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.duration,
       input.short_description,
       input.description,
-      input.theme ? ThemeEntityModel.deserialize(input.theme) : undefined,
+      themes,
       input.necessities,
       input.is_sensitive,
       buildingBlockArray,
@@ -63,11 +68,17 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       buildingBlocks.push(block.serialzeForWorkshop())
     })
 
+    const themes : string[] = []
+
+    this.theme && this.theme.forEach((theme: ThemeEntityModel) => {
+      theme.id && themes.push(theme.id)
+    })
+
     return {
       title: this.title,
       short_description: this.shortDescription,
       description: this.description,
-      theme: this.theme ? this.theme.id : undefined,
+      themes: themes,
       necessities: this.necessities ? this.necessities : undefined,
       building_blocks: buildingBlocks,
       approving_team: this.approvingTeam ? this.approvingTeam.id : undefined,

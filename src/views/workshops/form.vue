@@ -43,7 +43,7 @@
           id="theme"
           :searchable="true"
           :repo='ThemeRepository'
-          :multiple='false'
+          :multiple='true'
         />
       </b-col>
       <b-col
