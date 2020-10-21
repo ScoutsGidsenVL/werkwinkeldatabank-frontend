@@ -85,7 +85,7 @@
             class="mt-2 mr-2"
           >{{ (selectedBlock && selectedBlock.category) && selectedBlock.category.title }}</b-badge>
           <b-badge pill variant="secondary" class="mt-2">{{ selectedBlock && selectedBlock.type }}</b-badge>
-          <time-badge :time='selectedBlock && selectedBlock.duration' />
+          <time-badge v-if="selectedBlock && selectedBlock.duration" :time='selectedBlock.duration' />
           <sensitive-badge v-show='selectedBlock && selectedBlock.isSensitive' />
         </b-col>
         <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description" />
@@ -149,6 +149,7 @@ export default defineComponent({
     watch(
       () => props.value,
       () => {
+        console.log(props.value)
         selectedBlock.value = props.value
       }
     )
@@ -186,7 +187,6 @@ export default defineComponent({
 
         await doCall()
         emit('selectBlock', result.value)
-
       }
 
     }

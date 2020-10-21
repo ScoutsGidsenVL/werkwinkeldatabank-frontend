@@ -9,6 +9,14 @@
             <b-button
               v-show='can("workshops.change_workshop")'
               class="mr-2"
+              v-on:click.prevent='DownloadPDF(result)'
+              variant="outline-dark">
+              <b-icon icon="file" aria-label="download" class="mx-2 mt-2"></b-icon>
+              download
+            </b-button>
+            <b-button
+              v-show='can("workshops.change_workshop")'
+              class="mr-2"
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
               variant="outline-dark">
               <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
@@ -103,6 +111,8 @@ import statusBadge from '../../components/semantic/statusBadge.vue'
 import customCollapse from '../../components/semantic/customCollapse.vue'
 import ckeditorView from '../../components/semantic/ckeditorView.vue'
 import useToast from '@/composables/useToast'
+import useDownload from '../../composables/useDownload'
+import RepositoryFactory from '@/repositories/repositoryFactory'
 
 export default defineComponent({
   props: {
@@ -120,6 +130,7 @@ export default defineComponent({
     const toast = useToast(root)
     const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
     const necessitiesOpen = ref<Boolean>(true)
+    const { DownloadFile } = useDownload()
 
     doCall().catch(() => {
       toast.send('U kan deze werkwinkel niet bekijken', 'danger')
@@ -137,11 +148,14 @@ export default defineComponent({
       root.$scrollTo('#necessities')
     }
 
+    const DownloadPDF = (workshop: WorkshopEntityModel) => RepositoryFactory.get(WorkshopRepository).getDownload(workshop).then((repsonse: any) => DownloadFile(repsonse, 'test.pdf'))
+
     return {
       result,
       loading,
       can,
-      goToNecessities
+      goToNecessities,
+      DownloadPDF
     }
   }
 })

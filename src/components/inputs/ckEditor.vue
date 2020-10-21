@@ -105,8 +105,6 @@ export default defineComponent({
       image: {
         toolbar: [
           'imageStyle:full',
-          'imageStyle:side',
-          '|',
           'imageTextAlternative'
         ]
       },

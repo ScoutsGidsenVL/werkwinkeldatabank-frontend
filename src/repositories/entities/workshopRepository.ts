@@ -17,4 +17,8 @@ export default class WorkshopRepository extends BaseRepository {
       return this.post('/workshops/' + workshop.id + '/' + transitionType + '/', { 'id': workshop.id })
     }
 
+    getDownload (workshop: WorkshopEntityModel) : Promise<any> {
+      return this.getFile('/workshops/' + workshop.id + '/download')
+    }
+
 }
