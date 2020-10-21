@@ -1,21 +1,11 @@
-import BaseRepository from '../baseRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
+import WithTransitionRepository from '../withTransitionRepository'
 
-export enum transitionTypes {
-  noTransition = 'noTransition',
-  publish = 'publish',
-  requestPublication = 'request_publication'
-}
-
-export default class WorkshopRepository extends BaseRepository {
+export default class WorkshopRepository extends WithTransitionRepository {
     id = 'workshops'
     endpoint = '/workshops/'
     publicGet = true
     entityModel = WorkshopEntityModel
-
-    transitionWorkshop (workshop: WorkshopEntityModel, transitionType) : Promise<any> {
-      return this.post('/workshops/' + workshop.id + '/' + transitionType + '/', { 'id': workshop.id })
-    }
 
     getDownload (workshop: WorkshopEntityModel) : Promise<any> {
       return this.getFile('/workshops/' + workshop.id + '/download')

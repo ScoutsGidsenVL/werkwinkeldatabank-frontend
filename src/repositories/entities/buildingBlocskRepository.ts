@@ -1,7 +1,7 @@
-import BaseRepository from '../baseRepository'
 import BuildingBlocksEntityModel from '../../models/entities/buildingBlocksEntityModel'
+import WithTransitionRepository from '../withTransitionRepository'
 
-export default class BuildingBlocksRepository extends BaseRepository {
+export default class BuildingBlocksRepository extends WithTransitionRepository {
     id = 'building-blocks'
     endpoint = '/building_block_templates/'
     publicGet = true
@@ -15,5 +15,5 @@ export default class BuildingBlocksRepository extends BaseRepository {
         return BuildingBlocksEntityModel.deserialize(result)
       })
     }
-}
 
+}

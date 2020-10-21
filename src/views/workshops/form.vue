@@ -130,7 +130,8 @@ import ckEditor from '../../components/inputs/ckEditor.vue'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
 import BaseForm from '../../components/base-views/baseForm.vue'
-import WorkshopRepository, { transitionTypes } from '../../repositories/entities/workshopRepository'
+import { transitionTypes } from '../../repositories/withTransitionRepository'
+import WorkshopRepository from '../../repositories/entities/workshopRepository'
 import subTitle from '../../components/semantic/subTitle.vue'
 import BaseEntityModel from '@/models/entities/baseEntityModel'
 import RepositoryFactory from '@/repositories/repositoryFactory'
@@ -169,9 +170,10 @@ export default defineComponent({
     const { can } = usePermissions()
     const toast = useToast(root)
     const publishWorkshop = ref<transitionTypes>(transitionTypes.noTransition)
+
     const afterSubmit = (result: WorkshopEntityModel) => {
       if (publishWorkshop.value !== transitionTypes.noTransition) {
-        RepositoryFactory.get(WorkshopRepository).transitionWorkshop(result, publishWorkshop.value).then(() => {
+        RepositoryFactory.get(WorkshopRepository).transitionEntity(result, publishWorkshop.value).then(() => {
           result.id && router.push({ name: 'WerkwinkelView', params: { 'workshopId': result.id } })
         })
       }
@@ -183,7 +185,6 @@ export default defineComponent({
           publishWorkshop.value = transition
           customHandleSubmit(onSubmit, validate)
         } else {
-          // publishWorkshop.value = transition
           toast.send('Niet alle velden zijn correct ingevuled', 'danger')
         }
       })
