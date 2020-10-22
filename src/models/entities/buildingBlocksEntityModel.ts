@@ -2,6 +2,7 @@ import BaseEntityModel from './baseEntityModel'
 import EntityModel from '@/interfaces/entityModel'
 import CategoryModel from './categoryEntityModel'
 import ThemeEntityModel from './themeEntityModel'
+import { useEnum } from '../../composables/useEnum'
 
 export enum BuildingBlocksTypes {
   THEMATIC = 'Inhoud',
@@ -24,7 +25,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public isSensitive?: boolean,
     public isDisabled?: boolean,
     public order?: number,
-    public template?: string
+    public template?: string,
+    public BuildingblockStatus?: string
 
   ) {
     super(id, title)
@@ -45,12 +47,14 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.is_sensitive,
       input.is_disabled ? input.is_disabled : false,
       input.order,
-      input.template
+      input.template,
+      input.status && input.status.value
     )
   }
 
   public serialize () : Object {
-    const type : String | undefined = this.type && BuildingBlocksEntityModel.convertType(this.type)
+    const { convertType } = useEnum(BuildingBlocksTypes)
+    const type : String | undefined = this.type && convertType(this.type)
 
     return {
       title: this.title,
@@ -66,16 +70,7 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     }
   }
 
-  static convertType (inputType: string): string | undefined {
-    let type : undefined | string
-    Object.keys(BuildingBlocksTypes).forEach((key: any) => {
-      if (BuildingBlocksTypes[key] === inputType) {
-        type = key
-      }
-    })
 
-    return type
-  }
 
   public serialzeForWorkshop () : Object {
     const returnArray: Object = {
@@ -96,13 +91,6 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       returnArray['template'] = this.template
     }
 
-    return returnArray
-  }
-
-
-  public static getTypesArray (): String[] {
-    let returnArray : String[] = []
-    Object.keys(BuildingBlocksTypes).forEach((key: any) => returnArray.push(BuildingBlocksTypes[key]))
     return returnArray
   }
 

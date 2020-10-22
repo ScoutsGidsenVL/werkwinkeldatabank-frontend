@@ -5,7 +5,8 @@
   :repo='BuildingBlocskRepository'
   editRoute='BuildingBlockEdit'
   paramIdentifier='buildingBlockId'
-  redirectRoute='BuildingBlockView'
+  :redirectRoute='redirectRoute'
+  v-on:submitSuccess='afterSubmit'
   :historyModal="true"
 >
   <template v-slot:default="{ formData }">
@@ -104,6 +105,26 @@
       </b-col>
     </b-row>
   </template>
+   <template #actions='{ saveWithoutRedirect, onSubmit, validate, formData}'>
+    <b-button
+      v-if="formData.BuildingblockStatus === 'PRIVATE'"
+      type="submit"
+      @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.requestPublication)'
+      variant="light"
+      size="md"
+      class="px-5 py-2 ">
+      Opslaan en vraag publicatie
+      </b-button>
+    <b-button
+      v-if="formData.BuildingblockStatus === 'PUBLICATION_REQUESTED' && can('workshops.publish_buildingblocktemplate')"
+      type="submit"
+      @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.publish)'
+      variant="light"
+      size="md"
+      class="px-5 py-2">
+      Opslaan en publiceer
+      </b-button>
+  </template>
 </base-form>
 </template>
 
@@ -112,6 +133,7 @@ import { reactive, defineComponent } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import TimeInput from '../../components/inputs/timeInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
+import { transitionTypes } from '../../repositories/withTransitionRepository'
 import BuildingBlocskRepository from '../../repositories/entities/privateBuildingBlocskRepository'
 import ckEditor from '../../components/inputs/ckEditor.vue'
 import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
@@ -119,6 +141,9 @@ import BaseForm from '../../components/base-views/baseForm.vue'
 import CategoryRepository from '../../repositories/entities/categoriesRepository'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import usePermissions from '@/composables/usePermissions'
+import useTransitions from '@/composables/useTransitions'
+
+import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
 
 export default defineComponent({
   name: 'building-blocks-form',
@@ -129,7 +154,7 @@ export default defineComponent({
     SelectInput,
     TimeInput
   },
-  setup (props, { emit }) {
+  setup (props, { emit, root }) {
     const form = reactive<BuildingBlocksEntityModel>(BuildingBlocksEntityModel.deserialize({
       title: null,
       id: null,
@@ -143,16 +168,22 @@ export default defineComponent({
     }))
     const types : String[] = BuildingBlocksEntityModel.getTypesArray()
     const { can } = usePermissions()
+    const redirectRoute = 'BuildingBlockView'
+    const { afterSubmit, saveAndPublish } = useTransitions(BuildingBlocksRepository, redirectRoute, root)
 
     return {
-      inputTypes,
       BuildingBlocksEntityModel,
       BuildingBlocskRepository,
       BuildingBlocksTypes,
       CategoryRepository,
       ThemeRepository,
-      form,
+      transitionTypes,
+      saveAndPublish,
+      redirectRoute,
+      afterSubmit,
+      inputTypes,
       types,
+      form,
       can
     }
   }

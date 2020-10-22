@@ -12,24 +12,27 @@
 </template>
 
 <script lang='ts'>
+import { useEnum } from '@/composables/useEnum'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import { defineComponent, watch, ref } from '@vue/composition-api'
 import SelectInput from '../inputs/selectInput.vue'
 
 export default defineComponent({
-  name: 'block-type-filter',
+  name: 'enum-filter',
   props: {
-    value: String
+    value: String,
+    enumToUse: Object
   },
   components: {
     SelectInput
   },
   setup (props, { emit }) {
-    const types : String[] = BuildingBlocksEntityModel.getTypesArray()
+    const { getTypesArray, convertType } = useEnum(props.enumToUse)
+    const types : String[] = getTypesArray()
     let input = ref(props.value)
 
     watch(input, value => {
-      emit('input', value ? BuildingBlocksEntityModel.convertType(value) : undefined)
+      emit('input', value ? convertType(value) : undefined)
     })
 
     watch(() => props.value, () => {

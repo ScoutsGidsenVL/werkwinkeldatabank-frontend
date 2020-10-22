@@ -4,7 +4,7 @@
   :type='WorkshopEntityModel'
   :repo='WorkshopRepository'
   paramIdentifier='workshopId'
-  redirectRoute="WerkwinkelView"
+  :redirectRoute="redirectRoute"
   editRoute='WerkwinkelEdit'
   v-on:submitSuccess='afterSubmit'
   :historyModal="true"
@@ -139,7 +139,7 @@ import getValidationState from '../../composables/useValidationState'
 import statusBadge from '../../components/semantic/statusBadge.vue'
 import TeamRepository from '../../repositories/entities/teamRepository'
 import usePermissions from '@/composables/usePermissions'
-import useToast from '@/composables/useToast'
+import useTransitions from '@/composables/useTransitions'
 import { useRouter } from '@/composables/useRouter'
 
 export default defineComponent({
@@ -166,29 +166,9 @@ export default defineComponent({
       workshop_status_type: 'PRIVATE',
       approvingTeam: null
     }))
-    const { route, router } = useRouter()
     const { can } = usePermissions()
-    const toast = useToast(root)
-    const publishWorkshop = ref<transitionTypes>(transitionTypes.noTransition)
-
-    const afterSubmit = (result: WorkshopEntityModel) => {
-      if (publishWorkshop.value !== transitionTypes.noTransition) {
-        RepositoryFactory.get(WorkshopRepository).transitionEntity(result, publishWorkshop.value).then(() => {
-          result.id && router.push({ name: 'WerkwinkelView', params: { 'workshopId': result.id } })
-        })
-      }
-    }
-
-    const saveAndPublish = (customHandleSubmit, onSubmit, validate, transition : transitionTypes) => {
-      validate().then((valid: boolean) => {
-        if (valid) {
-          publishWorkshop.value = transition
-          customHandleSubmit(onSubmit, validate)
-        } else {
-          toast.send('Niet alle velden zijn correct ingevuled', 'danger')
-        }
-      })
-    }
+    const redirectRoute = 'WerkwinkelView'
+    const { afterSubmit, saveAndPublish } = useTransitions(WorkshopRepository, redirectRoute, root)
 
     return {
       inputTypes,
@@ -201,6 +181,7 @@ export default defineComponent({
       transitionTypes,
       getValidationState,
       TeamRepository,
+      redirectRoute,
       can
     }
   }

@@ -19,6 +19,7 @@
         <b-badge v-if="block.theme" pill variant="light" class="mt-2 ml-3">{{ block.theme.title }}</b-badge>
         <sensitive-badge v-show='block.isSensitive' />
         <disabled-badge v-show='block.isDisabled && can("scouts_auth.access_disabled_entities")' />
+        <status-badge v-if="showStatus" :status='block.BuildingblockStatus' />
     </b-col>
     <b-col
         :cols='hideInfo ? 12 : 2'
@@ -35,6 +36,7 @@ import TimeBadge from '../../components/semantic/timeBadge.vue'
 import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
 import DisabledBadge from '../../components/semantic/disabledBadge.vue'
 import usePermissions from '@/composables/usePermissions'
+import statusBadge from '../semantic/statusBadge.vue'
 
 export default defineComponent({
   name: 'building-block-item',
@@ -50,10 +52,15 @@ export default defineComponent({
     readMore: {
       type: Boolean,
       default: false
+    },
+    showStatus: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
     TimeBadge,
+    statusBadge,
     'sensitive-badge': SensetiveBadge,
     'disabled-badge': DisabledBadge
   },

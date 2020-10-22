@@ -18,7 +18,7 @@
                 :type="inputTypes.text"
               />
             </b-col>
-            <block-type-filter v-model="filters.type.value" />
+            <enum-filter v-model="filters.type.value" :enumToUse="BuildingBlocksTypes"/>
             <duration-filter v-model="filters.duration.value" />
             <b-col cols="12" lg='4'>
               <select-input
@@ -101,13 +101,13 @@ import { defineComponent, ref, Ref, PropType, watch } from '@vue/composition-api
 import BuildingBlocskRepository from '../../repositories/entities/privateBuildingBlocskRepository'
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import useRepository, { callTypes } from '@/composables/useRepository'
-import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
+import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
 import BaseEntityModel from '@/models/entities/baseEntityModel'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
 import BuildingBlockItem from '../list/buildingBlockItem.vue'
 import TimeBadge from '../semantic/timeBadge.vue'
-import BlockTypeFilter from '../../components/filters/blockTypeFilter.vue'
+import EnumTypeFilter from '../../components/filters/enumTypeFilter.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
@@ -122,7 +122,7 @@ export default defineComponent({
     SelectInput,
     BuildingBlockItem,
     TimeBadge,
-    BlockTypeFilter,
+    'enum-filter': EnumTypeFilter,
     DurationFilter,
     'sensitive-badge': SensetiveBadge
   },
@@ -138,7 +138,6 @@ export default defineComponent({
       theme: { type: 'arrayEntity', value: undefined, filterKey: 'theme' },
       category: { type: 'arrayEntity', value: undefined, filterKey: 'category' }
     }
-    const types: String[] = BuildingBlocksEntityModel.getTypesArray()
 
     const buildingBlockRepo: BuildingBlocskRepository = RepositoryFactory.get(BuildingBlocskRepository)
     const emptyBlock = ref<BuildingBlocksEntityModel | undefined>(undefined)
@@ -202,13 +201,13 @@ export default defineComponent({
       moreInfo,
       goBack,
       selectedBlock,
-      types,
       inputTypes,
       filters,
       ThemeRepository,
       CategoriesRepository,
       emptyBlock,
-      selectBlock
+      selectBlock,
+      BuildingBlocksTypes
     }
   }
 })

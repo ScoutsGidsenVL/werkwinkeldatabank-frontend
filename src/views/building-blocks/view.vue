@@ -17,7 +17,7 @@
           <time-badge :time='result.duration' />
           <b-badge v-if='result.theme' pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
           <b-badge v-if='result.category' pill variant="secondary" class="mt-2 mx-3">{{ result.category.title }}</b-badge>
-          <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
+          <status-badge v-if="can('workshops.publish_buildingblocktemplate')" :status='result.BuildingblockStatus' />
           <b-badge v-show='result.isSensitive && can("workshops.view_field_is_sensitive_workshop")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
         </b-col>
       <b-col cols="12">

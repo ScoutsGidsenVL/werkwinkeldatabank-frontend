@@ -16,7 +16,7 @@
           :type="inputTypes.text"
         />
       </b-col>
-      <block-type-filter v-model="filters.type.value" />
+      <enum-filter v-model="filters.type.value" :enumToUse="BuildingBlocksTypes" />
       <duration-filter v-model="filters.duration.value" />
       <b-col cols="12" lg='4'>
         <select-input
@@ -38,6 +38,26 @@
           v-model="filters.category.value"
         />
       </b-col>
+       <b-col
+        v-if="can('workshops.publish_buildingblocktemplate')"
+        cols="12"
+        lg='4'>
+        <select-input
+          label='Status'
+          id="status"
+          :rules='{}'
+          :multiple='false'
+          :repo='BlockStatusRepository'
+          v-model="filters.status.value"
+        />
+      </b-col>
+        <b-col cols="12" lg='4'>
+        <b-form-checkbox
+          v-model="filters.createdBy.value"
+          :value="myId">
+            Mijn bouwstenen
+        </b-form-checkbox>
+       </b-col>
     </template>
     <template #content='{ results }'>
       <router-link
@@ -46,6 +66,7 @@
           class="text-body"
           :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
         <building-block-item
+          :showStatus="can('workshops.publish_buildingblocktemplate')"
           :block='block'>
           <router-link
             :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
@@ -61,19 +82,22 @@
 import { defineComponent, watch } from '@vue/composition-api'
 import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
 import PrivateBuildingBlocskRepository from '../../repositories/entities/privateBuildingBlocskRepository'
+import BlockStatusRepository from '../../repositories/entities/blockStatusRepository'
+
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
-import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
+import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
 import BuildingBlockItem from '../../components/list/buildingBlockItem.vue'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
-import BlockTypeFilter from '../../components/filters/blockTypeFilter.vue'
+import EnumTypeFilter from '../../components/filters/enumTypeFilter.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
 import usePermissions from '@/composables/usePermissions'
 import { getModule } from 'vuex-module-decorators'
 import userModule from '@/store/userModule'
 import store from '@/store/store'
+import { transitionTypes } from '../../repositories/withTransitionRepository'
 
 export default defineComponent({
   name: 'building-block-overview',
@@ -82,7 +106,7 @@ export default defineComponent({
     SelectInput,
     TextInput,
     BuildingBlockItem,
-    BlockTypeFilter,
+    'enum-filter': EnumTypeFilter,
     DurationFilter
   },
   setup () {
@@ -90,12 +114,21 @@ export default defineComponent({
       type: { type: 'string', value: undefined, filterKey: 'type' },
       term: { type: 'string', value: undefined, filterKey: 'term' },
       duration: { type: 'objectString', value: undefined, filterKey: 'duration' },
-      theme: { type: 'arrayEntity', value: undefined, filterKey: 'theme' },
-      category: { type: 'arrayEntity', value: undefined, filterKey: 'category' }
+      theme: { type: 'arrayEntity', value: undefined, filterKey: 'status' },
+      category: { type: 'arrayEntity', value: undefined, filterKey: 'category' },
+      status: { type: 'entity', value: undefined, filterKey: 'status' },
+      createdBy: { type: 'string', value: undefined, filterKey: 'created_by' }
     }
     const { can } = usePermissions()
+    const isLoggedIn = store.getters['openid/isLoggedIn']
+    const repo = isLoggedIn ? PrivateBuildingBlocskRepository : BuildingBlocskRepository
 
-    const repo = store.getters['openid/isLoggedIn'] ? PrivateBuildingBlocskRepository : BuildingBlocskRepository
+    let myId
+
+    if (isLoggedIn) {
+      console.log(store.getters['user/getUser'].id)
+      myId = store.getters['user/getUser'].id
+    }
 
     return {
       repo,
@@ -103,6 +136,11 @@ export default defineComponent({
       filters,
       ThemeRepository,
       CategoriesRepository,
+      BlockStatusRepository,
+      BuildingBlocksTypes,
+      transitionTypes,
+      isLoggedIn,
+      myId,
       can
     }
   }

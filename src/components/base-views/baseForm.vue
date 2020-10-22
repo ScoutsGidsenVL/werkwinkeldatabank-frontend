@@ -131,7 +131,7 @@ export default defineComponent({
         repoParams
       )
       useGlobalLoading(postRepo.loading)
-      console.log('baseform line before do call')
+
       postRepo.doCall().then((success: Boolean) => {
         emit('submitSuccess', postRepo.result.value)
         if (success && redirectRoute && redirectOnSave.value) {
