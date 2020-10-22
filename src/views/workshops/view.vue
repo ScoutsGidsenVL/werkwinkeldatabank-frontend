@@ -11,7 +11,7 @@
               class="mr-2"
               v-on:click.prevent='DownloadPDF(result)'
               variant="outline-dark">
-              <b-icon icon="file" aria-label="download" class="mx-2 mt-2"></b-icon>
+              <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
               download
             </b-button>
             <b-button
@@ -41,7 +41,7 @@
         <b-col cols="12">
             <b-row>
               <b-col cols="12">
-                <span class="w-100 h6 text-left d-inline-block" v-if="result.createdBy && can('workshops.change_buildingblocktemplate')">Gemaakt door: {{ result.createdBy.firstName }} {{ result.createdBy.lastName }}</span>
+                <created-by :createdBy='result.createdBy' />
                 <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.change_buildingblocktemplate')">Gepubliceerd door {{ result.approvingTeam.title }}</span>
               </b-col>
               <b-col cols="12" class="text-left mt-4" >
@@ -113,6 +113,7 @@ import ckeditorView from '../../components/semantic/ckeditorView.vue'
 import useToast from '@/composables/useToast'
 import useDownload from '../../composables/useDownload'
 import RepositoryFactory from '@/repositories/repositoryFactory'
+import CreatedBy from '../../components/semantic/createdBy.vue'
 
 export default defineComponent({
   props: {
@@ -122,7 +123,8 @@ export default defineComponent({
     TimeBadge,
     statusBadge,
     customCollapse,
-    ckeditorView
+    ckeditorView,
+    CreatedBy
   },
   setup (props, { emit, root }) {
     const { route, router } = useRouter()

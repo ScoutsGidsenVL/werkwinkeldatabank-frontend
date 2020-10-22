@@ -6,7 +6,8 @@ export default class UserModel {
     public id?: string,
     public firstName?: string,
     public lastName?: string,
-    public permissions: Array<string> = []
+    public permissions: Array<string> = [],
+    public email?: string
   ) {
     return this
   }
@@ -16,7 +17,8 @@ export default class UserModel {
       input.id,
       input.first_name,
       input.last_name,
-      input.permissions
+      input.permissions,
+      input.email
     )
   }
 

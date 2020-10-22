@@ -23,7 +23,7 @@
       <b-col cols="12">
         <b-row>
           <b-col cols="12">
-            <span class="w-100 h6 text-left d-inline-block" v-if="result.createdBy && can('workshops.view_field_created_by_workshop')">Gemaakt door: {{ result.createdBy.firstName }} {{ result.createdBy.lastName }}</span>
+            <created-by :createdBy='result.createdBy' />
             <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.view_field_created_by_workshop')">Gepubliceerd door {{ result.approvingTeam.title }}</span>
           </b-col>
           <b-col cols="12" class="text-left mt-4" >
@@ -69,6 +69,7 @@ import customCollapse from '../../components/semantic/customCollapse.vue'
 import ckeditorView from '../../components/semantic/ckeditorView.vue'
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
 import useToast from '@/composables/useToast'
+import CreatedBy from '../../components/semantic/createdBy.vue'
 
 export default defineComponent({
   props: {
@@ -78,7 +79,8 @@ export default defineComponent({
     TimeBadge,
     statusBadge,
     customCollapse,
-    ckeditorView
+    ckeditorView,
+    CreatedBy
   },
   setup (props, { emit, root }) {
     const { route, router } = useRouter()

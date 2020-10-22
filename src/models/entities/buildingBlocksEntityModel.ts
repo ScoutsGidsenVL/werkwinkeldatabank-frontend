@@ -3,6 +3,7 @@ import EntityModel from '@/interfaces/entityModel'
 import CategoryModel from './categoryEntityModel'
 import ThemeEntityModel from './themeEntityModel'
 import { useEnum } from '../../composables/useEnum'
+import UserModel from '../userModel'
 
 export enum BuildingBlocksTypes {
   THEMATIC = 'Inhoud',
@@ -26,7 +27,9 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public isDisabled?: boolean,
     public order?: number,
     public template?: string,
-    public BuildingblockStatus?: string
+    public BuildingblockStatus?: string,
+    public createdBy?: UserModel
+
 
   ) {
     super(id, title)
@@ -48,7 +51,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.is_disabled ? input.is_disabled : false,
       input.order,
       input.template,
-      input.status && input.status.value
+      input.status && input.status.value,
+      input.created_by ? UserModel.deserialize(input.created_by) : undefined
     )
   }
 

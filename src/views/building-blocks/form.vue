@@ -144,6 +144,7 @@ import usePermissions from '@/composables/usePermissions'
 import useTransitions from '@/composables/useTransitions'
 
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
+import { useEnum } from '@/composables/useEnum'
 
 export default defineComponent({
   name: 'building-blocks-form',
@@ -166,7 +167,8 @@ export default defineComponent({
       type: BuildingBlocksTypes.THEMATIC,
       is_disabled: false
     }))
-    const types : String[] = BuildingBlocksEntityModel.getTypesArray()
+    const { getTypesArray } = useEnum(BuildingBlocksTypes)
+    const types : String[] = getTypesArray()
     const { can } = usePermissions()
     const redirectRoute = 'BuildingBlockView'
     const { afterSubmit, saveAndPublish } = useTransitions(BuildingBlocksRepository, redirectRoute, root)
