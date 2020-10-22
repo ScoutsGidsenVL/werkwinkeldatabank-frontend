@@ -30,7 +30,6 @@ export default function useTransitions (
   }
 
   const saveAndPublish = (customHandleSubmit, onSubmit, validate, transition : transitionTypes) => {
-    console.log('test')
     validate().then((valid: boolean) => {
       if (valid) {
         publishWorkshop.value = transition

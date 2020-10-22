@@ -66,6 +66,7 @@ export default defineComponent({
     'multi-select': Multiselect
   },
   setup (props, { emit }) {
+    //  @ts-ignore
     const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(props.value)
     let loadingLocal : boolean | Ref<Boolean> = false
     let optionsValue = ref<Array<any>>([])
@@ -79,6 +80,7 @@ export default defineComponent({
     }
 
     if (props.options) {
+      //  @ts-ignore
       optionsValue = props.options
     }
 
@@ -87,6 +89,7 @@ export default defineComponent({
     })
 
     watch(() => props.value, () => {
+      //  @ts-ignore
       input.value = props.value
     })
 

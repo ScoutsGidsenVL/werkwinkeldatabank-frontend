@@ -151,13 +151,10 @@ export default defineComponent({
             routerObject['params'] = { }
             // @ts-ignore
             routerObject.params[paramIdentifier] = postRepo.result.value.id
-            console.log(routerObject)
             router.push(routerObject)
           }
         }
       }).catch((e) => {
-        console.log(e)
-        console.log('catch base form docall')
         e && toast.send('Opslagen niet gelukt', 'danger')
       })
     }
@@ -173,6 +170,7 @@ export default defineComponent({
     }
 
     const setOldVersion = (oldVersion: BaseEntityModel) => {
+      // @ts-ignore
       form.value = oldVersion
     }
 

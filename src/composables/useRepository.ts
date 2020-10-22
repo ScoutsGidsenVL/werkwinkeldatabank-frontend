@@ -43,6 +43,7 @@ export default function useRepository (
         params = repoResponse.params
       } else {
         const repoResponse : {result: BaseEntityModel | historyItem[], params: repoParams } = await activeRepo[callType](params)
+        // @ts-ignore
         result.value = repoResponse.result
         params = repoResponse.params
       }

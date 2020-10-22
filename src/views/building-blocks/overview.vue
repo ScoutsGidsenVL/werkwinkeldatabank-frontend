@@ -126,7 +126,6 @@ export default defineComponent({
     let myId
 
     if (isLoggedIn) {
-      console.log(store.getters['user/getUser'].id)
       myId = store.getters['user/getUser'].id
     }
 

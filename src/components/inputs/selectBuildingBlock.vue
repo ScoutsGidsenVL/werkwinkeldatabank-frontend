@@ -148,7 +148,6 @@ export default defineComponent({
     watch(
       () => props.value,
       () => {
-        console.log(props.value)
         selectedBlock.value = props.value
       }
     )
