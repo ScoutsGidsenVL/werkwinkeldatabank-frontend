@@ -6,14 +6,14 @@
             {{ result.title }}
           </h2>
           <div class="d-block">
-            <b-button
+            <!-- <b-button
               v-show='can("workshops.change_workshop")'
               class="mr-2"
               v-on:click.prevent='DownloadPDF(result)'
               variant="outline-dark">
               <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
               download
-            </b-button>
+            </b-button> -->
             <b-button
               v-show='can("workshops.change_workshop")'
               class="mr-2"
