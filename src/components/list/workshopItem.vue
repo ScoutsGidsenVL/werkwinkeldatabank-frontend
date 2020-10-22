@@ -61,7 +61,9 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-  .workshop-item>div{
+  .workshop-item>a,
+  .workshop-item>a>div{
     height: 100%;
   }
+
 </style>
