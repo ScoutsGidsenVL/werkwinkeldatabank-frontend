@@ -110,18 +110,18 @@
       v-if="formData.BuildingblockStatus === 'PRIVATE'"
       type="submit"
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.requestPublication)'
-      variant="light"
+      variant="primary"
       size="md"
-      class="px-5 py-2 ">
+      class="px-5 py-2 text-info">
       Opslaan en vraag publicatie
       </b-button>
     <b-button
       v-if="formData.BuildingblockStatus === 'PUBLICATION_REQUESTED' && can('workshops.publish_buildingblocktemplate')"
       type="submit"
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.publish)'
-      variant="light"
+      variant="primary"
       size="md"
-      class="px-5 py-2">
+      class="px-5 py-2 text-info">
       Opslaan en publiceer
       </b-button>
   </template>

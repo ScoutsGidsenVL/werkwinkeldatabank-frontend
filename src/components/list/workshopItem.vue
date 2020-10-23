@@ -1,11 +1,11 @@
 <template>
   <b-col cols="12" md='6' lg='6' class="workshop-item mb-3">
     <router-link class="nav-link text-body" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
-      <b-row class="py-4 m-2 border">
-          <b-col cols="12" class="text-center">
+      <b-row class="py-4 m-2 bg-light">
+          <b-col cols="12" class="text-center text-info mb-2">
               <strong>{{ workshop.title }}</strong>
           </b-col>
-          <b-col cols="12" class="text-center">
+          <b-col cols="12" class="text-center d-flex justify-content-center">
             <time-badge v-show='workshop.duration' :time='workshop.duration' />
             <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
             <b-badge pill variant="light" class="mt-2 ml-3">{{ workshop.theme.title }}</b-badge>
@@ -16,9 +16,9 @@
             cols="12"
             class="text-center mt-2"
             v-html='workshop.shortDescription' />
-          <b-col cols="12" class="text-center">
+          <b-col cols="12" class="text-center d-flex justify-content-center align-items-end">
             <router-link class="nav-link" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
-              <b-button>Bekijken</b-button>
+              <b-button variant="primary text-info">Bekijken</b-button>
             </router-link>
           </b-col>
       </b-row>
@@ -61,6 +61,10 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
+  .workshop-item>a>div{
+    border-bottom: 4px solid #748d26;
+  }
+
   .workshop-item>a,
   .workshop-item>a>div{
     height: 100%;

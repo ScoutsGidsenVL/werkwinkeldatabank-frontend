@@ -1,6 +1,6 @@
 <template>
     <b-row
-    class="border border-left-0 border-top-0 border-right-0 py-4 p-3"
+    class="building-block-item mb-3 bg-light py-4 p-3"
     >
     <b-col
         cols='12'
@@ -12,11 +12,12 @@
     <b-col
         cols="10"
         v-show="!hideInfo"
+        class="d-flex justify-content-left"
     >
-        <b-badge v-if="block.category" pill variant="light" class="mt-2 mr-2">{{ block.category.title }}</b-badge>
-        <b-badge pill variant="secondary" class="mt-2">{{ block.type }}</b-badge>
+        <b-badge v-if="block.category" pill variant="secondary" class=" mr-2">{{ block.category.title }}</b-badge>
+        <b-badge pill variant="secondary" class="">{{ block.type }}</b-badge>
         <time-badge :time='block.duration' />
-        <b-badge v-if="block.theme" pill variant="light" class="mt-2 ml-3">{{ block.theme.title }}</b-badge>
+        <b-badge v-if="block.theme" pill variant="secondary" class=" ">{{ block.theme.title }}</b-badge>
         <sensitive-badge v-show='block.isSensitive' />
         <disabled-badge v-show='block.isDisabled && can("scouts_auth.access_disabled_entities")' />
         <status-badge v-if="showStatus" :status='block.BuildingblockStatus' />
@@ -73,3 +74,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped lang='scss'>
+  .building-block-item {
+    border-bottom: 4px solid #748d26;
+  }
+</style>

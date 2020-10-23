@@ -1,8 +1,8 @@
 <template>
   <b-col cols="12" v-if="!loading">
-      <b-row class="bg-white">
-        <b-col cols="12 py-3 d-flex position-sticky bg-white justify-content-between border border-left-0 border-top-0 border-right-0">
-          <h2 class="d-inline-block text-left">
+      <b-row class="bg-white shadow">
+        <b-col cols="12 py-3 d-flex position-sticky bg-primary justify-content-between border border-left-0 border-top-0 border-right-0">
+          <h2 class="d-inline-block text-left text-info">
             {{ result.title }}
           </h2>
           <div class="d-block">
@@ -10,7 +10,7 @@
               v-show='can("workshops.change_workshop")'
               class="mr-2"
               v-on:click.prevent='DownloadPDF(result)'
-              variant="outline-dark">
+              variant="info">
               <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
               download
             </b-button> -->
@@ -18,14 +18,14 @@
               v-show='can("workshops.change_workshop")'
               class="mr-2"
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
-              variant="outline-dark">
+              variant="info">
               <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
               kopieer
             </b-button>
             <b-button
               v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
-              variant="outline-dark">
+              variant="info">
               <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
               bewerken
             </b-button>
@@ -62,7 +62,7 @@
       <b-row
         v-for="(block) in result.buildingBlocks"
         :key='block.id'
-        class="bg-white my-3 py-0">
+        class="bg-white shadow my-3 py-0">
         <custom-collapse
           :id='block.id'
           :title='block.title'
@@ -73,7 +73,7 @@
             </div>
         </custom-collapse>
       </b-row>
-      <b-row class="bg-white" id='necessities'>
+      <b-row class="bg-white shadow"  id='necessities'>
         <custom-collapse
           id='benodigdheden'
           title='Benodigdheden'

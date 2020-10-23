@@ -2,8 +2,12 @@
 //@import 'assets/scss/font.scss';
 
 //Set custom bootrap variables
-// @import 'assets/scss/_variables.scss';
+@import './assets/variables.scss';
 
 // Then include the following
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
+
+body { 
+    background: url(https://www.scoutsengidsenvlaanderen.be/sites/all/themes/theme2014/assets/img/grunge-tile-beige.png) repeat center top #FFF;
+}

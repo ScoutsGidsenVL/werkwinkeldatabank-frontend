@@ -68,10 +68,10 @@
         <building-block-item
           :showStatus="can('workshops.publish_buildingblocktemplate')"
           :block='block'>
-          <router-link
+           <b-button variant="primary text-info"
             :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
               Bekijken
-          </router-link>
+          </b-button>
         </building-block-item>
        </router-link>
     </template>

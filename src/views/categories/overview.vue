@@ -9,7 +9,7 @@
     <template #content='{ results }'>
       <b-row
         v-for="category in results"
-        class="border border-left-0 border-top-0 border-right-0 p-4"
+        class="category-item bg-light mb-3 p-4"
         :key='category.id'>
         <b-col
           cols='10'
@@ -20,11 +20,11 @@
         <b-col
           cols='2'
           class="text-right">
-             <router-link
+            <b-button variant="primary text-info"
               v-if='can("workshops.change_category")'
               :to="{name: 'CategoryEdit', params: { categoryId: category.id }}"  >
                 bewerken
-            </router-link>
+            </b-button>
         </b-col>
       </b-row>
     </template>
@@ -54,3 +54,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped lang='scss'>
+  .category-item{
+    border-bottom: 4px solid #748d26;
+  }
+</style>
+

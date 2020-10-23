@@ -109,8 +109,8 @@
       <b-button
         v-b-modal.modal-building-block-input
         size="lg"
-        :variant='validationState === false ? "danger" : "secondary"'
-        class="mb-2 mt-4 p-4">
+        :variant='validationState === false ? "danger" : "primary"'
+        class="mb-2 mt-4 p-4 text-info">
           <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
       </b-button>
     </b-col>

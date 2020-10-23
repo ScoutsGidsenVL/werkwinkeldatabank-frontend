@@ -110,4 +110,13 @@ export default defineComponent({
   .not-valid .multiselect__tags{
     border-color: red;
   }
+
+  .multiselect__option.multiselect__option--highlight,
+  .multiselect__option.multiselect__option--highlight:after{
+    background-color: #748d26;
+  }
+
+  .multiselect__tag{
+    background-color: #748d26;
+  }
 </style>

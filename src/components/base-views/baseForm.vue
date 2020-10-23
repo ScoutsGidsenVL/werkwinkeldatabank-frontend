@@ -1,14 +1,15 @@
 <template>
 <validation-observer ref="observer" v-slot="{ handleSubmit, validate }">
-    <div v-if="historyModal" cols="12" class="text-right bg-white pt-3 px-5">
+
+
+  <b-form class="bg-white shadow pt-4 pb-5 px-5" @submit.stop.prevent="customHandleSubmit(handleSubmit, validate)"  v-if="!loading">
+     <div v-if="historyModal" cols="12" class="text-right bg-white pt-3 pl-5 pr-2 mb-3">
       <history-modal
         :repo='repo'
         :paramIdentifier='paramIdentifier'
         v-on:setOldVersion='setOldVersion'
       />
     </div>
-
-  <b-form class="bg-white pt-4 pb-5 px-5" @submit.stop.prevent="customHandleSubmit(handleSubmit, validate)"  v-if="!loading">
       <slot v-bind:formData='form' />
   </b-form>
   <div
@@ -17,8 +18,8 @@
   >
   <b-row>
         <b-col cols="12" lg="7" class="text-left mt-4 mb-4" >
-          <b-button v-on:click.prevent="saveWithoutRedirect(handleSubmit, validate)" variant="dark" size="md" class="px-5 py-2 mr-2 mb-2">Opslaan</b-button>
-          <b-button v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="dark" size="md" class="px-5 mb-2 py-2">Opslaan en sluiten</b-button>
+          <b-button  v-on:click.prevent="saveWithoutRedirect(handleSubmit, validate)" variant="info" size="md" class="px-5 py-2 mr-2 mb-2">Opslaan</b-button>
+          <b-button v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="info" size="md" class="px-5 mb-2 py-2">Opslaan en sluiten</b-button>
         </b-col>
         <b-col cols="12" lg='5' class="text-left  mt-lg-4">
           <slot

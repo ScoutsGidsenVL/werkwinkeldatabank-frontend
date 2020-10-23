@@ -1,8 +1,8 @@
 <template>
-<header class="border border-top-0 border-left-0 border-right-0 mb-0 pt-5 ">
+<header class="border border-top-0 border-left-0 border-right-0 mb-0 pt-5 bg-light">
     <div class="container">
       <div class="row">
-        <b-col cols="12" class="text-left">
+        <b-col cols="12" class="text-left text-info title-wrapper">
               <h1>{{$route.meta.title}}</h1>
         </b-col>
         <b-col cols="12" class="mt-3">
@@ -51,8 +51,8 @@ export default defineComponent({
 <style lang="scss" scoped>
   ::v-deep .router-link-exact-active,
   ::v-deep .router-link-active{
-    border-bottom: 2px solid black;
-    color: black;
+    border-bottom: 2px solid #572600 !important;
+    color: #572600 !important;
     font-weight: 700;
   }
 </style>

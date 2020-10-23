@@ -5,8 +5,8 @@
           href="#"
           v-b-toggle="'accordion-' + id"
           variant="white"
-          class="pt-3 d-flex justify-content-between"
-          :class="border && 'border border-left-0 border-right-0 border-top-0'">
+          class="pt-3 d-flex justify-content-between bg-light text-info"
+          :class="border && 'border-collapse'">
           <h3 class="d-inline-block">{{ title }}</h3>
             <span class="when-opened">
                 <b-icon icon="chevron-down" aria-label="edit" class="mx-2 mt-2"></b-icon>
@@ -35,7 +35,7 @@ export default defineComponent({
     },
     border: {
       type: Boolean,
-      default: false
+      default: true
     }
   }
 })
@@ -45,5 +45,9 @@ export default defineComponent({
 .collapsed > .when-opened,
   :not(.collapsed) > .when-closed {
       display: none;
+  }
+
+  .border-collapse{
+    border-bottom: 2px solid #572600;
   }
 </style>

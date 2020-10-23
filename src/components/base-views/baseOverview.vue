@@ -1,7 +1,7 @@
 <template>
 <b-col cols="12">
   <b-row>
-    <b-col cols="12" v-show='showFilters' class="bg-white pt-4 px-4 pb-1 text-left">
+    <b-col cols="12" v-show='showFilters' class="bg-light pt-4 px-4 pb-1 text-left">
       <b-row>
         <slot name='filters' v-bind:filters='callParams.filters'/>
       </b-row>
@@ -10,22 +10,24 @@
            v-if="filtersProp"
            cols="12"
            class="justify-content-end align-items-center d-flex">
-            <a href='' v-on:click.prevent="resetFilers" class="d-inline-block">reset</a>
+            <b-button size='sm' variant="info" href='' v-on:click.prevent="resetFilers" class="d-inline-block mt-n4 mb-3">reset filters</b-button>
         </b-col>
       </b-row>
     </b-col>
-    <b-col cols="12" class="bg-white text-left mt-3">
+    <b-col cols="12" class=" text-left mt-3">
+      <b-row>
         <b-col
           v-if="createRoute"
           cols="12"
-          class="text-right my-3 mb-3">
-          <router-link
+          class="text-right pr-0 mb-3">
+          <b-button variant="primary text-info"
             :to="{name: createRoute}"
             v-if="!createPermission || can(createPermission)"
           >
             + nieuwe {{label}} aanmaken
-          </router-link>
+          </b-button>
         </b-col>
+      </b-row>
         <slot
          v-if="results.length > 0"
          name='content'
@@ -39,7 +41,7 @@
         </span>
       <b-row v-show="!loading && !callParams.isMaxPage">
         <b-col class="text-center my-3">
-          <b-button v-on:click='loadMore' :disabled='callParams.isMaxPage' >Load more</b-button>
+          <b-button v-on:click='loadMore' size='lg' :disabled='callParams.isMaxPage' >Laad meer</b-button>
         </b-col>
       </b-row>
     </b-col>

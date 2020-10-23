@@ -1,5 +1,5 @@
 <template>
-    <b-badge pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
+    <b-badge pill variant="info" class="ml-3">Gevoelige inhoud</b-badge>
 </template>
 
 <script lang='ts'>
