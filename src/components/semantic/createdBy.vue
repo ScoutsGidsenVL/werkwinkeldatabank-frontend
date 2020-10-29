@@ -22,7 +22,7 @@ export default defineComponent({
   props: {
     createdBy: {
       type: Object,
-      required: true
+      required: false
     }
   },
   setup () {

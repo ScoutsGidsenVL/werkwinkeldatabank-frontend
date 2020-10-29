@@ -12,7 +12,7 @@
     <b-col
         cols="10"
         v-show="!hideInfo"
-        class="d-flex justify-content-left"
+        :class='hideInfo ? "" : "d-flex justify-content-left"'
     >
         <b-badge v-if="block.category" pill variant="secondary" class=" mr-2">{{ block.category.title }}</b-badge>
         <b-badge pill variant="secondary" class="">{{ block.type }}</b-badge>

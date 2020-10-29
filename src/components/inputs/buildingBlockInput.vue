@@ -114,13 +114,21 @@
           <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
       </b-button>
     </b-col>
-    <b-modal id="modal-building-block-input" size="xl" title="Selecteer bouwsteen" v-model="showModal" >
+    <b-modal
+      id="modal-building-block-input"
+      size="xl"
+      title="Selecteer bouwsteen" v-model="showModal"
+      header-bg-variant='light'
+      header-text-variant="info"
+      footer-bg-variant='light'
+      footer-text-variant="info"
+      >
       <div class="w-100 text-right">
         <b-button
             v-show="selectedBlock"
             size="md"
-            class="px-5 py-2"
-            variant="success"
+            class="px-5 py-2 text-info"
+            variant="primary"
             @click="addSelectedBlock()">
               Selecteer
           </b-button>
@@ -129,7 +137,7 @@
       <template v-slot:modal-footer>
         <b-button
             v-show='selectedBlock ? false : true'
-            variant="outline-dark"
+            variant="secondary"
             size="md"
             class="px-5 py-2"
             @click="hideModel"
@@ -138,7 +146,7 @@
           </b-button>
           <b-button
             v-show='selectedBlock ? true : false'
-            variant="outline-dark"
+            variant="info"
             size="md"
             class="px-5 py-2"
             @click="goBack"
@@ -148,8 +156,8 @@
           <b-button
             v-show="selectedBlock"
             size="md"
-            class="px-5 py-2"
-            variant="success"
+            class="px-5 py-2 text-info"
+            variant="primary"
             @click="addSelectedBlock()">
               Selecteer
           </b-button>

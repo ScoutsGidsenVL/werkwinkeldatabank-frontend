@@ -11,10 +11,10 @@
 >
   <template v-slot:default="{ formData }">
     <b-row>
-      <b-col cols="6" class="text-left">
+      <b-col cols="12" class="text-left">
         <span class="w-100 h6 text-left d-inline-block" v-if="formData.createdBy && can('workshops.change_buildingblocktemplate')">Gemaakt door: {{ formData.createdBy.firstName }} {{ formData.createdBy.lastName }}</span>
       </b-col>
-      <b-col cols='6' class='text-right'>
+      <b-col cols='12' class='text-left pl-2 mt-1'>
          <status-badge v-if="formData.workshopStatus" :status='formData.workshopStatus' />
       </b-col>
       <sub-title label='Algemene info' />

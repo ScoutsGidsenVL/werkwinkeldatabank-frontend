@@ -4,11 +4,21 @@
     <b-button
     v-show='can("workshops.change_workshop")'
     v-on:click.prevent='showModalAndCallHistory'
-    variant="outline-dark">
+    size='sm'
+    variant="info">
         <b-icon icon="clock-history" aria-label="edit" class="mx-2 mt-2"></b-icon>
-        geschiedenis
+        <span class="d-inline-block mb-1">geschiedenis</span>
     </b-button>
-    <b-modal id="modal-history" size="xl" title="Geschiedenis" v-model="showModal" hide-footer>
+    <b-modal
+      id="modal-history"
+      size="xl"
+      title="Geschiedenis"
+      v-model="showModal" hide-footer
+      header-bg-variant='light'
+      header-text-variant="info"
+      footer-bg-variant='light'
+      footer-text-variant="info"
+    >
         <b-row
         v-for="result in historyResult"
         :key='result.id'
@@ -23,10 +33,11 @@
             <b-col cols="3">
                 <b-button
                     size="sm"
+                    class="text-info"
                     v-on:click.prevent='setOldVersion(result.result)'
-                    variant="outline-dark">
+                    variant="primary">
                         <b-icon icon="clock-history" aria-label="edit" class="mx-2 mt-2"></b-icon>
-                        zet terug
+                        <span class="d-inline-block mb-1">zet terug</span>
                 </b-button>
             </b-col>
         </b-row>
