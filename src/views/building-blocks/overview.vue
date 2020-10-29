@@ -63,7 +63,7 @@
       <router-link
           v-for="block in results"
           :key='block.id'
-          class="text-body"
+          class="text-body building-block-item-link"
           :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
         <building-block-item
           :showStatus="can('workshops.publish_buildingblocktemplate')"
@@ -145,3 +145,13 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang='scss'>
+  .building-block-item-link:hover{
+    text-decoration: none;
+
+    strong{
+      text-decoration: underline;
+    }
+  }
+</style>
