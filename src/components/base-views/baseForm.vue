@@ -81,7 +81,7 @@ export default defineComponent({
     }
   },
   setup ({ repo, defaultValue, paramIdentifier, redirectRoute, redirectWithId, editRoute }, { emit, root }) {
-    const { route, router } = useRouter()
+    const { route, router, redirectOnResult } = useRouter()
     const { can } = usePermissions()
     const { loading, doCall, result } = useRepository(
       repo,
@@ -136,23 +136,13 @@ export default defineComponent({
       postRepo.doCall().then((success: Boolean) => {
         emit('submitSuccess', postRepo.result.value)
         if (success && redirectRoute && redirectOnSave.value) {
-          const routerObject = { name: redirectRoute }
-          if (paramIdentifier) {
-            routerObject['params'] = { }
-            // @ts-ignore
-            routerObject.params[paramIdentifier] = postRepo.result.value.id
-          }
-          router.push(routerObject)
+          redirectOnResult(redirectRoute, postRepo, paramIdentifier)
         } else {
           redirectOnSave.value = true
           toast.send('Opgeslagen')
 
           if (!isEdit) {
-            const routerObject = { name: editRoute }
-            routerObject['params'] = { }
-            // @ts-ignore
-            routerObject.params[paramIdentifier] = postRepo.result.value.id
-            router.push(routerObject)
+            redirectOnResult(editRoute, postRepo, paramIdentifier)
           }
         }
       }).catch((e) => {

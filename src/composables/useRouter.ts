@@ -1,4 +1,5 @@
 import { computed, getCurrentInstance } from '@vue/composition-api'
+import { useRepositoryType } from './useRepository'
 
 export const useRouter = () => {
   const vm = getCurrentInstance()
@@ -9,5 +10,19 @@ export const useRouter = () => {
 
   const route = computed(() => vm.$route)
 
-  return { route, router: vm.$router } as const
+  const router = vm.$router
+
+  const redirectOnResult = (redirectRoute: string, repo: useRepositoryType, paramIdentifier: string) => {
+    const routerObject = { name: redirectRoute, params: {} }
+    if (paramIdentifier) {
+      routerObject['params'] = { }
+      if (repo && repo.result && repo.result.value) {
+        routerObject.params[paramIdentifier] = repo.result.value.id
+      }
+    }
+
+    router.push(routerObject)
+  }
+
+  return { route, router, redirectOnResult } as const
 }
