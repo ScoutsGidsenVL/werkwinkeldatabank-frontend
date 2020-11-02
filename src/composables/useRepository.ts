@@ -16,7 +16,8 @@ export type useRepositoryType = {
   doCall: () => Promise<Boolean>,
   loadMore: () => void,
   result: Ref<BaseEntityModel | undefined>
-  results: Ref<BaseEntityModel[] | historyItem[]>
+  results: Ref<BaseEntityModel[] | historyItem[]>,
+  historyResults: Ref<historyItem[]>
 }
 
 export default function useRepository (
@@ -28,6 +29,7 @@ export default function useRepository (
   const activeRepo = RepositoryFactory.get(repo)
   const result = ref<BaseEntityModel | undefined>()
   const results = ref<BaseEntityModel[]>([])
+  const historyResults = ref<historyItem[]>([])
 
   if (!params.page) {
     params.page = 1
@@ -41,9 +43,11 @@ export default function useRepository (
         const repoResponse : {result: BaseEntityModel[], params: repoParams } = await activeRepo[callType](params)
         results.value = repoResponse.result
         params = repoResponse.params
+      } else if (callType === callTypes.history) {
+        const repoResponse : {result: historyItem[], params: repoParams } = await activeRepo[callType](params)
+        historyResults.value = repoResponse.result
       } else {
-        const repoResponse : {result: BaseEntityModel | historyItem[], params: repoParams } = await activeRepo[callType](params)
-        // @ts-ignore
+        const repoResponse : {result: BaseEntityModel, params: repoParams } = await activeRepo[callType](params)
         result.value = repoResponse.result
         params = repoResponse.params
       }
@@ -77,6 +81,7 @@ export default function useRepository (
     doCall,
     result,
     results,
+    historyResults,
     loadMore
   }
 }

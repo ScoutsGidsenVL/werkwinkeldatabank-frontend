@@ -67,7 +67,7 @@ export default defineComponent({
       emit('input', value)
     })
 
-    let config = {
+    let config : any = {
       plugins: [
         EssentialsPlugin,
         Bold,
@@ -123,7 +123,6 @@ export default defineComponent({
 
     if (toolbarItems) {
       config['toolbar'] = {
-        // @ts-ignore
         items: toolbarItems
       }
     }

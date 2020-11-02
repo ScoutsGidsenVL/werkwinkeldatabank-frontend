@@ -69,7 +69,7 @@ export default defineComponent({
     const { can } = usePermissions()
     const { route, router } = useRouter()
     const showModal = ref<boolean>(false)
-    const { loading: loadingHistory, doCall: doCallHistory, result: historyResult } = useRepository(
+    const { loading: loadingHistory, doCall: doCallHistory, historyResults: historyResult } = useRepository(
       repo,
       callTypes.history,
       { id: route.value.params[paramIdentifier]

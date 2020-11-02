@@ -101,7 +101,7 @@ export default defineComponent({
         router.push({ name: 'WerkwinkelOverview' })
       })
     }
-    let form : Ref<BaseEntityModel | undefined> | BaseEntityModel = (isEdit || isCopy) ? result : defaultValue
+    let form : Ref<BaseEntityModel | undefined> = (isEdit || isCopy) ? result : ref(defaultValue)
 
     const saveWithoutRedirect = (handleSubmit, validate) => {
       redirectOnSave.value = false
@@ -161,7 +161,6 @@ export default defineComponent({
     }
 
     const setOldVersion = (oldVersion: BaseEntityModel) => {
-      // @ts-ignore
       form.value = oldVersion
     }
 
