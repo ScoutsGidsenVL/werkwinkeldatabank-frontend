@@ -51,22 +51,23 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    value: [Object, Array, String],
     repo: {
       type: Function as PropType<new (...params: any[]) => BaseRepository>,
       required: false
     },
-    options: [Object, Array],
+    options: Object as () => Array<any>,
     rules: {
       type: Object,
       default: () => { return { required: true } }
+    },
+    value: {
+      type: Object as () => BaseEntityModel | BaseEntityModel[] | undefined
     }
   },
   components: {
     'multi-select': Multiselect
   },
   setup (props, { emit }) {
-    //  @ts-ignore
     const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(props.value)
     let loadingLocal : boolean | Ref<Boolean> = false
     let optionsValue = ref<Array<any>>([])
@@ -80,8 +81,7 @@ export default defineComponent({
     }
 
     if (props.options) {
-      //  @ts-ignore
-      optionsValue = props.options
+      optionsValue.value = props.options
     }
 
     watch(input, value => {
@@ -89,7 +89,6 @@ export default defineComponent({
     })
 
     watch(() => props.value, () => {
-      //  @ts-ignore
       input.value = props.value
     })
 
