@@ -53,7 +53,7 @@ export default defineComponent({
     },
     repo: {
       type: Function as PropType<new (...params: any[]) => BaseRepository>,
-      required: false
+      default: undefined
     },
     options: Object as () => Array<any>,
     rules: {
@@ -73,7 +73,6 @@ export default defineComponent({
     let optionsValue = ref<Array<any>>([])
 
     if (props.repo) {
-      // @ts-ignore userepo can't get a undifined value, but is checked on line 57
       const { loading, results, doCall } = useRepository(props.repo)
       optionsValue = results
       loadingLocal = loading
