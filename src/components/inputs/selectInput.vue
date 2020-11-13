@@ -63,7 +63,7 @@ export default defineComponent({
       default: () => { return { required: true } }
     },
     value: {
-      type: Object as () => BaseEntityModel | BaseEntityModel[] | undefined
+      type: Array as () => BaseEntityModel | BaseEntityModel[] | undefined
     }
   },
   components: {
