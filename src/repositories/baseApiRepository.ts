@@ -28,7 +28,6 @@ export default abstract class BaseApiRepository {
 
       this.axiosInstance.interceptors.response.use(
         function (response) { return response },
-        // @ts-ignore
         error => OpenIdConnectInterceptors.buildResponseErrorInterceptorCallback(error, store)
       )
 

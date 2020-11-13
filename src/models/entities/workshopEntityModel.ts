@@ -63,7 +63,7 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     )
   }
 
-  public serialize () {
+  public serialize () : Object {
     const buildingBlocks : Object[] = []
 
     this.buildingBlocks && this.buildingBlocks.forEach((block: BuildingBlocksEntityModel) => {
@@ -87,5 +87,6 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       is_disabled: this.isDisabled
     }
   }
+
 
 }

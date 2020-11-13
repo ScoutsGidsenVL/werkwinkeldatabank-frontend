@@ -3,6 +3,7 @@
      <validation-provider
         :rules="rules"
         v-slot="validationContext"
+        :name="label"
     >
       <b-form-group
         :id='id'

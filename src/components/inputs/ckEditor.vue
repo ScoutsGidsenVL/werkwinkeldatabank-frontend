@@ -2,6 +2,7 @@
      <validation-provider
         :rules="rules"
         v-slot="validationContext"
+        :name='label'
     >
       <b-form-group
         :id='id'
@@ -16,6 +17,7 @@
         :config='config'
         :disabled="disabled"></ckeditor>
       </b-form-group>
+      <b-form-invalid-feedback v-for="error in validationContext.errors" :key="error">{{ error }}</b-form-invalid-feedback>
     </validation-provider>
 </template>
 
@@ -149,4 +151,9 @@ min-height: 250px;
 ::v-deep .not-valid .ck-editor {
   border: solid 1px red;
 }
+
+ .not-valid ~ .invalid-feedback{
+    display: block;
+    text-align: left;
+  }
 </style>

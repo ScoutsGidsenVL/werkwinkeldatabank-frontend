@@ -76,13 +76,18 @@
           :big="false"
         />
       </b-col>
-      <sub-title label='Bouwstenen' />
-       <validation-provider
+      <validation-provider
         tag="div"
         class="col-12"
+        name='Bouwblokken'
         :rules="{ required: true }"
+        :customMessages="{required: 'Minstens 1 bouwblok is verplicht'}"
         v-slot="validationContext"
       >
+      <sub-title
+        :class='{"not-valid": getValidationState(validationContext) === false}'
+        label='Bouwstenen' />
+        <b-form-invalid-feedback v-for="error in validationContext.errors" :key="error">{{ error }}</b-form-invalid-feedback>
         <building-block-input v-model='formData.buildingBlocks' :validationState='getValidationState(validationContext)' />
        </validation-provider>
        <b-col cols="10" offset="0" md="10" class="mt-5">
@@ -192,5 +197,12 @@ export default defineComponent({
   ::v-deep .badge.badge-pill{
     font-size: 14px;
     padding: 0.75rem 1.5rem;
+  }
+
+  .not-valid ~ .invalid-feedback{
+    display: block;
+    text-align: left;
+    padding-left: 1rem;
+    margin-top: -1rem;
   }
 </style>

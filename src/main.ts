@@ -15,6 +15,7 @@ import {
   localize
 } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
+import nl from 'vee-validate/dist/locale/nl.json'
 
 import './main.scss'
 import StaticFileRepository from './repositories/staticFileRepository'
@@ -31,6 +32,7 @@ Object.keys(rules).forEach(rule => {
   extend(rule, rules[rule])
 })
 
+localize('nl', nl)
 
 // Install VeeValidate components globally
 Vue.component('ValidationObserver', ValidationObserver)

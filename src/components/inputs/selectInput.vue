@@ -2,6 +2,7 @@
   <validation-provider
     :rules="rules"
     v-slot="validationContext"
+    :name="label"
   >
   <b-form-group
         :id='id'
@@ -28,6 +29,7 @@
       <template slot="noOptions">Geen resultaat</template>
       <template slot="noResult">Geen resultaat</template>
      </multi-select>
+    <b-form-invalid-feedback v-for="error in validationContext.errors" :key="error">{{ error }}</b-form-invalid-feedback>
   </b-form-group>
   </validation-provider>
 </template>
@@ -107,6 +109,11 @@ export default defineComponent({
 <style lang='scss'>
   .not-valid .multiselect__tags{
     border-color: red;
+  }
+
+  .not-valid.multiselect ~ .invalid-feedback{
+    display: block;
+    margin-top: -1rem;
   }
 
   .multiselect__option.multiselect__option--highlight,
