@@ -6,14 +6,14 @@
             {{ result.title }}
           </h2>
           <div class="d-block">
-            <!-- <b-button
+            <b-button
               v-show='can("workshops.change_workshop")'
               class="mr-2"
               v-on:click.prevent='DownloadPDF(result)'
               variant="info">
               <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
               download
-            </b-button> -->
+            </b-button>
             <b-button
               v-show='can("workshops.change_workshop")'
               class="mr-2"
@@ -69,7 +69,10 @@
           :visible="true"
         >
            <div class="w-100 py-2 px-3" >
-             <ckeditor-view :content='block.description' />
+             <div class="text-left pl-0 d-inline-block w-100 mt-2 mb-3 ml-n3">
+              <time-badge :time='block.duration' />
+             </div>
+              <ckeditor-view :content='block.description' />
             </div>
         </custom-collapse>
       </b-row>
