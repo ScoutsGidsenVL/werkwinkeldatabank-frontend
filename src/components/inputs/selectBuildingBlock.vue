@@ -32,7 +32,7 @@
             </b-col>
             <b-col cols="12" lg='4'>
               <select-input
-                label='Category'
+                label='Categorie'
                 id="category"
                 :rules='{}'
                 :multiple='true'
@@ -91,12 +91,16 @@
             pill
             variant="light"
             class="mr-2"
-          >{{ (selectedBlock && selectedBlock.category) && selectedBlock.category.title }}</b-badge>
+          ></b-badge>
           <b-badge pill variant="secondary">{{ selectedBlock && selectedBlock.type }}</b-badge>
           <time-badge v-if="selectedBlock && selectedBlock.duration" :time='selectedBlock.duration' />
+          <b-badge v-if="selectedBlock && selectedBlock.category" pill variant="secondary" class=" mr-2">{{ selectedBlock && selectedBlock.category.title }}</b-badge>
+          <b-badge v-if="selectedBlock && selectedBlock.theme" pill variant="secondary" class=" ">{{ selectedBlock && selectedBlock.theme.title }}</b-badge>
           <sensitive-badge v-show='selectedBlock && selectedBlock.isSensitive' />
         </b-col>
-        <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.description" />
+        <b-col cols="12" class="text-left" >
+          <ckeditor-view :content='selectedBlock && selectedBlock.description' />
+        </b-col>
         <b-col cols="12" class="text-left mt-2"><strong>Benodigdheden</strong></b-col>
         <b-col cols="12" class="text-left" v-html="selectedBlock && selectedBlock.necessities" />
       </b-row>
@@ -121,6 +125,7 @@ import ThemeRepository from '../../repositories/entities/themeRepository'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 import RepositoryFactory from '@/repositories/repositoryFactory'
 import SensetiveBadge from '../semantic/sensitiveBadge.vue'
+import ckeditorView from '../../components/semantic/ckeditorView.vue'
 
 export default defineComponent({
   name: 'select-building-block',
@@ -130,6 +135,7 @@ export default defineComponent({
     SelectInput,
     BuildingBlockItem,
     TimeBadge,
+    ckeditorView,
     'enum-filter': EnumTypeFilter,
     DurationFilter,
     'sensitive-badge': SensetiveBadge

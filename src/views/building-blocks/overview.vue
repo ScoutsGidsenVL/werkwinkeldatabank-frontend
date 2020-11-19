@@ -24,15 +24,17 @@
           id="theme"
           :rules='{}'
           :multiple='true'
+          :searchable="true"
           :repo='ThemeRepository'
           v-model="filters.theme.value"
         />
       </b-col>
       <b-col cols="12" lg='4'>
         <select-input
-          label='Category'
+          label='Categorie'
           id="category"
           :rules='{}'
+          :searchable="true"
           :multiple='true'
           :repo='CategoriesRepository'
           v-model="filters.category.value"

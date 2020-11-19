@@ -94,7 +94,7 @@
                   <br>
                   <div v-html='block.necessities' />
                 </b-col>
-                <b-col cols="12" class="text-left mt-4">Algemeen:<br><div v-html='result.necessities' /></b-col>
+                <b-col cols="12" class="text-left mt-4">Extra benodigdheden:<br><div v-html='result.necessities' /></b-col>
             </b-row>
         </custom-collapse>
       </b-row>

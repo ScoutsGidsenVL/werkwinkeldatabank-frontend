@@ -93,7 +93,7 @@
        <b-col cols="10" offset="0" md="10" class="mt-5">
         <ck-editor
           v-model="formData.necessities"
-          label="Benodigdheden"
+          label="Extra benodigdheden"
           :toolbarItems='["bulletedList"]'
           id="necessities"
           :rules ={}

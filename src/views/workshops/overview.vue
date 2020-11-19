@@ -21,6 +21,7 @@
           label='Thema'
           id="theme"
           :rules='{}'
+          :searchable="true"
           :multiple='true'
           :repo='ThemeRepository'
           v-model="filters.theme.value"

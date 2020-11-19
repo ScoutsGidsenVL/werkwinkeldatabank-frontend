@@ -21,7 +21,7 @@ export default defineComponent({
         label = 'Publicatie aangevraagd'
         break
       case 'PRIVATE':
-        label = 'Prive'
+        label = 'Privé'
         break
       default:
         label = 'gepubliceerd'

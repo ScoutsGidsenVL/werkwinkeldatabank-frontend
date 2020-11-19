@@ -61,6 +61,7 @@
           v-model='formData.category'
           label='Soorten werkvormen'
           id="category"
+          :searchable="true"
           :repo='CategoryRepository'
           :multiple='false'
           v-show="formData && formData.type === BuildingBlocksTypes.METHODIC"
@@ -165,7 +166,12 @@ export default defineComponent({
       category: null,
       theme: null,
       type: BuildingBlocksTypes.THEMATIC,
-      is_disabled: false
+      is_disabled: false,
+      status: {
+        id: 'PRIVATE',
+        label: 'Privé',
+        value: 'PRIVATE'
+      }
     }))
     const { getTypesArray } = useEnum(BuildingBlocksTypes)
     const types : String[] = getTypesArray()

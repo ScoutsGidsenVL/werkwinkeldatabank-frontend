@@ -14,9 +14,9 @@
         v-show="!hideInfo"
         :class='hideInfo ? "" : "d-flex justify-content-left"'
     >
-        <b-badge v-if="block.category" pill variant="secondary" class=" mr-2">{{ block.category.title }}</b-badge>
         <b-badge pill variant="secondary" class="">{{ block.type }}</b-badge>
         <time-badge :time='block.duration' />
+        <b-badge v-if="block.category" pill variant="secondary" class=" mr-2">{{ block.category.title }}</b-badge>
         <b-badge v-if="block.theme" pill variant="secondary" class=" ">{{ block.theme.title }}</b-badge>
         <sensitive-badge v-show='block.isSensitive' />
         <disabled-badge v-show='block.isDisabled && can("scouts_auth.access_disabled_entities")' />
