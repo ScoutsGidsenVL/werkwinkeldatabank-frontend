@@ -18,7 +18,7 @@
           <b-badge v-if='result.theme' pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
           <b-badge v-if='result.category' pill variant="secondary" class="mt-2 mx-3">{{ result.category.title }}</b-badge>
           <status-badge v-if="can('workshops.publish_buildingblocktemplate')" :status='result.BuildingblockStatus' />
-          <b-badge v-show='result.isSensitive && can("workshops.view_field_is_sensitive_workshop")' pill variant="info" class="mt-2 ml-3">Gevoelige inhoud</b-badge>
+          <sensitive-badge v-show='result.isSensitive' />
         </b-col>
       <b-col cols="12">
         <b-row>
@@ -70,6 +70,7 @@ import ckeditorView from '../../components/semantic/ckeditorView.vue'
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
 import useToast from '@/composables/useToast'
 import CreatedBy from '../../components/semantic/createdBy.vue'
+import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
 
 export default defineComponent({
   props: {
@@ -80,7 +81,8 @@ export default defineComponent({
     statusBadge,
     customCollapse,
     ckeditorView,
-    CreatedBy
+    CreatedBy,
+    'sensitive-badge': SensetiveBadge
   },
   setup (props, { emit, root }) {
     const { route, router } = useRouter()
