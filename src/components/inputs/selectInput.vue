@@ -57,20 +57,28 @@ export default defineComponent({
       type: Function as PropType<new (...params: any[]) => BaseRepository>,
       default: undefined
     },
-    options: Object as () => Array<any>,
+    options: {
+      type: [
+        Object as () => Array<any>,
+        Array]
+    },
     rules: {
       type: Object,
       default: () => { return { required: true } }
     },
     value: {
-      type: Array as () => BaseEntityModel | BaseEntityModel[] | undefined
+      type: [
+        Object as () => BaseEntityModel | BaseEntityModel[] | undefined,
+        Array as () => BaseEntityModel | BaseEntityModel[] | undefined,
+        String
+      ]
     }
   },
   components: {
     'multi-select': Multiselect
   },
   setup (props, { emit }) {
-    const input = ref<BaseEntityModel | BaseEntityModel[] | undefined>(props.value)
+    const input = ref<BaseEntityModel | BaseEntityModel[] | string |undefined>(props.value)
     let loadingLocal : boolean | Ref<Boolean> = false
     let optionsValue = ref<Array<any>>([])
 

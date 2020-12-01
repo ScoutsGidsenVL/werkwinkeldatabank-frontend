@@ -18,8 +18,8 @@
   >
   <b-row>
         <b-col cols="12" lg="7" class="text-left mt-4 mb-4" >
-          <b-button  v-on:click.prevent="saveWithoutRedirect(handleSubmit, validate)" variant="info" size="md" class="px-5 py-2 mr-2 mb-2">Opslaan</b-button>
-          <b-button v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="info" size="md" class="px-5 mb-2 py-2">Opslaan en sluiten</b-button>
+          <b-button :disabled='saving'  v-on:click.prevent="saveWithoutRedirect(handleSubmit, validate)" variant="info" size="md" class="px-5 py-2 mr-2 mb-2">Opslaan</b-button>
+          <b-button :disabled='saving' v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="info" size="md" class="px-5 mb-2 py-2">Opslaan en sluiten</b-button>
         </b-col>
         <b-col cols="12" lg='5' class="text-left  mt-lg-4">
           <slot
@@ -28,7 +28,8 @@
             v-bind:saveWithoutRedirect='saveWithoutRedirect'
             v-bind:onSubmit='onSubmit'
             v-bind:validate='validate'
-            v-bind:formData='form' />
+            v-bind:formData='form'
+            v-bind:saving='saving' />
         </b-col>
       </b-row>
   </div>
@@ -93,6 +94,7 @@ export default defineComponent({
     const isCopy = !!route.value.params['copy']
     const redirectOnSave = ref<Boolean>(true)
     const toast = useToast(root)
+    const saving = ref<Boolean>(false)
 
 
     if (isEdit || isCopy) {
@@ -104,6 +106,7 @@ export default defineComponent({
     let form : Ref<BaseEntityModel | undefined> = (isEdit || isCopy) ? result : ref(defaultValue)
 
     const saveWithoutRedirect = (handleSubmit, validate) => {
+      saving.value = true
       redirectOnSave.value = false
       customHandleSubmit(handleSubmit, validate)
     }
@@ -140,12 +143,13 @@ export default defineComponent({
         } else {
           redirectOnSave.value = true
           toast.send('Opgeslagen')
-
+          saving.value = false
           if (!isEdit) {
             redirectOnResult(editRoute, postRepo, paramIdentifier)
           }
         }
       }).catch((e) => {
+        saving.value = false
         e && toast.send('Opslagen niet gelukt', 'danger')
       })
     }
@@ -155,6 +159,7 @@ export default defineComponent({
         if (valid) {
           handleSubmit(onSubmit)
         } else {
+          saving.value = false
           toast.send('Niet alle velden zijn correct ingevuled', 'danger')
         }
       })
@@ -171,7 +176,8 @@ export default defineComponent({
       customHandleSubmit,
       loading,
       can,
-      setOldVersion
+      setOldVersion,
+      saving
     }
   }
 })

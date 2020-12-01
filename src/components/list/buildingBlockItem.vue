@@ -5,8 +5,8 @@
     <b-col
         cols='12'
     >
-        <strong class="d-inline-block">{{ block.title }}</strong>
-        <div v-html='block.shortDescription' />
+        <strong class="d-inline-block mb-1">{{ block.title }}</strong>
+        <div v-show="block.shortDescription" class="mb-1 d-inline-block w-100" v-html='block.shortDescription' />
         <a v-if="readMore" href='#' class="w-100 d-inline-block mb-2 mt-1 text-body text-underline">lees meer ></a>
     </b-col>
     <b-col
