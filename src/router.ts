@@ -36,7 +36,8 @@ const routes: Array<RouteConfig> = [
       showCreate: false
     },
     meta: {
-      title: 'Werkwinkels'
+      title: 'Werkwinkels',
+      from: ''
     }
   },
   {
@@ -183,6 +184,11 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  to.meta.from = from.name
+  next()
 })
 
 export default router

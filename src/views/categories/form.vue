@@ -6,6 +6,7 @@
   editRoute='CategoryEdit'
   paramIdentifier='categoryId'
   redirectRoute='CategorieesOverview'
+  cancelRoute='CategorieesOverview'
 >
   <template v-slot:default="{ formData }">
     <b-row>

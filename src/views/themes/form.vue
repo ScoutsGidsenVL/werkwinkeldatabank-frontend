@@ -6,6 +6,7 @@
   editRoute='ThemeEdit'
   paramIdentifier='themeId'
   redirectRoute='ThemeOverview'
+  cancelRoute='ThemeOverview'
 >
   <template v-slot:default="{ formData }">
     <b-row>

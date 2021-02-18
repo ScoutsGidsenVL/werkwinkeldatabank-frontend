@@ -6,6 +6,7 @@
   editRoute='BuildingBlockEdit'
   paramIdentifier='buildingBlockId'
   :redirectRoute='redirectRoute'
+  cancelRoute='BuildingBlockOverview'
   v-on:submitSuccess='afterSubmit'
   :historyModal="true"
 >

@@ -5,6 +5,7 @@
   :repo='WorkshopRepository'
   paramIdentifier='workshopId'
   :redirectRoute="redirectRoute"
+  :cancelRoute='cancelRoute'
   editRoute='WerkwinkelEdit'
   v-on:submitSuccess='afterSubmit'
   :historyModal="true"
@@ -174,7 +175,11 @@ export default defineComponent({
     const { can } = usePermissions()
     const redirectRoute = 'WerkwinkelView'
     const { afterSubmit, saveAndPublish } = useTransitions(WorkshopRepository, redirectRoute, root)
-
+    const { route } = useRouter()
+    const cancelRoute = ref<String>('MijnWerkwinkelOverview')
+    if (route.value.meta.from) {
+      cancelRoute.value = route.value.meta.from
+    }
     return {
       inputTypes,
       form,
@@ -187,7 +192,8 @@ export default defineComponent({
       getValidationState,
       TeamRepository,
       redirectRoute,
-      can
+      can,
+      cancelRoute
     }
   }
 })
