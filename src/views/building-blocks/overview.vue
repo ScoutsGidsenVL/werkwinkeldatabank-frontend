@@ -32,12 +32,13 @@
         />
       </b-col>
         <b-col cols="12" lg='4'>
-        <b-form-checkbox
+          <b-form-checkbox
+          class="mt-5"
           v-model="filters.createdBy.value"
           :value="myId">
-            Mijn bouwstenen
-        </b-form-checkbox>
-       </b-col>
+              Mijn bouwstenen
+          </b-form-checkbox>
+        </b-col>
     </template>
     <template #content='{ results }'>
       <router-link
