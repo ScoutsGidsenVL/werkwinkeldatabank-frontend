@@ -2,7 +2,7 @@
   <div id="app" class="position-relative">
     <global-loader />
     <custom-header />
-    <main class="py-4 px-2">
+    <main class="py-4">
       <base-page><router-view :key="$route.path" /></base-page>
     </main>
     <custom-footer />

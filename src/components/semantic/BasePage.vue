@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="base-container">
   <slot />
 </div>
 </template>
@@ -13,7 +13,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .container {
+  .base-container {
     max-width: none;
   }
 </style>

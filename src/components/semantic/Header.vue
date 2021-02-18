@@ -1,6 +1,6 @@
 <template>
 <header class="border border-top-0 border-left-0 border-right-0 mb-0 pt-5 bg-light">
-    <div class="container">
+    <div class="header-container">
       <div class="row">
         <b-col cols="12" class="text-left text-info title-wrapper">
               <h1 v-if="$route.meta.title !== 'Werkwinkels'">{{$route.meta.title}}</h1>
@@ -49,6 +49,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+  .header-container {
+    padding-left: 1em;
+    max-width: none;
+  }
   ::v-deep .router-link-exact-active,
   ::v-deep .router-link-active{
     border-bottom: 2px solid #572600 !important;
