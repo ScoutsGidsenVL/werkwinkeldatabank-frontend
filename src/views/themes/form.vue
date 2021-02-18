@@ -27,13 +27,6 @@
           Verborgen
         </b-form-checkbox>
       </b-col>
-      <b-col cols="12">
-        <ck-editor
-          v-model="formData.description"
-          label="Omschrijving"
-          id="description"
-        />
-      </b-col>
     </b-row>
   </template>
 </base-form>
