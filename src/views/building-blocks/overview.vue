@@ -18,28 +18,6 @@
       </b-col>
       <enum-filter v-model="filters.type.value" :enumToUse="BuildingBlocksTypes" />
       <duration-filter v-model="filters.duration.value" />
-      <b-col cols="12" lg='4'>
-        <select-input
-          label='Thema'
-          id="theme"
-          :rules='{}'
-          :multiple='true'
-          :searchable="true"
-          :repo='ThemeRepository'
-          v-model="filters.theme.value"
-        />
-      </b-col>
-      <b-col cols="12" lg='4'>
-        <select-input
-          label='Categorie'
-          id="category"
-          :rules='{}'
-          :searchable="true"
-          :multiple='true'
-          :repo='CategoriesRepository'
-          v-model="filters.category.value"
-        />
-      </b-col>
        <b-col
         v-if="can('workshops.publish_buildingblocktemplate')"
         cols="12"
