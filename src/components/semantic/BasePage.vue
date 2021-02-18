@@ -12,3 +12,9 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss">
+  .container {
+    max-width: none;
+  }
+</style>
+
