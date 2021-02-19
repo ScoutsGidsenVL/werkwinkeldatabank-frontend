@@ -165,7 +165,7 @@ export default defineComponent({
           handleSubmit(onSubmit)
         } else {
           saving.value = false
-          toast.send('Niet alle velden zijn correct ingevuled', 'danger')
+          toast.send('Niet alle velden zijn correct ingevuld', 'danger')
         }
       })
     }

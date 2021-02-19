@@ -35,7 +35,7 @@ export default function useTransitions (
         publishWorkshop.value = transition
         customHandleSubmit(onSubmit, validate)
       } else {
-        toast.send('Niet alle velden zijn correct ingevuled', 'danger')
+        toast.send('Niet alle velden zijn correct ingevuld', 'danger')
       }
     })
   }
