@@ -117,7 +117,7 @@ export default defineComponent({
         displayHour = ('0' + hours.value)
       }
       if (hours.value.length > 2) {
-        hours.value = '24'
+        displayHour = '23'
       }
       console.log('TIME: ', displayHour + ':' + displayMinutes)
       input.value = displayHour + ':' + displayMinutes
@@ -132,7 +132,7 @@ export default defineComponent({
         displayMinutes = ('0' + minutes.value)
       }
       if (minutes.value.length > 2) {
-        minutes.value = '59'
+        displayMinutes = '59'
       }
       console.log('TIME: ', displayHour + ':' + displayMinutes)
       input.value = displayHour + ':' + displayMinutes
