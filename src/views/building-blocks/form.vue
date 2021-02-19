@@ -20,7 +20,7 @@
           :type="inputTypes.text"
         />
       </b-col>
-      <b-col cols="12" md="10" class="mb-3 text-left">
+      <b-col cols="12" md="10" class="mb-3 text-left" v-if="can('workshops.view_field_is_sensitive_workshop')">
         <b-form-checkbox
           id="is-sensetive"
           v-model="formData.isSensitive"

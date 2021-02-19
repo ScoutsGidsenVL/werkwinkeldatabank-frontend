@@ -31,7 +31,7 @@
         v-model="filters.duration.value"
         :optionObject='optionObject'
       />
-      <b-col cols="12" lg='4'>
+      <b-col cols="12" lg='4' v-if="can('workshops.view_field_is_sensitive_workshop')">
         <b-form-checkbox
           v-model="filters.isSensitive.value"
           value="true">
@@ -64,6 +64,7 @@ import BaseOverview from '../../components/base-views/baseOverview.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
 import store from '@/store/store'
 import RepositoryFactory from '@/repositories/repositoryFactory'
+import usePermissions from '@/composables/usePermissions'
 
 export default defineComponent({
   name: 'workshop-overview',
@@ -86,6 +87,7 @@ export default defineComponent({
     }
   },
   setup ({ showCreate, workshopReposioryType }) {
+    const { can } = usePermissions()
     const filters : any = {
       theme: { type: 'arrayEntity', value: undefined, filterKey: 'theme' },
       term: { type: 'string', value: undefined, filterKey: 'term' },
@@ -128,7 +130,8 @@ export default defineComponent({
       inputTypes,
       createRoute,
       showStatus,
-      optionObject
+      optionObject,
+      can
     }
   }
 })
