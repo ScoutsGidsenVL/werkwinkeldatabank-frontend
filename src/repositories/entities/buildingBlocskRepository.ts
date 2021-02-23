@@ -15,5 +15,8 @@ export default class BuildingBlocksRepository extends WithTransitionRepository {
         return BuildingBlocksEntityModel.deserialize(result)
       })
     }
+    requestPublication (id: string) : Promise<any> {
+      return this.post(this.endpoint + id + '/' + 'request_publication' + '/', { 'id': id })
+    }
 
 }

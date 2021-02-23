@@ -7,6 +7,14 @@
           </h2>
           <div class="d-block">
             <b-button
+              v-if="BuildingBlocksToPublish.length > 0"
+              class="mr-2"
+              style="padding-top: 10px;padding-bottom:9px"
+              v-on:click.prevent='askPublication()'
+              variant="info">
+              Vraag Publicatie Geselecteerde Bouwstenen
+            </b-button>
+            <b-button
               class="mr-2"
               v-on:click.prevent='DownloadPDF(result)'
               variant="info">
@@ -66,12 +74,24 @@
           :title='block.title'
           :visible="true"
         >
-           <div class="w-100 py-2 px-3" >
-             <div class="text-left pl-0 d-inline-block w-100 mt-2 mb-3 ml-n3">
-              <time-badge :time='block.duration' />
-             </div>
-              <ckeditor-view :content='block.description' />
+          <template v-if="block.type === 'Inhoud' && can('workshops.request_publication_buildingblocktemplate')" v-slot:header>
+              <div class="d-flex flex-row-reverse">
+                <b-form-checkbox
+                  v-on:change="toggle(block)"
+                  class="submit-checkbox"
+                  :id="'checkbox-' + block.id"
+                  name="checkbox-1"
+                >
+                Vraag publicatie
+                </b-form-checkbox>
+              </div>
+          </template>
+          <div class="w-100 py-2 px-3" >
+            <div class="text-left pl-0 d-inline-block w-100 mt-2 mb-3 ml-n3">
+            <time-badge :time='block.duration' />
             </div>
+            <ckeditor-view :content='block.description' />
+          </div>
         </custom-collapse>
       </b-row>
       <b-row class="bg-white shadow"  id='necessities'>
@@ -104,7 +124,6 @@ import { defineComponent, ref } from '@vue/composition-api'
 import { useRouter } from '../../composables/useRouter'
 import useRepository, { callTypes } from '../../composables/useRepository'
 import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
-import { PropType } from 'vue'
 import WorkshopRepository from '../../repositories/entities/workshopRepository'
 import TimeBadge from '../../components/semantic/timeBadge.vue'
 import usePermissions from '@/composables/usePermissions'
@@ -116,6 +135,8 @@ import useDownload from '../../composables/useDownload'
 import RepositoryFactory from '@/repositories/repositoryFactory'
 import CreatedBy from '../../components/semantic/createdBy.vue'
 import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
+import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
+import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 
 export default defineComponent({
   props: {
@@ -136,11 +157,17 @@ export default defineComponent({
     const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
     const necessitiesOpen = ref<Boolean>(true)
     const { DownloadFile } = useDownload()
+    const BuildingBlocksToPublish = ref<Array<BuildingBlocksEntityModel>>([])
+    const buildingBlockRepo: BuildingBlocksRepository = RepositoryFactory.get(BuildingBlocksRepository)
 
-    doCall().catch(() => {
-      toast.send('U kan deze werkwinkel niet bekijken', 'danger')
-      router.push({ name: 'WerkwinkelOverview' })
-    })
+    const fetchWorkshop = () => {
+      doCall().catch(() => {
+        toast.send('U kan deze werkwinkel niet bekijken', 'danger')
+        router.push({ name: 'WerkwinkelOverview' })
+      })
+    }
+
+    fetchWorkshop()
 
     root.$on('bv::collapse::state', (collapseId, isJustShown) => {
       if (collapseId === 'accordion-benodigdheden') {
@@ -154,13 +181,45 @@ export default defineComponent({
     }
 
     const DownloadPDF = (workshop: WorkshopEntityModel) => RepositoryFactory.get(WorkshopRepository).getDownload(workshop).then((repsonse: any) => DownloadFile(repsonse, 'test.pdf'))
+    const toggle = (block:any) => {
+      if (BuildingBlocksToPublish.value.includes(block)) {
+        var index = BuildingBlocksToPublish.value.indexOf(block)
+        if (index !== -1) {
+          BuildingBlocksToPublish.value.splice(index, 1)
+        }
+      } else {
+        BuildingBlocksToPublish.value.push(block)
+      }
+    }
+
+    const askPublication = (block: any) => {
+      BuildingBlocksToPublish.value.forEach(block => {
+        let buildingBlock = block
+        buildingBlock.id = undefined
+        const { doCall, result } = useRepository(BuildingBlocksRepository, callTypes.create, { model: buildingBlock })
+        doCall().then(() => {
+          // @ts-ignore
+          buildingBlockRepo.requestPublication(result.value.id).then(() => {
+            toast.send('Publicatie aangevraagd voor:' + result.value?.title, 'success')
+          }).catch(() => {
+            toast.send('Aanvraging publicatie mislukt voor: ' + result.value?.title, 'danger')
+          })
+        }).catch(() => {
+          toast.send('Aanvraging publicatie mislukt voor: ' + result.value?.title, 'danger')
+        })
+      })
+      BuildingBlocksToPublish.value = []
+    }
 
     return {
       result,
       loading,
       can,
       goToNecessities,
-      DownloadPDF
+      DownloadPDF,
+      BuildingBlocksToPublish,
+      toggle,
+      askPublication
     }
   }
 })
@@ -173,5 +232,12 @@ export default defineComponent({
   padding: 0.75rem 1.5rem;
 }
 
+.submit-checkbox {
+  position: relative;
+  margin-top: -4em;
+  top: 5.5em;
+  right: 4em;
+  cursor: pointer;
+}
 
 </style>
