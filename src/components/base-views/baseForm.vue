@@ -14,7 +14,7 @@
   </b-form>
   <div
     v-if="!loading"
-    class="action-bar sticky-container position-sticky bg-secondary pb-4 px-4"
+    class="action-bar sticky-container position-sticky bg-secondary pb-4 px-5"
   >
   <b-row>
         <b-col cols="12" lg="7" class="text-left mt-4 mb-4" >
@@ -22,7 +22,7 @@
           <b-button :disabled='saving' v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="info" size="md" class="px-5 mb-2 py-2 mr-2">Opslaan en sluiten</b-button>
           <b-button :disabled='saving' v-on:click.prevent="redirect()" type="submit" variant="info" size="md" class="px-5 mb-2 py-2">Annuleren</b-button>
         </b-col>
-        <b-col cols="12" lg='5' class="text-left  mt-lg-4">
+        <b-col cols="12" lg='5' class="text-right pr-4 mt-lg-4">
           <slot
             name='actions'
             v-bind:customHandleSubmit='customHandleSubmit'

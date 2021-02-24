@@ -114,7 +114,7 @@
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.requestPublication)'
       variant="primary"
       size="md"
-      class="px-5 py-2 text-info">
+      class="text-info">
       Opslaan en vraag publicatie
       </b-button>
     <b-button
@@ -123,7 +123,7 @@
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.publish)'
       variant="primary"
       size="md"
-      class="px-5 py-2 text-info">
+      class="text-info">
       Opslaan en publiceer
       </b-button>
   </template>
