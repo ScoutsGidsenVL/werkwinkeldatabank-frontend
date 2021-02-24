@@ -50,7 +50,7 @@ export default abstract class BaseApiRepository {
       ...config,
       responseType: 'blob'
     }
-    return this.axiosInstance.get(endpoint, config).then(function (result: AxiosResponse) {
+    return this.publicAxiosInstance.get(endpoint, config).then(function (result: AxiosResponse) {
       // Only return the data of response
       return result.data
     })
