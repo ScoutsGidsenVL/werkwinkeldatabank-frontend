@@ -22,6 +22,7 @@
               download
             </b-button>
             <b-button
+              v-show='can("workshops.change_workshop")'
               class="mr-2"
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
               variant="info">
