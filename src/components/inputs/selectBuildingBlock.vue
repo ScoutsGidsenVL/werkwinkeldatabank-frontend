@@ -79,7 +79,7 @@
             size='sm'
             variant="primary"
             v-on:click.prevent="selectBlock(block.id)"
-            class="text-info d-inline-block mt-2 mb-3">Selecteer</b-button>
+            class="text-info d-inline-block mt-2 mb-3">SelecteerTEST</b-button>
         </building-block-item>
       </a>
       <b-row v-show="selectedBlock" class="p-3 bg-white shadow">
@@ -144,7 +144,7 @@ export default defineComponent({
     value: Object as PropType<BaseEntityModel>
   },
   setup (props, { emit }) {
-    const selectedBlock = ref<BaseEntityModel | undefined>(props.value)
+    const selectedBlock = ref<BaseEntityModel | undefined>()
     const filters : any = {
       type: { type: 'string', value: undefined, filterKey: 'type' },
       term: { type: 'string', value: undefined, filterKey: 'term' },
@@ -155,6 +155,7 @@ export default defineComponent({
 
     const buildingBlockRepo: BuildingBlocskRepository = RepositoryFactory.get(BuildingBlocskRepository)
     const emptyBlock = ref<BuildingBlocksEntityModel | undefined>(undefined)
+    const isDirectlySelectedFromMenu = ref<Boolean>(false)
     buildingBlockRepo.getEmptyBlock().then((emptyBlockreturn: BuildingBlocksEntityModel) => {
       emptyBlock.value = emptyBlockreturn
     })
@@ -162,7 +163,10 @@ export default defineComponent({
     watch(
       () => props.value,
       () => {
-        selectedBlock.value = props.value
+        if (!isDirectlySelectedFromMenu.value) {
+          selectedBlock.value = props.value
+        }
+        isDirectlySelectedFromMenu.value = false
       }
     )
 
@@ -183,6 +187,7 @@ export default defineComponent({
 
       }
       emit('input', selectedBlock.value)
+      selectedBlock.value = undefined
     }
 
     const selectBlock = async (id: string, EmptyBlock?: BuildingBlocksEntityModel) => {
@@ -199,6 +204,8 @@ export default defineComponent({
 
         await doCall()
         emit('selectBlock', result.value)
+        selectedBlock.value = undefined
+        isDirectlySelectedFromMenu.value = true
       }
 
     }

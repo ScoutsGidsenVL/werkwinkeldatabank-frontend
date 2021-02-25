@@ -204,7 +204,7 @@ export default defineComponent({
     const emitBlock = (block: BuildingBlocksEntityModel) => {
       const order : number = buildingBlocks.value.length > 0 ? buildingBlocks.value.length : 0
       buildingBlocks.value.push(BuildingBlocksEntityModel.createNewFromTemplate(block, order))
-      emit('input', buildingBlocks)
+      // emit('input', buildingBlocks)
       hideModel()
     }
 
