@@ -172,6 +172,7 @@ export default defineComponent({
 
     const redirect = () => {
       router.push({ name: cancelRoute })
+      useGlobalLoading(loading)
     }
 
     const setOldVersion = (oldVersion: BaseEntityModel) => {
