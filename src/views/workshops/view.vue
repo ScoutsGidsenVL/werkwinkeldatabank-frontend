@@ -75,7 +75,7 @@
           :title='block.title'
           :visible="true"
         >
-          <template v-if="block.type === 'Inhoud' && can('workshops.request_publication_buildingblocktemplate')" v-slot:header>
+          <template v-if="block.type !== 'Inhoud' && can('workshops.request_publication_buildingblocktemplate')" v-slot:header>
               <div class="d-flex flex-row-reverse">
                 <b-form-checkbox
                   v-on:change="toggle(block)"
