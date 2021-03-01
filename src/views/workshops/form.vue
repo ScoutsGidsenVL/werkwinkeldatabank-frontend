@@ -48,10 +48,11 @@
         />
       </b-col>
       <b-col
-        v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED' && can('workshops.change_buildingblocktemplate')"
+        v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED' || formData.workshopStatus === 'PUBLISHED' && can('workshops.change_buildingblocktemplate')"
         cols="12"
         md="7">
         <select-input
+          :disabled="!can('workshops.change_buildingblocktemplate')"
           v-model='formData.approvingTeam'
           label='Team'
           id="team"
