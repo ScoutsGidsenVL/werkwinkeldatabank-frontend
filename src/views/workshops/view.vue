@@ -138,6 +138,7 @@ import CreatedBy from '../../components/semantic/createdBy.vue'
 import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
+import moment from 'moment'
 
 export default defineComponent({
   props: {
@@ -160,7 +161,7 @@ export default defineComponent({
     const { DownloadFile } = useDownload()
     const BuildingBlocksToPublish = ref<Array<BuildingBlocksEntityModel>>([])
     const buildingBlockRepo: BuildingBlocksRepository = RepositoryFactory.get(BuildingBlocksRepository)
-
+    const pdfFileName = ref<string>('default_pdf_name')
     const fetchWorkshop = () => {
       doCall().catch(() => {
         toast.send('U kan deze werkwinkel niet bekijken', 'danger')
@@ -181,7 +182,12 @@ export default defineComponent({
       root.$scrollTo('#necessities')
     }
 
-    const DownloadPDF = (workshop: WorkshopEntityModel) => RepositoryFactory.get(WorkshopRepository).getDownload(workshop).then((repsonse: any) => DownloadFile(repsonse, 'test.pdf'))
+    const DownloadPDF = (workshop: WorkshopEntityModel) => RepositoryFactory.get(WorkshopRepository).getDownload(workshop).then((repsonse: any) => {
+      if (workshop.title) {
+        pdfFileName.value = workshop.title.replace(' ', '_').toLowerCase() + '_' + moment().format('YYYY_MM_DD')
+      }
+      DownloadFile(repsonse, pdfFileName.value)
+    })
     const toggle = (block:any) => {
       if (BuildingBlocksToPublish.value.includes(block)) {
         var index = BuildingBlocksToPublish.value.indexOf(block)
