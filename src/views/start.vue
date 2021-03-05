@@ -11,6 +11,7 @@ import store from '@/store/store'
 import userModule from '@/store/userModule'
 import { defineComponent } from '@vue/composition-api'
 import { getModule } from 'vuex-module-decorators'
+import { RETRY_REDIRECT } from '../composables/useRepository'
 
 export default defineComponent({
   name: 'start-view',
@@ -34,7 +35,14 @@ export default defineComponent({
           const url = new URL(location.toString())
           url.searchParams.delete('code')
           url.searchParams.delete('session_state')
-          window.location.replace(url.toString())
+          if (sessionStorage.getItem(RETRY_REDIRECT)) {
+            const redirectPath : string | null = sessionStorage.getItem(RETRY_REDIRECT)
+            sessionStorage.removeItem(RETRY_REDIRECT)
+            window.location.replace(url.toString() + redirectPath)
+          } else {
+            window.location.replace(url.toString())
+          }
+
         },
         (error) => {
           // router.push({ name: startPage })

@@ -2,6 +2,9 @@ import BaseRepository, { historyItem, repoParams } from '../repositories/baseRep
 import RepositoryFactory from '../repositories/repositoryFactory'
 import BaseEntityModel from '../models/entities/baseEntityModel'
 import { ref, Ref } from '@vue/composition-api'
+import store from '../store/store'
+
+export const RETRY_REDIRECT : string = 'retry_redirect'
 
 export enum callTypes {
     getModelArray = 'getModelArray',
@@ -14,6 +17,7 @@ export enum callTypes {
 export type useRepositoryType = {
   loading : Ref<Boolean>,
   doCall: () => Promise<Boolean>,
+  doCallWithLoginRetry: (redirectRoute: string) => Promise<Boolean | void>,
   loadMore: () => void,
   result: Ref<BaseEntityModel | undefined>
   results: Ref<BaseEntityModel[] | historyItem[]>,
@@ -76,9 +80,19 @@ export default function useRepository (
     }
   }
 
+  function doCallWithLoginRetry (redirectRoute: string) : Promise<Boolean | void> {
+    return doCall().catch(() => {
+      sessionStorage.setItem(RETRY_REDIRECT, redirectRoute)
+      store.dispatch('openid/login').then(() => {
+        doCall()
+      })
+    })
+  }
+
   return {
     loading,
     doCall,
+    doCallWithLoginRetry,
     result,
     results,
     historyResults,

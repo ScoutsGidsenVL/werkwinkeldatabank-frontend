@@ -156,14 +156,15 @@ export default defineComponent({
     const { route, router } = useRouter()
     const { can } = usePermissions()
     const toast = useToast(root)
-    const { loading, doCall, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
+    const { loading, doCallWithLoginRetry, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
     const necessitiesOpen = ref<Boolean>(true)
     const { DownloadFile } = useDownload()
     const BuildingBlocksToPublish = ref<Array<BuildingBlocksEntityModel>>([])
     const buildingBlockRepo: BuildingBlocksRepository = RepositoryFactory.get(BuildingBlocksRepository)
     const pdfFileName = ref<string>('default_pdf_name')
+
     const fetchWorkshop = () => {
-      doCall().catch(() => {
+      doCallWithLoginRetry('werkwinkels/' + route.value.params.workshopId).catch(() => {
         toast.send('U kan deze werkwinkel niet bekijken', 'danger')
         router.push({ name: 'WerkwinkelOverview' })
       })
@@ -188,6 +189,7 @@ export default defineComponent({
       }
       DownloadFile(repsonse, pdfFileName.value)
     })
+
     const toggle = (block:any) => {
       if (BuildingBlocksToPublish.value.includes(block)) {
         var index = BuildingBlocksToPublish.value.indexOf(block)
