@@ -19,7 +19,7 @@
       <enum-filter v-model="filters.type.value" :enumToUse="BuildingBlocksTypes" />
       <duration-filter v-model="filters.duration.value" />
        <b-col
-        v-if="can('workshops.publish_buildingblocktemplate')"
+        v-if="can('workshops.publish_buildingblocktemplate') && !isReadyForPublictionOverview"
         cols="12"
         lg='4'>
         <select-input
@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
 import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
 import PrivateBuildingBlocskRepository from '../../repositories/entities/privateBuildingBlocskRepository'
 import BlockStatusRepository from '../../repositories/entities/blockStatusRepository'
@@ -68,17 +68,16 @@ import BlockStatusRepository from '../../repositories/entities/blockStatusReposi
 import BaseOverview from '../../components/base-views/baseOverview.vue'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
-import BuildingBlocksEntityModel, { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
+import { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
 import BuildingBlockItem from '../../components/list/buildingBlockItem.vue'
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
 import EnumTypeFilter from '../../components/filters/enumTypeFilter.vue'
 import DurationFilter from '../../components/filters/durationFilter.vue'
 import usePermissions from '@/composables/usePermissions'
-import { getModule } from 'vuex-module-decorators'
-import userModule from '@/store/userModule'
 import store from '@/store/store'
 import { transitionTypes } from '../../repositories/withTransitionRepository'
+import BlockStatusEntityModel from '@/models/entities/blockStatusEntityModel'
 
 export default defineComponent({
   name: 'building-block-overview',
@@ -90,16 +89,28 @@ export default defineComponent({
     'enum-filter': EnumTypeFilter,
     DurationFilter
   },
-  setup () {
-    const filters : any = {
+  props: {
+    isReadyForPublictionOverview: {
+      type: Boolean,
+      default: false
+    }
+  },
+  setup (props) {
+    const status = ref<any>(undefined)
+
+    if (props.isReadyForPublictionOverview) {
+      status.value = new BlockStatusEntityModel('Publicatie aangevraagd', 'PUBLICATION_REQUESTED', 'PUBLICATION_REQUESTED')
+    }
+
+    const filters = ref<Object>({
       type: { type: 'string', value: undefined, filterKey: 'type' },
       term: { type: 'string', value: undefined, filterKey: 'term' },
       duration: { type: 'objectString', value: undefined, filterKey: 'duration' },
       theme: { type: 'arrayEntity', value: undefined, filterKey: 'status' },
       category: { type: 'arrayEntity', value: undefined, filterKey: 'category' },
-      status: { type: 'entity', value: undefined, filterKey: 'status' },
+      status: { type: 'entity', value: status.value, filterKey: 'status' },
       createdBy: { type: 'string', value: undefined, filterKey: 'created_by' }
-    }
+    })
     const { can } = usePermissions()
     const isLoggedIn = store.getters['openid/isLoggedIn']
     const repo = isLoggedIn ? PrivateBuildingBlocskRepository : BuildingBlocskRepository

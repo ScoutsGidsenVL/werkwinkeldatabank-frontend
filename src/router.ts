@@ -152,6 +152,18 @@ const routes: Array<RouteConfig> = [
       title: 'Bouwblokken'
     }
   },
+  {
+    path: '/publicatie-aangevraagd-bouwstenen',
+    name: 'PublicatieAangevraagdBouwstenenOverview',
+    component: BuildingBlockOverview,
+    props: {
+      isReadyForPublictionOverview: true
+    },
+    meta: {
+      requiresOpenIdAuth: true,
+      title: 'Publicatie aangevraagd bouwstenen'
+    }
+  },
   // Categories
   {
     path: '/categorieen/nieuw',

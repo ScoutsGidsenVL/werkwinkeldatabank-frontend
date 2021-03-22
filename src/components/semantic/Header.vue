@@ -14,7 +14,14 @@
               <router-link class="nav-link" :to="{name: 'MijnWerkwinkelOverview'}" >Mijn werkwinkels</router-link>
             </li>
              <li class="nav-item">
-              <router-link class="nav-link"  v-show="can('workshops.publish_workshop')" :to="{name: 'PublicatieAangevraagdWerkwinkelOverview'}" >Klaar voor publicatie</router-link>
+              <b-dropdown text="Klaar voor publicatie">
+                <b-dropdown-item class="nav-link"  v-show="can('workshops.publish_workshop')" :to="{name: 'PublicatieAangevraagdWerkwinkelOverview'}">
+                  Te publiceren werkwinkels
+                </b-dropdown-item>
+                <b-dropdown-item class="nav-link"  v-show="can('workshops.publish_workshop')" :to="{name: 'PublicatieAangevraagdBouwstenenOverview'}">
+                  Te publiceren bouwstenen
+                </b-dropdown-item>
+              </b-dropdown>
             </li>
             <li class="nav-item" v-show="can('workshops.add_theme')">
               <router-link class="nav-link" :to="{name: 'ThemeOverview'}" >Thema's</router-link>
