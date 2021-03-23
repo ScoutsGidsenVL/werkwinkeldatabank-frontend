@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, watch, PropType, ref } from '@vue/composition-api'
-import useRepository, { callTypes, RETRY_REDIRECT } from '../../composables/useRepository'
+import useRepository, { callTypes } from '../../composables/useRepository'
 import BaseRepository, { repoParams } from '../../repositories/baseRepository'
 import { useRouter } from '@/composables/useRouter'
 import useGlobalLoading from '@/composables/useGlobalLoading'

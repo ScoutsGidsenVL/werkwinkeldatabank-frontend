@@ -147,6 +147,7 @@ import TeamRepository from '../../repositories/entities/teamRepository'
 import usePermissions from '@/composables/usePermissions'
 import useTransitions from '@/composables/useTransitions'
 import { useRouter } from '@/composables/useRouter'
+import { RETRY_REDIRECT } from '../../composables/useRepository'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -161,6 +162,7 @@ export default defineComponent({
     statusBadge
   },
   setup (props, { root }) {
+    sessionStorage.setItem(RETRY_REDIRECT, 'werkwinkels/nieuw')
     const { route } = useRouter()
     const isEdit = ref<boolean>()
     isEdit.value = !!route.value.params['workshopId']

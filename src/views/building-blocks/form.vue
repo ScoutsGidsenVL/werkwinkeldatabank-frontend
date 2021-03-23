@@ -148,6 +148,7 @@ import useTransitions from '@/composables/useTransitions'
 import { useRouter } from '@/composables/useRouter'
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
 import { useEnum } from '@/composables/useEnum'
+import { RETRY_REDIRECT } from '../../composables/useRepository'
 
 export default defineComponent({
   name: 'building-blocks-form',
@@ -159,6 +160,7 @@ export default defineComponent({
     TimeInput
   },
   setup (props, { emit, root }) {
+    sessionStorage.setItem(RETRY_REDIRECT, 'bouwblokken/nieuw')
     const { route } = useRouter()
     const isEdit = ref<boolean>()
     isEdit.value = !!route.value.params['buildingBlockId']
