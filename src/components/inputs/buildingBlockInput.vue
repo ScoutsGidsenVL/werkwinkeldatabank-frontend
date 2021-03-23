@@ -80,7 +80,7 @@
             v-show='block.isSensitive'
             :disabled='block.editable'
             size="sm"
-            v-b-tooltip.hover title="Tooltip directive content"
+            v-b-tooltip.hover title="De gegevens in dit blok worden autmatisch up to date gehouden. Bij wijzigingen verlies je de link naar de meest recente informatie."
             variant="secondary"
             class="mr-1">
               <b-icon icon="pencil-square" aria-label="Help" class="mx-2 mt-1"></b-icon>bewerken
