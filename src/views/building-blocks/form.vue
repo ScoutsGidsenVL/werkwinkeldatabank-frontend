@@ -111,7 +111,7 @@
     <b-button
       v-if="formData.BuildingblockStatus === 'PRIVATE'"
       type="submit"
-      @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.requestPublication)'
+      @click.prevent='saveAndPublish(saveWithoutRedirect, onSubmit, validate, transitionTypes.requestPublication)'
       variant="primary"
       size="md"
       class="text-info">

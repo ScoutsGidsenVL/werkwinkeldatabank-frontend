@@ -139,8 +139,7 @@ export default defineComponent({
         isEdit ? callTypes.update : callTypes.create,
         repoParams
       )
-      useGlobalLoading(postRepo.loading)
-
+      
       postRepo.doCall().then((success: Boolean) => {
         emit('submitSuccess', postRepo.result.value)
         if (success && redirectRoute && redirectOnSave.value) {
