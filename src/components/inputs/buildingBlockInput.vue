@@ -40,7 +40,7 @@
         />
         <select-input
           v-model='block.category'
-          label='Soorten werkvormen'
+          label='Soort werkvorm'
           id="category"
           :repo='CategoryRepository'
           :multiple='false'
