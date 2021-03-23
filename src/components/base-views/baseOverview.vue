@@ -20,7 +20,7 @@
           v-if="createRoute"
           cols="12"
           class="text-right pr-0 mb-3">
-          <b-button variant="primary text-info"
+          <b-button variant="primary text-info" style="margin-right:2.5em"
             :to="{name: createRoute}"
             v-if="!createPermission || can(createPermission)"
           >
@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, watch, PropType, ref } from '@vue/composition-api'
-import useRepository, { callTypes } from '../../composables/useRepository'
+import useRepository, { callTypes, RETRY_REDIRECT } from '../../composables/useRepository'
 import BaseRepository, { repoParams } from '../../repositories/baseRepository'
 import { useRouter } from '@/composables/useRouter'
 import useGlobalLoading from '@/composables/useGlobalLoading'

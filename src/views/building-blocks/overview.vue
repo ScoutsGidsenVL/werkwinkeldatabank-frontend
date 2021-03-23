@@ -41,20 +41,24 @@
         </b-col>
     </template>
     <template #content='{ results }'>
-      <router-link
-          v-for="block in results"
-          :key='block.id'
-          class="text-body building-block-item-link"
-          :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
-        <building-block-item
-          :showStatus="can('workshops.publish_buildingblocktemplate')"
-          :block='block'>
-           <b-button variant="primary text-info"
-            :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
-              Bekijken
-          </b-button>
-        </building-block-item>
-       </router-link>
+      <div style="padding-left:1.5em;padding-right:1.5em">
+        <b-col cols="12">
+          <router-link
+              v-for="block in results"
+              :key='block.id'
+              class="text-body building-block-item-link"
+              :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
+            <building-block-item
+              :showStatus="can('workshops.publish_buildingblocktemplate')"
+              :block='block'>
+              <b-button variant="primary text-info"
+                :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
+                  Bekijken
+              </b-button>
+            </building-block-item>
+        </router-link>
+        </b-col>
+      </div>
     </template>
   </base-overview>
 </template>
