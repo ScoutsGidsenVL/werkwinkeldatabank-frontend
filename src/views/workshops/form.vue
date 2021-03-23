@@ -29,6 +29,7 @@
       </b-col>
       <b-col cols="12" md="10" class="mb-3 text-left" v-if="can('scouts_auth.access_disabled_entities')">
         <b-form-checkbox
+          v-show="isEdit"
           id="is-disabled"
           v-model="formData.isDisabled"
           name="is-disabled"
@@ -140,8 +141,6 @@ import BaseForm from '../../components/base-views/baseForm.vue'
 import { transitionTypes } from '../../repositories/withTransitionRepository'
 import WorkshopRepository from '../../repositories/entities/workshopRepository'
 import subTitle from '../../components/semantic/subTitle.vue'
-import BaseEntityModel from '@/models/entities/baseEntityModel'
-import RepositoryFactory from '@/repositories/repositoryFactory'
 import getValidationState from '../../composables/useValidationState'
 import statusBadge from '../../components/semantic/statusBadge.vue'
 import TeamRepository from '../../repositories/entities/teamRepository'
@@ -161,7 +160,10 @@ export default defineComponent({
     subTitle,
     statusBadge
   },
-  setup ({ value }, { emit, root }) {
+  setup (props, { root }) {
+    const { route } = useRouter()
+    const isEdit = ref<boolean>()
+    isEdit.value = !!route.value.params['workshopId']
     const form = reactive<WorkshopEntityModel>(WorkshopEntityModel.deserialize({
       title: null,
       id: null,
@@ -176,7 +178,6 @@ export default defineComponent({
     const { can } = usePermissions()
     const redirectRoute = 'WerkwinkelView'
     const { afterSubmit, saveAndPublish } = useTransitions(WorkshopRepository, redirectRoute, root)
-    const { route } = useRouter()
     const cancelRoute = ref<String>('MijnWerkwinkelOverview')
     if (route.value.meta.from) {
       cancelRoute.value = route.value.meta.from
@@ -194,7 +195,8 @@ export default defineComponent({
       TeamRepository,
       redirectRoute,
       can,
-      cancelRoute
+      cancelRoute,
+      isEdit
     }
   }
 })

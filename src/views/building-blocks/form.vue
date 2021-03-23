@@ -32,6 +32,7 @@
       </b-col>
       <b-col cols="12" md="10" class="mb-3 text-left" v-if="can('scouts_auth.access_disabled_entities')">
         <b-form-checkbox
+          v-show="isEdit"
           id="is-disabled"
           v-model="formData.isDisabled"
           name="is-disabled"
@@ -131,7 +132,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent } from '@vue/composition-api'
+import { reactive, defineComponent, ref } from '@vue/composition-api'
 import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import TimeInput from '../../components/inputs/timeInput.vue'
 import SelectInput from '../../components/inputs/selectInput.vue'
@@ -144,7 +145,7 @@ import CategoryRepository from '../../repositories/entities/categoriesRepository
 import ThemeRepository from '../../repositories/entities/themeRepository'
 import usePermissions from '@/composables/usePermissions'
 import useTransitions from '@/composables/useTransitions'
-
+import { useRouter } from '@/composables/useRouter'
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
 import { useEnum } from '@/composables/useEnum'
 
@@ -158,6 +159,9 @@ export default defineComponent({
     TimeInput
   },
   setup (props, { emit, root }) {
+    const { route } = useRouter()
+    const isEdit = ref<boolean>()
+    isEdit.value = !!route.value.params['buildingBlockId']
     const form = reactive<BuildingBlocksEntityModel>(BuildingBlocksEntityModel.deserialize({
       title: null,
       id: null,
@@ -193,7 +197,8 @@ export default defineComponent({
       inputTypes,
       types,
       form,
-      can
+      can,
+      isEdit
     }
   }
 })
