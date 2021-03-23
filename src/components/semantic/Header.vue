@@ -14,7 +14,7 @@
               <router-link class="nav-link" :to="{name: 'MijnWerkwinkelOverview'}" >Mijn werkwinkels</router-link>
             </li>
              <li class="nav-item">
-              <b-dropdown variant="link"  text="Klaar voor publicatie">
+              <b-dropdown v-show="can('workshops.publish_workshop') || can('workshops.publish_workshop')" variant="link"  text="Klaar voor publicatie">
                 <b-dropdown-item class="nav-link"  v-show="can('workshops.publish_workshop')" :to="{name: 'PublicatieAangevraagdWerkwinkelOverview'}">
                   Te publiceren werkwinkels
                 </b-dropdown-item>

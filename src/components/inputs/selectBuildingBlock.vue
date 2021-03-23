@@ -32,7 +32,7 @@
             </b-col>
             <b-col cols="12" lg='4' v-if="filters.type.value === 'METHODIC'">
               <select-input
-                label='Categorie'
+                label='Soort werkvorm'
                 id="category"
                 :rules='{}'
                 :multiple='true'
