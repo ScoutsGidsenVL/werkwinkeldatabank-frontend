@@ -54,6 +54,15 @@
             </b-row>
         </custom-collapse>
       </b-row>
+      <div class="text-right mt-3">
+        <b-button
+          v-show='can("workshops.change_buildingblocktemplate")'
+          :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: result.id }}"
+          variant="info">
+            <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+            bewerken
+        </b-button>
+      </div>
   </b-col>
 </template>
 
