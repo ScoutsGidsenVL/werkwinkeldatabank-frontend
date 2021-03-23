@@ -5,6 +5,7 @@
     label="bouwsteen"
     :filtersInUrlParams='false'
     :showFilters="selectedBlock ? false : true"
+    :showLoadMore="selectedBlock ? false : true"
   >
     <template #filters="{ filters }">
       <b-col cols="12">
@@ -79,7 +80,7 @@
             size='sm'
             variant="primary"
             v-on:click.prevent="selectBlock(block.id)"
-            class="text-info d-inline-block mt-2 mb-3">SelecteerTEST</b-button>
+            class="text-info d-inline-block mt-2 mb-3">Selecteer</b-button>
         </building-block-item>
       </a>
       <b-row v-show="selectedBlock" class="p-3 bg-white shadow">

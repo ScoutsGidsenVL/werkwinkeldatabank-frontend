@@ -39,7 +39,7 @@
         >
           <strong>Geen resultaat</strong>
         </span>
-      <b-row v-show="!loading && !callParams.isMaxPage">
+      <b-row v-show="!loading && !callParams.isMaxPage && showLoadMore">
         <b-col class="text-center my-3">
           <b-button v-on:click='loadMore' size='lg' :disabled='callParams.isMaxPage' >Laad meer</b-button>
         </b-col>
@@ -79,6 +79,10 @@ export default defineComponent({
       required: false
     },
     showFilters: {
+      type: Boolean,
+      default: true
+    },
+    showLoadMore: {
       type: Boolean,
       default: true
     },
