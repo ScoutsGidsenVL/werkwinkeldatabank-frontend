@@ -22,8 +22,8 @@
         :searchable="searchable"
         :allow-empty="true"
         :multiple='multiple'
-        deselectLabel='Druk op enter om te verwijderen'
-        selectLabel='Durk enter om te selecteren'
+        deselectLabel=''
+        selectLabel=''
         selectedLabel='Geselecteerd'
         :disabled="disabled"
      >
