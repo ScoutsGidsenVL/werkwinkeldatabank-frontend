@@ -35,7 +35,7 @@
         <b-form-checkbox
           v-model="filters.isSensitive.value"
           value="true">
-            Gevoelige inhoud
+            Gevoelig om snel gedateerd te zijn
         </b-form-checkbox>
        </b-col>
     </template>
