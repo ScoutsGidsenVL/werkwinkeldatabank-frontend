@@ -45,6 +45,7 @@
         <b-col cols="12">
           <router-link
               v-for="block in results"
+              v-show="!(block.BuildingblockStatus === 'PRIVATE' && block.createdById !== myId)"
               :key='block.id'
               class="text-body building-block-item-link"
               :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >

@@ -28,7 +28,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
     public order?: number,
     public template?: string,
     public BuildingblockStatus?: string,
-    public createdBy?: UserModel
+    public createdBy?: UserModel,
+    public createdById?: string
 
 
   ) {
@@ -52,7 +53,8 @@ export default class BuildingBlocksEntityModel extends BaseEntityModel implement
       input.order,
       input.template,
       input.status && input.status.value,
-      input.created_by ? UserModel.deserialize(input.created_by) : undefined
+      input.created_by ? UserModel.deserialize(input.created_by) : undefined,
+      input.created_by ? input.created_by : undefined
     )
   }
 
