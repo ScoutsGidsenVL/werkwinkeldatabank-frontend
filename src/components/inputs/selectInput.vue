@@ -40,7 +40,6 @@ import { defineComponent, ref, Ref, watch, PropType } from '@vue/composition-api
 import Multiselect from 'vue-multiselect'
 import BaseEntityModel from '../../models/entities/baseEntityModel'
 import BaseRepository from '../../repositories/baseRepository'
-import RepositoryFactory from '../../repositories/repositoryFactory'
 import getValidationState from '../../composables/useValidationState'
 import useRepository from '../../composables/useRepository'
 

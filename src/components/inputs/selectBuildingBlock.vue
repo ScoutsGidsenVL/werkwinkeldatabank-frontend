@@ -21,7 +21,7 @@
             </b-col>
             <enum-filter v-model="filters.type.value" :enumToUse="BuildingBlocksTypes"/>
             <duration-filter v-model="filters.duration.value" />
-            <b-col cols="12" lg='4' v-if="filters.type.value === 'THEMATIC'">
+            <b-col cols="12" lg='4' v-show="filters.type.value === 'THEMATIC'">
               <select-input
                 label='Thema'
                 id="theme"
@@ -31,7 +31,7 @@
                 v-model="filters.theme.value"
               />
             </b-col>
-            <b-col cols="12" lg='4' v-if="filters.type.value === 'METHODIC'">
+            <b-col cols="12" lg='4' v-show="filters.type.value === 'METHODIC'">
               <select-input
                 label='Soort werkvorm'
                 id="category"

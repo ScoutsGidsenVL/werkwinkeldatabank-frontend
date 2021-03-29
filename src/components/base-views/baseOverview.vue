@@ -115,6 +115,14 @@ export default defineComponent({
 
 
     watch(callParams, value => {
+      if (callParams?.filters?.type.value === 'METHODIC') {
+        callParams.filters.theme.value = undefined
+      }
+
+      if (callParams?.filters?.type.value === 'THEMATIC') {
+        callParams.filters.category.value = undefined
+      }
+
       let emptyFilters = true
       callParams.filters && Object.keys(callParams.filters).forEach((key: any) => {
         if (callParams.filters && callParams.filters[key].value !== undefined) {
