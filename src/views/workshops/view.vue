@@ -1,5 +1,6 @@
 <template>
-  <b-col cols="12" v-if="!loading">
+  <div>
+  <b-col cols="12" style="padding-bottom:130px" v-if="!loading">
       <b-row class="bg-white shadow">
         <b-col cols="12 py-3 d-flex position-sticky bg-primary justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block text-left text-info">
@@ -117,17 +118,38 @@
             </b-row>
         </custom-collapse>
       </b-row>
-
-      <div class="text-right mt-3">
-        <b-button
-          v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
-          :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
-          variant="info">
+  </b-col>
+  <div
+    v-if="!loading"
+    class="footer"
+  >
+    <div class="text-right mt-3">
+      <b-button
+        class="mr-2"
+        v-on:click.prevent='DownloadPDF(result)'
+        variant="info">
+        <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
+        download
+      </b-button>
+      <b-button
+        v-show='can("workshops.change_workshop")'
+        class="mr-2"
+        :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
+        variant="info">
+        <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
+        kopieer
+      </b-button>
+      <b-button
+        v-show='can("workshops.change_buildingblocktemplate")'
+        :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: result.id }}"
+        variant="info"
+        class="mr-3">
           <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
           bewerken
-        </b-button>
-      </div>
-  </b-col>
+      </b-button>
+    </div>
+  </div>
+  </div>
 </template>
 
 <script lang='ts'>
@@ -257,6 +279,17 @@ export default defineComponent({
   top: 5.5em;
   right: 4em;
   cursor: pointer;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #748d26;
+  color: white;
+  text-align: center;
+  height: 130px;
 }
 
 </style>
