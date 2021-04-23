@@ -30,6 +30,7 @@ export default class userModule extends VuexModule {
 
   @Mutation
   setUser (user: UserModel) {
+    localStorage.setItem('IS_LOGGED_IN', 'TRUE')
     this.user = user
   }
 

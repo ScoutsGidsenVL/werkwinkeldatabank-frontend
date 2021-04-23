@@ -81,12 +81,20 @@ export default function useRepository (
   }
 
   function doCallWithLoginRetry (redirectRoute: string) : Promise<Boolean | void> {
-    return doCall().catch(() => {
+    if (localStorage.getItem('IS_LOGGED_IN')) {
       sessionStorage.setItem(RETRY_REDIRECT, redirectRoute)
       store.dispatch('openid/login').then(() => {
         doCall()
       })
-    })
+    } else {
+      doCall().catch(() => {
+        sessionStorage.setItem(RETRY_REDIRECT, redirectRoute)
+        store.dispatch('openid/login').then(() => {
+          doCall()
+        })
+      })
+    }
+    return Promise.resolve(true)
   }
 
   return {
