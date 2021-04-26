@@ -89,20 +89,21 @@ export default defineComponent({
   setup ({ repo, defaultValue, paramIdentifier, redirectRoute, redirectWithId, editRoute, cancelRoute }, { emit, root }) {
     const { route, router, redirectOnResult } = useRouter()
     const { can } = usePermissions()
-    const { loading, doCall, result } = useRepository(
-      repo,
-      callTypes.getSingel,
-      { id: route.value.params[paramIdentifier]
-      })
-    useGlobalLoading(loading)
     const isEdit = !!route.value.params[paramIdentifier] && !route.value.params['copy']
     const isCopy = !!route.value.params['copy']
     const redirectOnSave = ref<Boolean>(true)
     const toast = useToast(root)
     const saving = ref<Boolean>(false)
 
-
+    const { loading, doCall, result } = useRepository(
+      repo,
+      callTypes.getSingel,
+      {
+        id: route.value.params[paramIdentifier]
+      }
+    )
     if (isEdit || isCopy) {
+      useGlobalLoading(loading)
       doCall().catch(() => {
         toast.send('U kan dit item niet bewerken', 'danger')
         router.push({ name: 'WerkwinkelOverview' })
