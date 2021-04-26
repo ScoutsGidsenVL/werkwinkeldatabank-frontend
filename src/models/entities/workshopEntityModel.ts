@@ -4,7 +4,7 @@ import ThemeEntityModel from './themeEntityModel'
 import BuildingBlocksEntityModel from './buildingBlocksEntityModel'
 import TeamEntityModel from './teamEntityModel'
 import UserModel from '../userModel'
-
+import moment from 'moment'
 export default class WorkshopEntityModel extends BaseEntityModel implements EntityModel<WorkshopEntityModel> {
 
   constructor (
@@ -22,7 +22,9 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public approvingTeam?: TeamEntityModel,
     public createdBy?: UserModel,
     public isDisabled?: boolean,
-    public isMine?:boolean
+    public isMine?: boolean,
+    public publishedAt?: string,
+    public createdAt?: string
   ) {
     super(id, title)
   }
@@ -59,7 +61,10 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.approving_team ? TeamEntityModel.deserialize(input.approving_team) : undefined,
       input.created_by ? UserModel.deserialize(input.created_by) : undefined,
       input.is_disabled ? input.is_disabled : false,
-      input.isMine
+      input.isMine,
+      input.published_at ? moment(input.published_at).format('DD/MM/YYYY HH:MM').toString() : undefined,
+      input.created_at ? moment(input.created_at).format('DD/MM/YYYY HH:MM').toString() : undefined
+
     )
   }
 

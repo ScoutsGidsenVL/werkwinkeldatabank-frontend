@@ -44,6 +44,8 @@
           <b-badge v-for="theme in result.theme" :key='theme.id' pill variant="secondary" class="ml-3">{{ theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
           <sensitive-badge v-show='result.isSensitive' />
+          <b-badge v-show='can("workshops.view_history")'  v-if="result.createdAt" pill variant="secondary">Published: {{ result.createdAt }}</b-badge>
+          <b-badge v-show='can("workshops.view_history")'  v-if="result.publishedAt" pill variant="secondary" class="ml-2">Published: {{ result.publishedAt }}</b-badge>
         </b-col>
 
         <b-col cols="12">
