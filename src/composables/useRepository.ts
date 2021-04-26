@@ -3,6 +3,7 @@ import RepositoryFactory from '../repositories/repositoryFactory'
 import BaseEntityModel from '../models/entities/baseEntityModel'
 import { ref, Ref } from '@vue/composition-api'
 import store from '../store/store'
+import useGlobalLoading from './useGlobalLoading'
 
 export const RETRY_REDIRECT : string = 'retry_redirect'
 
@@ -40,6 +41,7 @@ export default function useRepository (
   }
 
   async function doCall () : Promise<Boolean> {
+
     loading.value = true
 
     try {
@@ -81,7 +83,8 @@ export default function useRepository (
   }
 
   function doCallWithLoginRetry (redirectRoute: string) : Promise<Boolean | void> {
-    if (localStorage.getItem('IS_LOGGED_IN')) {
+    useGlobalLoading(loading)
+    if (!sessionStorage.getItem(RETRY_REDIRECT) && localStorage.getItem('IS_LOGGED_IN')) {
       sessionStorage.setItem(RETRY_REDIRECT, redirectRoute)
       store.dispatch('openid/login').then(() => {
         doCall()
