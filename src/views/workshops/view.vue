@@ -289,7 +289,7 @@ export default defineComponent({
   background-color: #748d26;
   color: white;
   text-align: center;
-  height: 130px;
+  height: 80px;
 }
 
 </style>
