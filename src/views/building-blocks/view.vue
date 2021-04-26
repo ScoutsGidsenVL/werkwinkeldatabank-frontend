@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-col cols="12" v-if="!loading">
+    <b-col cols="12" v-if="!loading && result">
       <b-row class="bg-white shadow">
         <b-col cols="12 py-3 d-flex position-sticky bg-primary justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block text-left text-info">
