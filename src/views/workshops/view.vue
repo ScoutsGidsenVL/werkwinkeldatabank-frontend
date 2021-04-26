@@ -41,7 +41,7 @@
         </b-col>
         <b-col cols="12" class="text-left my-3 ml-n2 d-flex justify-content-left">
           <time-badge :time='result.duration' />
-          <b-badge pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
+          <b-badge v-for="theme in result.theme" :key='theme.id' pill variant="secondary" class="ml-3">{{ theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
           <sensitive-badge v-show='result.isSensitive' />
         </b-col>

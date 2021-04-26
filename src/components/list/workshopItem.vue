@@ -8,7 +8,7 @@
           <b-col cols="12" class="text-center d-flex justify-content-center">
             <time-badge v-show='workshop.duration' :time='workshop.duration' />
             <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
-            <b-badge pill variant="light" class="mt-2 ml-3">{{ workshop.theme.title }}</b-badge>
+            <b-badge v-for="theme in workshop.theme" :key='theme.id' pill variant="secondary" class="ml-3">{{ theme.title }}</b-badge>
             <sensitive-badge v-show='workshop.isSensitive' />
             <disabled-badge  v-show='workshop.isDisabled && can("scouts_auth.access_disabled_entities")' />
           </b-col>
