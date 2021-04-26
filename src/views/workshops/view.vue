@@ -50,7 +50,7 @@
             <b-row>
               <b-col cols="12">
                 <created-by :createdBy='result.createdBy' />
-                <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam && can('workshops.change_buildingblocktemplate')">Gepubliceerd door ploeg {{ result.approvingTeam.title }}</span>
+                <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam">Gepubliceerd door ploeg {{ result.approvingTeam.title }}</span>
               </b-col>
               <b-col cols="12" class="text-left mt-4" >
                 <ckeditor-view :content='result.description' />
