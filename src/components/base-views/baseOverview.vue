@@ -10,7 +10,6 @@
            v-if="filtersProp"
            cols="12"
            class="justify-content-end align-items-center d-flex">
-           {{filtersProp}}
             <b-button size='sm' variant="info" href='' v-on:click.prevent="resetFilers" class="d-inline-block mt-n4 mb-3">reset filters</b-button>
         </b-col>
       </b-row>
