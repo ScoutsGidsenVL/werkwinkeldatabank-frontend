@@ -53,14 +53,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+  @import 'src/assets/variables.scss';
   .header-container {
     padding-left: 1em;
     max-width: none;
   }
   ::v-deep .router-link-exact-active,
   ::v-deep .router-link-active{
-    border-bottom: 2px solid #572600 !important;
-    color: #572600 !important;
+    border-bottom: 2px solid $secondary !important;
+    color: $secondary !important;
     font-weight: 700;
   }
 </style>

@@ -74,7 +74,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang='scss'>
+  @import 'src/assets/variables.scss';
   .theme-item{
-    border-bottom: 4px solid #748d26;
+    border-bottom: 4px solid $secondary;
   }
 </style>

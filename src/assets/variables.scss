@@ -1,10 +1,10 @@
 $white:    #fff !default;
-$gray-100: #E3DCD9 !default;
+$gray-100: #F9F9F9 !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
 $gray-500: #adb5bd !default;
-$gray-600: #748d26 !default;
+$gray-600: #c7d121 !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
@@ -26,7 +26,7 @@ $grays: map-merge(
   $grays
 );
 
-$blue:    #bdd731 !default;
+$blue:    #c7d121 !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
@@ -35,7 +35,7 @@ $orange:  #fd7e14 !default;
 $yellow:  #ffc107 !default;
 $green:   #28a745 !default;
 $teal:    #20c997 !default;
-$cyan:    #572600 !default;
+$cyan:    #212529 !default;
 
 $colors: () !default;
 $colors: map-merge(
@@ -81,13 +81,14 @@ $theme-colors: map-merge(
   $theme-colors
 );
 
+$font:                        museo-sans,-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
 $font-family-sans-serif:      Verdana, Geneva, sans-serif;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:            $font-family-sans-serif !default;
 
 $enable-rounded:                              false !default;
 
-$link-color: $gray-600;
+$link-color: $cyan;
 
 .badge.badge-pill{
   height: 2rem;

@@ -67,8 +67,9 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
+  @import 'src/assets/variables.scss';
   .workshop-item>a>div{
-    border-bottom: 4px solid #748d26;
+    border-bottom: 4px solid $secondary;
   }
 
   .workshop-item>a,

@@ -120,6 +120,7 @@ export default defineComponent({
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style lang='scss'>
+  @import 'src/assets/variables.scss';
   .not-valid .multiselect__tags{
     border-color: red;
   }
@@ -131,10 +132,10 @@ export default defineComponent({
 
   .multiselect__option.multiselect__option--highlight,
   .multiselect__option.multiselect__option--highlight:after{
-    background-color: #748d26;
+    background-color: $secondary;
   }
 
   .multiselect__tag{
-    background-color: #748d26;
+    background-color: $secondary;
   }
 </style>

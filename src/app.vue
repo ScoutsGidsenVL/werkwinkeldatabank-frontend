@@ -28,8 +28,9 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+@import 'src/assets/variables.scss';
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: $font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

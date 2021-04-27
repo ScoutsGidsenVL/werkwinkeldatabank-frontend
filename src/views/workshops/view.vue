@@ -2,7 +2,7 @@
   <div>
   <b-col cols="12" style="padding-bottom:130px" v-if="!loading && result">
       <b-row class="bg-white shadow">
-        <b-col cols="12 py-3 d-flex position-sticky bg-primary justify-content-between border border-left-0 border-top-0 border-right-0">
+        <b-col cols="12 py-3 d-flex position-sticky bg-secondary justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block text-left text-info">
             {{ result.title }}
           </h2>
@@ -41,10 +41,10 @@
         </b-col>
         <b-col cols="12" class="text-left my-3 ml-n2 d-flex justify-content-left">
           <time-badge :time='result.duration' />
-          <b-badge v-for="theme in result.theme" :key='theme.id' pill variant="secondary" class="ml-3">{{ theme.title }}</b-badge>
+          <b-badge v-for="theme in result.theme" :key='theme.id' pill variant="secondary" class="ml-2">{{ theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
           <sensitive-badge v-show='result.isSensitive' />
-          <b-badge v-show='can("workshops.view_history")'  v-if="result.createdAt" pill variant="secondary">Published: {{ result.createdAt }}</b-badge>
+          <b-badge v-show='can("workshops.view_history")'  v-if="result.createdAt" pill variant="secondary" class="ml-2">Published: {{ result.createdAt }}</b-badge>
           <b-badge v-show='can("workshops.view_history")'  v-if="result.publishedAt" pill variant="secondary" class="ml-2">Published: {{ result.publishedAt }}</b-badge>
         </b-col>
 
@@ -269,7 +269,7 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-
+@import 'src/assets/variables.scss';
 ::v-deep .badge.badge-pill{
   font-size: 14px;
   padding: 0.75rem 1.5rem;
@@ -288,7 +288,7 @@ export default defineComponent({
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #748d26;
+  background-color: $secondary;
   color: white;
   text-align: center;
   height: 80px;
