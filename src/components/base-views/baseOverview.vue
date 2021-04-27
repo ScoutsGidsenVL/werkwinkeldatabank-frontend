@@ -10,6 +10,7 @@
            v-if="filtersProp"
            cols="12"
            class="justify-content-end align-items-center d-flex">
+           {{filtersProp}}
             <b-button size='sm' variant="info" href='' v-on:click.prevent="resetFilers" class="d-inline-block mt-n4 mb-3">reset filters</b-button>
         </b-col>
       </b-row>
@@ -115,11 +116,12 @@ export default defineComponent({
 
 
     watch(callParams, value => {
-      if (callParams?.filters?.type.value === 'METHODIC') {
+      if (callParams?.filters?.type?.value === 'METHODIC') {
         callParams.filters.theme.value = undefined
       }
 
-      if (callParams?.filters?.type.value === 'THEMATIC') {
+
+      if (callParams?.filters?.type?.value === 'THEMATIC') {
         callParams.filters.category.value = undefined
       }
 
@@ -137,7 +139,8 @@ export default defineComponent({
       }
 
       callParams.page = 1
-      doCall()
+      doCall().then(() => {
+      })
     })
 
     const resetFilers = () => {
