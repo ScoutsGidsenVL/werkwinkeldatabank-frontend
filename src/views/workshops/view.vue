@@ -142,12 +142,11 @@
         kopieer
       </b-button>
       <b-button
-        v-show='can("workshops.change_buildingblocktemplate")'
-        :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: result.id }}"
-        variant="info"
-        class="mr-3">
-          <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
-          bewerken
+        v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
+        :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
+        variant="info">
+        <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+        bewerken
       </b-button>
     </div>
   </div>
