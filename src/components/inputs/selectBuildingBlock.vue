@@ -239,10 +239,6 @@ export default defineComponent({
     border-radius: 25px;
     margin-top: 1rem;
     margin-bottom: 1rem;
-
-    a>.row{
-      border-bottom: none!important;
-    }
   }
 
   .block-item-link:hover{
