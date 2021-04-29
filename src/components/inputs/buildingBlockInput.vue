@@ -295,7 +295,7 @@ export default defineComponent({
 
 <style lang='scss' scoped>
   ::v-deep .modal-body{
-    background-color: #f8f9fa;
+    background-color: white;
     min-height: 30rem;
   }
 </style>
