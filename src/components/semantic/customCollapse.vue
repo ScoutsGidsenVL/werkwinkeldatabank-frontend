@@ -6,14 +6,14 @@
         href="#"
         v-b-toggle="'accordion-' + id"
         variant="white"
-        class="pt-3 d-flex justify-content-between bg-light text-dark"
-        :class="border && 'border-collapse'">
+        class="pt-3 d-flex justify-content-between  text-dark"
+        v-bind:class="{ 'border-collapse': border, 'bg-light': extraClass } ">
           <h3 class="d-inline-block">{{ title }}</h3>
           <span class="when-opened">
-              <b-icon icon="chevron-down" aria-label="edit" class="mx-2 mt-2"></b-icon>
+              <b-icon variant="secondary" icon="chevron-down" aria-label="edit" class="mx-2 mt-2"></b-icon>
           </span>
           <span class="when-closed">
-              <b-icon icon="chevron-right" aria-label="edit" class="mx-2 mt-2"></b-icon>
+              <b-icon variant="secondary" icon="chevron-right" aria-label="edit" class="mx-2 mt-2"></b-icon>
           </span>
         </b-btn>
         <b-collapse :visible='visible' :id="'accordion-' + id" role="tabpanel">
@@ -37,6 +37,10 @@ export default defineComponent({
     border: {
       type: Boolean,
       default: true
+    },
+    extraClass: {
+      type: String,
+      required: false
     }
   }
 })
@@ -49,6 +53,7 @@ export default defineComponent({
   }
 
   .border-collapse{
+    border: 0px;
     border-bottom: 2px solid #572600;
   }
 </style>

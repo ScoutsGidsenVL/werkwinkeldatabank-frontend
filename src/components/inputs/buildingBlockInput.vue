@@ -12,16 +12,15 @@
           :title='block.title'
           :visible="true"
           :border='true'
+          :extraClass="'bg-light'"
         >
       <div class=" p-4 mt-0 mb-4">
         <div class="w-100 text-right">
-          <b-button
-            size="sm"
+          <div
             @click="deleteBlock(index, block.order)"
-            variant="outline-danger"
-            class="mb-2 p-1 border-0">
-              <b-icon icon="trash" aria-label="Help" class="mx-1"></b-icon>
-          </b-button>
+            class="mb-2 p-1 border-0 trash">
+              <b-icon icon="trash" aria-label="Help" class="mx-1 trash-icon"></b-icon>
+          </div>
         </div>
         <div class="w-100 text-left">
         <text-input
@@ -294,8 +293,31 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
+  @import 'src/assets/variables.scss';
+
   ::v-deep .modal-body{
     background-color: white;
     min-height: 30rem;
+  }
+
+  .trash-icon {
+    color: $red !important;
+    &hover {
+      color: $white !important;
+    }
+  }
+
+  .trash {
+    float: right;
+    cursor: pointer;
+    width: 30px
+  }
+
+  .trash:hover {
+    border-radius: 0px !important;
+    background-color: $red;
+    .trash-icon {
+      color: $white !important;
+    }
   }
 </style>
