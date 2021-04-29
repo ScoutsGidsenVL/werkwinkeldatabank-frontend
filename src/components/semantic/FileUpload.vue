@@ -63,6 +63,8 @@ export default defineComponent({
     const uploadFile = (file: File) => {
       RepositoryFactory.get(FileRepository).uploadFile(file).then((res: FileEntityModel) => {
         res.contentType = file.type
+        res.name = file.name
+        res.size = file.size.toString()
         files.value.push(res)
       })
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-center container mt-1">
-    <div class="w-50 grid-container" v-if="file">
+    <div class="w-75 grid-container" v-if="file">
       <div>{{file.name}}</div>
       <div>{{(file.size / (1024*1024)).toFixed(2)}} MB</div>
       <div>{{file.contentType}}</div>
@@ -63,7 +63,7 @@ export default defineComponent({
 
 .grid-container {
   display: grid;
-  grid-template-columns: 40% 20% 20% 20%;
+  grid-template-columns: 50% 20% 20% 10%;
 }
 
 .icon {
