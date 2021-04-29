@@ -73,6 +73,38 @@ export default Vue.extend({
       border-color: $dark-green !important;
       background-color: $dark-green !important;
     }
+
+    .form-group label {
+      font-weight: 900;
+    }
+
+    .multiselect__select {
+      width: 16px;
+      border-radius: 37px;
+      height: 16px;
+      top: 9px;
+      right: 7px;
+      background-color: $primary;
+    }
+
+    .multiselect__select:before {
+      border: none;
+      top: -94%;
+      color: $white;
+      font-size: 22px;
+      right: 9px;
+      content: "⌄";
+    }
+
+    .multiselect__tags {
+      color: $primary;
+      background: $white !important;
+      border-radius: 0px;
+      border: 0px;
+      border-bottom: 3px solid $primary;
+      min-height: 38px;
+      max-height: 38px;
+    }
   }
 }
 

@@ -132,10 +132,27 @@ export default defineComponent({
 
   .multiselect__option.multiselect__option--highlight,
   .multiselect__option.multiselect__option--highlight:after{
-    background-color: $secondary;
+    background-color: $light;
+    color: $primary;
   }
 
   .multiselect__tag{
-    background-color: $secondary;
+    border-radius: 30px;
+    background-color: $light;
+    color: $primary;
+    .multiselect__tag-icon {
+      color: $primary;
+      right: 2px;
+    }
+
+    .multiselect__tag-icon:hover {
+      color: $primary;
+      background-color: $light;
+      background: $light;
+    }
+
+    .multiselect__tag-icon:after {
+      color: $primary;
+    }
   }
 </style>

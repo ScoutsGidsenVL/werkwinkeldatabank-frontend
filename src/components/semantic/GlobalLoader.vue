@@ -14,6 +14,7 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
+  @import 'src/assets/variables.scss';
   .global-loader {
     position: absolute;
     width: 100%;
