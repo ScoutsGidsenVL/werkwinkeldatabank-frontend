@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-col cols="12" v-if="!loading && result">
+    <b-col cols="12" class="custom-padding" v-if="!loading && result">
       <b-row class="bg-white shadow">
         <b-col cols="12 py-3 d-flex position-sticky bg-primary justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block text-left text-info">
@@ -113,5 +113,15 @@ export default defineComponent({
   }
   .sticky-container {
     max-width: none;
+  }
+
+  .row {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+  .custom-padding {
+    padding-right: 0px;
+    padding-left: 0px;
   }
 </style>

@@ -64,4 +64,9 @@ export default defineComponent({
     color: $secondary !important;
     font-weight: 700;
   }
+
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 </style>
