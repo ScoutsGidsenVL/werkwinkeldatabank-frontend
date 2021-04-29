@@ -127,7 +127,7 @@
         <b-button
             v-show="selectedBlock"
             size="md"
-            class="px-5 py-2 text-dark"
+            class="px-5 py-2 text-white"
             variant="primary"
             @click="addSelectedBlock()">
               Selecteer
@@ -156,7 +156,7 @@
           <b-button
             v-show="selectedBlock"
             size="md"
-            class="px-5 py-2 text-dark"
+            class="px-5 py-2 text-white"
             variant="primary"
             @click="addSelectedBlock()">
               Selecteer
