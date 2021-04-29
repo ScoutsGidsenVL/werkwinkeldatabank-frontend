@@ -5,7 +5,7 @@
     v-show='can("workshops.change_workshop")'
     v-on:click.prevent='showModalAndCallHistory'
     size='sm'
-    variant="info">
+    variant="primary">
         <b-icon icon="clock-history" aria-label="edit" class="mx-2 mt-2"></b-icon>
         <span class="d-inline-block mb-1">geschiedenis</span>
     </b-button>
@@ -15,9 +15,9 @@
       title="Geschiedenis"
       v-model="showModal" hide-footer
       header-bg-variant='light'
-      header-text-variant="info"
+      header-text-variant="primary"
       footer-bg-variant='light'
-      footer-text-variant="info"
+      footer-text-variant="primary"
     >
         <b-row
         v-for="result in historyResult"
@@ -33,7 +33,7 @@
             <b-col cols="3">
                 <b-button
                     size="sm"
-                    class="text-info"
+                    class="text-dark"
                     v-on:click.prevent='setOldVersion(result.result)'
                     variant="primary">
                         <b-icon icon="clock-history" aria-label="edit" class="mx-2 mt-2"></b-icon>

@@ -6,7 +6,7 @@
         href="#"
         v-b-toggle="'accordion-' + id"
         variant="white"
-        class="pt-3 d-flex justify-content-between bg-light text-info"
+        class="pt-3 d-flex justify-content-between bg-light text-dark"
         :class="border && 'border-collapse'">
           <h3 class="d-inline-block">{{ title }}</h3>
           <span class="when-opened">

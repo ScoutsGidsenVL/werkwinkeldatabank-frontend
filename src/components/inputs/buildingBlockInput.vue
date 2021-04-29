@@ -110,7 +110,7 @@
         v-b-modal.modal-building-block-input
         size="lg"
         :variant='validationState === false ? "danger" : "primary"'
-        class="mb-2 mt-4 p-4 text-info">
+        class="mb-2 mt-4 p-4 text-dark">
           <b-icon icon="plus-circle" aria-label="Help" class="mr-2 mt-1"></b-icon>Bouwsteen toevoegen
       </b-button>
     </b-col>
@@ -119,15 +119,15 @@
       size="xl"
       title="Selecteer bouwsteen" v-model="showModal"
       header-bg-variant='light'
-      header-text-variant="info"
+      header-text-variant="primary"
       footer-bg-variant='light'
-      footer-text-variant="info"
+      footer-text-variant="primary"
       >
       <div class="w-100 text-right">
         <b-button
             v-show="selectedBlock"
             size="md"
-            class="px-5 py-2 text-info"
+            class="px-5 py-2 text-dark"
             variant="primary"
             @click="addSelectedBlock()">
               Selecteer
@@ -146,7 +146,7 @@
           </b-button>
           <b-button
             v-show='selectedBlock ? true : false'
-            variant="info"
+            variant="primary"
             size="md"
             class="px-5 py-2"
             @click="goBack"
@@ -156,7 +156,7 @@
           <b-button
             v-show="selectedBlock"
             size="md"
-            class="px-5 py-2 text-info"
+            class="px-5 py-2 text-dark"
             variant="primary"
             @click="addSelectedBlock()">
               Selecteer

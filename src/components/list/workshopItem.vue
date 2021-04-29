@@ -2,7 +2,7 @@
   <b-col cols="12" md='6' lg='6' class="workshop-item mb-3">
     <router-link class="nav-link text-body" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
       <b-row class="py-4 m-2 bg-light">
-          <b-col cols="12" class="text-center text-info mb-2">
+          <b-col cols="12" class="text-center text-dark mb-2">
               <strong>{{ workshop.title }}</strong>
           </b-col>
           <b-col cols="12" class="text-center d-flex justify-content-center">
@@ -23,7 +23,7 @@
             v-html='workshop.shortDescription' />
           <b-col cols="12" class="text-center d-flex justify-content-center align-items-end">
             <router-link class="nav-link" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
-              <b-button variant="primary text-info">Bekijken</b-button>
+              <b-button variant="primary text-dark">Bekijken</b-button>
             </router-link>
           </b-col>
       </b-row>

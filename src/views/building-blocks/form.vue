@@ -113,7 +113,7 @@
       v-if="formData.BuildingblockStatus === 'PRIVATE'"
       type="submit"
       @click.prevent='saveAndPublish(saveWithoutRedirect, onSubmit, validate, transitionTypes.requestPublication)'
-      variant="info"
+      variant="primary"
       size="md"
       class="text-light">
       Opslaan en vraag publicatie
@@ -124,7 +124,7 @@
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.publish)'
       variant="primary"
       size="md"
-      class="text-info">
+      class="text-dark">
       Opslaan en publiceer
       </b-button>
   </template>

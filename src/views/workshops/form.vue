@@ -113,7 +113,7 @@
       v-if="formData.workshopStatus === 'PRIVATE'"
       type="submit"
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.requestPublication)'
-      variant="info"
+      variant="primary"
       size="md"
       class="px-5 py-2 text-light">
       Opslaan en vraag publicatie
@@ -122,7 +122,7 @@
       v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED' && can('workshops.publish_workshop')"
       type="submit"
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.publish)'
-      variant="info"
+      variant="primary"
       size="md"
       class="px-5 py-2 text-light">
       Opslaan en publiceer

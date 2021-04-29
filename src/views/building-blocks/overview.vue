@@ -51,7 +51,7 @@
             <building-block-item
               :showStatus="can('workshops.publish_buildingblocktemplate')"
               :block='block'>
-              <b-button variant="primary text-info"
+              <b-button variant="primary text-dark"
                 :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
                   Bekijken
               </b-button>

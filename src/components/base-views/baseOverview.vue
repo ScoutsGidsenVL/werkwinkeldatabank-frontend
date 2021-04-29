@@ -10,7 +10,7 @@
            v-if="filtersProp"
            cols="12"
            class="justify-content-end align-items-center d-flex">
-            <b-button size='sm' variant="info" href='' v-on:click.prevent="resetFilers" class="d-inline-block mt-n4 mb-3">reset filters</b-button>
+            <b-button size='sm' variant="primary" href='' v-on:click.prevent="resetFilers" class="d-inline-block mt-n4 mb-3">reset filters</b-button>
         </b-col>
       </b-row>
     </b-col>
@@ -20,7 +20,7 @@
           v-if="createRoute"
           cols="12"
           class="text-right pr-0 mb-3">
-          <b-button variant="primary text-info" style="margin-right:2.5em"
+          <b-button variant="primary text-dark" style="margin-right:2.5em"
             :to="{name: createRoute}"
             v-if="!createPermission || can(createPermission)"
           >

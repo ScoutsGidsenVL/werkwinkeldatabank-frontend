@@ -3,7 +3,7 @@
   <b-col cols="12" style="padding-bottom:130px" class="custom-padding" v-if="!loading && result">
       <b-row class="bg-white shadow">
         <b-col cols="12 py-3 d-flex position-sticky bg-secondary justify-content-between border border-left-0 border-top-0 border-right-0">
-          <h2 class="d-inline-block text-left text-info">
+          <h2 class="d-inline-block text-left text-primary">
             {{ result.title }}
           </h2>
           <div class="d-block">
@@ -12,13 +12,13 @@
               class="mr-2"
               style="padding-top: 10px;padding-bottom:9px"
               v-on:click.prevent='askPublication()'
-              variant="info">
+              variant="primary">
               Vraag Publicatie Geselecteerde Bouwstenen
             </b-button>
             <b-button
               class="mr-2"
               v-on:click.prevent='DownloadPDF(result)'
-              variant="info">
+              variant="primary">
               <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
               download
             </b-button>
@@ -27,7 +27,7 @@
               v-if='user.id === undefined'
               class="mr-2"
               v-on:click="login()"
-              variant="info">
+              variant="primary">
               <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
               Login
             </b-button>
@@ -35,14 +35,14 @@
               v-show='can("workshops.change_workshop")'
               class="mr-2"
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
-              variant="info">
+              variant="primary">
               <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
               kopieer
             </b-button>
             <b-button
               v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
-              variant="info">
+              variant="primary">
               <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
               bewerken
             </b-button>
@@ -140,7 +140,7 @@
       <b-button
         class="mr-2"
         v-on:click.prevent='DownloadPDF(result)'
-        variant="info">
+        variant="primary">
         <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
         download
       </b-button>
@@ -149,7 +149,7 @@
         v-if='user.id === undefined'
         class="mr-4"
         v-on:click="login()"
-        variant="info">
+        variant="primary">
         <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
         Login
       </b-button>
@@ -157,7 +157,7 @@
         v-show='can("workshops.change_workshop")'
         class="mr-2"
         :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
-        variant="info">
+        variant="primary">
         <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
         kopieer
       </b-button>
@@ -165,7 +165,7 @@
         class="mr-3"
         v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
         :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
-        variant="info">
+        variant="primary">
         <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
         bewerken
       </b-button>

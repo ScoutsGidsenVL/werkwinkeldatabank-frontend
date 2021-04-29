@@ -30,11 +30,40 @@ export default Vue.extend({
 <style lang="scss">
 @import 'src/assets/variables.scss';
 #app {
-  font-family: $font;
+  font-family: $body-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  main {
+    button {
+      font-weight: 900;
+      color: $white !important;
+    }
+
+    button:hover {
+      background-color: $dark-green !important;
+      border-color: $dark-green !important;
+    }
+
+    h2 {
+      font-weight: 900;
+    }
+
+    h3 {
+      color: $primary;
+      font-weight: 900;
+    }
+
+    a.btn {
+      color: $white !important;
+    }
+
+    .ck {
+      color: $primary;
+    }
+  }
 }
 
 #app>main{

@@ -31,7 +31,7 @@
         <b-col
           cols='2'
           class="text-right">
-              <b-button variant="primary text-info"
+              <b-button variant="primary text-dark"
               v-if='can("workshops.change_theme")'
               :to="{name: 'ThemeEdit', params: { themeId: theme.id }}"  >
                 bewerken

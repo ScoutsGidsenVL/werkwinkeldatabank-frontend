@@ -20,7 +20,7 @@
         <b-col
           cols='2'
           class="text-right">
-            <b-button variant="primary text-info"
+            <b-button variant="primary text-dark"
               v-if='can("workshops.change_category")'
               :to="{name: 'CategoryEdit', params: { categoryId: category.id }}"  >
                 bewerken
