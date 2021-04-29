@@ -39,11 +39,13 @@ export default Vue.extend({
   main {
 
     button {
+      padding: 8px 35px 8px 35px;
       font-weight: 900;
       color: $white !important;
     }
 
     button:hover {
+      border-radius: 10px;
       background-color: $dark-green !important;
       border-color: $dark-green !important;
     }
@@ -62,12 +64,6 @@ export default Vue.extend({
       color: $white !important;
       font-weight: 900;
     }
-
-    // a.btn:hover {
-    //   background-color: $dark-green !important;
-    //   border-color: $dark-green !important;
-    //   font-weight: 900;
-    // }
 
     .ck {
       color: $primary;

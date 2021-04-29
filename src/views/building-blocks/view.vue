@@ -6,13 +6,14 @@
           <h2 class="d-inline-block text-left text-dark">
             {{ result.title }}
           </h2>
-          <b-button
-            v-show='can("workshops.change_buildingblocktemplate")'
-            :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: result.id }}"
-            variant="primary">
-              <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
-              bewerken
-          </b-button>
+          <router-link :to="{name: 'BuildingBlockEdit', params: { buildingBlockId: result.id }}" >
+            <b-button
+              v-show='can("workshops.change_buildingblocktemplate")'
+              variant="primary">
+                <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+                bewerken
+            </b-button>
+          </router-link>
         </b-col>
         <b-col cols="12" class="text-left my-3 ml-n2">
             <time-badge :time='result.duration' />

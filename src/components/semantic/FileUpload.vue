@@ -13,7 +13,7 @@
         placeholder="Choose a file or drop it here..."
         drop-placeholder="Drop file here..."
       ></b-form-file>
-      <b-button v-on:click="uploadFile(file)" class="add-button">Add file</b-button>
+      <b-button v-on:click="uploadFile(file)" variant="primary" class="add-button">Add file</b-button>
     </div>
 
     <div class="mt-4 mb-5">

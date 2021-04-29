@@ -20,11 +20,12 @@
         <b-col
           cols='2'
           class="text-right">
+          <router-link :to="{name: 'CategoryEdit', params: { categoryId: category.id }}" >
             <b-button variant="primary text-dark"
-              v-if='can("workshops.change_category")'
-              :to="{name: 'CategoryEdit', params: { categoryId: category.id }}"  >
+              v-if='can("workshops.change_category")'>
                 bewerken
             </b-button>
+          </router-link>
         </b-col>
       </b-row>
     </template>

@@ -31,11 +31,12 @@
         <b-col
           cols='2'
           class="text-right">
+            <router-link :to="{name: 'ThemeEdit', params: { themeId: theme.id }}" >
               <b-button variant="primary text-dark"
-              v-if='can("workshops.change_theme")'
-              :to="{name: 'ThemeEdit', params: { themeId: theme.id }}"  >
-                bewerken
-            </b-button>
+                v-if='can("workshops.change_theme")'>
+                  bewerken
+              </b-button>
+            </router-link>
         </b-col>
       </b-row>
     </template>

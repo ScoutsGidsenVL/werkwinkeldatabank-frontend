@@ -31,21 +31,23 @@
               <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
               Login
             </b-button>
-            <b-button
-              v-show='can("workshops.change_workshop")'
-              class="mr-2"
-              :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
-              variant="primary">
-              <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
-              Kopieer
-            </b-button>
-            <b-button
-              v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
-              :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
-              variant="primary">
-              <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
-              Bewerken
-            </b-button>
+            <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}" >
+              <b-button
+                v-show='can("workshops.change_workshop")'
+                class="mr-2"
+                variant="primary">
+                <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
+                Kopieer
+              </b-button>
+            </router-link>
+            <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}" >
+              <b-button
+                v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
+                variant="primary">
+                <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+                Bewerken
+              </b-button>
+            </router-link>
           </div>
         </b-col>
         <b-col cols="12" class="text-left my-3 ml-n2 d-flex justify-content-left">
@@ -153,22 +155,24 @@
         <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
         Login
       </b-button>
-      <b-button
-        v-show='can("workshops.change_workshop")'
-        class="mr-2"
-        :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
-        variant="primary">
-        <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
-        Kopieer
-      </b-button>
-      <b-button
-        class="mr-3"
-        v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
-        :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
-        variant="primary">
-        <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
-        Bewerken
-      </b-button>
+      <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}">
+        <b-button
+          v-show='can("workshops.change_workshop")'
+          class="mr-2"
+          variant="primary">
+          <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
+          Kopieer
+        </b-button>
+      </router-link>
+      <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}">
+        <b-button
+          class="mr-3"
+          v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
+          variant="primary">
+          <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+          Bewerken
+        </b-button>
+      </router-link>
     </div>
   </div>
   </div>

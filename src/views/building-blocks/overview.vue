@@ -51,10 +51,11 @@
             <building-block-item
               :showStatus="can('workshops.publish_buildingblocktemplate')"
               :block='block'>
-              <b-button variant="primary text-dark"
-                :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
-                  Bekijken
-              </b-button>
+              <router-link :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}">
+                <b-button variant="primary text-dark">
+                    Bekijken
+                </b-button>
+              </router-link>
             </building-block-item>
         </router-link>
         </b-col>

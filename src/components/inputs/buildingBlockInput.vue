@@ -81,7 +81,7 @@
             :disabled='block.editable'
             size="sm"
             v-b-tooltip.hover title="De gegevens in dit blok worden autmatisch up to date gehouden. Bij wijzigingen verlies je de link naar de meest recente informatie."
-            variant="secondary"
+            variant="primary"
             class="mr-1">
               <b-icon icon="pencil-square" aria-label="Help" class="mx-2 mt-1"></b-icon>bewerken
           </b-button>
@@ -89,7 +89,7 @@
             @click="orderUp(block)"
             :disabled='isFirstBlock(block.order)'
             size="sm"
-            variant="secondary"
+            variant="primary"
             class="mr-1">
               <b-icon icon="arrow-up" aria-label="Help" class="ml-2 mt-1"></b-icon>Verplaats naar boven
           </b-button>
@@ -97,7 +97,7 @@
             @click="orderDown(block)"
             :disabled='isLastBlock(block.order)'
             size="sm"
-            variant="secondary"
+            variant="primary"
             class="">
               <b-icon icon="arrow-down" aria-label="Help" class="ml-2 mt-1"></b-icon>Verplaats naar onder
           </b-button>

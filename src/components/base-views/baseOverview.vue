@@ -9,7 +9,7 @@
         <b-col
            v-if="filtersProp"
            cols="12"
-           class="justify-content-end align-items-center d-flex">
+           class="justify-content-end align-items-center d-flex mt-3">
             <b-button size='sm' variant="primary" href='' v-on:click.prevent="resetFilers" class="d-inline-block mt-n4 mb-3">Reset filters</b-button>
         </b-col>
       </b-row>
@@ -20,12 +20,13 @@
           v-if="createRoute"
           cols="12"
           class="text-right pr-0 mb-3">
-          <b-button variant="primary text-dark" style="margin-right:2.5em"
-            :to="{name: createRoute}"
-            v-if="!createPermission || can(createPermission)"
-          >
-            + Nieuwe {{label}} aanmaken
-          </b-button>
+          <router-link :to="{name: createRoute}" >
+            <b-button variant="primary text-dark" style="margin-right:2.5em"
+              v-if="!createPermission || can(createPermission)"
+            >
+              + Nieuwe {{label}} aanmaken
+            </b-button>
+            </router-link>
         </b-col>
       </b-row>
         <slot
@@ -41,7 +42,7 @@
         </span>
       <b-row v-show="!loading && !callParams.isMaxPage && showLoadMore">
         <b-col class="text-center my-3">
-          <b-button v-on:click='loadMore' size='lg' :disabled='callParams.isMaxPage' >Laad meer</b-button>
+          <b-button variant="primary" v-on:click='loadMore' size='lg' :disabled='callParams.isMaxPage' >Laad meer</b-button>
         </b-col>
       </b-row>
     </b-col>
