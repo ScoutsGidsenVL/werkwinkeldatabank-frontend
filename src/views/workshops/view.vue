@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-col cols="12" style="padding-bottom:130px" class="custom-padding" v-if="!loading && result">
-      <b-row class="bg-white shadow">
+      <b-row class="bg-white">
         <b-col cols="12 py-3 d-flex position-sticky bg-secondary justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block text-left text-primary">
             {{ result.title }}
@@ -83,7 +83,7 @@
       <b-row
         v-for="(block) in result.buildingBlocks"
         :key='block.id'
-        class="bg-white shadow my-3 py-0">
+        class="bg-white my-3 py-0">
         <custom-collapse
           :id='block.id'
           :title='block.title'
@@ -109,7 +109,7 @@
           </div>
         </custom-collapse>
       </b-row>
-      <b-row class="bg-white shadow"  id='necessities'>
+      <b-row class="bg-white"  id='necessities'>
         <custom-collapse
           id='benodigdheden'
           title='Benodigdheden'

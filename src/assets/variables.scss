@@ -98,8 +98,13 @@ $theme-colors: map-merge(
 );
 
 // STYLE GUIDE
+// @font-face {
+//   font-family: "AgletSlab";
+//   src: url("/assets/AgletSlab-Black.ttf");
+// }
+
 $body-font:                        museo-sans,-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
-$h2-font:                          museo-sans,-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+$h2-font:                          AgletSlab;
 //
 
 $font-family-sans-serif:      Verdana, Geneva, sans-serif;

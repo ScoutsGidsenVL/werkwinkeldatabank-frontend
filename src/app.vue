@@ -37,6 +37,7 @@ export default Vue.extend({
   color: #2c3e50;
 
   main {
+
     button {
       font-weight: 900;
       color: $white !important;
@@ -48,6 +49,7 @@ export default Vue.extend({
     }
 
     h2 {
+      // font-family: $h2-font;
       font-weight: 900;
     }
 

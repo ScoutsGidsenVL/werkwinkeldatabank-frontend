@@ -83,7 +83,7 @@
             class="text-white d-inline-block mt-2 mb-3">Selecteer</b-button>
         </building-block-item>
       </a>
-      <b-row v-show="selectedBlock" class="p-3 bg-white shadow">
+      <b-row v-show="selectedBlock" class="p-3 bg-white">
         <b-col cols="12" class="text-left">
           <h2>{{ selectedBlock && selectedBlock.title }}</h2>
         </b-col>
