@@ -105,6 +105,7 @@ export default defineComponent({
         ]
       },
       image: {
+        // maxFileSize: 102400,
         toolbar: [
           'imageStyle:full',
           'imageTextAlternative'

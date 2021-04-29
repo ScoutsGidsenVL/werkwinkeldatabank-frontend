@@ -71,6 +71,9 @@
           :type="inputTypes.text"
         />
       </b-col>
+      <b-col cols="12" md="10" class="mt-1">
+        <file-upload :inputFiles="formData.files" v-on:addFiles="addFiles($event, formData)" />
+      </b-col>
       <b-col cols="12" md="10">
         <ck-editor
           v-model="formData.description"
@@ -148,6 +151,7 @@ import usePermissions from '@/composables/usePermissions'
 import useTransitions from '@/composables/useTransitions'
 import { useRouter } from '@/composables/useRouter'
 import { RETRY_REDIRECT } from '../../composables/useRepository'
+import FileUpload from '@/components/semantic/FileUpload.vue'
 
 export default defineComponent({
   name: 'workshop-form',
@@ -159,7 +163,8 @@ export default defineComponent({
     TimeInput,
     BuildingBlockInput,
     subTitle,
-    statusBadge
+    statusBadge,
+    'file-upload': FileUpload
   },
   setup (props, { root }) {
     sessionStorage.setItem(RETRY_REDIRECT, 'werkwinkels/nieuw')
@@ -184,6 +189,9 @@ export default defineComponent({
     if (route.value.meta.from) {
       cancelRoute.value = route.value.meta.from
     }
+    const addFiles = (event: any, formData: any) => {
+      formData.files = event
+    }
     return {
       inputTypes,
       form,
@@ -198,7 +206,8 @@ export default defineComponent({
       redirectRoute,
       can,
       cancelRoute,
-      isEdit
+      isEdit,
+      addFiles
     }
   }
 })

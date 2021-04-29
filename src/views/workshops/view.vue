@@ -54,6 +54,9 @@
                 <created-by :createdBy='result.createdBy' />
                 <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam">Gepubliceerd door ploeg {{ result.approvingTeam.title }}</span>
               </b-col>
+              <b-col v-if="result.files.length > 0" cols="12" class="mt-5">
+                <file-upload :isDetailView="true" :inputFiles="result.files" />
+              </b-col>
               <b-col cols="12" class="text-left mt-4" >
                 <ckeditor-view :content='result.description' />
               </b-col>
@@ -172,6 +175,7 @@ import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import moment from 'moment'
+import FileUpload from '@/components/semantic/FileUpload.vue'
 
 export default defineComponent({
   props: {
@@ -183,7 +187,8 @@ export default defineComponent({
     customCollapse,
     ckeditorView,
     CreatedBy,
-    'sensitive-badge': SensetiveBadge
+    'sensitive-badge': SensetiveBadge,
+    'file-upload': FileUpload
   },
   setup (props, { emit, root }) {
     const { route, router } = useRouter()

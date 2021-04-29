@@ -5,6 +5,8 @@ import BuildingBlocksEntityModel from './buildingBlocksEntityModel'
 import TeamEntityModel from './teamEntityModel'
 import UserModel from '../userModel'
 import moment from 'moment'
+import { fileReturn } from '@/repositories/entities/fileRepository'
+import FileEntityModel from './fileEntityModel'
 export default class WorkshopEntityModel extends BaseEntityModel implements EntityModel<WorkshopEntityModel> {
 
   constructor (
@@ -24,7 +26,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
     public isDisabled?: boolean,
     public isMine?: boolean,
     public publishedAt?: string,
-    public createdAt?: string
+    public createdAt?: string,
+    public files?: FileEntityModel[]
   ) {
     super(id, title)
   }
@@ -46,6 +49,11 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       themes.push(ThemeEntityModel.deserialize(themeInput))
     })
 
+    const files : FileEntityModel[] = []
+    input.files && input.files.forEach(file => {
+      files.push(FileEntityModel.deserialize(file))
+    })
+
     return new WorkshopEntityModel(
       false,
       input.title,
@@ -63,8 +71,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.is_disabled ? input.is_disabled : false,
       input.isMine,
       input.published_at ? moment(input.published_at).format('DD/MM/YYYY HH:MM').toString() : undefined,
-      input.created_at ? moment(input.created_at).format('DD/MM/YYYY HH:MM').toString() : undefined
-
+      input.created_at ? moment(input.created_at).format('DD/MM/YYYY HH:MM').toString() : undefined,
+      files
     )
   }
 
@@ -81,6 +89,11 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       theme.id && themes.push(theme.id)
     })
 
+    const files : String[] = []
+    this.files && this.files.forEach((file: FileEntityModel) => {
+      files.push(FileEntityModel.serializeForWorkshop(file))
+    })
+
     return {
       title: this.title,
       short_description: this.shortDescription,
@@ -89,7 +102,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       necessities: this.necessities ? this.necessities : undefined,
       building_blocks: buildingBlocks,
       approving_team: this.approvingTeam ? this.approvingTeam.id : undefined,
-      is_disabled: this.isDisabled
+      is_disabled: this.isDisabled,
+      files: files
     }
   }
 
