@@ -20,7 +20,7 @@
               v-on:click.prevent='DownloadPDF(result)'
               variant="primary">
               <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
-              download
+              Download
             </b-button>
             <b-button
               v-b-tooltip.hover title="Log in om je eigen werkwinkels te maken en aan te passen"
@@ -37,14 +37,14 @@
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
               variant="primary">
               <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
-              kopieer
+              Kopieer
             </b-button>
             <b-button
               v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
               variant="primary">
               <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
-              bewerken
+              Bewerken
             </b-button>
           </div>
         </b-col>
@@ -142,7 +142,7 @@
         v-on:click.prevent='DownloadPDF(result)'
         variant="primary">
         <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
-        download
+        Download
       </b-button>
       <b-button
         v-b-tooltip.hover title="Log in om je eigen werkwinkels te maken en aan te passen"
@@ -159,7 +159,7 @@
         :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
         variant="primary">
         <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
-        kopieer
+        Kopieer
       </b-button>
       <b-button
         class="mr-3"
@@ -167,7 +167,7 @@
         :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
         variant="primary">
         <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
-        bewerken
+        Bewerken
       </b-button>
     </div>
   </div>

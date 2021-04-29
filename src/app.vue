@@ -60,7 +60,14 @@ export default Vue.extend({
 
     a.btn {
       color: $white !important;
+      font-weight: 900;
     }
+
+    // a.btn:hover {
+    //   background-color: $dark-green !important;
+    //   border-color: $dark-green !important;
+    //   font-weight: 900;
+    // }
 
     .ck {
       color: $primary;
