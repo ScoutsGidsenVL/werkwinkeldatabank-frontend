@@ -51,7 +51,6 @@ export default Vue.extend({
     }
 
     h2 {
-      // font-family: $h2-font;
       font-weight: 900;
     }
 
@@ -67,6 +66,12 @@ export default Vue.extend({
 
     .ck {
       color: $primary;
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+      color: #fff;
+      border-color: $dark-green !important;
+      background-color: $dark-green !important;
     }
   }
 }
