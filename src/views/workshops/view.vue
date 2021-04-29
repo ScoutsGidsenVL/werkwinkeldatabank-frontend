@@ -23,6 +23,15 @@
               download
             </b-button>
             <b-button
+              v-b-tooltip.hover title="Log in om je eigen werkwinkels te maken en aan te passen"
+              v-if='user.id === undefined'
+              class="mr-2"
+              v-on:click="login()"
+              variant="info">
+              <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
+              Login
+            </b-button>
+            <b-button
               v-show='can("workshops.change_workshop")'
               class="mr-2"
               :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
@@ -136,6 +145,15 @@
         download
       </b-button>
       <b-button
+        v-b-tooltip.hover title="Log in om je eigen werkwinkels te maken en aan te passen"
+        v-if='user.id === undefined'
+        class="mr-4"
+        v-on:click="login()"
+        variant="info">
+        <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
+        Login
+      </b-button>
+      <b-button
         v-show='can("workshops.change_workshop")'
         class="mr-2"
         :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}"
@@ -144,6 +162,7 @@
         kopieer
       </b-button>
       <b-button
+        class="mr-3"
         v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
         :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}"
         variant="info">
@@ -175,6 +194,9 @@ import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepo
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
 import moment from 'moment'
 import FileUpload from '@/components/semantic/FileUpload.vue'
+import userModule from '@/store/userModule'
+import store from '@/store/store'
+import { getModule } from 'vuex-module-decorators'
 
 export default defineComponent({
   props: {
@@ -193,12 +215,20 @@ export default defineComponent({
     const { route, router } = useRouter()
     const { can } = usePermissions()
     const toast = useToast(root)
-    const { loading, doCallWithLoginRetry, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
+    const { loading, doCallWithLoginRetry, doCallWithLogin, result } = useRepository(WorkshopRepository, callTypes.getSingel, { id: route.value.params.workshopId })
     const necessitiesOpen = ref<Boolean>(true)
     const { DownloadFile } = useDownload()
     const BuildingBlocksToPublish = ref<Array<BuildingBlocksEntityModel>>([])
     const buildingBlockRepo: BuildingBlocksRepository = RepositoryFactory.get(BuildingBlocksRepository)
     const pdfFileName = ref<string>('default_pdf_name')
+    const userStoreModule = getModule(userModule, store)
+    const user = ref<any>()
+
+    user.value = userStoreModule.getUser
+
+    const login = () => {
+      doCallWithLogin('werkwinkels/' + route.value.params.workshopId)
+    }
 
     const fetchWorkshop = () => {
       doCallWithLoginRetry('werkwinkels/' + route.value.params.workshopId).catch(() => {
@@ -265,7 +295,9 @@ export default defineComponent({
       DownloadPDF,
       BuildingBlocksToPublish,
       toggle,
-      askPublication
+      askPublication,
+      user,
+      login
     }
   }
 })

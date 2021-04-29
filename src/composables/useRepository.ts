@@ -19,6 +19,7 @@ export type useRepositoryType = {
   loading : Ref<Boolean>,
   doCall: () => Promise<Boolean>,
   doCallWithLoginRetry: (redirectRoute: string) => Promise<Boolean | void>,
+  doCallWithLogin: (redirectRoute: string) => Promise<Boolean | void>,
   loadMore: () => void,
   result: Ref<BaseEntityModel | undefined>
   results: Ref<BaseEntityModel[] | historyItem[]>,
@@ -100,10 +101,20 @@ export default function useRepository (
     return Promise.resolve(true)
   }
 
+  function doCallWithLogin (redirectRoute: string) : Promise<Boolean | void> {
+    useGlobalLoading(loading)
+    sessionStorage.setItem(RETRY_REDIRECT, redirectRoute)
+    store.dispatch('openid/login').then(() => {
+      doCall()
+    })
+    return Promise.resolve(true)
+  }
+
   return {
     loading,
     doCall,
     doCallWithLoginRetry,
+    doCallWithLogin,
     result,
     results,
     historyResults,
