@@ -44,8 +44,6 @@
           <b-badge v-for="theme in result.theme" :key='theme.id' pill variant="secondary" class="ml-2">{{ theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
           <sensitive-badge v-show='result.isSensitive' />
-          <b-badge v-show='can("workshops.view_history")'  v-if="result.createdAt" pill variant="secondary" class="ml-2">Published: {{ result.createdAt }}</b-badge>
-          <b-badge v-show='can("workshops.view_history")'  v-if="result.publishedAt" pill variant="secondary" class="ml-2">Published: {{ result.publishedAt }}</b-badge>
         </b-col>
 
         <b-col cols="12">
@@ -53,6 +51,7 @@
               <b-col cols="12">
                 <created-by :createdBy='result.createdBy' />
                 <span class="w-100 h6 text-left d-inline-block" v-if="result.approvingTeam">Gepubliceerd door ploeg {{ result.approvingTeam.title }}</span>
+                <span class="w-100 h6 text-left d-inline-block" v-if="can('workshops.view_history') && result.publishedAt">Gepubliceerd op {{ result.publishedAt }}</span>
               </b-col>
               <b-col v-if="result.files.length > 0" cols="12" class="mt-5">
                 <file-upload :isDetailView="true" :inputFiles="result.files" />

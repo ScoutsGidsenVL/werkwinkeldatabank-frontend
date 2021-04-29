@@ -70,8 +70,8 @@ export default class WorkshopEntityModel extends BaseEntityModel implements Enti
       input.created_by ? UserModel.deserialize(input.created_by) : undefined,
       input.is_disabled ? input.is_disabled : false,
       input.isMine,
-      input.published_at ? moment(input.published_at).format('DD/MM/YYYY HH:MM').toString() : undefined,
-      input.created_at ? moment(input.created_at).format('DD/MM/YYYY HH:MM').toString() : undefined,
+      input.published_at ? moment(input.published_at).format('DD/MM/YYYY').toString() : undefined,
+      input.created_at ? moment(input.created_at).format('DD/MM/YYYY').toString() : undefined,
       files
     )
   }
