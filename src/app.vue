@@ -109,6 +109,10 @@ export default Vue.extend({
       max-height: 38px;
     }
 
+    .multiselect__option {
+      border-bottom: 1px solid $gray;
+    }
+
     .form-control {
       border: none;
       border-bottom: 3px solid $primary;
