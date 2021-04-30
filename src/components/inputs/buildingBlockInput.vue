@@ -24,6 +24,7 @@
         </div>
         <div class="w-100 text-left">
         <text-input
+          class="custom-margin"
           v-model="block.title"
           label="Titel"
           id='title'
@@ -31,6 +32,7 @@
           :disabled='!block.editable'
         />
         <text-input
+          class="custom-margin"
           v-model="block.duration"
           label="Tijdsduur"
           id='duration'
@@ -38,6 +40,7 @@
           :disabled='!block.editable'
         />
         <select-input
+          class="custom-margin"
           v-model='block.category'
           label='Soort werkvorm'
           id="category"
@@ -47,6 +50,7 @@
           :rules="(block && block.type === BuildingBlocksTypes.METHODIC) ? { required: true } : {}"
         />
         <select-input
+          class="custom-margin"
           v-model='block.theme'
           label='Thema'
           :searchable="true"
@@ -57,6 +61,7 @@
           :rules="(block && block.type === BuildingBlocksTypes.THEMATIC) ? { required: true } : {}"
         />
         <ck-editor
+          class="custom-margin"
           v-model="block.description"
           label="Omschrijving"
           id="description"
@@ -64,6 +69,7 @@
           :disabled='!block.editable'
         />
         <ck-editor
+          class="custom-margin"
           v-model="block.necessities"
           label="Benodigdheden"
           :toolbarItems='["bulletedList"]'
@@ -73,7 +79,7 @@
           :disabled='!block.editable'
         />
         </div>
-        <div class="d-flex w-100">
+        <div class="d-flex w-100 mt-5">
           <b-button
             @click="enableEditBlock(block)"
             v-show='block.isSensitive'
@@ -319,5 +325,10 @@ export default defineComponent({
     .trash-icon {
       color: $white !important;
     }
+  }
+
+  .custom-margin {
+    margin-top: 2.5em;
+    margin-bottom: 2em;
   }
 </style>

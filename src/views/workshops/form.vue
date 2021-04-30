@@ -100,7 +100,7 @@
         <b-form-invalid-feedback v-for="error in validationContext.errors" :key="error">{{ error }}</b-form-invalid-feedback>
         <building-block-input v-model='formData.buildingBlocks' :validationState='getValidationState(validationContext)' />
        </validation-provider>
-       <b-col cols="10" offset="0" md="10" class="mt-5">
+       <b-col cols="12" offset="0" md="12" class="mt-5">
         <ck-editor
           v-model="formData.necessities"
           label="Extra benodigdheden"
