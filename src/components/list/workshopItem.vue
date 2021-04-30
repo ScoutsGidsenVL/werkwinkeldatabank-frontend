@@ -13,7 +13,7 @@
             <disabled-badge  v-show='workshop.isDisabled && can("scouts_auth.access_disabled_entities")' />
           </b-col>
 
-          <b-col v-if="can('workshops.view_history')" cols="12" class="mt-3 text-center d-flex justify-content-center">
+          <b-col style="font-size: 14px" v-if="can('workshops.view_history')" cols="12" class="mt-3 text-center d-flex justify-content-center">
             Gepubliceerd op {{ workshop.publishedAt }}
           </b-col>
 
