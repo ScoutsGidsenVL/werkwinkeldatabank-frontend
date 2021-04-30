@@ -82,21 +82,22 @@ export default Vue.extend({
     }
 
     .multiselect__select {
-      width: 16px;
+      width: 18px;
       border-radius: 37px;
-      height: 16px;
+      height: 18px;
       top: 9px;
       right: 7px;
       background-color: $primary;
     }
 
     .multiselect__select:before {
-      border: none;
-      top: -94%;
+      // border: none;
+      top: 100%;
+      border-color: $white transparent transparent;
       color: $white;
-      font-size: 22px;
-      right: 9px;
-      content: "⌄";
+      // font-size: 22px;
+      right: 4px;
+      // content: "⌄";
     }
 
     .multiselect__tags {
