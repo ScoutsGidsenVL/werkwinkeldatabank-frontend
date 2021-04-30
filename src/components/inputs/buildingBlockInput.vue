@@ -4,7 +4,7 @@
     <b-col
       cols="12 p-0"
       v-for="(block, index) in buildingBlocks"
-      class="bg-light"
+      class="bg-light mb-4"
       :key='block.id'
     >
     <custom-collapse
