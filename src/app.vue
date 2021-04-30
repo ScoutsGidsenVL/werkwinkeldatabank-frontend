@@ -66,6 +66,9 @@ export default Vue.extend({
 
     .ck {
       color: $primary;
+      button {
+        padding: 2.3px 2.3px 2.3px 2.3px;
+      }
     }
 
     .custom-control-input:checked ~ .custom-control-label::before {
