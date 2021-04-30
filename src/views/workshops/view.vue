@@ -10,10 +10,10 @@
             <b-button
               v-if="BuildingBlocksToPublish.length > 0"
               class="mr-2"
-              style="padding-top: 10px;padding-bottom:9px"
+              style="padding-top: 11px;padding-bottom:11px"
               v-on:click.prevent='askPublication()'
               variant="primary">
-              Vraag Publicatie Geselecteerde Bouwstenen
+              Vraag publicatie geselecteerde bouwstenen
             </b-button>
             <b-button
               class="mr-2"
@@ -139,6 +139,14 @@
     class="footer"
   >
     <div class="text-right mt-4">
+      <b-button
+        class="mr-2"
+        v-if="BuildingBlocksToPublish.length > 0"
+        style="padding-top: 11px;padding-bottom:11px"
+        v-on:click.prevent='askPublication()'
+        variant="primary">
+        Vraag publicatie geselecteerde bouwstenen
+      </b-button>
       <b-button
         class="mr-2"
         v-on:click.prevent='DownloadPDF(result)'
