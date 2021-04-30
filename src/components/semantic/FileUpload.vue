@@ -9,11 +9,12 @@
 
     <div v-if="!isDetailView" class="d-flex">
       <b-form-file
+        browse-text="Zoek"
         v-model="file"
-        placeholder="Choose a file or drop it here..."
-        drop-placeholder="Drop file here..."
+        placeholder="Kies een bestand of sleep het hierin..."
+        drop-placeholder="Sleep het bestand hierin..."
       ></b-form-file>
-      <b-button v-on:click="uploadFile(file)" variant="primary" class="add-button">Add file</b-button>
+      <b-button v-on:click="uploadFile(file)" variant="primary" class="add-button">Bestand toevoegen</b-button>
     </div>
 
     <div class="mt-4 mb-5">
@@ -89,7 +90,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .add-button {
-  min-width: 150px;
+  min-width: 250px;
   margin-left: 20px;
 }
 </style>
