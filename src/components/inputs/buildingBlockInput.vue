@@ -2,7 +2,7 @@
 <b-col cols="12">
   <b-row>
     <b-col
-      cols="12"
+      cols="12 p-0"
       v-for="(block, index) in buildingBlocks"
       class="bg-light"
       :key='block.id'

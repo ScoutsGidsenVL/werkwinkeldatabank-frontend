@@ -98,7 +98,9 @@
         :class='{"not-valid": getValidationState(validationContext) === false}'
         label='Bouwstenen' />
         <b-form-invalid-feedback v-for="error in validationContext.errors" :key="error">{{ error }}</b-form-invalid-feedback>
-        <building-block-input v-model='formData.buildingBlocks' :validationState='getValidationState(validationContext)' />
+        <div class="p-3">
+          <building-block-input v-model='formData.buildingBlocks' :validationState='getValidationState(validationContext)' />
+        </div>
        </validation-provider>
        <b-col cols="12" offset="0" md="12" class="mt-5">
         <ck-editor
