@@ -138,7 +138,7 @@
     v-if="!loading && result"
     class="footer"
   >
-    <div class="text-right mt-3">
+    <div class="text-right mt-4">
       <b-button
         class="mr-2"
         v-on:click.prevent='DownloadPDF(result)'
@@ -327,10 +327,11 @@ export default defineComponent({
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: $secondary;
+  background-color: $white;
+  border-top: 2px solid $secondary;
   color: white;
   text-align: center;
-  height: 80px;
+  height: 100px;
 }
 
 .row {

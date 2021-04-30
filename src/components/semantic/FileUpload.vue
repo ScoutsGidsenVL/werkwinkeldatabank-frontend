@@ -2,7 +2,7 @@
   <div>
 
     <div class="text-left">
-      <label>
+      <label style="font-weight: 900;">
         Bijlages
       </label>
     </div>

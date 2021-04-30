@@ -19,7 +19,7 @@
          <status-badge v-if="formData.workshopStatus" :status='formData.workshopStatus' />
       </b-col>
       <sub-title label='Algemene info' />
-      <b-col cols="12" md="10" class="mb-3 text-left">
+      <b-col cols="12" md="8" class="mt-3 mb-2 text-left">
         <text-input
           v-model="formData.title"
           label="Titel"
@@ -27,7 +27,7 @@
           :type="inputTypes.text"
         />
       </b-col>
-      <b-col cols="12" md="10" class="mb-3 text-left" v-if="can('scouts_auth.access_disabled_entities')">
+      <b-col cols="12" md="8" class="mt-4 mb-2 text-left" v-if="can('scouts_auth.access_disabled_entities')">
         <b-form-checkbox
           v-show="isEdit"
           id="is-disabled"
@@ -38,30 +38,34 @@
           Verborgen
         </b-form-checkbox>
       </b-col>
-      <b-col cols="12"  md="7">
-        <select-input
-          v-model='formData.theme'
-          label='Thema'
-          id="theme"
-          :searchable="true"
-          :repo='ThemeRepository'
-          :multiple='true'
-        />
+      <b-col class="mt-4 mb-2" cols="12"  md="8">
+        <div class="multi-select-container">
+          <div class="w-100">
+            <select-input
+              v-model='formData.theme'
+              label='Thema'
+              id="theme"
+              :searchable="true"
+              :repo='ThemeRepository'
+              :multiple='true'
+            />
+          </div>
+          <div
+            class="w-100"
+            v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED' || formData.workshopStatus === 'PUBLISHED' && can('workshops.change_buildingblocktemplate')"
+          >
+            <select-input
+              :disabled="!can('workshops.change_buildingblocktemplate')"
+              v-model='formData.approvingTeam'
+              label='Team'
+              id="team"
+              :repo='TeamRepository'
+              :multiple='false'
+            />
+          </div>
+        </div>
       </b-col>
-      <b-col
-        v-if="formData.workshopStatus === 'PUBLICATION_REQUESTED' || formData.workshopStatus === 'PUBLISHED' && can('workshops.change_buildingblocktemplate')"
-        cols="12"
-        md="7">
-        <select-input
-          :disabled="!can('workshops.change_buildingblocktemplate')"
-          v-model='formData.approvingTeam'
-          label='Team'
-          id="team"
-          :repo='TeamRepository'
-          :multiple='false'
-        />
-      </b-col>
-      <b-col cols="12" md="10">
+      <b-col class="mt-4 mb-2" cols="12" md="8">
         <text-input
           v-model="formData.shortDescription"
           label="Korte omschrijving"
@@ -71,10 +75,10 @@
           :type="inputTypes.text"
         />
       </b-col>
-      <b-col cols="12" md="10" class="mt-1">
+      <b-col cols="12" md="8" class="mt-4 mb-2">
         <file-upload :inputFiles="formData.files" v-on:addFiles="addFiles($event, formData)" />
       </b-col>
-      <b-col cols="12" md="10">
+      <b-col class="mt-4 mb-2" cols="12" md="12">
         <ck-editor
           v-model="formData.description"
           label="Omschrijving"
@@ -115,7 +119,7 @@
       @click.prevent='saveAndPublish(saveWithoutRedirect,onSubmit, validate, transitionTypes.requestPublication)'
       variant="primary"
       size="md"
-      class="px-5 py-2 text-light">
+      class="px-4 py-2 text-light">
       Opslaan en vraag publicatie
       </b-button>
     <b-button
@@ -224,5 +228,10 @@ export default defineComponent({
     text-align: left;
     padding-left: 1rem;
     margin-top: -1rem;
+  }
+
+  .multi-select-container {
+    display: flex;
+    gap: 40px;
   }
 </style>

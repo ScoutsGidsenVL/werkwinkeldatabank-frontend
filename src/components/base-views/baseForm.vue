@@ -14,7 +14,7 @@
   </b-form>
   <div
     v-if="!loading"
-    class="action-bar sticky-container position-sticky bg-secondary pb-4 px-5"
+    class="action-bar sticky-container position-sticky bg-white px-5 custom-border"
   >
   <b-row>
         <b-col cols="12" lg="7" class="text-left mt-4 mb-4" >
@@ -195,11 +195,16 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
+  @import 'src/assets/variables.scss';
   .action-bar{
     bottom: 0;
     z-index: 9;
   }
   .sticky-container {
     max-width: none;
+  }
+
+  .custom-border {
+    border-top: 2px solid $secondary;
   }
 </style>
