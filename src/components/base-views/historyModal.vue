@@ -36,8 +36,8 @@
                     class="text-dark"
                     v-on:click.prevent='setOldVersion(result.result)'
                     variant="primary">
-                        <b-icon icon="clock-history" aria-label="edit" class="mx-2 mt-2"></b-icon>
-                        <span class="d-inline-block mb-1">zet terug</span>
+                        <b-icon icon="clock-history" aria-label="edit" class="mx-2 mt-2" style="color: white; font-weight: 900;"></b-icon>
+                        <span class="d-inline-block mb-1" style="color: white; font-weight: 900;">zet terug</span>
                 </b-button>
             </b-col>
         </b-row>
