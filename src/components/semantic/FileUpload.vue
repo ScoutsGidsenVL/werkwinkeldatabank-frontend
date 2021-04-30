@@ -89,7 +89,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .add-button {
-  width: 150px;
+  min-width: 150px;
   margin-left: 20px;
 }
 </style>
