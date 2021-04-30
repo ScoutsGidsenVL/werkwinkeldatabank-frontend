@@ -2,7 +2,7 @@
   <div>
     <b-col cols="12" class="custom-padding" v-if="!loading && result">
       <b-row class="bg-white">
-        <b-col cols="12 py-3 d-flex position-sticky bg-secondary justify-content-between border border-left-0 border-top-0 border-right-0">
+        <b-col cols="12 py-3 d-flex position-sticky justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block text-left text-dark">
             {{ result.title }}
           </h2>
@@ -15,7 +15,7 @@
             </b-button>
           </router-link>
         </b-col>
-        <b-col cols="12" class="text-left my-3 ml-n2">
+        <b-col cols="11" class="text-left my-3 ml-2">
             <time-badge :time='result.duration' />
             <b-badge v-if='result.theme' pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
             <b-badge v-if='result.category' pill variant="secondary" class="mt-2 mx-3">{{ result.category.title }}</b-badge>

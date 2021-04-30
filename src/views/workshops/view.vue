@@ -50,7 +50,7 @@
             </router-link>
           </div>
         </b-col>
-        <b-col cols="12" class="text-left my-3 ml-n2 d-flex justify-content-left">
+        <b-col cols="11" class="text-left my-3 ml-2 d-flex justify-content-left">
           <time-badge :time='result.duration' />
           <b-badge v-for="theme in result.theme" :key='theme.id' pill variant="secondary" class="ml-2">{{ theme.title }}</b-badge>
           <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
