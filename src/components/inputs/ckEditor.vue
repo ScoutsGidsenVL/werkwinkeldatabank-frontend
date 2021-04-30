@@ -88,6 +88,14 @@ export default defineComponent({
         Table,
         TableToolbar
       ],
+      heading: {
+        options: [
+          { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+          { model: 'heading1', view: 'h3', title: 'Heading 1', class: 'ck-heading_heading3' },
+          { model: 'heading2', view: 'h4', title: 'Heading 2', class: 'ck-heading_heading4' },
+          { model: 'heading3', view: 'h5', title: 'Heading 3', class: 'ck-heading_heading5' }
+        ]
+      },
       toolbar: {
         items: [
           'heading',

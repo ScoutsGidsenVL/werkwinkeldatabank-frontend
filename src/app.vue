@@ -105,6 +105,11 @@ export default Vue.extend({
       min-height: 38px;
       max-height: 38px;
     }
+
+    .form-control {
+      border: none;
+      border-bottom: 3px solid $primary;
+    }
   }
 }
 
