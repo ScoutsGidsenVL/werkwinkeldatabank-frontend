@@ -26,9 +26,8 @@ import RepositoryFactory from './repositories/repositoryFactory'
 import AuthRepository from './repositories/authRepository'
 import userModule from './store/userModule'
 
-
 // Install VeeValidate rules and localization
-Object.keys(rules).forEach(rule => {
+Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule])
 })
 
@@ -72,14 +71,20 @@ new StaticFileRepository().getFile('config.json').then((configFile: any) => {
       configuration: {
         baseUrl: configFile.oidc.baseUrl,
         serverBaseUrl: configFile.oidc.serverBaseUrl,
-        tokenEndpoint: configFile.oidc.tokenEndpoint ? configFile.oidc.tokenEndpoint : 'token',
-        authEndpoint: configFile.oidc.authEndpoint ? configFile.oidc.authEndpoint : 'auth',
-        logoutEndpoint: configFile.oidc.logoutEndpoint ? configFile.oidc.logoutEndpoint : 'logout',
+        tokenEndpoint: configFile.oidc.tokenEndpoint
+          ? configFile.oidc.tokenEndpoint
+          : 'token',
+        authEndpoint: configFile.oidc.authEndpoint
+          ? configFile.oidc.authEndpoint
+          : 'auth',
+        logoutEndpoint: configFile.oidc.logoutEndpoint
+          ? configFile.oidc.logoutEndpoint
+          : 'logout',
         clientId: configFile.oidc.clientId,
         authorizedRedirectRoute: '/',
         serverTokenEndpoint: 'token/',
         serverRefreshEndpoint: 'refresh/',
-        InternalRedirectUrl: ''
+        InternalRedirectUrl: configFile.oidc.InternalRedirectUrl ? configFile.oidc.InternalRedirectUrl : ''
       }
     })
   }
@@ -87,16 +92,19 @@ new StaticFileRepository().getFile('config.json').then((configFile: any) => {
   const configStoreModule = getModule(configModule, store)
   configStoreModule.setConfig(configFile)
 
-
   router.beforeEach((to: any, from: any, next: any) => {
     // if (to.matched.some((record: any) => record.meta.requiresOpenIdAuth)) {
     const userStoreModule = getModule(userModule, store)
     if (store.getters['openid/isLoggedIn']) {
-      !userStoreModule.loaded ? RepositoryFactory.get(AuthRepository).me().then((user: any) => {
-        userStoreModule.setMe(user).then(() => {
-          next()
-        })
-      }) : next()
+      !userStoreModule.loaded
+        ? RepositoryFactory.get(AuthRepository)
+          .me()
+          .then((user: any) => {
+            userStoreModule.setMe(user).then(() => {
+              next()
+            })
+          })
+        : next()
     } else {
       next()
     }
