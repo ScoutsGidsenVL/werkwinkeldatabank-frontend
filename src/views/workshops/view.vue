@@ -138,7 +138,7 @@
     v-if="!loading && result"
     class="footer"
   >
-    <div class="text-right mt-4">
+    <div class="text-right mt-4 container">
       <b-button
         class="mr-2"
         v-if="BuildingBlocksToPublish.length > 0"
@@ -331,7 +331,7 @@ export default defineComponent({
 }
 
 .footer {
-  position: fixed;
+  position: sticky;
   left: 0;
   bottom: 0;
   width: 100%;
