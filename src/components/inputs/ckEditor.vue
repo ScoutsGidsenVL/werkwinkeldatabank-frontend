@@ -165,4 +165,8 @@ min-height: 250px;
     display: block;
     text-align: left;
   }
+
+  ::v-deep .ck.ck-tooltip .ck-tooltip__text {
+    color: white !important;
+}
 </style>
