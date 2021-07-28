@@ -59,7 +59,7 @@
             <select-input
               :disabled="!can('workshops.change_buildingblocktemplate')"
               v-model='formData.approvingTeam'
-              label='Team'
+              label='Ploeg'
               id="team"
               :repo='TeamRepository'
               :multiple='false'
