@@ -18,6 +18,28 @@
       </b-col>
       <enum-filter v-model="filters.type.value" :enumToUse="BuildingBlocksTypes" />
       <duration-filter v-model="filters.duration.value" />
+
+        <b-col cols="12" lg='4' v-show="filters.type.value === 'THEMATIC'">
+              <select-input
+                label='Thema'
+                id="theme"
+                :rules='{}'
+                :multiple='true'
+                :repo='ThemeRepository'
+                v-model="filters.theme.value"
+              />
+            </b-col>
+            <b-col cols="12" lg='4' v-show="filters.type.value === 'METHODIC'">
+              <select-input
+                label='Soort werkvorm'
+                id="category"
+                :rules='{}'
+                :multiple='true'
+                :repo='CategoriesRepository'
+                v-model="filters.category.value"
+              />
+            </b-col>
+
        <b-col
         v-if="can('workshops.publish_buildingblocktemplate') && !isReadyForPublictionOverview"
         cols="12"
@@ -111,10 +133,10 @@ export default defineComponent({
       type: { type: 'string', value: undefined, filterKey: 'type' },
       term: { type: 'string', value: undefined, filterKey: 'term' },
       duration: { type: 'objectString', value: undefined, filterKey: 'duration' },
-      theme: { type: 'arrayEntity', value: undefined, filterKey: 'status' },
-      category: { type: 'arrayEntity', value: undefined, filterKey: 'category' },
       status: { type: 'entity', value: status.value, filterKey: 'status' },
-      createdBy: { type: 'string', value: undefined, filterKey: 'created_by' }
+      createdBy: { type: 'string', value: undefined, filterKey: 'created_by' },
+      theme: { type: 'arrayEntity', value: undefined, filterKey: 'theme' },
+      category: { type: 'arrayEntity', value: undefined, filterKey: 'category' }
     })
     const { can } = usePermissions()
     const isLoggedIn = store.getters['openid/isLoggedIn']
@@ -138,6 +160,7 @@ export default defineComponent({
       isLoggedIn,
       myId,
       can
+
     }
   }
 })
