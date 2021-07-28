@@ -51,15 +51,16 @@
           :rules="(block && block.type === BuildingBlocksTypes.METHODIC) ? { required: true } : {}"
         />
         <select-input
-          class="custom-margin"
-          v-model='block.theme'
-          label='Thema'
-          :searchable="true"
+          label='Thema '
           id="theme"
-          :repo='ThemeRepository'
+          :searchable="true"
           :multiple='false'
-          v-show="block && block.type === BuildingBlocksTypes.THEMATIC"
+          :repo='ThemeRepository'
+          v-model='block.theme'
           :rules="(block && block.type === BuildingBlocksTypes.THEMATIC) ? { required: true } : {}"
+
+          class="custom-margin"
+          v-show="block && block.type === BuildingBlocksTypes.THEMATIC"
           :isRequired="true"
         />
         <ck-editor
