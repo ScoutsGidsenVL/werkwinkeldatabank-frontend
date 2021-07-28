@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 <template>
     <div>
+
       <validation-provider
         v-if="type !== 'time'"
         :rules="rules"
@@ -9,7 +10,7 @@
       >
         <b-form-group
           :id='id'
-          :label='label'
+          :label="label + (isRequired === true ? ' *' : '')"
           class="text-left"
           label-for="title"
         >
@@ -78,6 +79,7 @@ export default defineComponent({
   props: {
     value: String,
     label: String,
+    isRequired: Boolean,
     type: String as PropType<inputTypes>,
     id: String,
     disabled: Boolean,

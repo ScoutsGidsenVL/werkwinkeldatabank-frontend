@@ -6,7 +6,7 @@
     >
       <b-form-group
         :id='id'
-        :label='label'
+        :label="label + (isRequired === true ? ' *' : '')"
         class="text-left"
         :class="{'ck-editor-big': big, 'not-valid': getValidationState(validationContext) === false}"
         label-for="title"
@@ -49,6 +49,7 @@ export default defineComponent({
   props: {
     value: String,
     label: String,
+    isRequired: Boolean,
     id: String,
     disabled: Boolean,
     toolbarItems: Array,

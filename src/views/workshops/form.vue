@@ -25,6 +25,7 @@
           label="Titel"
           id='title'
           :type="inputTypes.text"
+          :isRequired="true"
         />
       </b-col>
       <b-col cols="12" md="8" class="mt-4 mb-2 text-left" v-if="can('scouts_auth.access_disabled_entities')">
@@ -48,6 +49,7 @@
               :searchable="true"
               :repo='ThemeRepository'
               :multiple='true'
+              :isRequired="true"
             />
           </div>
           <div
@@ -84,6 +86,7 @@
           label="Omschrijving"
           id="description"
           :big="false"
+          :isRequired="true"
         />
       </b-col>
       <validation-provider
@@ -96,7 +99,7 @@
       >
       <sub-title
         :class='{"not-valid": getValidationState(validationContext) === false}'
-        label='Bouwstenen' />
+        label='Bouwstenen *' />
         <b-form-invalid-feedback v-for="error in validationContext.errors" :key="error">{{ error }}</b-form-invalid-feedback>
         <div class="p-3">
           <building-block-input v-model='formData.buildingBlocks' :validationState='getValidationState(validationContext)' />

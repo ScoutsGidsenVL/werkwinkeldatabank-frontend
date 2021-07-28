@@ -16,6 +16,7 @@
           label="Titel"
           id='title'
           :type="inputTypes.text"
+          :isRequired="true"
         />
       </b-col>
       <b-col cols="12" md="10" class="mb-3 text-left" v-if="can('scouts_auth.access_disabled_entities')">

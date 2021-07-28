@@ -6,7 +6,7 @@
   >
   <b-form-group
         :id='id'
-        :label='label'
+        :label="label + (isRequired === true ? ' *' : '')"
         class="text-left"
         label-for="title"
       >
@@ -47,6 +47,7 @@ export default defineComponent({
   name: 'select-input',
   props: {
     label: String,
+    isRequired: Boolean,
     id: String,
     multiple: Boolean,
     searchable: {

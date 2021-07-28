@@ -18,6 +18,7 @@
           label="Titel"
           id='title'
           :type="inputTypes.text"
+          :isRequired="true"
         />
       </b-col>
       <b-col cols="12" md="10" class="mt-3 mb-2 text-left" v-if="can('workshops.view_field_is_sensitive_workshop')">
@@ -58,10 +59,12 @@
               v-model="formData.type"
               :options='types'
               :multiple='false'
+              :isRequired="true"
             />
           </div>
           <div class="w-100">
             <select-input
+            :isRequired="true"
               v-model='formData.category'
               label='Soorten werkvormen'
               id="category"
@@ -72,6 +75,7 @@
               :rules="(formData && formData.type === BuildingBlocksTypes.METHODIC) ? { required: true } : {}"
             />
             <select-input
+            :isRequired="true"
               v-model='formData.theme'
               label='Thema'
               :searchable="true"
@@ -98,6 +102,7 @@
           v-model="formData.description"
           label="Omschrijving"
           id="description"
+          :isRequired="true"
         />
       </b-col>
       <b-col cols="12" class="mt-4 mb-2">

@@ -30,6 +30,7 @@
           id='title'
           :type="inputTypes.text"
           :disabled='!block.editable'
+          :isRequired="true"
         />
         <text-input
           class="custom-margin"
@@ -59,6 +60,7 @@
           :multiple='false'
           v-show="block && block.type === BuildingBlocksTypes.THEMATIC"
           :rules="(block && block.type === BuildingBlocksTypes.THEMATIC) ? { required: true } : {}"
+          :isRequired="true"
         />
         <ck-editor
           class="custom-margin"
@@ -67,6 +69,7 @@
           id="description"
           :big="false"
           :disabled='!block.editable'
+          :isRequired="true"
         />
         <ck-editor
           class="custom-margin"
