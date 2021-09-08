@@ -71,23 +71,15 @@ new StaticFileRepository().getFile('config.json').then((configFile: any) => {
       configuration: {
         baseUrl: configFile.oidc.baseUrl,
         serverBaseUrl: configFile.oidc.serverBaseUrl,
-        tokenEndpoint: configFile.oidc.tokenEndpoint
-          ? configFile.oidc.tokenEndpoint
-          : 'token',
-        authEndpoint: configFile.oidc.authEndpoint
-          ? configFile.oidc.authEndpoint
-          : 'auth',
-        logoutEndpoint: configFile.oidc.logoutEndpoint
-          ? configFile.oidc.logoutEndpoint
-          : 'logout',
+        tokenEndpoint: configFile.oidc.tokenEndpoint ? configFile.oidc.tokenEndpoint : 'token',
+        authEndpoint: configFile.oidc.authEndpoint ? configFile.oidc.authEndpoint : 'auth',
+        logoutEndpoint: configFile.oidc.logoutEndpoint ? configFile.oidc.logoutEndpoint : 'logout',
         clientId: configFile.oidc.clientId,
         authorizedRedirectRoute: '/',
         serverTokenEndpoint: configFile.oidc.baseUrl + '/token/',
         serverRefreshEndpoint: configFile.oidc.baseUrl + '/refresh/',
-        InternalRedirectUrl: configFile.oidc.InternalRedirectUrl
-          ? configFile.oidc.InternalRedirectUrl
-          : '',
-      },
+        InternalRedirectUrl: configFile.oidc.InternalRedirectUrl ? configFile.oidc.InternalRedirectUrl : ''
+      }
     })
   }
 
