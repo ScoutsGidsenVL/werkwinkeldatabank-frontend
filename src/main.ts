@@ -76,8 +76,8 @@ new StaticFileRepository().getFile('config.json').then((configFile: any) => {
         logoutEndpoint: configFile.oidc.logoutEndpoint ? configFile.oidc.logoutEndpoint : 'logout',
         clientId: configFile.oidc.clientId,
         authorizedRedirectRoute: '/',
-        serverTokenEndpoint: configFile.oidc.baseUrl + '/token/',
-        serverRefreshEndpoint: configFile.oidc.baseUrl + '/refresh/',
+        serverTokenEndpoint: 'token/',
+        serverRefreshEndpoint: 'refresh/',
         InternalRedirectUrl: configFile.oidc.InternalRedirectUrl ? configFile.oidc.InternalRedirectUrl : ''
       }
     })
