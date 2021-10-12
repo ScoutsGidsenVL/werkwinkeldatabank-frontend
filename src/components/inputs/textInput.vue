@@ -21,6 +21,7 @@
             :disabled='disabled'
             v-model='input'
             :state=' Object.keys(rules).length === 0 ? null : getValidationState(validationContext)'
+            v-on:keyup.enter="$event.target.blur()"
           />
           <b-form-textarea
             v-else
@@ -142,7 +143,7 @@ export default defineComponent({
       getValidationState,
       input,
       hours,
-      minutes
+      minutes,
     }
   }
 })
