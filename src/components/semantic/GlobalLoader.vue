@@ -23,7 +23,6 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     z-index: 2;
-    background-color: rgba(255, 255, 255, 0.8);
     min-height: 100vh;
   }
 </style>
