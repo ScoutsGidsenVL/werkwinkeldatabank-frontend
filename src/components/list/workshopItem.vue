@@ -5,12 +5,12 @@
           <b-col cols="12" class="text-center text-dark mb-2">
               <strong>{{ workshop.title }}</strong>
           </b-col>
-          <b-col cols="12" class="text-center d-flex justify-content-center">
-            <time-badge v-show='workshop.duration' :time='workshop.duration' />
-            <status-badge v-if="showStatus" :status='workshop.workshopStatus' />
-            <b-badge v-for="theme in workshop.theme" :key='theme.id' pill variant="secondary" class="ml-3">{{ theme.title }}</b-badge>
-            <sensitive-badge v-show='workshop.isSensitive' />
-            <disabled-badge  v-show='workshop.isDisabled && can("scouts_auth.access_disabled_entities")' />
+          <b-col cols="12" class="text-center justify-content-center">
+            <time-badge class="align-middle" v-show='workshop.duration' :time='workshop.duration' />
+            <status-badge class="my-1" v-if="showStatus" :status='workshop.workshopStatus' />
+            <b-badge class="ml-3 my-1" v-for="theme in workshop.theme" :key='theme.id' pill variant="secondary">{{ theme.title }}</b-badge>
+            <sensitive-badge class="my-1" v-show='workshop.isSensitive' />
+            <disabled-badge class="my-1" v-show='workshop.isDisabled && can("scouts_auth.access_disabled_entities")' />
           </b-col>
 
           <b-col style="font-size: 14px" v-if="can('workshops.view_history')" cols="12" class="mt-3 text-center d-flex justify-content-center">
