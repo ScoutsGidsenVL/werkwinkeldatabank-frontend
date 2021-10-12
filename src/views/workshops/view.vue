@@ -3,7 +3,7 @@
   <b-col cols="12" style="padding-bottom:130px" class="custom-padding" v-if="!loading && result">
       <b-row class="bg-white">
         <b-col cols="12" class="py-3 d-flex flex-column flex-lg-row justify-content-between border border-left-0 border-top-0 border-right-0">
-          <h2 class="d-inline-block text-primary">
+          <h2 class="d-inline-block text-primary ">
             {{ result.title }}
           </h2>
           <div class="d-block">
@@ -51,11 +51,11 @@
             </router-link>
           </div>
         </b-col>
-        <b-col cols="11" class="text-left my-3 ml-2 d-flex justify-content-left">
-          <time-badge :time='result.duration' />
-          <b-badge v-for="theme in result.theme" :key='theme.id' pill variant="secondary" class="ml-2">{{ theme.title }}</b-badge>
-          <status-badge v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
-          <sensitive-badge v-show='result.isSensitive' />
+        <b-col cols="11" class="text-left justify-content-center my-2">
+          <time-badge class="align-middle" :time='result.duration' />
+          <b-badge class="ml-2 mt-1" v-for="theme in result.theme" :key='theme.id' pill variant="secondary" >{{ theme.title }}</b-badge>
+          <status-badge class="mt-1" v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
+          <sensitive-badge class="mt-1" v-show='result.isSensitive' />
         </b-col>
 
         <b-col cols="12">
@@ -93,7 +93,7 @@
           :visible="true"
         >
           <template v-if="can('workshops.request_publication_buildingblocktemplate')" v-slot:header>
-              <div class="d-flex flex-row-reverse">
+              <div class="">
                 <b-form-checkbox
                   v-on:change="toggle(block)"
                   class="submit-checkbox"
@@ -139,9 +139,9 @@
     v-if="!loading && result"
     class="footer"
   >
-    <div class="text-right mt-4 container">
+    <div class="text-sm-right text-center mt-4 container">
       <b-button
-        class="mr-2"
+        class="mr-lg-2 my-1 mx-1 custom-button-width"
         v-if="BuildingBlocksToPublish.length > 0"
         style="padding-top: 11px;padding-bottom:11px"
         v-on:click.prevent='askPublication()'
@@ -149,7 +149,7 @@
         Vraag publicatie geselecteerde bouwstenen
       </b-button>
       <b-button
-        class="mr-2"
+        class="mr-lg-2 my-1 mx-1 custom-button-width"
         v-on:click.prevent='DownloadPDF(result)'
         variant="primary">
         <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
@@ -158,7 +158,7 @@
       <b-button
         v-b-tooltip.hover title="Log in om je eigen werkwinkels te maken en aan te passen"
         v-if='user.id === undefined'
-        class="mr-4"
+        class="mr-lg-2 my-1 mx-1 custom-button-width"
         v-on:click="login()"
         variant="primary">
         <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
@@ -167,7 +167,7 @@
       <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}">
         <b-button
           v-show='can("workshops.change_workshop")'
-          class="mr-2"
+          class="mr-lg-2 my-1 mx-1 custom-button-width"
           variant="primary">
           <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
           Kopieer
@@ -175,7 +175,7 @@
       </router-link>
       <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}">
         <b-button
-          class="mr-3"
+          class="mr-lg-2 my-1 mx-1 custom-button-width"
           v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
           variant="primary">
           <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
@@ -323,13 +323,13 @@ export default defineComponent({
   padding: 0.75rem 1.5rem;
 }
 
-.submit-checkbox {
-  position: relative;
-  margin-top: -4em;
-  top: 5.5em;
-  right: 4em;
-  cursor: pointer;
-}
+// .submit-checkbox {
+//   position: relative;
+//   margin-top: -4em;
+//   top: 5.5em;
+//   right: 4em;
+//   cursor: pointer;
+// }
 
 .footer {
   position: sticky;
@@ -340,7 +340,10 @@ export default defineComponent({
   border-top: 2px solid $secondary;
   color: white;
   text-align: center;
-  height: 100px;
+  height:100px;
+  @media (max-width: 575px) {
+    height:200px;
+  }
 }
 
 .row {
@@ -356,4 +359,5 @@ export default defineComponent({
 .custom-button-width {
   width: 205px
 }
+
 </style>

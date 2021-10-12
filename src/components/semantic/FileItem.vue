@@ -61,10 +61,24 @@ export default defineComponent({
   border: 1px solid #ced4da;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: 50% 20% 20% 10%;
+@media (min-width: 0px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 0.5em;
+    div {
+      text-align: left;
+    }
+  }
 }
+
+@media (min-width: 575px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 50% 20% 20% 10%;
+  }
+}
+
 
 .icon {
   margin-top: 3px;
