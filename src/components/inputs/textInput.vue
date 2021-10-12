@@ -143,7 +143,7 @@ export default defineComponent({
       getValidationState,
       input,
       hours,
-      minutes,
+      minutes
     }
   }
 })
