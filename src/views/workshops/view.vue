@@ -2,21 +2,21 @@
   <div>
   <b-col cols="12" style="padding-bottom:130px" class="custom-padding" v-if="!loading && result">
       <b-row class="bg-white">
-        <b-col cols="12 py-3 d-flex position-sticky justify-content-between border border-left-0 border-top-0 border-right-0">
-          <h2 class="d-inline-block text-left text-primary">
+        <b-col cols="12" class="py-3 d-flex flex-column flex-lg-row justify-content-between border border-left-0 border-top-0 border-right-0">
+          <h2 class="d-inline-block text-primary">
             {{ result.title }}
           </h2>
           <div class="d-block">
             <b-button
               v-if="BuildingBlocksToPublish.length > 0"
-              class="mr-2"
-              style="padding-top: 11px;padding-bottom:11px"
+              class="mr-lg-2"
+              style="padding-top:11px;padding-bottom:11px;width:205px"
               v-on:click.prevent='askPublication()'
               variant="primary">
               Vraag publicatie geselecteerde bouwstenen
             </b-button>
             <b-button
-              class="mr-2"
+              class="mr-lg-2 my-1 mx-1 custom-button-width"
               v-on:click.prevent='DownloadPDF(result)'
               variant="primary">
               <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
@@ -25,7 +25,7 @@
             <b-button
               v-b-tooltip.hover title="Log in om je eigen werkwinkels te maken en aan te passen"
               v-if='user.id === undefined'
-              class="mr-2"
+              class="mr-lg-2 my-1 mx-1 custom-button-width"
               v-on:click="login()"
               variant="primary">
               <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
@@ -34,7 +34,7 @@
             <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}" >
               <b-button
                 v-show='can("workshops.change_workshop")'
-                class="mr-2"
+                class="mr-lg-2 my-1 mx-1 custom-button-width"
                 variant="primary">
                 <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
                 Kopieer
@@ -42,6 +42,7 @@
             </router-link>
             <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}" >
               <b-button
+                class="custom-button-width my-1 mx-1"
                 v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
                 variant="primary">
                 <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
@@ -350,5 +351,9 @@ export default defineComponent({
 .custom-padding {
   padding-right: 0px;
   padding-left: 0px;
+}
+
+.custom-button-width {
+  width: 205px
 }
 </style>
