@@ -21,7 +21,7 @@ export default defineComponent({
 <style lang="scss" scoped>
   .custom-font-size {
     @media (max-width: 575px) {
-      font-size:9px;
+      font-size:10px !important;
     }
   }
 </style>
