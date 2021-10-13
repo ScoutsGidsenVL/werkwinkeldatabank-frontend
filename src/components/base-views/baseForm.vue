@@ -17,10 +17,10 @@
     class="action-bar sticky-container position-sticky bg-white px-5 custom-border"
   >
   <b-row>
-        <b-col cols="12" lg="7" class="text-left mt-4 mb-4" >
+        <b-col cols="12" lg="7" class="d-flex flex-column flex-md-row mt-4 mb-4" >
           <b-button :disabled='saving'  v-on:click.prevent="saveWithoutRedirect(handleSubmit, validate)" variant="primary" size="md" class="px-5 py-2 mr-2 mb-2">Opslaan</b-button>
           <b-button :disabled='saving' v-on:click.prevent="customHandleSubmit(handleSubmit, validate)" type="submit" variant="primary" size="md" class="px-5 mb-2 py-2 mr-2">Opslaan en sluiten</b-button>
-          <b-button :disabled='saving' v-on:click.prevent="redirect()" type="submit" variant="primary" size="md" class="px-5 mb-2 py-2">Annuleren</b-button>
+          <b-button :disabled='saving' v-on:click.prevent="redirect()" type="submit" variant="primary" size="md" class="px-5 mb-2 py-2 mr-2">Annuleren</b-button>
         </b-col>
         <b-col cols="12" lg='5' class="text-right pr-4 mt-lg-4">
           <slot
