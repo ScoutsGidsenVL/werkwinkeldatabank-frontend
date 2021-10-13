@@ -2,7 +2,7 @@
   <div>
     <b-col cols="12" class="custom-padding" v-if="!loading && result">
       <b-row class="bg-white">
-        <b-col cols="12 py-3 d-flex position-sticky justify-content-between border border-left-0 border-top-0 border-right-0">
+        <b-col cols="12 py-3 d-flex flex-md-row flex-column position-sticky justify-content-between border border-left-0 border-top-0 border-right-0">
           <h2 class="d-inline-block text-left text-dark">
             {{ result.title }}
           </h2>
