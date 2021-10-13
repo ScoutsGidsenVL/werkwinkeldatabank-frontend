@@ -9,24 +9,24 @@
         <div v-show="block.shortDescription" class="mb-1 d-inline-block w-100" v-html='block.shortDescription' />
         <a v-if="readMore" href='#' class="w-100 d-inline-block mb-2 mt-1 text-body text-underline">lees meer ></a>
     </b-col>
-    <b-col
-        cols="10"
+    <div class="d-flex flex-sm-row flex-column w-100">
+      <b-col
         v-show="!hideInfo"
         :class='hideInfo ? "" : "d-flex justify-content-left"'
-    >
-        <b-badge pill variant="secondary" class="">{{ block.type }}</b-badge>
-        <time-badge :time='block.duration' />
-        <b-badge v-if="block.category" pill variant="secondary" class=" mr-2">{{ block.category.title }}</b-badge>
-        <b-badge v-if="block.theme" pill variant="secondary" class=" ">{{ block.theme.title }}</b-badge>
-        <sensitive-badge v-show='block.isSensitive' />
-        <disabled-badge v-show='block.isDisabled && can("scouts_auth.access_disabled_entities")' />
-        <status-badge v-if="showStatus" :status='block.BuildingblockStatus' />
-    </b-col>
-    <b-col
-        :cols='hideInfo ? 12 : 2'
-        class="text-right">
-        <slot />
-    </b-col>
+        class="d-flex flex-sm-row flex-column"
+      >
+          <b-badge class="mr-sm-2 mb-1 mb-sm-0" pill variant="secondary">{{ block.type }}</b-badge>
+          <time-badge class="mr-sm-2 mb-1 mb-sm-0" :time='block.duration' />
+          <b-badge class="mr-sm-2 mb-1 mb-sm-0" v-if="block.category" pill variant="secondary">{{ block.category.title }}</b-badge>
+          <b-badge class="mr-sm-2 mb-1 mb-sm-0" v-if="block.theme" pill variant="secondary">{{ block.theme.title }}</b-badge>
+          <sensitive-badge class="mr-sm-2 mb-1 mb-sm-0" v-show='block.isSensitive' />
+          <disabled-badge class="mr-sm-2 mb-1 mb-sm-0" v-show='block.isDisabled && can("scouts_auth.access_disabled_entities")' />
+          <status-badge class="mr-sm-2 mb-1 mb-sm-0" v-if="showStatus" :status='block.BuildingblockStatus' />
+      </b-col>
+      <b-col class="text-sm-right text-center">
+          <slot />
+      </b-col>
+    </div>
     </b-row>
 </template>
 

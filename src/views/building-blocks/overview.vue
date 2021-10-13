@@ -55,7 +55,7 @@
       </b-col>
         <b-col cols="12" lg='4'>
           <b-form-checkbox
-          class="mt-5"
+          class="mt-2 mb-2"
           v-model="filters.createdBy.value"
           :value="myId">
               Mijn bouwstenen
@@ -75,7 +75,7 @@
               :block='block'>
               <router-link :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}">
                 <b-button variant="primary text-dark">
-                    Bekijken
+                  Bekijken
                 </b-button>
               </router-link>
             </building-block-item>
@@ -87,24 +87,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
-import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
 import PrivateBuildingBlocskRepository from '../../repositories/entities/privateBuildingBlocskRepository'
+import BuildingBlocskRepository from '../../repositories/entities/buildingBlocskRepository'
 import BlockStatusRepository from '../../repositories/entities/blockStatusRepository'
-
-import BaseOverview from '../../components/base-views/baseOverview.vue'
-import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
-import SelectInput from '../../components/inputs/selectInput.vue'
-import { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
-import BuildingBlockItem from '../../components/list/buildingBlockItem.vue'
-import ThemeRepository from '../../repositories/entities/themeRepository'
 import CategoriesRepository from '../../repositories/entities/categoriesRepository'
-import EnumTypeFilter from '../../components/filters/enumTypeFilter.vue'
-import DurationFilter from '../../components/filters/durationFilter.vue'
-import usePermissions from '@/composables/usePermissions'
-import store from '@/store/store'
+import { BuildingBlocksTypes } from '@/models/entities/buildingBlocksEntityModel'
+import TextInput, { inputTypes } from '../../components/inputs/textInput.vue'
 import { transitionTypes } from '../../repositories/withTransitionRepository'
 import BlockStatusEntityModel from '@/models/entities/blockStatusEntityModel'
+import BuildingBlockItem from '../../components/list/buildingBlockItem.vue'
+import ThemeRepository from '../../repositories/entities/themeRepository'
+import EnumTypeFilter from '../../components/filters/enumTypeFilter.vue'
+import DurationFilter from '../../components/filters/durationFilter.vue'
+import BaseOverview from '../../components/base-views/baseOverview.vue'
+import SelectInput from '../../components/inputs/selectInput.vue'
+import { defineComponent, ref } from '@vue/composition-api'
+import usePermissions from '@/composables/usePermissions'
+import store from '@/store/store'
+
 
 export default defineComponent({
   name: 'building-block-overview',
@@ -123,6 +123,7 @@ export default defineComponent({
     }
   },
   setup (props) {
+    window.scrollTo(0, 0)
     const status = ref<any>(undefined)
 
     if (props.isReadyForPublictionOverview) {

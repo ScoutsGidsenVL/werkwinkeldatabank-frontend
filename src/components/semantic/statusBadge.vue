@@ -1,5 +1,5 @@
 <template>
-    <b-badge pill variant="secondary" class="px-3 ml-2">
+    <b-badge pill variant="secondary">
         {{ statusLabel }}
     </b-badge>
 </template>
