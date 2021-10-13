@@ -242,4 +242,8 @@ export default defineComponent({
       display: block;
     }
   }
+
+  .p-3 {
+    padding: 0px !important;
+  }
 </style>

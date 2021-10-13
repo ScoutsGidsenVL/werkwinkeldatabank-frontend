@@ -14,7 +14,7 @@
           :border='true'
           :extraClass="'bg-light'"
         >
-      <div class=" p-4 mt-0 mb-4">
+      <div class="p-sm-4 p-1 mt-0 mb-4">
         <div class="w-100 text-right">
           <div
             @click="deleteBlock(index, block.order)"
