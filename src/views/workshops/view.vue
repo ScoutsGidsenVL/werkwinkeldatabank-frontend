@@ -9,8 +9,8 @@
           <div class="d-block">
             <b-button
               v-if="BuildingBlocksToPublish.length > 0"
-              class="mr-lg-2"
-              style="padding-top:11px;padding-bottom:11px;width:205px"
+              class="mr-lg-2 publication-button"
+              style="padding-top:11px;padding-bottom:11px;"
               v-on:click.prevent='askPublication()'
               variant="primary">
               Vraag publicatie geselecteerde bouwstenen
@@ -141,9 +141,9 @@
   >
     <div class="text-sm-right text-center mt-4 container">
       <b-button
-        class="mr-lg-2 my-1 mx-1 custom-button-width"
+        class="mr-lg-2 my-1 mx-1 custom-button-width publication-button"
         v-if="BuildingBlocksToPublish.length > 0"
-        style="padding-top: 11px;padding-bottom:11px"
+        style="padding-top: 11px;padding-bottom:11px;"
         v-on:click.prevent='askPublication()'
         variant="primary">
         Vraag publicatie geselecteerde bouwstenen
@@ -357,7 +357,14 @@ export default defineComponent({
 }
 
 .custom-button-width {
-  width: 205px
+  width: 205px;
+}
+
+.publication-button {
+  width: 350px;
+  @media (max-width: 575px) {
+    width:205px;
+  }
 }
 
 </style>
