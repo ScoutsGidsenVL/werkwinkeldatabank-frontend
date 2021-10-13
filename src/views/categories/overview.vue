@@ -11,15 +11,12 @@
         v-for="category in results"
         class="category-item bg-light mb-3 p-4"
         :key='category.id'>
-        <b-col
-          cols='10'
-        >
+        <b-col class="text-center text-md-left">
             {{ category.title }}
             <disabled-badge  v-show='category.isDisabled && can("scouts_auth.access_disabled_entities")' />
         </b-col>
         <b-col
-          cols='2'
-          class="text-right">
+          class="text-center text-md-right">
           <router-link :to="{name: 'CategoryEdit', params: { categoryId: category.id }}" >
             <b-button variant="primary text-dark"
               v-if='can("workshops.change_category")'>
