@@ -1,5 +1,5 @@
 <template>
-    <b-badge v-if='can("workshops.view_field_is_sensitive_workshop")' pill variant="info" class="ml-2">Gevoelig om snel gedateerd te zijn</b-badge>
+    <b-badge v-if='can("workshops.view_field_is_sensitive_workshop")' pill variant="info" class="ml-2 custom-font-size">Gevoelig om snel gedateerd te zijn</b-badge>
 </template>
 
 <script lang='ts'>
@@ -17,3 +17,11 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+  .custom-font-size {
+    @media (max-width: 575px) {
+      font-size:9px;
+    }
+  }
+</style>

@@ -55,7 +55,7 @@
           <time-badge class="align-middle" :time='result.duration' />
           <b-badge class="ml-2 mt-1" v-for="theme in result.theme" :key='theme.id' pill variant="secondary" >{{ theme.title }}</b-badge>
           <status-badge class="mt-1" v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
-          <sensitive-badge class="mt-1" v-show='result.isSensitive' />
+          <sensitive-badge class="align-middle" v-show='result.isSensitive' />
         </b-col>
 
         <b-col cols="12">

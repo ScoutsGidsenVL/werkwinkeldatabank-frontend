@@ -31,7 +31,7 @@
         v-model="filters.duration.value"
         :optionObject='optionObject'
       />
-      <b-col cols="12" lg='4' v-if="can('workshops.view_field_is_sensitive_workshop')">
+      <b-col cols="12" lg='4' class="mb-3" v-if="can('workshops.view_field_is_sensitive_workshop')">
         <b-form-checkbox
           v-model="filters.isSensitive.value"
           value="true">
