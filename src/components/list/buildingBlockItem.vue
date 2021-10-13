@@ -4,24 +4,25 @@
     >
     <b-col
         cols='12'
+        class="text-center text-md-left"
     >
         <strong class="d-inline-block mb-1">{{ block.title }}</strong>
         <div v-show="block.shortDescription" class="mb-1 d-inline-block w-100" v-html='block.shortDescription' />
         <a v-if="readMore" href='#' class="w-100 d-inline-block mb-2 mt-1 text-body text-underline">lees meer ></a>
     </b-col>
-    <div class="d-flex flex-sm-row flex-column w-100">
+    <div class="d-flex flex-md-row flex-column w-100">
       <b-col
         v-show="!hideInfo"
-        :class='hideInfo ? "" : "d-flex justify-content-left"'
-        class="d-flex flex-sm-row flex-column"
+        :class='hideInfo ? "" : "d-flex"'
+        class="d-flex flex-md-row flex-column align-items-center"
       >
-          <b-badge class="mr-sm-2 mb-1 mb-sm-0" pill variant="secondary">{{ block.type }}</b-badge>
-          <time-badge class="mr-sm-2 mb-1 mb-sm-0" :time='block.duration' />
-          <b-badge class="mr-sm-2 mb-1 mb-sm-0" v-if="block.category" pill variant="secondary">{{ block.category.title }}</b-badge>
-          <b-badge class="mr-sm-2 mb-1 mb-sm-0" v-if="block.theme" pill variant="secondary">{{ block.theme.title }}</b-badge>
-          <sensitive-badge class="mr-sm-2 mb-1 mb-sm-0" v-show='block.isSensitive' />
-          <disabled-badge class="mr-sm-2 mb-1 mb-sm-0" v-show='block.isDisabled && can("scouts_auth.access_disabled_entities")' />
-          <status-badge class="mr-sm-2 mb-1 mb-sm-0" v-if="showStatus" :status='block.BuildingblockStatus' />
+          <b-badge class="mr-md-2 mb-1 mb-md-0 f-con" pill variant="secondary">{{ block.type }}</b-badge>
+          <time-badge class="mr-md-2 mb-1 mb-md-0 f-con" :time='block.duration' />
+          <b-badge class="mr-md-2 mb-1 mb-md-0 f-con" v-if="block.category" pill variant="secondary">{{ block.category.title }}</b-badge>
+          <b-badge class="mr-md-2 mb-1 mb-md-0 f-con" v-if="block.theme" pill variant="secondary">{{ block.theme.title }}</b-badge>
+          <sensitive-badge class="mr-md-2 mb-1 mb-md-0 f-con" v-show='block.isSensitive' />
+          <disabled-badge class="mr-md-2 mb-1 mb-md-0 f-con" v-show='block.isDisabled && can("scouts_auth.access_disabled_entities")' />
+          <status-badge class="mr-md-2 mb-1 mb-sm-0 f-con" v-if="showStatus" :status='block.BuildingblockStatus' />
       </b-col>
       <b-col class="text-sm-right text-center">
           <slot />
@@ -79,5 +80,9 @@ export default defineComponent({
   @import 'src/assets/variables.scss';
   .building-block-item {
     border-bottom: 4px solid $secondary;
+  }
+
+  .f-con {
+    width: fit-content;
   }
 </style>
