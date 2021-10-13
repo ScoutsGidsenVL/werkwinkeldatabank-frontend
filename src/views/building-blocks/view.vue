@@ -16,11 +16,11 @@
           </router-link>
         </b-col>
         <b-col cols="11" class="text-left my-3 ml-2">
-            <time-badge :time='result.duration' />
-            <b-badge v-if='result.theme' pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
-            <b-badge v-if='result.category' pill variant="secondary" class="mt-2 mx-3">{{ result.category.title }}</b-badge>
-            <status-badge v-if="can('workshops.publish_buildingblocktemplate')" :status='result.BuildingblockStatus' />
-            <sensitive-badge class="ml-3" v-show='result.isSensitive' />
+            <time-badge class="my-1 mx-1" :time='result.duration' />
+            <b-badge v-if='result.theme' pill variant="secondary" class="my-1 mx-1">{{ result.theme.title }}</b-badge>
+            <b-badge v-if='result.category' pill variant="secondary" class="my-1 mx-1">{{ result.category.title }}</b-badge>
+            <status-badge class="my-1 mx-1" v-if="can('workshops.publish_buildingblocktemplate')" :status='result.BuildingblockStatus' />
+            <sensitive-badge class="my-1 mx-1" v-show='result.isSensitive' />
           </b-col>
         <b-col cols="12">
           <b-row>
