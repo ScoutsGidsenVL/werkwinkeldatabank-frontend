@@ -3,7 +3,7 @@
 
 
   <b-form class="bg-white pt-4 pb-5 px-5" @submit.stop.prevent="customHandleSubmit(handleSubmit, validate)"  v-if="!loading">
-     <div v-if="historyModal" cols="12" class="text-right bg-white pt-3 pl-5 pr-2 mb-3">
+     <div v-if="historyModal" cols="12" class="text-sm-right text-left bg-white pt-3 pr-sm-2 mb-3">
       <history-modal
         :repo='repo'
         :paramIdentifier='paramIdentifier'
