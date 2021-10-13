@@ -7,7 +7,7 @@
       </label>
     </div>
 
-    <div v-if="!isDetailView" class="d-flex">
+    <div v-if="!isDetailView" class="upload-section">
       <b-form-file
         browse-text="Zoek"
         v-model="file"
@@ -91,6 +91,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 .add-button {
   min-width: 250px;
-  margin-left: 20px;
+}
+
+.upload-section {
+  display: flex;
+  gap: 20px;
+  @media (max-width: 575px) {
+    flex-direction: column;
+  }
 }
 </style>

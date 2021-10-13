@@ -238,5 +238,8 @@ export default defineComponent({
   .multi-select-container {
     display: flex;
     gap: 40px;
+    @media (max-width: 575px) {
+      display: block;
+    }
   }
 </style>
