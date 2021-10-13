@@ -20,7 +20,7 @@
             <b-badge v-if='result.theme' pill variant="secondary" class="mt-2 mx-3">{{ result.theme.title }}</b-badge>
             <b-badge v-if='result.category' pill variant="secondary" class="mt-2 mx-3">{{ result.category.title }}</b-badge>
             <status-badge v-if="can('workshops.publish_buildingblocktemplate')" :status='result.BuildingblockStatus' />
-            <sensitive-badge v-show='result.isSensitive' />
+            <sensitive-badge class="ml-3" v-show='result.isSensitive' />
           </b-col>
         <b-col cols="12">
           <b-row>
