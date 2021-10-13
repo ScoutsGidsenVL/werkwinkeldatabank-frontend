@@ -237,6 +237,8 @@ export default defineComponent({
     const userStoreModule = getModule(userModule, store)
     const user = ref<any>()
 
+    window.scrollTo(0, 0)
+
     user.value = userStoreModule.getUser
 
     const login = () => {
