@@ -51,7 +51,7 @@
           :rules="(block && block.type === BuildingBlocksTypes.METHODIC) ? { required: true } : {}"
         />
         <select-input
-          label='Thema '
+          label='Thema'
           id="theme"
           :searchable="true"
           :multiple='false'

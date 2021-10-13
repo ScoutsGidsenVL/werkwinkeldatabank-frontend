@@ -51,7 +51,7 @@
         />
       </b-col>
       <b-col cols="12" md="8" class="mt-4 mb-2">
-        <div class="multi-select-container">
+        <div class="multi-select-container d-flex flex-md-row flex-column">
           <div class="w-100">
             <select-input
               label='Type'
