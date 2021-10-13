@@ -19,18 +19,14 @@
     </template>
     <template #content='{ results }'>
       <b-row
-        v-for="theme in results"
-        class="bg-light theme-item p-4 mb-3"
-        :key='theme.id'>
-        <b-col
-          cols='10'
-        >
-            {{ theme.title }}
-            <disabled-badge  v-show='theme.isDisabled && can("scouts_auth.access_disabled_entities")' />
+      v-for="theme in results"
+      class="bg-light theme-item p-4 mb-3 d-flex flex-column flex-md-row text-center text-md-left justify-content-between"
+      :key='theme.id'>
+        <b-col>
+          {{ theme.title }}
+          <disabled-badge  v-show='theme.isDisabled && can("scouts_auth.access_disabled_entities")' />
         </b-col>
-        <b-col
-          cols='2'
-          class="text-right">
+        <b-col class="text-md-right">
             <router-link :to="{name: 'ThemeEdit', params: { themeId: theme.id }}" >
               <b-button variant="primary text-dark"
                 v-if='can("workshops.change_theme")'>
