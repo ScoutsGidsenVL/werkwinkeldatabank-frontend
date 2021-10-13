@@ -83,23 +83,23 @@
           :disabled='!block.editable'
         />
         </div>
-        <div class="d-flex w-100 mt-5">
+        <div class="flex flex-column flex-sm-row w-100 mt-5">
           <b-button
             @click="enableEditBlock(block)"
             v-show='block.isSensitive'
             :disabled='block.editable'
             size="sm"
+            class="mb-1 mb-md-0 mr-0 mr-md-1"
             v-b-tooltip.hover title="De gegevens in dit blok worden autmatisch up to date gehouden. Bij wijzigingen verlies je de link naar de meest recente informatie."
-            variant="primary"
-            class="mr-1">
+            variant="primary">
               <b-icon icon="pencil-square" aria-label="Help" class="mx-2 mt-1"></b-icon>bewerken
           </b-button>
           <b-button
             @click="orderUp(block)"
             :disabled='isFirstBlock(block.order)'
             size="sm"
-            variant="primary"
-            class="mr-1">
+            class="mb-1 mb-md-0 mr-0 mr-md-1"
+            variant="primary">
               <b-icon icon="arrow-up" aria-label="Help" class="ml-2 mt-1"></b-icon>Verplaats naar boven
           </b-button>
           <b-button
