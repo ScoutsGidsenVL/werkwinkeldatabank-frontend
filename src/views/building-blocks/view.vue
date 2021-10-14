@@ -92,7 +92,7 @@ export default defineComponent({
     const toast = useToast(root)
     const { loading, doCallWithLoginRetry, result } = useRepository(BuildingBlocksRepository, callTypes.getSingel, { id: route.value.params.buildingBlockId })
 
-    doCallWithLoginRetry('bouwblokken/' + route.value.params.buildingBlockId).catch(() => {
+    doCallWithLoginRetry('bouwblokken/' + route.value.params.itemTitle + '/' + route.value.params.buildingBlockId).catch(() => {
       toast.send('U kan deze bouwsteen niet bekijken', 'danger')
       router.push({ name: 'WerkwinkelOverview' })
     })

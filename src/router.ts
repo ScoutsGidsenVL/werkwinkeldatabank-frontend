@@ -74,7 +74,7 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: '/werkwinkels/:workshopId',
+    path: '/werkwinkels/:itemTitle/:workshopId',
     name: 'WerkwinkelView',
     component: WerkwinkelView,
     meta: {
@@ -82,7 +82,7 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: '/werkwinkels/:workshopId/edit/:copy?',
+    path: '/werkwinkels/:itemTitle/:workshopId/edit/:copy?',
     name: 'WerkwinkelEdit',
     component: WorkshopForm,
     meta: {
@@ -129,7 +129,7 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: '/bouwblokken/:buildingBlockId',
+    path: '/bouwblokken/:itemTitle/:buildingBlockId',
     name: 'BuildingBlockView',
     component: BuildingBlockView,
     meta: {
@@ -137,7 +137,7 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: '/bouwblokken/:buildingBlockId/edit',
+    path: '/bouwblokken/:itemTitle/:buildingBlockId/edit',
     name: 'BuildingBlockEdit',
     component: BuildingBlockForm,
     meta: {
@@ -198,9 +198,14 @@ const router = new VueRouter({
   routes
 })
 
+const googleHistoryTrigger = () => {
+  return window.location.pathname + window.location.search + window.location.hash
+}
+
 router.beforeEach((to, from, next) => {
   to.meta.from = from.name
   next()
+  console.log('GOOGLE ANALYTICS (NEEDS TO BE SEND WITH THE EVENT TRIGGER): ', googleHistoryTrigger())
 })
 
 export default router

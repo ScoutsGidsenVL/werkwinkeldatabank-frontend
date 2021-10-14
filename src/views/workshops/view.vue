@@ -40,7 +40,7 @@
                 Kopieer
               </b-button>
             </router-link>
-            <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}" >
+            <router-link :to="{name: 'WerkwinkelEdit', params: { itemTitle: getSluggedTitle(result.title) ,workshopId: result.id }}" >
               <b-button
                 class="custom-button-width my-1 mx-1"
                 v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
@@ -173,7 +173,7 @@
           Kopieer
         </b-button>
       </router-link>
-      <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id }}">
+      <router-link :to="{name: 'WerkwinkelEdit', params: { itemTitle: getSluggedTitle(result.title), workshopId: result.id }}">
         <b-button
           class="mr-lg-2 my-1 mx-1 custom-button-width"
           v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
@@ -188,28 +188,29 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from '@vue/composition-api'
-import { useRouter } from '../../composables/useRouter'
-import useRepository, { callTypes } from '../../composables/useRepository'
-import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
-import WorkshopRepository from '../../repositories/entities/workshopRepository'
-import TimeBadge from '../../components/semantic/timeBadge.vue'
-import usePermissions from '@/composables/usePermissions'
-import statusBadge from '../../components/semantic/statusBadge.vue'
-import customCollapse from '../../components/semantic/customCollapse.vue'
-import ckeditorView from '../../components/semantic/ckeditorView.vue'
-import useToast from '@/composables/useToast'
-import useDownload from '../../composables/useDownload'
-import RepositoryFactory from '@/repositories/repositoryFactory'
-import CreatedBy from '../../components/semantic/createdBy.vue'
-import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
 import BuildingBlocksRepository from '@/repositories/entities/buildingBlocskRepository'
 import BuildingBlocksEntityModel from '@/models/entities/buildingBlocksEntityModel'
-import moment from 'moment'
+import WorkshopRepository from '../../repositories/entities/workshopRepository'
+import WorkshopEntityModel from '../../models/entities/workshopEntityModel'
+import useRepository, { callTypes } from '../../composables/useRepository'
+import customCollapse from '../../components/semantic/customCollapse.vue'
+import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
+import ckeditorView from '../../components/semantic/ckeditorView.vue'
+import statusBadge from '../../components/semantic/statusBadge.vue'
+import RepositoryFactory from '@/repositories/repositoryFactory'
+import TimeBadge from '../../components/semantic/timeBadge.vue'
+import CreatedBy from '../../components/semantic/createdBy.vue'
 import FileUpload from '@/components/semantic/FileUpload.vue'
+import { defineComponent, ref } from '@vue/composition-api'
+import usePermissions from '@/composables/usePermissions'
+import { useRouter } from '../../composables/useRouter'
+import useDownload from '../../composables/useDownload'
+import { useSlugify } from '../../helpers/slugHelper'
+import { getModule } from 'vuex-module-decorators'
+import useToast from '@/composables/useToast'
 import userModule from '@/store/userModule'
 import store from '@/store/store'
-import { getModule } from 'vuex-module-decorators'
+import moment from 'moment'
 
 export default defineComponent({
   props: {
@@ -225,6 +226,7 @@ export default defineComponent({
     'file-upload': FileUpload
   },
   setup (props, { emit, root }) {
+    const { getSluggedTitle } = useSlugify()
     const { route, router } = useRouter()
     const { can } = usePermissions()
     const toast = useToast(root)
@@ -246,7 +248,7 @@ export default defineComponent({
     }
 
     const fetchWorkshop = () => {
-      doCallWithLoginRetry('werkwinkels/' + route.value.params.workshopId).catch(() => {
+      doCallWithLoginRetry('werkwinkels/' + route.value.params.itemTitle + '/' + route.value.params.workshopId).catch(() => {
         toast.send('U kan deze werkwinkel niet bekijken', 'danger')
         router.push({ name: 'WerkwinkelOverview' })
       })
@@ -303,16 +305,17 @@ export default defineComponent({
     }
 
     return {
-      result,
-      loading,
-      can,
-      goToNecessities,
-      DownloadPDF,
       BuildingBlocksToPublish,
-      toggle,
+      goToNecessities,
       askPublication,
+      getSluggedTitle,
+      DownloadPDF,
+      loading,
+      result,
+      toggle,
+      login,
       user,
-      login
+      can
     }
   }
 })

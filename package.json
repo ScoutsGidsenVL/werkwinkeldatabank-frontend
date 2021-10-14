@@ -36,6 +36,7 @@
     "moment": "^2.29.1",
     "print-js": "^1.5.0",
     "raw-loader": "^4.0.1",
+    "slugify": "^1.6.1",
     "vee-validate": "^3.3.7",
     "vue": "^2.6.11",
     "vue-multiselect": "^2.1.6",

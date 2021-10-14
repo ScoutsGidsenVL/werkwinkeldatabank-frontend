@@ -17,7 +17,11 @@ export const useRouter = () => {
     if (paramIdentifier) {
       routerObject['params'] = { }
       if (repo && repo.result && repo.result.value) {
-        routerObject.params[paramIdentifier] = repo.result.value.id
+        if (repo.result.value.title) {
+          routerObject.params['itemTitle'] = repo.result.value.title
+        } else {
+          routerObject.params[paramIdentifier] = repo.result.value.id
+        }
       }
     }
 

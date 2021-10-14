@@ -22,7 +22,7 @@
             class="text-center mt-2"
             v-html='workshop.shortDescription' />
           <b-col cols="12" class="text-center d-flex justify-content-center align-items-end">
-            <router-link class="nav-link" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
+            <router-link class="nav-link" :to="{name: 'WerkwinkelView',  params: { itemTitle: getSluggedTitle(workshop.title) ,workshopId: workshop.id }}" >
               <b-button variant="primary text-dark">Bekijken</b-button>
             </router-link>
           </b-col>
@@ -39,6 +39,8 @@ import statusBadge from '../semantic/statusBadge.vue'
 import usePermissions from '@/composables/usePermissions'
 import SensetiveBadge from '../../components/semantic/sensitiveBadge.vue'
 import DisabledBadge from '../../components/semantic/disabledBadge.vue'
+import { useSlugify } from '../../helpers/slugHelper'
+
 
 export default defineComponent({
   name: 'workshop-item',
@@ -57,9 +59,11 @@ export default defineComponent({
   },
   setup () {
     const { can } = usePermissions()
+    const { getSluggedTitle } = useSlugify()
 
     return {
-      can
+      can,
+      getSluggedTitle
     }
   }
 })

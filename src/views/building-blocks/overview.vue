@@ -69,11 +69,11 @@
               v-for="block in results"
               :key='block.id'
               class="text-body building-block-item-link"
-              :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}"  >
+              :to="{name: 'BuildingBlockView', params: { itemTitle: getSluggedTitle(block.title), buildingBlockId: block.id }}"  >
             <building-block-item
               :showStatus="can('workshops.publish_buildingblocktemplate')"
               :block='block'>
-              <router-link :to="{name: 'BuildingBlockView', params: { buildingBlockId: block.id }}">
+              <router-link :to="{name: 'BuildingBlockView', params: { itemTitle: getSluggedTitle(block.title), buildingBlockId: block.id }}">
                 <b-button variant="primary text-dark">
                   Bekijken
                 </b-button>
@@ -104,7 +104,7 @@ import SelectInput from '../../components/inputs/selectInput.vue'
 import { defineComponent, ref } from '@vue/composition-api'
 import usePermissions from '@/composables/usePermissions'
 import store from '@/store/store'
-
+import { useSlugify } from '../../helpers/slugHelper'
 
 export default defineComponent({
   name: 'building-block-overview',
@@ -124,6 +124,7 @@ export default defineComponent({
   },
   setup (props) {
     window.scrollTo(0, 0)
+    const { getSluggedTitle } = useSlugify()
     const status = ref<any>(undefined)
 
     if (props.isReadyForPublictionOverview) {
@@ -150,18 +151,18 @@ export default defineComponent({
     }
 
     return {
-      repo,
-      inputTypes,
-      filters,
-      ThemeRepository,
-      CategoriesRepository,
       BlockStatusRepository,
+      CategoriesRepository,
       BuildingBlocksTypes,
+      ThemeRepository,
       transitionTypes,
+      getSluggedTitle,
+      inputTypes,
       isLoggedIn,
+      filters,
+      repo,
       myId,
       can
-
     }
   }
 })
