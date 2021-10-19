@@ -2,7 +2,6 @@
     <b-badge pill variant="secondary">
         <b-icon icon="clock" aria-label="Help" style="width: fit-content" class="ml-1 mr-2"></b-icon>
         {{ formatedTime }}
-        <!-- {{ time && time.length === '5' ? time : time.splice(0, 5) }} -->
     </b-badge>
 </template>
 

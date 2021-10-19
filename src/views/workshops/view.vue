@@ -10,7 +10,6 @@
             <b-button
               v-if="BuildingBlocksToPublish.length > 0"
               class="mr-lg-2 publication-button"
-              style="padding-top:11px;padding-bottom:11px;"
               v-on:click.prevent='askPublication()'
               variant="primary">
               Vraag publicatie geselecteerde bouwstenen
@@ -19,7 +18,7 @@
               class="mr-lg-2 my-1 mx-1 custom-button-width"
               v-on:click.prevent='DownloadPDF(result)'
               variant="primary">
-              <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
+              <b-icon icon="cloud-download" aria-label="download" class="mx-2"></b-icon>
               Download
             </b-button>
             <b-button
@@ -28,7 +27,7 @@
               class="mr-lg-2 my-1 mx-1 custom-button-width"
               v-on:click="login()"
               variant="primary">
-              <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
+              <b-icon icon="pencil-fill" aria-label="login" class="mx-2"></b-icon>
               Login
             </b-button>
             <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}" >
@@ -36,7 +35,7 @@
                 v-show='can("workshops.change_workshop")'
                 class="mr-lg-2 my-1 mx-1 custom-button-width"
                 variant="primary">
-                <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
+                <b-icon icon="files" aria-label="kopieer" class="mx-2"></b-icon>
                 Kopieer
               </b-button>
             </router-link>
@@ -45,17 +44,17 @@
                 class="custom-button-width my-1 mx-1"
                 v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
                 variant="primary">
-                <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+                <b-icon icon="pencil-square" aria-label="edit" class="mx-2"></b-icon>
                 Bewerken
               </b-button>
             </router-link>
           </div>
         </b-col>
         <b-col cols="11" class="text-left justify-content-center my-2">
-          <time-badge class="align-middle mx-1" :time='result.duration' />
+          <time-badge style="margin-top:-1px" class="mx-1 align-middle" :time='result.duration' />
           <b-badge class="mt-1 mx-1" v-for="theme in result.theme" :key='theme.id' pill variant="secondary" >{{ theme.title }}</b-badge>
           <status-badge class="mt-1 mx-1" v-if="can('workshops.change_workshop')" :status='result.workshopStatus' />
-          <sensitive-badge class="mt-1 mx-1 align-middle" v-show='result.isSensitive' />
+          <sensitive-badge class="mt-1 mx-1" v-show='result.isSensitive' />
         </b-col>
 
         <b-col cols="12">
@@ -152,7 +151,7 @@
         class="mr-lg-2 my-1 mx-1 custom-button-width"
         v-on:click.prevent='DownloadPDF(result)'
         variant="primary">
-        <b-icon icon="cloud-download" aria-label="download" class="mx-2 mt-2"></b-icon>
+        <b-icon icon="cloud-download" aria-label="download" class="mx-2"></b-icon>
         Download
       </b-button>
       <b-button
@@ -161,7 +160,7 @@
         class="mr-lg-2 my-1 mx-1 custom-button-width"
         v-on:click="login()"
         variant="primary">
-        <b-icon icon="pencil-fill" aria-label="login" class="mx-2 mt-2"></b-icon>
+        <b-icon icon="pencil-fill" aria-label="login" class="mx-2"></b-icon>
         Login
       </b-button>
       <router-link :to="{name: 'WerkwinkelEdit', params: { workshopId: result.id, copy: true }}">
@@ -169,7 +168,7 @@
           v-show='can("workshops.change_workshop")'
           class="mr-lg-2 my-1 mx-1 custom-button-width"
           variant="primary">
-          <b-icon icon="files" aria-label="kopieer" class="mx-2 mt-2"></b-icon>
+          <b-icon icon="files" aria-label="kopieer" class="mx-2"></b-icon>
           Kopieer
         </b-button>
       </router-link>
@@ -178,7 +177,7 @@
           class="mr-lg-2 my-1 mx-1 custom-button-width"
           v-show='(can("workshops.change_workshop") && result.isMine) || can("workshops.change_all_workshop")'
           variant="primary">
-          <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+          <b-icon icon="pencil-square" aria-label="edit" class="mx-2"></b-icon>
           Bewerken
         </b-button>
       </router-link>
@@ -327,14 +326,6 @@ export default defineComponent({
   font-size: 14px;
   padding: 0.75rem 1.5rem;
 }
-
-// .submit-checkbox {
-//   position: relative;
-//   margin-top: -4em;
-//   top: 5.5em;
-//   right: 4em;
-//   cursor: pointer;
-// }
 
 .footer {
   position: sticky;

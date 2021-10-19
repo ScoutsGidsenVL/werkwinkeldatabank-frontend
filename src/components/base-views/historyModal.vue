@@ -6,7 +6,7 @@
     v-on:click.prevent='showModalAndCallHistory'
     size='sm'
     variant="primary">
-        <b-icon icon="clock-history" aria-label="edit" class="mx-2 mt-2"></b-icon>
+        <b-icon icon="clock-history" aria-label="edit" class="mx-2"></b-icon>
         <span class="d-inline-block mb-1">geschiedenis</span>
     </b-button>
     <b-modal

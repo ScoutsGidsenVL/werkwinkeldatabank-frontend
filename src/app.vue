@@ -39,7 +39,9 @@ export default Vue.extend({
   main {
 
     button {
-      padding: 8px 35px 8px 35px;
+      font-size: 14px;
+      height: 32px;
+      padding: 5px 35px 8px 35px;
       font-weight: 900;
       color: $white !important;
     }
