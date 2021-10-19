@@ -205,7 +205,7 @@ const googleHistoryTrigger = () => {
 router.beforeEach((to, from, next) => {
   to.meta.from = from.name
   next()
-  console.log('GOOGLE ANALYTICS (NEEDS TO BE SEND WITH THE EVENT TRIGGER): ', googleHistoryTrigger())
+  // console.log('GOOGLE ANALYTICS (NEEDS TO BE SEND WITH THE EVENT TRIGGER): ', googleHistoryTrigger())
 })
 
 export default router

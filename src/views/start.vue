@@ -45,8 +45,8 @@ export default defineComponent({
 
         },
         (error) => {
-          // router.push({ name: startPage })
-          console.log('ERROR: ', error)
+          router.push({ name: startPage })
+          // console.log('ERROR: ', error)
         })
     } else {
       // if (root.$store.state.openid.accesToken) {
