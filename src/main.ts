@@ -63,6 +63,7 @@ Vue.config.productionTip = false
 // const configFile = new MasterConfig().deserialize(envVariables)
 
 new StaticFileRepository().getFile('config.json').then((configFile: any) => {
+  console.log('DEBUGGING')
   configFile = new MasterConfig().deserialize(configFile)
   if (configFile.oidc && configFile.oidc.baseUrl && configFile.oidc.clientId) {
     Vue.use(OpenIdConnectPlugin, {
