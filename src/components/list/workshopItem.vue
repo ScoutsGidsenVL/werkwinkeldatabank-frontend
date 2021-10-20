@@ -5,7 +5,7 @@
           <b-col cols="12" class="text-center text-dark mb-2">
               <strong>{{ workshop.title }}</strong>
           </b-col>
-          <b-col cols="12" class="text-center justify-content-center">
+          <b-col cols="12" class="align-items-start text-center justify-content-center">
             <time-badge class="align-middle my-1 mx-2" v-show='workshop.duration' :time='workshop.duration' />
             <status-badge class="my-1 mx-2" v-if="showStatus" :status='workshop.workshopStatus' />
             <b-badge class="my-1 mx-2" v-for="theme in workshop.theme" :key='theme.id' pill variant="secondary">{{ theme.title }}</b-badge>
