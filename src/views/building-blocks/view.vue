@@ -10,13 +10,13 @@
             <b-button
               v-show='can("workshops.change_buildingblocktemplate")'
               variant="primary">
-                <b-icon icon="pencil-square" aria-label="edit" class="mx-2 mt-2"></b-icon>
+                <b-icon icon="pencil-square" aria-label="edit" class="mx-2"></b-icon>
                 bewerken
             </b-button>
           </router-link>
         </b-col>
-        <b-col cols="11" class="text-left my-3 ml-2">
-            <time-badge class="my-1 mx-1" :time='result.duration' />
+        <b-col cols="11" class="align-items-start text-left py-3">
+            <time-badge class="my-1 mx-1 align-middle" :time='result.duration' />
             <b-badge v-if='result.theme' pill variant="secondary" class="my-1 mx-1">{{ result.theme.title }}</b-badge>
             <b-badge v-if='result.category' pill variant="secondary" class="my-1 mx-1">{{ result.category.title }}</b-badge>
             <status-badge class="my-1 mx-1" v-if="can('workshops.publish_buildingblocktemplate')" :status='result.BuildingblockStatus' />
