@@ -5,12 +5,12 @@
           <b-col cols="12" class="text-center text-dark mb-2">
               <strong>{{ workshop.title }}</strong>
           </b-col>
-          <b-col cols="12" class="align-items-start text-center justify-content-center">
-            <time-badge class="align-middle my-1 mx-2" v-show='workshop.duration' :time='workshop.duration' />
-            <status-badge class="my-1 mx-2" v-if="showStatus" :status='workshop.workshopStatus' />
-            <b-badge class="my-1 mx-2" v-for="theme in workshop.theme" :key='theme.id' pill variant="secondary">{{ theme.title }}</b-badge>
-            <sensitive-badge class="my-1 mx-2" v-show='workshop.isSensitive' />
-            <disabled-badge class="my-1 mx-2" v-show='workshop.isDisabled && can("scouts_auth.access_disabled_entities")' />
+          <b-col cols="12" class="d-flex flex-md-row flex-column align-items-center justify-content-center text-center justify-content-center">
+            <time-badge class="my-1 mx-2 fit" v-show='workshop.duration' :time='workshop.duration' />
+            <status-badge class="my-1 mx-2 fit" v-if="showStatus" :status='workshop.workshopStatus' />
+            <b-badge class="my-1 mx-2 fit" v-for="theme in workshop.theme" :key='theme.id' pill variant="secondary">{{ theme.title }}</b-badge>
+            <sensitive-badge class="my-1 mx-2 fit" v-show='workshop.isSensitive' />
+            <disabled-badge class="my-1 mx-2 fit" v-show='workshop.isDisabled && can("scouts_auth.access_disabled_entities")' />
           </b-col>
 
           <b-col style="font-size: 14px" v-if="can('workshops.view_history')" cols="12" class="mt-3 text-center d-flex justify-content-center">

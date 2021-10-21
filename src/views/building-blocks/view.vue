@@ -15,12 +15,12 @@
             </b-button>
           </router-link>
         </b-col>
-        <b-col cols="11" class="align-items-start text-left py-3">
-            <time-badge class="my-1 mx-1 align-middle" :time='result.duration' />
-            <b-badge v-if='result.theme' pill variant="secondary" class="my-1 mx-1">{{ result.theme.title }}</b-badge>
+        <b-col cols="11" class="d-flex flex-md-row flex-column text-left py-3">
+            <time-badge class="my-1 mx-1 fit" :time='result.duration' />
+            <b-badge v-if='result.theme' pill variant="secondary" class="fit my-1 mx-1">{{ result.theme.title }}</b-badge>
             <b-badge v-if='result.category' pill variant="secondary" class="my-1 mx-1">{{ result.category.title }}</b-badge>
-            <status-badge class="my-1 mx-1" v-if="can('workshops.publish_buildingblocktemplate')" :status='result.BuildingblockStatus' />
-            <sensitive-badge class="my-1 mx-1" v-show='result.isSensitive' />
+            <status-badge class="my-1 mx-1 fit" v-if="can('workshops.publish_buildingblocktemplate')" :status='result.BuildingblockStatus' />
+            <sensitive-badge class="my-1 mx-1 fit" v-show='result.isSensitive' />
           </b-col>
         <b-col cols="12">
           <b-row>
