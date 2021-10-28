@@ -72,7 +72,7 @@ export default abstract class BaseRepository extends BaseApiRepository {
   }
 
   getSingle (params: repoParams) : Promise<{result: BaseEntityModel, params: repoParams }> {
-    return this.get(this.endpoint + '' + params.id, {}, this.publicGet).then((response: any) => {
+    return this.get(this.endpoint + '' + params.id + '/', {}, this.publicGet).then((response: any) => {
       return { result: this.entityModel.deserialize(response), params: params }
     })
   }
