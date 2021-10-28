@@ -1,5 +1,6 @@
 # scouts-wwdb 
 
+
 ## Config
 ```
 Make copy of conifg.json.dist -> config.json
