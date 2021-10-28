@@ -64,7 +64,7 @@ Vue.config.productionTip = false
 
 new StaticFileRepository().getFile('config.json').then((configFile: any) => {
   // eslint-disable-next-line no-console
-  console.log('DEBUGGING 3')
+  console.log('DEBUGGING 4')
   configFile = new MasterConfig().deserialize(configFile)
   if (configFile.oidc && configFile.oidc.baseUrl && configFile.oidc.clientId) {
     Vue.use(OpenIdConnectPlugin, {
