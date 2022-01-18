@@ -9,7 +9,7 @@ pipeline {
     stage('build') {
       steps {
         sh "npm prune --ignore-scripts"
-        sh "rm -rf node_modules/inuits-*"
+        sh "rm -rf node_modules"
         sh "npm install --ignore-scripts"
         sh "npm run build"
         sh "rm -f wwdb.zip"
