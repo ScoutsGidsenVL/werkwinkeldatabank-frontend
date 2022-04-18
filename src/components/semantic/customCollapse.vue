@@ -8,7 +8,7 @@
       variant="white"
       class="pt-3 d-flex justify-content-between  text-dark pb-4 pb-sm-0"
       v-bind:class="{ 'border-collapse': border, 'bg-light': extraClass } ">
-        <h3 class="d-inline-block">{{ title }}</h3>
+        <h3 class="d-inline-block text-left">{{ title }}</h3>
         <span class="when-opened">
             <b-icon variant="secondary" icon="chevron-down" aria-label="edit" class="mx-2 mt-2"></b-icon>
         </span>
