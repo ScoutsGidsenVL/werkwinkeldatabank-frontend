@@ -1,6 +1,6 @@
 <template>
   <b-col cols="12" md='6' lg='6' class="workshop-item mb-3">
-    <router-link class="nav-link text-body" :to="{name: 'WerkwinkelView',  params: { workshopId: workshop.id }}" >
+    <router-link class="nav-link text-body" :to="{name: 'WerkwinkelView',  params: { itemTitle: getSluggedTitle(workshop.title) ,workshopId: workshop.id }}" >
       <b-row class="py-4 m-2 bg-light">
           <b-col cols="12" class="text-center text-dark mb-2">
               <strong>{{ workshop.title }}</strong>
