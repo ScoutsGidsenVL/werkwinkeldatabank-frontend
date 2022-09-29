@@ -18,31 +18,30 @@ pipeline {
     }
 
     stage('archive') {
-      steps {
-        archiveArtifacts 'wwdb.zip'
-
-        script{
-            def artifactory = Artifactory.server 'artifactory'
-
-            def uploadSpec = '''{
-              "files": [
-                {
-                  "pattern": "wwdb.zip",
-                  "target": "wwdb-frontend/${BRANCH_NAME}/${BUILD_ID}/"
-                }
-             ]
-            }'''
-
-            def buildInfo = artifactory.upload spec: uploadSpec
-
-            artifactory.publishBuildInfo buildInfo
+      when {
+        anyOf {
+          branch "production"
+          branch "staging"
         }
+      }
+      steps {
+        rtUpload (
+          serverId: 'artifactory',
+          spec: '''{
+            "files": [
+              {
+                "pattern": "wwdb.zip",
+                "target": "wwdb-frontend/${BRANCH_NAME}/${BUILD_ID}/"
+              }
+           ]
+          }'''
+        )
       }
     }
 
     stage('deploy') {
       steps {
-        sh 'ssh lxc-deb-rundeck.vvksm.local sudo -u rundeck /opt/deploy-wwdb.sh frontend ${BRANCH_NAME}'
+        sh 'ssh az-deb-mgmt sudo -u ansible /opt/deploy-wwdb.sh frontend ${BRANCH_NAME}'
       }
     }
   }
