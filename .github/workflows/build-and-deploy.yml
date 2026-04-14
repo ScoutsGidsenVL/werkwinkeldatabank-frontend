@@ -28,6 +28,8 @@ jobs:
 
       - name: Build frontend
         run: npm run build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Zip frontend
         run: zip -r wwdb.zip dist/index.html dist/scouts-wwdb.js dist/scouts-wwdb.js.map dist/favicon.ico
