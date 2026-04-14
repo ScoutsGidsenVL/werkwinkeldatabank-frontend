@@ -23,6 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install --ignore-scripts
+        env:
+          npm_config_registry: https://registry.npmjs.org/
 
       - name: Build frontend
         run: npm run build
