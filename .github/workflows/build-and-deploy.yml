@@ -53,7 +53,7 @@ jobs:
       - name: Create a release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "be-content.zip"
+          artifacts: "wwdb.zip"
           makeLatest: true
           tag: ${{ steps.tag.outputs.tag }}
 
