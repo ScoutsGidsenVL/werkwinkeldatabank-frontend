@@ -703,8 +703,12 @@ function OpenIdConnectPlugin(Vue, options) {
         throw new Error('Inuits-vuejs-oidc needs a router');
     if (!options.configuration)
         throw new Error('Inuits-vuejs-oidc needs configuration');
-    var oidModule = vuexModuleDecorators.getModule(OpenIdConnectModule, options.store);
+    // Eerst registreren, dan de accessor ophalen: getModule() zet de module-accessor
+    // op store.getters['openid'], maar registerModule() herbouwt de getters en wist die.
+    // Omgekeerde volgorde laat de accessor overleven, zodat @Action-dispatches werken
+    // (anders ERR_ACTION_ACCESS_UNDEFINED).
     options.store.registerModule('openid', OpenIdConnectModule);
+    var oidModule = vuexModuleDecorators.getModule(OpenIdConnectModule, options.store);
     options.store.commit('openid/initializeConfig', options.configuration);
     options.router.addRoutes(openIdConnectRoutes);
     // Add some auth guards to routes with specific meta tags
