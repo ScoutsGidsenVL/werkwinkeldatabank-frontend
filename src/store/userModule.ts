@@ -12,7 +12,7 @@ export default class userModule extends VuexModule {
   // Mutations
   @Action({})
   setMe (user: UserModel) {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       if (!this.loaded) {
         this.context.commit('setUser', user)
         this.context.commit('setLoaded')
